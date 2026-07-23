@@ -57,7 +57,16 @@ export function classAttr(name) {
 export function extractWidget(html, label) {
   const out = { balance: null, growth: null, trades: null };
 
-  const mBalance = html.match(/<h3[^>]*>\s*<span[^>]*>\s*([\d.,\s ]+)\s*<\/span>\s*USD/i);
+  // Saldo: "<número> USD" perto do <h3> do widget. Regex tolerante — entre o
+  // número e o "USD" a MQL5 pode ter fechamento de tag (</span>, </a>), nbsp ou
+  // espaço, e o milhar usa espaço/nbsp. Assumir <h3><span>NUM</span> USD colado
+  // era o BUG (23-Jul): crescimento/operações atualizavam mas o saldo travava no
+  // valor anterior. GAP abaixo = só espaço/nbsp/fechamento-de-tag entre num e USD.
+  const NUM = "[\\d][\\d.,\\s\\u00a0\\u2009\\u202f]*\\d";
+  const GAP = "(?:\\s|&nbsp;|&#0*160;|<\\/[a-z0-9]+>)*";
+  const mBalance =
+    html.match(new RegExp("<h3[\\s\\S]{0,140}?(" + NUM + ")" + GAP + "USD", "i")) ||
+    html.match(new RegExp("(" + NUM + ")" + GAP + "USD", "i"));
   if (mBalance) out.balance = parseNum(mBalance[1]);
   else console.warn(`[${label}] widget: não achei o Saldo`);
 

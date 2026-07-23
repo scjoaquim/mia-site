@@ -123,6 +123,22 @@ assert.equal(wEss.balance, 2009.5);
 assert.equal(wEss.growth, -4.86);
 assert.equal(wEss.trades, 30);
 
+// --- regressão do BUG do saldo: a MQL5 embrulha o número no widget de formas
+//     que variam (span com classe, link aninhado, nbsp de milhar). A regex do
+//     saldo tem que casar em todas — senão saldo trava no valor anterior enquanto
+//     crescimento/operações atualizam (foi o que aconteceu ao vivo em 23-Jul).
+const widgetSpanClass = `<div class="info"><h3><span class="val">4 436.54</span> USD</h3>
+  <dl><dt>Growth:</dt><dd>2.45%</dd><dt>Trades:</dt><dd>114</dd></dl></div>`;
+const widgetNestedLink = `<div class="info"><h3><a href="/x"><span>4 436.54</span></a>&nbsp;USD</h3>
+  <dl><dt>Growth:</dt><dd>2.45%</dd><dt>Trades:</dt><dd>114</dd></dl></div>`;
+const widgetNbspThousands = `<div class="info"><h3><span>2 049.76</span> USD</h3>
+  <dl><dt>Growth:</dt><dd>-3.99%</dd><dt>Trades:</dt><dd>31</dd></dl></div>`;
+assert.equal(extractWidget(widgetSpanClass, 'A').balance, 4436.54);
+assert.equal(extractWidget(widgetNestedLink, 'B').balance, 4436.54);
+assert.equal(extractWidget(widgetNbspThousands, 'C').balance, 2049.76);
+// e o valor original (span cru) continua funcionando
+assert.equal(extractWidget(widgetHtmlPro, 'D').balance, 4321.23);
+
 // --- findDataColumnValue / extractFullPage ---
 assert.equal(findDataColumnValue(fullPagePro, 'Profit Factor:'), '1.02');
 assert.equal(findDataColumnValue(fullPagePro, 'Maximal:'), '516.72 USD (11.25%)');
