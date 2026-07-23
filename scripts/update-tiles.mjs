@@ -43,7 +43,8 @@ async function fetchText(url) {
 export function parseNum(raw) {
   if (raw == null) return null;
   const cleaned = String(raw)
-    .replace(/[\s ]/g, '') // espaço normal ou nbsp (milhar)
+    .replace(/&nbsp;|&#0*160;/gi, '') // entidade nbsp (milhar no HTML cru da MQL5)
+    .replace(/[\s\u00a0\u2009\u202f]/g, '') // espaços/nbsp literais
     .replace(/,/g, ''); // vírgula de milhar (se aparecer)
   const n = parseFloat(cleaned);
   return Number.isFinite(n) ? n : null;
@@ -57,17 +58,20 @@ export function classAttr(name) {
 export function extractWidget(html, label) {
   const out = { balance: null, growth: null, trades: null };
 
-  // Saldo: "<número> USD" perto do <h3> do widget. Regex tolerante — entre o
-  // número e o "USD" a MQL5 pode ter fechamento de tag (</span>, </a>), nbsp ou
-  // espaço, e o milhar usa espaço/nbsp. Assumir <h3><span>NUM</span> USD colado
-  // era o BUG (23-Jul): crescimento/operações atualizavam mas o saldo travava no
-  // valor anterior. GAP abaixo = só espaço/nbsp/fechamento-de-tag entre num e USD.
-  const NUM = "[\\d][\\d.,\\s\\u00a0\\u2009\\u202f]*\\d";
-  const GAP = "(?:\\s|&nbsp;|&#0*160;|<\\/[a-z0-9]+>)*";
-  const mBalance =
-    html.match(new RegExp("<h3[\\s\\S]{0,140}?(" + NUM + ")" + GAP + "USD", "i")) ||
-    html.match(new RegExp("(" + NUM + ")" + GAP + "USD", "i"));
-  if (mBalance) out.balance = parseNum(mBalance[1]);
+  // Saldo: pega o trecho do <h3> até "USD", remove TAGS e ENTIDADES e lê o número.
+  // ⚠ No HTML CRU que o servidor recebe, o separador de milhar vem como a ENTIDADE
+  // &nbsp; (não um espaço), ex: <span>4&nbsp;437.33</span>&nbsp;USD — uma regex de
+  // classe de caracteres parava no "&" e capturava só "437.33" (perdia o milhar).
+  // Limpar tags/entidades e deixar o parseNum ler é bem mais robusto.
+  function grabBalance(re) {
+    const m = html.match(re);
+    if (!m) return null;
+    const cleaned = m[1].replace(/<[^>]*>/g, '').replace(/&nbsp;|&#0*160;/gi, '');
+    const n = parseNum(cleaned);
+    return n != null ? n : null;
+  }
+  const bal = grabBalance(/<h3\b[^>]*>([\s\S]{0,200}?)USD/i) || grabBalance(/>\s*(\d[^<]{0,40}?)\s*USD/i);
+  if (bal != null) out.balance = bal;
   else console.warn(`[${label}] widget: não achei o Saldo`);
 
   const mGrowth = html.match(/Growth:\s*<\/dt>\s*<dd[^>]*>\s*(-?[\d.,]+)\s*%\s*<\/dd>/i);
@@ -140,7 +144,10 @@ export function extractFullPage(html, label) {
   // crítico, só um complemento do Crescimento em %.
   const profitRaw = findListInfoValue(html, 'Profit:');
   if (profitRaw) {
-    const m = profitRaw.match(/(-?[\d.,\s ]+)\s*USD/i);
+    // mesma armadilha do saldo: lucro > US$ 999 traz &nbsp; de milhar no HTML cru.
+    // Limpa entidades/tags antes de casar o número.
+    const cleaned = profitRaw.replace(/<[^>]*>/g, '').replace(/&nbsp;|&#0*160;/gi, '');
+    const m = cleaned.match(/(-?[\d.,\s ]+?)\s*USD/i);
     if (m) out.profitUsd = parseNum(m[1]);
   }
   if (out.profitUsd == null) console.warn(`[${label}] página completa: não achei Profit (US$) — campo não crítico, ok se sumir`);

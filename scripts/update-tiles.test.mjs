@@ -139,6 +139,22 @@ assert.equal(extractWidget(widgetNbspThousands, 'C').balance, 2049.76);
 // e o valor original (span cru) continua funcionando
 assert.equal(extractWidget(widgetHtmlPro, 'D').balance, 4321.23);
 
+// --- BUG REAL (23-Jul run #2): no HTML CRU do servidor, o milhar vem como a
+//     ENTIDADE &nbsp; (não um espaço). Antes a regex parava no "&" e capturava
+//     só "437.33"/"429" (perdia o dígito do milhar → saldo "US$ 429"). ---
+const widgetRawNbspEntity = `<div class="info"><h3><span>4&nbsp;437.33</span>&nbsp;USD</h3>
+  <dl><dt>Growth:</dt><dd>2.45%</dd><dt>Trades:</dt><dd>114</dd></dl></div>`;
+const widgetRawNbspEss = `<div class="info"><h3><span>2&nbsp;049.76</span>&nbsp;USD</h3>
+  <dl><dt>Growth:</dt><dd>-3.99%</dd><dt>Trades:</dt><dd>31</dd></dl></div>`;
+const widgetRawNbspBig = `<div class="info"><h3><span>12&nbsp;345.67</span>&nbsp;USD</h3>
+  <dl><dt>Growth:</dt><dd>1.0%</dd><dt>Trades:</dt><dd>9</dd></dl></div>`;
+assert.equal(extractWidget(widgetRawNbspEntity, 'E').balance, 4437.33);
+assert.equal(extractWidget(widgetRawNbspEss, 'F').balance, 2049.76);
+assert.equal(extractWidget(widgetRawNbspBig, 'G').balance, 12345.67);
+// parseNum também tem que engolir a entidade solta
+assert.equal(parseNum('4&nbsp;437.33'), 4437.33);
+assert.equal(parseNum('12&#160;345.67'), 12345.67);
+
 // --- findDataColumnValue / extractFullPage ---
 assert.equal(findDataColumnValue(fullPagePro, 'Profit Factor:'), '1.02');
 assert.equal(findDataColumnValue(fullPagePro, 'Maximal:'), '516.72 USD (11.25%)');
