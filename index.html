@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIA Trading System</title>
+<meta name="description" content="MIA Trading System — robô de trading automatizado multi-ativos, copiado via MQL5 Signals (MetaQuotes). Gestão de risco disciplinada, diversificação e track record público.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-nav class="active"><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="como-copiar.html" data-nav><span class="lang-pt">Como copiar</span><span class="lang-en">How-to</span></a>
+      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="faq.html" data-nav>FAQ</a>
+      <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="kicker lang-pt">// carteira automatizada · multi-ativos · 24/7</div>
+    <div class="kicker lang-en">// automated portfolio · multi-asset · 24/7</div>
+    <h1 class="glow">MIA TRADING SYSTEM</h1>
+    <p class="lead lang-pt">Um robô que opera sozinho uma carteira diversificada em metais, índices, cripto e ações. Risco controlado, histórico público e ao vivo na MQL5.</p>
+    <p class="lead lang-en">A robot that trades a diversified portfolio of metals, indices, crypto and stocks — on its own. Controlled risk, public track record, live on MQL5.</p>
+    <div class="cta-row">
+      <a href="produtos.html" data-nav class="btn btn-primary"><span class="lang-pt">Ver produtos</span><span class="lang-en">View products</span></a>
+      <a href="resultados.html" data-nav class="btn"><span class="lang-pt">Track record</span><span class="lang-en">Track record</span></a>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:6px">
+    <div class="asset-row">
+      <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 9h10l3 7H4l3-7z"/><path d="M7 9l1.4 7M17 9l-1.4 7"/></svg><span class="lang-pt">Metais</span><span class="lang-en">Metals</span></div>
+      <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="4" y1="20.5" x2="20" y2="20.5"/><rect x="5" y="12" width="3" height="7"/><rect x="10.5" y="7" width="3" height="12"/><rect x="16" y="10" width="3" height="9"/></svg><span class="lang-pt">Índices</span><span class="lang-en">Indices</span></div>
+      <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M10 8v8M9 8h4.2a2 2 0 010 4H9m0 0h4.6a2 2 0 010 4H9M11 6.3v1.7M11 16v1.7"/></svg><span>Cripto</span></div>
+      <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16l4.5-4.5 3 3L20 7"/><path d="M15 7h5v5"/></svg><span class="lang-pt">Ações</span><span class="lang-en">Stocks</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="trust-strip">
+      <div class="trust-item"><svg class="ico" style="margin:0 auto 10px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 5.6V8"/><circle cx="12" cy="4.2" r="1.3"/><circle cx="9.5" cy="12.5" r="1.1"/><circle cx="14.5" cy="12.5" r="1.1"/><path d="M9.5 16h5M3 12v3M21 12v3"/></svg><b class="lang-pt">100% automatizado</b><b class="lang-en">100% automated</b><span class="lang-pt">sem emoção nem fator psicológico humano</span><span class="lang-en">no human emotion or psychology</span></div>
+      <div class="trust-item"><svg class="ico" style="margin:0 auto 10px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6.5" cy="17.5" r="1.6"/><path d="M5.5 12.5a6 6 0 016 6M5.5 8a10.5 10.5 0 0110.5 10.5"/></svg><b class="lang-pt">Copiado via MQL5 Signals</b><b class="lang-en">Copied via MQL5 Signals</b><span class="lang-pt">MetaQuotes, criadora do MetaTrader</span><span class="lang-en">MetaQuotes, makers of MetaTrader</span></div>
+      <div class="trust-item"><svg class="ico" style="margin:0 auto 10px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3z"/><path d="M9 12l2 2 4-4.5"/></svg><b class="lang-pt">Você controla sua conta</b><b class="lang-en">You control your account</b><span class="lang-pt">a MIA nunca acessa seu capital</span><span class="lang-en">MIA never touches your funds</span></div>
+      <div class="trust-item"><svg class="ico" style="margin:0 auto 10px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16a8 8 0 0116 0"/><path d="M12 16l4.5-3.5"/><circle cx="12" cy="16" r="1"/></svg><b class="lang-pt">Risco por fração fixa</b><b class="lang-en">Fixed-fraction risk</b><span class="lang-pt">+ freios automáticos de carteira</span><span class="lang-en">+ automatic portfolio brakes</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="produtos">
+    <div class="section-tag lang-pt">// Produtos</div>
+    <div class="section-tag lang-en">// Products</div>
+
+    <div class="grid-2">
+      <div class="product-card">
+        <div class="ph">
+          <div class="tier lang-pt">Entrada · contas menores</div>
+          <div class="tier lang-en">Entry tier · smaller accounts</div>
+          <div class="name">Essential</div>
+        </div>
+        <div class="pb">
+          <div class="price">$30 <span class="lang-pt">/ mês</span><span class="lang-en">/ month</span></div>
+          <p class="lang-pt" style="margin-top:12px">Versão mais enxuta e calma: 8 estratégias de baixa correlação em ouro, índices, cobre, Oracle e Ethereum. Drawdown contido, para contas menores.</p>
+          <p class="lang-en" style="margin-top:12px">A leaner, calmer version: 8 low-correlation strategies across gold, indices, copper, Oracle and Ethereum. Contained drawdown, for smaller accounts.</p>
+          <ul>
+            <li><span class="lang-pt">Depósito mínimo recomendado: </span><span class="lang-en">Recommended minimum deposit: </span><strong>US$2.000</strong></li>
+            <li><span class="lang-pt">Risco fixo de 0,5% do capital por operação</span><span class="lang-en">Fixed 0.5% of equity risked per trade</span></li>
+            <li><span class="lang-pt">Conta Exness Pro dedicada</span><span class="lang-en">Dedicated Exness Pro account</span></li>
+          </ul>
+        </div>
+        <div class="pf">
+          <a href="produtos.html#essential" data-nav class="btn btn-sm"><span class="lang-pt">Detalhes</span><span class="lang-en">Details</span></a>
+          <a href="https://www.mql5.com/en/signals/2382452" target="_blank" rel="noopener" class="btn btn-sm">MQL5 ↗</a>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="ph">
+          <div class="tier lang-pt">Carro-chefe · contas maiores</div>
+          <div class="tier lang-en">Flagship · larger accounts</div>
+          <div class="name">PRO</div>
+        </div>
+        <div class="pb">
+          <div class="price">$100 <span class="lang-pt">/ mês</span><span class="lang-en">/ month</span></div>
+          <p class="lang-pt" style="margin-top:12px">A frota completa: ~19 estratégias independentes em metais, índices, cripto e ações, de 5 min a 4 h. Diversificação máxima.</p>
+          <p class="lang-en" style="margin-top:12px">The full fleet: ~19 independent strategies across metals, indices, crypto and stocks, from 5 min to 4 h. Maximum diversification.</p>
+          <ul>
+            <li><span class="lang-pt">Depósito mínimo recomendado: </span><span class="lang-en">Recommended minimum deposit: </span><strong>US$4.000</strong></li>
+            <li><span class="lang-pt">Risco fixo por operação + freios de carteira</span><span class="lang-en">Fixed per-trade risk + portfolio brakes</span></li>
+            <li><span class="lang-pt">Conta Exness Pro dedicada</span><span class="lang-en">Dedicated Exness Pro account</span></li>
+          </ul>
+        </div>
+        <div class="pf">
+          <a href="produtos.html#pro" data-nav class="btn btn-sm"><span class="lang-pt">Detalhes</span><span class="lang-en">Details</span></a>
+          <a href="https://www.mql5.com/en/signals/2381728" target="_blank" rel="noopener" class="btn btn-sm">MQL5 ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Como funciona</div>
+    <div class="section-tag lang-en">// How it works</div>
+
+    <div class="flow" style="margin-bottom:22px">
+      <div class="flow-node">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 5.6V8"/><circle cx="12" cy="4.2" r="1.3"/><circle cx="9.5" cy="12.5" r="1.1"/><circle cx="14.5" cy="12.5" r="1.1"/><path d="M9.5 16h5M3 12v3M21 12v3"/></svg>
+        <b>MIA</b><span class="lang-pt">o robô opera a carteira</span><span class="lang-en">the robot trades the portfolio</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6.5" cy="17.5" r="1.6"/><path d="M5.5 12.5a6 6 0 016 6M5.5 8a10.5 10.5 0 0110.5 10.5"/></svg>
+        <b>MQL5 Signals</b><span class="lang-pt">publica o sinal ao vivo</span><span class="lang-en">publishes the live signal</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2.2"/><path d="M4.8 17a4 4 0 017.4 0M15 10h4M15 13.5h3"/></svg>
+        <b class="lang-pt">Sua conta</b><b class="lang-en">Your account</b><span class="lang-pt">replica sozinha, 24/7</span><span class="lang-en">copies on its own, 24/7</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <svg class="ico" style="margin-bottom:6px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2.2"/><path d="M4.8 17a4 4 0 017.4 0M15 10h4M15 13.5h3"/></svg>
+        <h3 class="lang-pt">Abra sua conta</h3>
+        <h3 class="lang-en">Open your account</h3>
+        <p class="lang-pt">Uma conta real numa corretora compatível — recomendamos Exness Pro.</p>
+        <p class="lang-en">A real account with a compatible broker — we recommend Exness Pro.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <svg class="ico" style="margin-bottom:6px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="18" r="1.6"/><path d="M5 12.5a7 7 0 017 7M5 7.5a12 12 0 0112 12"/></svg>
+        <h3 class="lang-pt">Assine o sinal</h3>
+        <h3 class="lang-en">Subscribe</h3>
+        <p class="lang-pt">Escolha Essential ou PRO na MQL5 e ative a assinatura mensal.</p>
+        <p class="lang-en">Choose Essential or PRO on MQL5 and activate the monthly subscription.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <svg class="ico" style="margin-bottom:6px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M4.5 15H4a1 1 0 01-1-1V5a1 1 0 011-1h9a1 1 0 011 1v.5"/></svg>
+        <h3 class="lang-pt">Ative a cópia</h3>
+        <h3 class="lang-en">Enable copying</h3>
+        <p class="lang-pt">Ligue a cópia e sua conta replica sozinha. Para 24/7, use um VPS. <a href="como-copiar.html" data-nav>Ver guia →</a></p>
+        <p class="lang-en">Turn copying on and your account replicates itself. For 24/7, use a VPS. <a href="como-copiar.html" data-nav>See the guide →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="fineprint lang-pt">Desempenho passado não garante resultados futuros. Operar CFDs e instrumentos alavancados envolve risco de perda, inclusive total. Use apenas capital que você pode perder. Texto completo em <a href="contato.html" data-nav>Contato</a>.</p>
+    <p class="fineprint lang-en">Past performance does not guarantee future results. Trading CFDs and leveraged instruments carries risk of loss, including total loss. Only use capital you can afford to lose. Full text on <a href="contato.html" data-nav>Contact</a>.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System disponibiliza suas estratégias como sinal de cópia via <strong>MQL5 Signals</strong> (MetaQuotes). Você mantém titularidade e controle total da sua própria conta de corretagem a qualquer momento.</p>
+    <p class="lang-en">MIA Trading System offers its strategies as a copy signal via <strong>MQL5 Signals</strong> (MetaQuotes). You retain full ownership and control of your own brokerage account at all times.</p>
+    <p>© 2026 MIA Trading System · <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a> · <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="faq.html" data-nav>FAQ</a> · <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=2"></script>
+</body>
+</html>

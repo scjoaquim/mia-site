@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como copiar · MIA Trading System</title>
+<meta name="description" content="Passo a passo para copiar a MIA Trading System via MQL5 + MetaTrader 5 — da criação da conta à cópia automática 24/7.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="como-copiar.html" data-nav class="active"><span class="lang-pt">Como copiar</span><span class="lang-en">How-to</span></a>
+      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="faq.html" data-nav>FAQ</a>
+      <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Como copiar</div>
+    <div class="section-tag lang-en">// How to copy</div>
+    <h1 class="lang-pt">Da conta à cópia automática, passo a passo</h1>
+    <h1 class="lang-en">From account to automatic copying, step by step</h1>
+    <p class="lang-pt">Este guia mostra, do zero, como assinar o sinal da MIA e espelhar automaticamente as operações na sua própria conta. Você não precisa saber operar nem ficar na frente do gráfico: uma vez configurado, o MetaTrader 5 copia cada entrada e saída sozinho, na proporção do seu saldo.</p>
+    <p class="lang-en">This guide shows, from scratch, how to subscribe to the MIA signal and automatically mirror its trades on your own account. You don't need to know how to trade or watch the chart: once set up, MetaTrader 5 copies every entry and exit on its own, scaled to your balance.</p>
+
+    <div class="infobox" style="margin:18px 0">
+      <p style="margin:0 0 8px 0"><b class="lang-pt">Como funciona em 1 minuto</b><b class="lang-en">How it works in 1 minute</b></p>
+      <p class="lang-pt" style="margin:0">Você abre uma conta de operações (corretora Exness) e a mantém com saldo. Cria uma conta gratuita no MQL5.com e assina o sinal. Conecta o MetaTrader 5 ao MQL5 e liga a cópia. A partir daí, tudo o que a conta da MIA opera é replicado na sua, proporcional ao seu capital.</p>
+      <p class="lang-en" style="margin:0">You open a trading account (Exness broker) and keep a balance in it. You create a free MQL5.com account and subscribe to the signal. You connect MetaTrader 5 to MQL5 and turn on copying. From then on, everything MIA's account trades is replicated on yours, proportional to your capital.</p>
+    </div>
+
+    <h3 class="lang-pt">O que você vai precisar</h3>
+    <h3 class="lang-en">What you'll need</h3>
+    <ul>
+      <li class="lang-pt">Um documento de identidade (RG/CNH ou passaporte) e um comprovante de endereço.</li>
+      <li class="lang-en">An ID document (national ID or passport) and a proof of address.</li>
+      <li class="lang-pt">Um computador com o MetaTrader 5 instalado (ou um VPS, explicado ao final).</li>
+      <li class="lang-en">A computer with MetaTrader 5 installed (or a VPS, explained at the end).</li>
+      <li class="lang-pt">Saldo para depositar na conta — veja os mínimos na seção de custos.</li>
+      <li class="lang-en">Funds to deposit into the account — see the minimums in the costs section.</li>
+      <li class="lang-pt">Cerca de 20–30 minutos para deixar tudo pronto.</li>
+      <li class="lang-en">About 20–30 minutes to get everything ready.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="part-label lang-pt">Parte 1 — Abrir e preparar a conta na Exness</div>
+    <div class="part-label lang-en">Part 1 — Open and prepare your Exness account</div>
+    <div class="howsteps">
+      <div class="howstep">
+        <div class="hn">1</div>
+        <div class="hc">
+          <h3 class="lang-pt">Criar a conta na Exness</h3>
+          <h3 class="lang-en">Create your Exness account</h3>
+          <p class="lang-pt">Acesse o site oficial da <a href="https://www.exness.com" target="_blank" rel="noopener">Exness</a> e clique em Cadastrar-se / Registrar. Informe seu país e e-mail, crie uma senha forte e confirme o e-mail.</p>
+          <p class="lang-en">Go to the official <a href="https://www.exness.com" target="_blank" rel="noopener">Exness</a> website and click Sign up / Register. Enter your country and email, create a strong password and confirm your email.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">2</div>
+        <div class="hc">
+          <h3 class="lang-pt">Verificar a conta (KYC)</h3>
+          <h3 class="lang-en">Verify your account (KYC)</h3>
+          <p class="lang-pt">No perfil, envie uma foto do seu documento de identidade e um comprovante de endereço. A verificação costuma sair em minutos e é obrigatória para sacar. Deixe isso pronto antes de depositar.</p>
+          <p class="lang-en">In your profile, upload a photo of your ID and a proof of address. Verification usually takes minutes and is required to withdraw. Get it done before depositing.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">3</div>
+        <div class="hc">
+          <h3 class="lang-pt">Abrir uma conta Real do tipo Pro (MT5)</h3>
+          <h3 class="lang-en">Open a Real, Pro-type account (MT5)</h3>
+          <p class="lang-pt">No painel da Exness, vá em Abrir nova conta e escolha Real (não Demo). Selecione o tipo Pro e a plataforma MetaTrader 5 (MT5). Defina uma senha de trader e guarde login, senha e o nome do servidor — você vai usar os três no MT5.</p>
+          <p class="lang-en">In the Exness dashboard, go to Open new account and choose Real (not Demo). Select the Pro type and the MetaTrader 5 (MT5) platform. Set a trader password and save the login, password and server name — you'll need all three in MT5.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">4</div>
+        <div class="hc">
+          <h3 class="lang-pt">Depositar na conta</h3>
+          <h3 class="lang-en">Fund the account</h3>
+          <p class="lang-pt">Em Depositar, escolha o método disponível na sua região (PIX, cartão, cripto etc.). Deposite pelo menos o mínimo recomendado (seção de custos). O saldo fica na sua conta — a MIA não tem acesso a ele nem pode sacar; o sinal apenas replica ordens.</p>
+          <p class="lang-en">Under Deposit, choose the method available in your region (card, crypto, local methods). Deposit at least the recommended minimum (costs section). The balance stays in your account — MIA has no access to it and cannot withdraw; the signal only replicates orders.</p>
+        </div>
+      </div>
+    </div>
+    <div class="infobox" style="margin-top:14px">
+      <p class="lang-pt" style="margin:0"><b>Por que conta Pro?</b> A conta Pro tem spreads mais apertados e execução adequada para copiar uma estratégia com várias operações. Isso reduz o custo de cada trade copiado e aproxima o seu resultado do da carteira.</p>
+      <p class="lang-en" style="margin:0"><b>Why a Pro account?</b> The Pro account has tighter spreads and execution suited to copying a multi-trade strategy. This lowers the cost of each copied trade and brings your result closer to the portfolio's.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="part-label lang-pt">Parte 2 — Instalar o MetaTrader 5 e entrar na sua conta</div>
+    <div class="part-label lang-en">Part 2 — Install MetaTrader 5 and log into your account</div>
+    <div class="howsteps">
+      <div class="howstep">
+        <div class="hn">5</div>
+        <div class="hc">
+          <h3 class="lang-pt">Baixar e instalar o MetaTrader 5</h3>
+          <h3 class="lang-en">Download and install MetaTrader 5</h3>
+          <p class="lang-pt">Baixe o MT5 pela própria Exness (menu de plataformas) ou pelo site oficial da MetaQuotes. Instale e abra o programa no computador. <strong>Importante: a configuração e a ativação da cópia precisam ser feitas no MT5 de desktop</strong> — é por ele que você inicia todo o processo. (Depois, se quiser, migra para um VPS para rodar 24/7 — veja a Parte 4.)</p>
+          <p class="lang-en">Download MT5 from Exness itself (platforms menu) or from the official MetaQuotes website. Install and open it on your computer. <strong>Important: setting up and turning on copying must be done on desktop MT5</strong> — that's where you start the whole process. (Afterwards, if you like, you migrate to a VPS to run 24/7 — see Part 4.)</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">6</div>
+        <div class="hc">
+          <h3 class="lang-pt">Fazer login na sua conta Exness dentro do MT5</h3>
+          <h3 class="lang-en">Log into your Exness account inside MT5</h3>
+          <p class="lang-pt">No MT5, vá em Arquivo → Login na conta de negociação. Digite o login, a senha de trader e selecione o servidor da sua conta Pro (o mesmo do passo 3). Confirme que aparece o saldo correto no canto inferior — sinal de que está conectado.</p>
+          <p class="lang-en">In MT5, go to File → Login to trade account. Enter the login, the trader password and select your Pro account's server (the same as step 3). Check that the correct balance shows at the bottom — a sign that you're connected.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="part-label lang-pt">Parte 3 — Criar conta MQL5 e assinar o sinal</div>
+    <div class="part-label lang-en">Part 3 — Create an MQL5 account and subscribe</div>
+    <div class="howsteps">
+      <div class="howstep">
+        <div class="hn">7</div>
+        <div class="hc">
+          <h3 class="lang-pt">Criar uma conta gratuita no MQL5.com</h3>
+          <h3 class="lang-en">Create a free MQL5.com account</h3>
+          <p class="lang-pt">Acesse <a href="https://www.mql5.com" target="_blank" rel="noopener">mql5.com</a> e clique em criar conta. É gratuito e é a comunidade oficial que gerencia os sinais dentro do MetaTrader. Confirme o e-mail e guarde o login e a senha do MQL5 (são diferentes dos da corretora).</p>
+          <p class="lang-en">Go to <a href="https://www.mql5.com" target="_blank" rel="noopener">mql5.com</a> and click create account. It's free and it's the official community that manages signals inside MetaTrader. Confirm your email and save your MQL5 login and password (different from the broker's).</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">8</div>
+        <div class="hc">
+          <h3 class="lang-pt">Conectar o MT5 à sua conta MQL5</h3>
+          <h3 class="lang-en">Connect MT5 to your MQL5 account</h3>
+          <p class="lang-pt">No MT5, vá em Ferramentas → Opções → Comunidade (Community). Faça login com o usuário e a senha do MQL5.com e clique em OK. Isso libera a aba de sinais.</p>
+          <p class="lang-en">In MT5, go to Tools → Options → Community. Log in with your MQL5.com username and password and click OK. This unlocks the Signals tab.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">9</div>
+        <div class="hc">
+          <h3 class="lang-pt">Assinar o sinal da MIA</h3>
+          <h3 class="lang-en">Subscribe to the MIA signal</h3>
+          <p class="lang-pt">Abra o sinal do produto escolhido (ou busque pelo nome na aba Sinais do MT5) e clique em Assinar (Subscribe), confirmando o pagamento da assinatura mensal e aceitando os termos:</p>
+          <p class="lang-en">Open the signal of your chosen product (or search by name in MT5's Signals tab) and click Subscribe, confirming the monthly payment and accepting the terms:</p>
+          <p style="margin:0">
+            <a href="https://www.mql5.com/en/signals/2382452" target="_blank" rel="noopener" class="btn btn-sm">MQL5 — Essential ($30) ↗</a>
+            <a href="https://www.mql5.com/en/signals/2381728" target="_blank" rel="noopener" class="btn btn-sm">MQL5 — PRO ($100) ↗</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="part-label lang-pt">Parte 4 — Ligar a cópia e ajustar as configurações</div>
+    <div class="part-label lang-en">Part 4 — Turn on copying and set it up</div>
+    <div class="howsteps">
+      <div class="howstep">
+        <div class="hn">10</div>
+        <div class="hc">
+          <h3 class="lang-pt">Ligar a cópia automática</h3>
+          <h3 class="lang-en">Turn on automatic copying</h3>
+          <p class="lang-pt">Ao assinar, o MT5 pede a senha da conta e a confirmação. A partir daí, cada entrada da carteira é replicada na sua conta. Antes, ajuste as configurações abaixo — é a parte que mais confunde no MQL5.</p>
+          <p class="lang-en">On subscribing, MT5 asks for your account password and a confirmation. From then on, each portfolio trade is replicated on your account. First, set the options below — the part people find least intuitive on MQL5.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="lang-pt" style="margin-top:18px">Configurações de cópia (Ferramentas → Opções → Sinais)</h3>
+    <h3 class="lang-en" style="margin-top:18px">Copy settings (Tools → Options → Signals)</h3>
+    <table class="cmp">
+      <tr>
+        <th class="lang-pt">Configuração</th><th class="lang-en">Setting</th>
+        <th class="lang-pt">O que fazer</th><th class="lang-en">What to do</th>
+      </tr>
+      <tr>
+        <td><b>Use no more than __%</b></td>
+        <td class="lang-pt">Use <b>90–95%</b> para espelhar a carteira.</td>
+        <td class="lang-en">Use <b>90–95%</b> to mirror the portfolio.</td>
+      </tr>
+      <tr>
+        <td><b>Deviation / Slippage</b></td>
+        <td class="lang-pt">Deixe no padrão.</td>
+        <td class="lang-en">Leave the default.</td>
+      </tr>
+      <tr>
+        <td><b><span class="lang-pt">Copiar Stop Loss / Take Profit</span><span class="lang-en">Copy Stop Loss / Take Profit</span></b></td>
+        <td class="lang-pt"><b>Ligado.</b></td>
+        <td class="lang-en"><b>On.</b></td>
+      </tr>
+      <tr>
+        <td><b><span class="lang-pt">Sincronizar sem confirmações</span><span class="lang-en">Synchronize without confirmations</span></b></td>
+        <td class="lang-pt"><b>Ligado</b> — copia sem pop-up.</td>
+        <td class="lang-en"><b>On</b> — copies with no pop-up.</td>
+      </tr>
+      <tr>
+        <td><b><span class="lang-pt">Parar se o capital cair abaixo de</span><span class="lang-en">Stop if equity is less than</span></b></td>
+        <td class="lang-pt">Opcional. <b>0</b> = desligado.</td>
+        <td class="lang-en">Optional. <b>0</b> = off.</td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="part-label lang-pt">Parte 5 — Rodar 24/7: migrar para o VPS do MQL5</div>
+    <div class="part-label lang-en">Part 5 — Run 24/7: migrate to the MQL5 VPS</div>
+    <p class="lang-pt">A cópia só acontece com o MT5 aberto e conectado. Se o computador desliga, você perde operações. A solução é um <strong>VPS</strong> (um servidor que fica ligado o tempo todo) — a própria MQL5 aluga um dentro do terminal, por uma taxa mensal. <strong>Sua conta já precisa estar com saldo antes de migrar.</strong></p>
+    <p class="lang-en">Copying only happens with MT5 open and connected. If your computer turns off, you miss trades. The fix is a <strong>VPS</strong> (a server that stays on around the clock) — MQL5 rents one inside the terminal for a monthly fee. <strong>Your account must already be funded before migrating.</strong></p>
+    <div class="howsteps">
+      <div class="howstep">
+        <div class="hn">11</div>
+        <div class="hc">
+          <h3 class="lang-pt">Registrar o servidor virtual</h3>
+          <h3 class="lang-en">Register the virtual server</h3>
+          <p class="lang-pt">No MT5, clique com o botão direito na sua conta (janela Navegador) → <b>Registrar um servidor virtual</b>.</p>
+          <p class="lang-en">In MT5, right-click your account (Navigator window) → <b>Register a Virtual Server</b>.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">12</div>
+        <div class="hc">
+          <h3 class="lang-pt">Escolher local e plano</h3>
+          <h3 class="lang-en">Choose location and plan</h3>
+          <p class="lang-pt">O assistente sugere o servidor com menor ping (mais perto da corretora) — aceite. Escolha um plano e pague a taxa mensal.</p>
+          <p class="lang-en">The wizard suggests the server with the lowest ping (nearest to your broker) — accept it. Pick a plan and pay the monthly fee.</p>
+        </div>
+      </div>
+      <div class="howstep">
+        <div class="hn">13</div>
+        <div class="hc">
+          <h3 class="lang-pt">Migrar o sinal</h3>
+          <h3 class="lang-en">Migrate the signal</h3>
+          <p class="lang-pt">O MT5 pergunta o que migrar. Aparecem 3 opções — escolha <b>Sinal</b>:</p>
+          <p class="lang-en">MT5 asks what to migrate. Three options appear — pick <b>Signal</b>:</p>
+          <div class="picklist">
+            <div class="pick"><b>Tudo (All)</b> — <span class="lang-pt">gráficos, robôs e a cópia</span><span class="lang-en">charts, robots and copying</span></div>
+            <div class="pick"><b>Experts</b> — <span class="lang-pt">só robôs e indicadores</span><span class="lang-en">robots and indicators only</span></div>
+            <div class="pick on"><b>Sinal (Signal)</b> — <span class="lang-pt">a conta + as configurações de cópia</span><span class="lang-en">your account + the copy settings</span><span class="tag lang-pt">Escolha esta</span><span class="tag lang-en">Pick this</span></div>
+          </div>
+          <p class="muted lang-pt" style="font-size:12px;margin:0">"Tudo" também funciona; "Sinal" é o suficiente. O VPS liga a cópia sozinho e a desativa no seu PC. Contas com senha de uso único (OTP) não funcionam em VPS.</p>
+          <p class="muted lang-en" style="font-size:12px;margin:0">"All" also works; "Signal" is enough. The VPS enables copying on its own and turns it off on your PC. Accounts with one-time-password (OTP) login can't run on a VPS.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Custos e valores recomendados</div>
+    <div class="section-tag lang-en">// Costs and recommended amounts</div>
+    <p class="lang-pt">Existem dois custos separados: a assinatura mensal do sinal (paga no MQL5) e o capital que você deposita na sua própria conta — esse dinheiro continua sendo seu.</p>
+    <p class="lang-en">There are two separate costs: the monthly signal subscription (paid on MQL5) and the capital you deposit into your own account — that money remains yours.</p>
+    <table class="cmp">
+      <tr>
+        <th class="lang-pt">Item</th><th class="lang-en">Item</th>
+        <th>Essential</th>
+        <th>PRO</th>
+      </tr>
+      <tr>
+        <td class="lang-pt">Assinatura do sinal (MQL5)</td><td class="lang-en">Signal subscription (MQL5)</td>
+        <td>US$ 30<span class="lang-pt">/mês</span><span class="lang-en">/mo</span></td>
+        <td>US$ 100<span class="lang-pt">/mês</span><span class="lang-en">/mo</span></td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Depósito mínimo</td><td class="lang-en">Minimum deposit</td>
+        <td>US$ 2.000</td>
+        <td>US$ 3.000</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Depósito recomendado</td><td class="lang-en">Recommended deposit</td>
+        <td>US$ 2.000</td>
+        <td>US$ 4.000</td>
+      </tr>
+    </table>
+    <p class="muted lang-pt" style="font-size:12px;margin-top:10px"><b>Por que existe um mínimo?</b> A estratégia opera vários instrumentos ao mesmo tempo, alguns com lote mínimo relativamente alto (ex.: ouro). Com pouco saldo, a proporção da cópia arredonda para cima e acaba arriscando mais do que o previsto. O mínimo existe justamente para a sua conta seguir a carteira com fidelidade e risco controlado.</p>
+    <p class="muted lang-en" style="font-size:12px;margin-top:10px"><b>Why is there a minimum?</b> The strategy trades several instruments at once, some with a relatively high minimum lot (e.g. gold). With too little balance, the copy ratio rounds up and ends up risking more than intended. The minimum exists precisely so your account can follow the portfolio faithfully and with controlled risk.</p>
+  </section>
+
+  <section class="section">
+    <div class="warnbox">
+      <p class="lang-pt" style="margin:0 0 8px 0"><b>Aviso de risco — leia antes de começar.</b> Operar mercados financeiros envolve risco real de perda, inclusive de parte ou de todo o capital depositado. Resultados passados não garantem resultados futuros.</p>
+      <p class="lang-en" style="margin:0 0 8px 0"><b>Risk warning — read before you start.</b> Trading financial markets carries a real risk of loss, including part or all of the deposited capital. Past results do not guarantee future results.</p>
+      <p class="lang-pt" style="margin:0">O sinal replica a estratégia como ela é, com dias e semanas negativos (drawdown). Deposite apenas dinheiro que pode manter investido por tempo suficiente. A MIA não tem acesso ao seu dinheiro e não pode sacar da sua conta — o sinal apenas envia ordens; a responsabilidade pela conta é sua. Este material é educativo e não constitui recomendação ou consultoria de investimento.</p>
+      <p class="lang-en" style="margin:0">The signal replicates the strategy as it is, with negative days and weeks (drawdown). Only deposit money you can keep invested long enough. MIA has no access to your money and cannot withdraw from your account — the signal only sends orders; responsibility for the account is yours. This material is educational and does not constitute investment advice or recommendation.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="panel-head"><span class="lang-pt">Ficou com dúvida?</span><span class="lang-en">Got stuck?</span></div>
+      <div class="panel-body" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+        <p style="margin:0;flex:1;min-width:240px">
+          <span class="lang-pt">Se travar em qualquer passo, fale com a gente antes de depositar ou assinar — é melhor ajustar junto do que você perder tempo no caminho. Entre no grupo do Telegram:</span>
+          <span class="lang-en">If you get stuck at any step, talk to us before depositing or subscribing — better to sort it out together than lose time on the way. Join the Telegram group:</span>
+        </p>
+        <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary"><span class="lang-pt">Grupo no Telegram ↗</span><span class="lang-en">Telegram group ↗</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System disponibiliza suas estratégias como sinal de cópia via <strong>MQL5 Signals</strong> (MetaQuotes). Você mantém titularidade e controle total da sua própria conta de corretagem a qualquer momento.</p>
+    <p class="lang-en">MIA Trading System offers its strategies as a copy signal via <strong>MQL5 Signals</strong> (MetaQuotes). You retain full ownership and control of your own brokerage account at all times.</p>
+    <p>© 2026 MIA Trading System · <a href="index.html" data-nav>Home</a> · <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a> · <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="faq.html" data-nav>FAQ</a> · <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=2"></script>
+</body>
+</html>

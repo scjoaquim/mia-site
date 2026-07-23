@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metodologia · MIA Trading System</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="como-copiar.html" data-nav><span class="lang-pt">Como copiar</span><span class="lang-en">How-to</span></a>
+      <a href="metodologia.html" data-nav class="active"><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="faq.html" data-nav>FAQ</a>
+      <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Metodologia</div>
+    <div class="section-tag lang-en">// Methodology</div>
+    <h1 class="lang-pt">Remover o fator humano da execução</h1>
+    <h1 class="lang-en">Removing the human factor from execution</h1>
+    <p class="lang-pt">O fundador da MIA foi psicólogo por quase 15 anos antes da análise técnica — e isso moldou o sistema. O viés emocional corrói decisões de trading: hesitar num stop, dobrar a aposta após uma perda, fechar um ganho cedo demais. A resposta foi tirar a decisão das mãos humanas e colocá-la em regras testadas, executadas por máquina, 24 horas por dia.</p>
+    <p class="lang-en">MIA's founder was a psychologist for nearly 15 years before technical analysis — and it shaped the system. Emotional bias erodes trading decisions: hesitating on a stop, doubling down after a loss, closing a winner too early. The answer was to take the decision out of human hands and encode it into tested rules, executed by machine, around the clock.</p>
+  </section>
+
+  <section class="section">
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head" style="justify-content:flex-start;gap:10px"><svg class="ico" style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 12l8 4 8-4M4 16l8 4 8-4"/></svg><span class="lang-pt">01 · Diversificação</span><span class="lang-en">01 · Diversification</span></div>
+        <div class="panel-body">
+          <p class="lang-pt" style="margin:0">Em vez de uma aposta única, combina várias estratégias de baixa correlação — tendência, reversão à média, rompimento, price action — em vários ativos e prazos (5 min a 4 h). Quando uma sofre, outras compensam.</p>
+          <p class="lang-en" style="margin:0">Instead of a single bet, it combines several low-correlation strategies — trend, mean-reversion, breakout, price action — across assets and timeframes (5 min to 4 h). When one struggles, others offset it.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head" style="justify-content:flex-start;gap:10px"><svg class="ico" style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3z"/><path d="M9 12l2 2 4-4.5"/></svg><span class="lang-pt">02 · Gestão de risco</span><span class="lang-en">02 · Risk management</span></div>
+        <div class="panel-body">
+          <p class="lang-pt" style="margin:0">Cada operação arrisca uma fração fixa e pequena do capital, com stop desde a entrada — nunca discricionário. Acima disso, freios automáticos de carteira reduzem a exposição em períodos ruins, antes que o dano se acumule.</p>
+          <p class="lang-en" style="margin:0">Every trade risks a small, fixed fraction of equity, with a stop set at entry — never discretionary. Above that, automatic portfolio brakes cut exposure in rough periods, before damage compounds.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head" style="justify-content:flex-start;gap:10px"><svg class="ico" style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="lang-pt">03 · Disciplina operacional</span><span class="lang-en">03 · Operational discipline</span></div>
+        <div class="panel-body">
+          <p class="lang-pt" style="margin:0">A frota roda 24/7 em servidores dedicados, sem intervenção manual. Cada produto tem sua própria conta isolada, para que o histórico reflita só aquele conjunto de estratégias.</p>
+          <p class="lang-en" style="margin:0">The fleet runs 24/7 on dedicated servers, with no manual intervention. Each product has its own isolated account, so the track record reflects only that set of strategies.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head" style="justify-content:flex-start;gap:10px"><svg class="ico" style="width:22px;height:22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20h4v-4h4v-4h4v-4h5"/><path d="M17 4h3v3"/></svg><span class="lang-pt">04 · Evolução em estágios</span><span class="lang-en">04 · Staged evolution</span></div>
+        <div class="panel-body">
+          <p class="lang-pt" style="margin:0">Novos produtos nascem devagar: cada um constrói seu histórico do zero antes de crescer. A prioridade é um histórico que convença por si — não pressa em vender.</p>
+          <p class="lang-en" style="margin:0">New products launch slowly: each builds its track record from zero before growing. The priority is a record that speaks for itself — not a rush to sell.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="infobox">
+      <p class="lang-pt" style="margin:0"><b>Importante:</b> por política de transparência com quem copia, e para preservar a integridade das próprias estratégias, a MIA não divulga publicamente os parâmetros exatos, apelidos internos ou identificadores de cada bot individual. O que é público e verificável é o resultado agregado de cada carteira, ao vivo, na página oficial do sinal na MQL5.</p>
+      <p class="lang-en" style="margin:0"><b>Note:</b> as a matter of transparency toward copiers, and to preserve the integrity of the strategies themselves, MIA does not publicly disclose the exact parameters, internal nicknames, or identifiers of each individual bot. What is public and verifiable is each portfolio's aggregate result, live, on the signal's official MQL5 page.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System disponibiliza suas estratégias como sinal de cópia via <strong>MQL5 Signals</strong> (MetaQuotes). Você mantém titularidade e controle total da sua própria conta de corretagem a qualquer momento.</p>
+    <p class="lang-en">MIA Trading System offers its strategies as a copy signal via <strong>MQL5 Signals</strong> (MetaQuotes). You retain full ownership and control of your own brokerage account at all times.</p>
+    <p>© 2026 MIA Trading System · <a href="index.html" data-nav>Home</a> · <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a> · <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="faq.html" data-nav>FAQ</a> · <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=2"></script>
+</body>
+</html>
