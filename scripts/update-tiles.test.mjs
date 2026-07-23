@@ -15,6 +15,8 @@ import {
   fmtInt,
   fmtDecimal,
   fmtSignedUsd,
+  monthLabel,
+  upsertMonthly,
 } from './update-tiles.mjs';
 
 // --- amostra do WIDGET (estrutura real: h3>span pro saldo, dl/dt/dd pro resto) ---
@@ -197,5 +199,30 @@ assert.equal(fmtDecimal(0.58, 2), '0,58');
 assert.equal(fmtSignedUsd(135.94, 2), '+US$ 135,94');
 assert.equal(fmtSignedUsd(-101.32, 2), '−US$ 101,32'); // U+2212
 assert.equal(fmtSignedUsd(0, 2), '+US$ 0,00');
+
+// --- gráfico mensal: monthLabel + upsertMonthly ---
+assert.equal(monthLabel('2026-07'), 'jul/26');
+assert.equal(monthLabel('2026-01'), 'jan/26');
+assert.equal(monthLabel('2027-12'), 'dez/27');
+
+// 1º mês: cria a entrada
+let mo = upsertMonthly([], '2026-07', 103.05, 4437.33);
+assert.deepEqual(mo, [{ ym: '2026-07', label: 'jul/26', cum_usd: 103.05, bal: 4437.33 }]);
+// mesmo mês de novo (run seguinte): ATUALIZA, não duplica
+mo = upsertMonthly(mo, '2026-07', 130.10, 4464.4);
+assert.equal(mo.length, 1);
+assert.equal(mo[0].cum_usd, 130.1);
+assert.equal(mo[0].bal, 4464.4);
+// mês novo: adiciona e mantém ordenado
+mo = upsertMonthly(mo, '2026-08', 178.5, 4512.9);
+assert.equal(mo.length, 2);
+assert.equal(mo[1].ym, '2026-08');
+assert.equal(mo[1].label, 'ago/26');
+// insere mês fora de ordem → reordena por ym
+mo = upsertMonthly(mo, '2026-06', 20, 4200);
+assert.deepEqual(mo.map((e) => e.ym), ['2026-06', '2026-07', '2026-08']);
+// arredonda pra 2 casas (evita ruído de float)
+assert.equal(upsertMonthly([], '2026-09', 12.3456, 5000.999)[0].cum_usd, 12.35);
+assert.equal(upsertMonthly([], '2026-09', 12.3456, 5000.999)[0].bal, 5001);
 
 console.log('OK — todos os testes offline passaram.');

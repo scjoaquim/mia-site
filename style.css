@@ -257,6 +257,28 @@ li { margin-bottom: 6px; }
 .badge.pill-green { color: var(--green); border-color: var(--green); background: rgba(0,255,136,0.08); }
 .badge.pill-cyan { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.08); }
 
+/* ─── GRÁFICO DE LUCRO MENSAL (PRO) ─────────────────────────── */
+.chart-wrap { width: 100%; overflow: hidden; }
+#pro-monthly-chart { width: 100%; height: auto; display: block; }
+.mc-bar { transform-box: fill-box; transform: scaleY(0); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.mc-bar.grown { transform: scaleY(1); }
+.mc-bar-pos { fill: var(--green); }
+.mc-bar-neg { fill: var(--red); }
+.mc-val, .mc-pct, .mc-lbl { opacity: 0; transition: opacity .35s ease; }
+.mc-val.show, .mc-pct.show, .mc-lbl.show { opacity: 1; }
+.mc-val { font-size: 16px; fill: var(--amber-bright); font-weight: bold; }
+.mc-val.neg { fill: var(--red); }
+.mc-pct { font-size: 15px; fill: var(--amber); }
+.mc-pct.neg { fill: var(--red); }
+.mc-lbl { font-size: 12px; fill: var(--amber-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.mc-zero { stroke: var(--border-bright); stroke-width: 1; }
+.mc-ghost { fill: none; stroke: var(--border-bright); stroke-dasharray: 3 3; stroke-width: 1; }
+.mc-ghost-lbl { font-size: 10px; fill: #2c5a35; }
+@media (prefers-reduced-motion: reduce) {
+  .mc-bar { transition: none; transform: scaleY(1) !important; }
+  .mc-val, .mc-pct, .mc-lbl { transition: none; opacity: 1 !important; }
+}
+
 /* ─── KPI TILES (estilo overview do dashboard) ─────────────── */
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .kpi {

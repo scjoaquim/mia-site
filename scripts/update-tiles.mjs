@@ -189,6 +189,32 @@ export function fmtSignedUsd(n, decimals) {
   return sign + 'US$ ' + Math.abs(n).toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
+// --- gráfico de lucro mês a mês (PRO) ---------------------------------------
+// Acumula, por mês, o LUCRO CUMULATIVO da conta (campo "Profit" da MQL5) e o
+// SALDO no último run daquele mês. O front-end deriva o lucro DO mês = cumulativo
+// do mês − cumulativo do mês anterior. Só PRO (decisão do Joaquim).
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+
+export function monthLabel(ym) {
+  const parts = String(ym).split('-');
+  const mi = parseInt(parts[1], 10) - 1;
+  if (!(mi >= 0 && mi <= 11)) return String(ym);
+  return MESES[mi] + '/' + parts[0].slice(-2);
+}
+
+// upsert do mês corrente: se já existe entrada do mês, atualiza; senão adiciona.
+// Mantém ordenado por ym. Guarda números (2 casas) pra o front derivar o delta.
+export function upsertMonthly(list, ym, cumUsd, bal) {
+  const round2 = (n) => (n == null ? null : Math.round(n * 100) / 100);
+  const out = Array.isArray(list) ? list.map((e) => ({ ...e })) : [];
+  const entry = { ym: ym, label: monthLabel(ym), cum_usd: round2(cumUsd), bal: round2(bal) };
+  const idx = out.findIndex((e) => e.ym === ym);
+  if (idx >= 0) out[idx] = entry;
+  else out.push(entry);
+  out.sort((a, b) => (a.ym < b.ym ? -1 : a.ym > b.ym ? 1 : 0));
+  return out;
+}
+
 async function loadExisting() {
   try {
     const txt = await readFile(DATA_JSON_PATH, 'utf8');
@@ -238,7 +264,8 @@ async function buildSignal(key, { id, label }, previous) {
   if (critical) console.error(`[${label}] FALHA CRÍTICA: nenhum campo veio ao vivo nesta rodada.`);
 
   console.log(`[${label}] ${JSON.stringify(result)}`);
-  return { result, critical };
+  // raw = números crus (pro gráfico mensal): lucro cumulativo e saldo
+  return { result, critical, raw: { balance: widget.balance, profitUsd: full.profitUsd } };
 }
 
 async function main() {
@@ -249,6 +276,17 @@ async function main() {
     buildSignal('essential', SIGNALS.essential, previous),
   ]);
 
+  // Gráfico de lucro mês a mês (só PRO): upsert do mês corrente com o lucro
+  // cumulativo + saldo. Mês corrente em UTC (o runner do GitHub roda em UTC).
+  const now = new Date();
+  const ym = now.getUTCFullYear() + '-' + String(now.getUTCMonth() + 1).padStart(2, '0');
+  let proMonthly = Array.isArray(previous.pro_monthly) ? previous.pro_monthly : [];
+  if (proOut.raw.profitUsd != null && proOut.raw.balance != null) {
+    proMonthly = upsertMonthly(proMonthly, ym, proOut.raw.profitUsd, proOut.raw.balance);
+  } else {
+    console.warn('[PRO] sem lucro/saldo ao vivo nesta rodada — pro_monthly mantido como estava.');
+  }
+
   // Só avança o "generated_at" se algum número realmente mudou. Isso evita
   // um commit novo a cada rodada do cron quando nada mudou na MQL5 (ex.:
   // conta parada, ou falha crítica caindo 100% no fallback) — o passo
@@ -256,12 +294,14 @@ async function main() {
   // diferença de verdade.
   const unchanged =
     JSON.stringify(proOut.result) === JSON.stringify(previous.pro || {}) &&
-    JSON.stringify(essentialOut.result) === JSON.stringify(previous.essential || {});
+    JSON.stringify(essentialOut.result) === JSON.stringify(previous.essential || {}) &&
+    JSON.stringify(proMonthly) === JSON.stringify(previous.pro_monthly || []);
 
   const data = {
     generated_at: unchanged && previous.generated_at ? previous.generated_at : new Date().toISOString(),
     pro: proOut.result,
     essential: essentialOut.result,
+    pro_monthly: proMonthly,
   };
 
   await writeFile(DATA_JSON_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
