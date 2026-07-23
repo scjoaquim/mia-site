@@ -29,7 +29,7 @@ body {
   background: var(--bg);
   color: var(--amber);
   font-family: 'Share Tech Mono', 'Courier New', monospace;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   position: relative;
   min-height: 100vh;
@@ -118,7 +118,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: 40px 20px 60px; }
 }
 h1 { font-size: 28px; letter-spacing: 1px; color: var(--amber-bright); text-shadow: 0 0 10px var(--amber), 0 0 20px rgba(0,224,64,0.5); margin-bottom: 14px; }
 h2 { font-size: 19px; letter-spacing: 1px; color: var(--amber-bright); margin-bottom: 14px; }
-h3 { font-size: 15px; letter-spacing: 0.5px; color: var(--amber-bright); margin-bottom: 8px; }
+h3 { font-size: 16px; letter-spacing: 0.5px; color: var(--amber-bright); margin-bottom: 8px; }
 p { margin-bottom: 14px; color: var(--amber); }
 p.muted, span.muted, li.muted { color: var(--amber-dim); }
 strong { color: var(--white); }
@@ -129,7 +129,7 @@ li { margin-bottom: 6px; }
 .hero { text-align: center; padding: 50px 10px 30px; border-bottom: 1px solid var(--border); }
 .hero .kicker { font-size: 12px; letter-spacing: 4px; color: var(--amber-dim); margin-bottom: 16px; text-transform: uppercase; }
 .hero h1 { font-size: 34px; }
-.hero p.lead { max-width: 640px; margin: 0 auto 26px; color: var(--amber-bright); font-size: 16px; }
+.hero p.lead { max-width: 640px; margin: 0 auto 26px; color: var(--amber-bright); font-size: 18px; }
 .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
 
 /* ─── BUTTONS ───────────────────────────────────────────────── */
