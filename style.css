@@ -48,6 +48,18 @@ body::after {
   z-index: 9999;
 }
 
+/* Chuva Matrix de fundo (injetada pelo script.js, site inteiro).
+   Fica atrás de tudo — os painéis/header opacos cobrem ela normalmente,
+   só aparece nos vãos/margens como textura. */
+#matrix-rain {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+}
+
 a { color: var(--cyan); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -191,7 +203,17 @@ li { margin-bottom: 6px; }
   font-size: 11px; letter-spacing: 2px; color: var(--amber-dim); text-transform: uppercase;
   display: flex; justify-content: space-between; align-items: center;
 }
+.panel-head .name { display: flex; align-items: center; gap: 8px; }
 .panel-body { padding: 20px; }
+
+/* Indicador "LIVE" pulsante (painéis de resultado ao vivo) */
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); position: relative; flex: none; display: inline-block; }
+.live-dot::after {
+  content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid var(--green);
+  animation: live-dot-ping 1.6s cubic-bezier(0,0,0.2,1) infinite;
+}
+@keyframes live-dot-ping { 0% { transform: scale(0.6); opacity: 0.9; } 75%, 100% { transform: scale(2.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .live-dot::after { animation: none; } }
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
