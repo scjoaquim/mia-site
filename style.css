@@ -149,9 +149,7 @@ li { margin-bottom: 6px; }
 @keyframes tw-blink { 50% { opacity: 0; } }
 
 /* Linha "SISTEMA ATIVO · atualizado há X" — escondida até o data.json carregar */
-.live-status { display: none; align-items: center; gap: 9px; font-size: 12px; letter-spacing: 1px; color: var(--amber-dim); border: 1px solid var(--border); background: rgba(0,20,4,0.6); padding: 6px 14px; margin: 0 auto 22px; }
-.live-status.on { display: inline-flex; }
-.live-status b { color: var(--amber-bright); font-weight: normal; }
+.live-status { display: inline-flex; align-items: center; gap: 9px; font-size: 12px; letter-spacing: 1px; color: var(--amber-dim); border: 1px solid var(--border); background: rgba(0,20,4,0.6); padding: 6px 14px; margin: 0 auto 22px; }
 .live-status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); position: relative; flex: none; }
 .live-status .dot::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid var(--green); animation: live-dot-ping 1.6s cubic-bezier(0,0,0.2,1) infinite; }
 
