@@ -1,0 +1,46 @@
+name: Atualizar tiles de resultados (MQL5)
+
+# Busca os números ao vivo dos sinais MQL5 (PRO + Essential), regrava
+# data.json e comita sozinho — a página resultados.html lê esse arquivo.
+# Ver scripts/update-tiles.mjs para a extração/formatação.
+
+on:
+  schedule:
+    # a cada 20 minutos. Pra mudar a frequência, edite só esta linha
+    # (formato cron padrão, em UTC).
+    - cron: '*/20 * * * *'
+  workflow_dispatch: {} # permite rodar manualmente pela aba Actions, pra testar
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-tiles
+  cancel-in-progress: false
+
+jobs:
+  update-tiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Buscar números e atualizar data.json
+        run: node scripts/update-tiles.mjs
+
+      - name: Commitar se houve mudança
+        run: |
+          if git diff --quiet -- data.json; then
+            echo "Sem mudanças em data.json — nada a commitar."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "chore: atualizar tiles de resultados (auto)"
+          git push

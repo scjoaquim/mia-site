@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-07-23T11:57:20.581Z",
+  "pro": {
+    "balance": "US$ 4.321",
+    "growth": "+0,69%",
+    "growth_positive": true,
+    "dd": "11,25%",
+    "trades": "110",
+    "win_rate": "37%",
+    "profit_factor": "1,02"
+  },
+  "essential": {
+    "balance": "US$ 2.010",
+    "growth": "−4,86%",
+    "growth_positive": false,
+    "dd": "5,77%",
+    "trades": "30",
+    "win_rate": "23%",
+    "profit_factor": "0,58"
+  }
+}
