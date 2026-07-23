@@ -6,9 +6,9 @@ name: Atualizar tiles de resultados (MQL5)
 
 on:
   schedule:
-    # a cada 20 minutos. Pra mudar a frequência, edite só esta linha
+    # de hora em hora. Pra mudar a frequência, edite só esta linha
     # (formato cron padrão, em UTC).
-    - cron: '*/20 * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch: {} # permite rodar manualmente pela aba Actions, pra testar
 
 permissions:
