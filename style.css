@@ -231,6 +231,7 @@ li { margin-bottom: 6px; }
 }
 .kpi .k-val.pos { color: var(--green); text-shadow: 0 0 8px rgba(0,255,136,0.35); }
 .kpi .k-val.neg { color: var(--red); text-shadow: 0 0 8px rgba(255,48,48,0.35); }
+.kpi .k-sub { font-size: 11px; color: var(--amber-dim); margin-top: 2px; }
 .snapshot-note { font-size: 11px; color: var(--amber-dim); margin-top: 9px; }
 
 /* ─── STEPS ─────────────────────────────────────────────────── */

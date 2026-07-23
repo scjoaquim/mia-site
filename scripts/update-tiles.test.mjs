@@ -8,11 +8,13 @@ import {
   extractWidget,
   extractFullPage,
   findDataColumnValue,
+  findListInfoValue,
   fmtBalance,
   fmtSignedPct,
   fmtPct,
   fmtInt,
   fmtDecimal,
+  fmtSignedUsd,
 } from './update-tiles.mjs';
 
 // --- amostra do WIDGET (estrutura real: h3>span pro saldo, dl/dt/dd pro resto) ---
@@ -54,8 +56,19 @@ function dataColumnsItem(label, value, title) {
               </div>`;
 }
 
+// bloco de topo (Balance/Growth/Profit/Equity/...), estrutura real: s-list-info__item
+function listInfoItem(label, value) {
+  return `<div class="s-list-info__item">
+            <div class="s-list-info__label">${label}</div>
+            <div class="s-list-info__value">${value}</div>
+          </div>`;
+}
+
 const fullPagePro = `
 <html><body>
+${listInfoItem('Growth: ', '0.69%')}
+${listInfoItem('Profit: ', '135.94 USD')}
+${listInfoItem('Balance: ', '4 321.23 USD')}
 ${dataColumnsItem('Trades:', '110')}
 ${dataColumnsItem('Profit Trades:', '41 (37.27%)')}
 ${dataColumnsItem('Loss Trades:', '69 (62.73%)')}
@@ -71,11 +84,25 @@ ${dataColumnsItem('By Equity:', '1.45% (62.58 USD)')}
 
 const fullPageEssential = `
 <html><body>
+${listInfoItem('Growth: ', '-4.86%')}
+${listInfoItem('Profit: ', '-101.32 USD')}
+${listInfoItem('Balance: ', '1 983.50 USD')}
 ${dataColumnsItem('Trades:', '30')}
 ${dataColumnsItem('Profit Trades:', '7 (23.33%)')}
 ${dataColumnsItem('Profit Factor:', '0.58')}
 ${dataColumnsItem('Absolute:', '101.32 USD')}
 ${dataColumnsItem('Maximal:', '121.38 USD (5.77%)')}
+</body></html>`;
+
+// página completa "velha" (sem bloco s-list-info de Profit — sinal maduro, a
+// MQL5 parou de mostrar esses campos extras). extractFullPage não pode quebrar.
+const fullPageNoProfitField = `
+<html><body>
+${dataColumnsItem('Trades:', '500')}
+${dataColumnsItem('Profit Trades:', '200 (40.00%)')}
+${dataColumnsItem('Profit Factor:', '1.30')}
+${dataColumnsItem('Absolute:', '50.00 USD')}
+${dataColumnsItem('Maximal:', '300.00 USD (7.50%)')}
 </body></html>`;
 
 // --- parseNum ---
@@ -106,11 +133,24 @@ const fPro = extractFullPage(fullPagePro, 'PRO');
 assert.equal(fPro.dd, 11.25);
 assert.equal(fPro.winRate, 37.27);
 assert.equal(fPro.profitFactor, 1.02);
+assert.equal(fPro.profitUsd, 135.94);
 
 const fEss = extractFullPage(fullPageEssential, 'Essential');
 assert.equal(fEss.dd, 5.77);
 assert.equal(fEss.winRate, 23.33);
 assert.equal(fEss.profitFactor, 0.58);
+assert.equal(fEss.profitUsd, -101.32);
+
+// --- findListInfoValue ---
+assert.equal(findListInfoValue(fullPagePro, 'Profit:'), '135.94 USD');
+assert.equal(findListInfoValue(fullPageEssential, 'Profit:'), '-101.32 USD');
+
+// --- página "madura" sem o bloco de Profit: não deve quebrar, só ficar null ---
+const fOld = extractFullPage(fullPageNoProfitField, 'Old');
+assert.equal(fOld.profitUsd, null);
+assert.equal(fOld.dd, 7.5);
+assert.equal(fOld.winRate, 40);
+assert.equal(fOld.profitFactor, 1.3);
 
 // --- formatação (padrão pt-BR usado no site) ---
 assert.equal(fmtBalance(4321.23), 'US$ 4.321');
@@ -122,5 +162,8 @@ assert.equal(fmtPct(11.25, 2), '11,25%');
 assert.equal(fmtInt(110), '110');
 assert.equal(fmtDecimal(1.02, 2), '1,02');
 assert.equal(fmtDecimal(0.58, 2), '0,58');
+assert.equal(fmtSignedUsd(135.94, 2), '+US$ 135,94');
+assert.equal(fmtSignedUsd(-101.32, 2), '−US$ 101,32'); // U+2212
+assert.equal(fmtSignedUsd(0, 2), '+US$ 0,00');
 
 console.log('OK — todos os testes offline passaram.');

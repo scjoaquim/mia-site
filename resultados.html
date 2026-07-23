@@ -17,10 +17,10 @@
     </a>
     <nav class="mainnav">
       <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="resultados.html" data-nav class="active"><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
       <a href="como-copiar.html" data-nav><span class="lang-pt">Como copiar</span><span class="lang-en">How-to</span></a>
       <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
-      <a href="resultados.html" data-nav class="active"><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="faq.html" data-nav>FAQ</a>
       <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
       <span class="langsw">
@@ -50,7 +50,7 @@
         <div class="panel-body">
           <div class="kpi-grid">
             <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo</span><span class="lang-en">Balance</span></div><div class="k-val" id="pro-balance">US$ 4.488</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento</span><span class="lang-en">Growth</span></div><div class="k-val pos" id="pro-growth">+4,75%</div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento</span><span class="lang-en">Growth</span></div><div class="k-val pos" id="pro-growth">+4,75%</div><div class="k-sub" id="pro-growth-usd">+US$ 199,50</div></div>
             <div class="kpi"><div class="k-label"><span class="lang-pt">DD máx</span><span class="lang-en">Max DD</span></div><div class="k-val" id="pro-dd">11,25%</div></div>
             <div class="kpi"><div class="k-label"><span class="lang-pt">Operações</span><span class="lang-en">Trades</span></div><div class="k-val" id="pro-trades">97</div></div>
             <div class="kpi"><div class="k-label"><span class="lang-pt">Acerto</span><span class="lang-en">Win rate</span></div><div class="k-val" id="pro-winrate">39%</div></div>
@@ -76,7 +76,7 @@
         <div class="panel-body">
           <div class="kpi-grid">
             <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo</span><span class="lang-en">Balance</span></div><div class="k-val" id="ess-balance">US$ 2.064</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento</span><span class="lang-en">Growth</span></div><div class="k-val neg" id="ess-growth">−1,93%</div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento</span><span class="lang-en">Growth</span></div><div class="k-val neg" id="ess-growth">−1,93%</div><div class="k-sub" id="ess-growth-usd">−US$ 40,24</div></div>
             <div class="kpi"><div class="k-label"><span class="lang-pt">DD máx</span><span class="lang-en">Max DD</span></div><div class="k-val" id="ess-dd">0,96%</div></div>
             <div class="kpi"><div class="k-label"><span class="lang-pt">Operações</span><span class="lang-en">Trades</span></div><div class="k-val" id="ess-trades">24</div></div>
             <div class="kpi"><div class="k-label"><span class="lang-pt">Acerto</span><span class="lang-en">Win rate</span></div><div class="k-val" id="ess-winrate">33%</div></div>
@@ -106,8 +106,8 @@
       <div class="panel">
         <div class="panel-head">Growth</div>
         <div class="panel-body">
-          <p class="lang-pt" style="margin:0">Retorno % encadeado da conta, ajustado por depósitos e saques. Um aporte grande distorce a curva — leia junto com as semanas ativas e o nº de operações.</p>
-          <p class="lang-en" style="margin:0">The account's compounded % return, adjusted for deposits and withdrawals. A big deposit distorts the curve — read it alongside weeks active and number of trades.</p>
+          <p class="lang-pt" style="margin:0">Retorno % encadeado da conta, ajustado por depósitos e saques. O valor em US$ ao lado é o lucro/prejuízo líquido absoluto no período. Um aporte grande distorce a curva — leia junto com as semanas ativas e o nº de operações.</p>
+          <p class="lang-en" style="margin:0">The account's compounded % return, adjusted for deposits and withdrawals. The USD figure next to it is the absolute net profit/loss for the period. A big deposit distorts the curve — read it alongside weeks active and number of trades.</p>
         </div>
       </div>
       <div class="panel">
@@ -167,6 +167,7 @@
     if (!d) return;
     setText(prefix + '-balance', d.balance);
     setText(prefix + '-growth', d.growth);
+    setText(prefix + '-growth-usd', d.growth_usd);
     setText(prefix + '-dd', d.dd);
     setText(prefix + '-trades', d.trades);
     setText(prefix + '-winrate', d.win_rate);

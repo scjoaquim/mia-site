@@ -85,8 +85,23 @@ export function findDataColumnValue(html, labelText) {
   return m ? m[1].trim() : null;
 }
 
+// Igual ao anterior, mas pro bloco de topo "s-list-info__label"/"s-list-info__value"
+// (Balance/Growth/Profit/Equity/Initial Deposit — o mesmo bloco que também mostra
+// no widget, só que com mais campos na página completa).
+export function findListInfoValue(html, labelText) {
+  const escaped = labelText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(
+    `${classAttr('s-list-info__label')}[^>]*>\\s*${escaped}\\s*<\\/div>\\s*<div\\s+${classAttr(
+      's-list-info__value'
+    )}[^>]*>([\\s\\S]{0,120}?)<\\/div>`,
+    'i'
+  );
+  const m = html.match(re);
+  return m ? m[1].trim() : null;
+}
+
 export function extractFullPage(html, label) {
-  const out = { dd: null, winRate: null, profitFactor: null };
+  const out = { dd: null, winRate: null, profitFactor: null, profitUsd: null };
 
   const profitTradesRaw = findDataColumnValue(html, 'Profit Trades:');
   if (profitTradesRaw) {
@@ -108,6 +123,18 @@ export function extractFullPage(html, label) {
     if (m) out.profitFactor = parseNum(m[1]);
   }
   if (out.profitFactor == null) console.warn(`[${label}] página completa: não achei Profit Factor`);
+
+  // "Profit:" = lucro/prejuízo líquido em USD no período (ajustado por
+  // depósitos/saques) — é o campo que a MQL5 mostra ao lado de Growth/Balance
+  // pra contas ainda "jovens". Se sumir (conta mais velha, MQL5 muda o que
+  // mostra), o front-end simplesmente não exibe o valor em US$ — não é campo
+  // crítico, só um complemento do Crescimento em %.
+  const profitRaw = findListInfoValue(html, 'Profit:');
+  if (profitRaw) {
+    const m = profitRaw.match(/(-?[\d.,\s ]+)\s*USD/i);
+    if (m) out.profitUsd = parseNum(m[1]);
+  }
+  if (out.profitUsd == null) console.warn(`[${label}] página completa: não achei Profit (US$) — campo não crítico, ok se sumir`);
 
   return out;
 }
@@ -140,6 +167,12 @@ export function fmtDecimal(n, decimals) {
   return n.toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
+export function fmtSignedUsd(n, decimals) {
+  if (n == null) return null;
+  const sign = n < 0 ? '−' : '+'; // U+2212, igual ao já usado no site
+  return sign + 'US$ ' + Math.abs(n).toLocaleString('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
 async function loadExisting() {
   try {
     const txt = await readFile(DATA_JSON_PATH, 'utf8');
@@ -152,7 +185,7 @@ async function loadExisting() {
 async function buildSignal(key, { id, label }, previous) {
   const prev = previous?.[key] || {};
   let widget = { balance: null, growth: null, trades: null };
-  let full = { dd: null, winRate: null, profitFactor: null };
+  let full = { dd: null, winRate: null, profitFactor: null, profitUsd: null };
 
   try {
     const widgetHtml = await fetchText(`https://www.mql5.com/en/signals/widget/${id}?t=dark&fw=html`);
@@ -168,12 +201,13 @@ async function buildSignal(key, { id, label }, previous) {
     console.warn(`[${label}] falha ao buscar a página completa: ${err.message}`);
   }
 
-  const liveFields = [widget.balance, widget.growth, widget.trades, full.dd, full.winRate, full.profitFactor];
+  const liveFields = [widget.balance, widget.growth, widget.trades, full.dd, full.winRate, full.profitFactor, full.profitUsd];
   const liveCount = liveFields.filter((v) => v != null).length;
 
   const result = {
     balance: widget.balance != null ? fmtBalance(widget.balance) : prev.balance ?? null,
     growth: widget.growth != null ? fmtSignedPct(widget.growth, 2) : prev.growth ?? null,
+    growth_usd: full.profitUsd != null ? fmtSignedUsd(full.profitUsd, 2) : prev.growth_usd ?? null,
     growth_positive: widget.growth != null ? widget.growth >= 0 : prev.growth_positive ?? true,
     dd: full.dd != null ? fmtPct(full.dd, 2) : prev.dd ?? null,
     trades: widget.trades != null ? fmtInt(widget.trades) : prev.trades ?? null,
