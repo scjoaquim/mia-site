@@ -89,3 +89,104 @@
   resize();
   start();
 })();
+
+// ─── Efeitos "terminal ao vivo" (typewriter, decode ao rolar, status) ──────
+// Todos são progressivos: se o JS não rodar ou o visitante pedir "reduzir
+// movimento", o conteúdo continua legível/estático. Nada aqui inventa dado —
+// o decode só embaralha até o MESMO texto que já está no HTML, e a linha de
+// status usa o horário real do data.json.
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CIPHER = '0123456789$US%,.~−+ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  // 1. DIGITAÇÃO — elementos com [data-typewriter] são "digitados" ao carregar
+  function typewriter(el) {
+    var full = el.textContent;
+    if (reduce || !full) { return; }
+    el.textContent = '';
+    var cursor = document.createElement('span');
+    cursor.className = 'tw-cursor';
+    cursor.textContent = '█';
+    el.appendChild(cursor);
+    var i = 0;
+    var timer = setInterval(function () {
+      i++;
+      cursor.insertAdjacentText('beforebegin', full[i - 1]);
+      if (i >= full.length) {
+        clearInterval(timer);
+        setTimeout(function () { if (cursor.parentNode) cursor.remove(); }, 1400);
+      }
+    }, 70);
+  }
+  document.querySelectorAll('[data-typewriter]').forEach(typewriter);
+
+  // 2. DECODE ao rolar — .js-decode embaralha até o próprio texto quando entra
+  //    na tela (uma vez). Mesmo efeito dos tiles de Resultados.
+  function decode(el, dur) {
+    var target = el.getAttribute('data-final');
+    if (target == null) { target = el.textContent; el.setAttribute('data-final', target); }
+    if (reduce) { el.textContent = target; return; }
+    dur = dur || 700;
+    var len = target.length, startT = performance.now();
+    function frame(now) {
+      var t = Math.min(1, (now - startT) / dur);
+      var locked = Math.floor(t * len), out = '';
+      for (var j = 0; j < len; j++) {
+        if (j < locked || target[j] === ' ') out += target[j];
+        else out += CIPHER[(Math.random() * CIPHER.length) | 0];
+      }
+      el.textContent = out;
+      if (t < 1) requestAnimationFrame(frame);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(frame);
+  }
+  var decodeEls = document.querySelectorAll('.js-decode');
+  if (decodeEls.length && !reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var el = e.target;
+          io.unobserve(el);
+          setTimeout(function () { decode(el); }, (+el.getAttribute('data-decode-delay') || 0));
+        }
+      });
+    }, { threshold: 0.6 });
+    decodeEls.forEach(function (el) { io.observe(el); });
+  }
+
+  // 3. LINHA DE STATUS — "SISTEMA ATIVO · atualizado há X" com horário real do
+  //    data.json. Fica escondida por padrão; só aparece se o fetch der certo.
+  function relTime(iso, en) {
+    var then = new Date(iso).getTime();
+    if (isNaN(then)) return null;
+    var min = Math.max(0, Math.round((Date.now() - then) / 60000));
+    if (min < 1) return en ? 'moments ago' : 'agora mesmo';
+    if (min < 60) return en ? min + ' min ago' : 'há ' + min + ' min';
+    var h = Math.round(min / 60);
+    if (h < 24) return en ? h + 'h ago' : 'há ' + h + ' h';
+    var d = Math.round(h / 24);
+    return en ? d + 'd ago' : 'há ' + d + ' d';
+  }
+  var statusEls = document.querySelectorAll('[data-live-status]');
+  if (statusEls.length) {
+    var fillStatus = function () {
+      fetch('data.json?t=' + Date.now(), { cache: 'no-store' })
+        .then(function (res) { if (!res.ok) throw 0; return res.json(); })
+        .then(function (data) {
+          if (!data.generated_at) throw 0;
+          statusEls.forEach(function (s) {
+            s.querySelectorAll('[data-live-ago]').forEach(function (b) {
+              var en = !!b.closest('.lang-en');
+              var txt = relTime(data.generated_at, en);
+              if (txt) b.textContent = txt;
+            });
+            s.classList.add('on');
+          });
+        })
+        .catch(function () { /* sem data.json → linha fica escondida, sem erro visível */ });
+    };
+    fillStatus();
+    setInterval(function () { if (!document.hidden) fillStatus(); }, 60000);
+  }
+})();

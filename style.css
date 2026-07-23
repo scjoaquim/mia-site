@@ -140,9 +140,31 @@ li { margin-bottom: 6px; }
 /* ─── HERO ──────────────────────────────────────────────────── */
 .hero { text-align: center; padding: 50px 10px 30px; border-bottom: 1px solid var(--border); }
 .hero .kicker { font-size: 12px; letter-spacing: 4px; color: var(--amber-dim); margin-bottom: 16px; text-transform: uppercase; }
-.hero h1 { font-size: 34px; }
+.hero h1 { font-size: 34px; min-height: 42px; }
 .hero p.lead { max-width: 640px; margin: 0 auto 26px; color: var(--amber-bright); font-size: 18px; }
 .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+
+/* Cursor da digitação (efeito terminal no título do hero) */
+.tw-cursor { display: inline-block; color: var(--amber); font-weight: normal; animation: tw-blink 1s step-end infinite; }
+@keyframes tw-blink { 50% { opacity: 0; } }
+
+/* Linha "SISTEMA ATIVO · atualizado há X" — escondida até o data.json carregar */
+.live-status { display: none; align-items: center; gap: 9px; font-size: 12px; letter-spacing: 1px; color: var(--amber-dim); border: 1px solid var(--border); background: rgba(0,20,4,0.6); padding: 6px 14px; margin: 0 auto 22px; }
+.live-status.on { display: inline-flex; }
+.live-status b { color: var(--amber-bright); font-weight: normal; }
+.live-status .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); position: relative; flex: none; }
+.live-status .dot::after { content: ''; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid var(--green); animation: live-dot-ping 1.6s cubic-bezier(0,0,0.2,1) infinite; }
+
+/* Glow "respirando" nos CTAs principais (classe .pulse, aplicada seletivamente) */
+.btn.pulse { animation: cta-pulse 2.6s ease-in-out infinite; }
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(0,224,64,0); }
+  50% { box-shadow: 0 0 16px rgba(0,224,64,0.5); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.pulse { animation: none; }
+  .live-status .dot::after { animation: none; }
+}
 
 /* ─── BUTTONS ───────────────────────────────────────────────── */
 .btn {
