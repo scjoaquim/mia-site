@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAQ · MIA Trading System</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -51,8 +51,8 @@
       <div class="faq-q lang-pt">A MIA tem acesso ao meu dinheiro? Isso é gestão de recursos de terceiros?</div>
       <div class="faq-q lang-en">Does MIA have access to my money? Is this third-party asset management?</div>
       <div class="faq-a">
-        <p class="lang-pt" style="margin:0"><strong>Não.</strong> A cópia via MQL5 Signals é uma assinatura de informação: sua conta continua sendo sua, na sua corretora, com sua senha. A MIA nunca recebe, movimenta ou custodia o seu capital — ela apenas publica um sinal que o seu próprio terminal escolhe replicar. Você pode pausar a cópia ou cancelar a assinatura a qualquer momento.</p>
-        <p class="lang-en" style="margin:0"><strong>No.</strong> Copying via MQL5 Signals is an information subscription: your account remains yours, at your broker, with your password. MIA never receives, moves, or holds custody of your funds — it only publishes a signal that your own terminal chooses to replicate. You can pause copying or cancel the subscription at any time.</p>
+        <p class="lang-pt" style="margin:0"><strong>Não.</strong> Sua conta é sua, na sua corretora, com sua senha. A MIA só publica um sinal que o seu terminal replica — e você pausa ou cancela quando quiser.</p>
+        <p class="lang-en" style="margin:0"><strong>No.</strong> Your account is yours, at your broker, with your password. MIA only publishes a signal that your terminal replicates — and you pause or cancel whenever you want.</p>
       </div>
     </div>
 
@@ -69,8 +69,8 @@
       <div class="faq-q lang-pt">Por que existe um depósito mínimo recomendado?</div>
       <div class="faq-q lang-en">Why is there a recommended minimum deposit?</div>
       <div class="faq-a">
-        <p class="lang-pt" style="margin:0">O MQL5 escala o volume das operações pela proporção entre o seu saldo e o saldo da conta-provedora. Se sua conta for pequena demais, essa escala cai abaixo do lote mínimo permitido — e a plataforma arredonda para cima, fazendo você arriscar proporcionalmente <em>mais</em> do que a carteira original arrisca. O valor recomendado de cada produto (Essential: US$2.000 · PRO: US$4.000) é o ponto a partir do qual essa distorção deixa de acontecer.</p>
-        <p class="lang-en" style="margin:0">MQL5 scales trade volume by the ratio between your balance and the provider account's balance. If your account is too small, that scale falls below the broker's minimum lot — and the platform rounds up, making you risk proportionally <em>more</em> than the original portfolio risks. Each product's recommended value (Essential: US$2,000 · PRO: US$4,000) is the point above which this distortion stops happening.</p>
+        <p class="lang-pt" style="margin:0">O MQL5 escala o volume das operações pela proporção entre o seu saldo e o saldo da conta-provedora. Se sua conta for pequena demais, essa escala cai abaixo do lote mínimo permitido — e a plataforma arredonda para cima, fazendo você arriscar proporcionalmente <em>mais</em> do que a carteira original arrisca. O valor recomendado de cada produto (Essential: <span data-deposit="essential.rec">US$ 2.000</span> · PRO: <span data-deposit="pro.rec">US$ 4.000</span>) é o ponto a partir do qual essa distorção deixa de acontecer.</p>
+        <p class="lang-en" style="margin:0">MQL5 scales trade volume by the ratio between your balance and the provider account's balance. If your account is too small, that scale falls below the broker's minimum lot — and the platform rounds up, making you risk proportionally <em>more</em> than the original portfolio risks. Each product's recommended value (Essential: <span data-deposit="essential.rec">US$ 2,000</span> · PRO: <span data-deposit="pro.rec">US$ 4,000</span>) is the point above which this distortion stops happening.</p>
       </div>
     </div>
 
@@ -78,8 +78,8 @@
       <div class="faq-q lang-pt">Qual corretora devo usar?</div>
       <div class="faq-q lang-en">Which broker should I use?</div>
       <div class="faq-a">
-        <p class="lang-pt" style="margin:0">Recomendamos uma conta <strong>Exness Pro</strong> — o mesmo tipo de conta em que os sinais operam, o que minimiza o slippage de cópia. Para o PRO, uma conta Standard também é aceitável (testada e validada). Usar uma corretora diferente é possível, mas pode exigir mapeamento manual de símbolos e gerar mais divergência frente ao histórico publicado.</p>
-        <p class="lang-en" style="margin:0">We recommend an <strong>Exness Pro</strong> account — the same account type the signals run on, which minimizes copy slippage. For PRO, a Standard account is also acceptable (tested and validated). Using a different broker is possible, but may require manual symbol mapping and produce more divergence from the published track record.</p>
+        <p class="lang-pt" style="margin:0">Recomendamos uma conta <strong>Exness Pro</strong> — o mesmo tipo de conta em que os sinais operam, o que minimiza o slippage de cópia. Usar uma corretora diferente é possível, mas pode exigir mapeamento manual de símbolos e gerar mais divergência frente ao histórico publicado.</p>
+        <p class="lang-en" style="margin:0">We recommend an <strong>Exness Pro</strong> account — the same account type the signals run on, which minimizes copy slippage. Using a different broker is possible, but may require manual symbol mapping and produce more divergence from the published track record.</p>
       </div>
     </div>
 
@@ -102,6 +102,19 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="panel">
+      <div class="panel-head"><span class="lang-pt">Quer começar?</span><span class="lang-en">Want to start?</span></div>
+      <div class="panel-body" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+        <p style="margin:0;flex:1;min-width:240px">
+          <span class="lang-pt">Entre no grupo do Telegram — conheça o sistema, tire dúvidas e comece a copiar com a gente.</span>
+          <span class="lang-en">Join the Telegram group — get to know the system, ask questions and start copying with us.</span>
+        </p>
+        <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary pulse"><span class="lang-pt">Entrar no Telegram ↗</span><span class="lang-en">Join Telegram ↗</span></a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -112,6 +125,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=4"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>

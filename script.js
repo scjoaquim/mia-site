@@ -28,6 +28,21 @@
   });
 })();
 
+// ─── Fonte única dos depósitos ──────────────────────────────────────
+// Um só lugar define mínimo e recomendado de cada produto. Todo elemento
+// [data-deposit="produto.campo"] recebe o valor formatado no idioma atual.
+// O número já escrito no HTML é fallback — aparece igual mesmo sem JS.
+(function () {
+  var D = { essential: { min: 2000, rec: 2000 }, pro: { min: 4000, rec: 4000 } };
+  var en = document.body.classList.contains('lang-en');
+  function money(n) { return 'US$ ' + n.toLocaleString(en ? 'en-US' : 'pt-BR'); }
+  document.querySelectorAll('[data-deposit]').forEach(function (el) {
+    var p = el.getAttribute('data-deposit').split('.');
+    var v = D[p[0]] && D[p[0]][p[1]];
+    if (v != null) el.textContent = money(v);
+  });
+})();
+
 // ─── Chuva Matrix de fundo (site inteiro) ───────────────────────────
 // Textura decorativa, bem sutil (não é dado nenhum, só ambientação — fica
 // atrás dos painéis opacos, só aparece nos vãos/margens). Desliga sozinha
@@ -114,9 +129,9 @@
       cursor.insertAdjacentText('beforebegin', full[i - 1]);
       if (i >= full.length) {
         clearInterval(timer);
-        setTimeout(function () { if (cursor.parentNode) cursor.remove(); }, 1400);
+        setTimeout(function () { if (cursor.parentNode) cursor.remove(); }, 900);
       }
-    }, 70);
+    }, 40);
   }
   document.querySelectorAll('[data-typewriter]').forEach(typewriter);
 

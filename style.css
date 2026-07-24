@@ -8,6 +8,7 @@
   --amber: #00e040;
   --amber-dim: #008a28;
   --amber-bright: #80ff80;
+  --amber-2: #00c246;
   --amber-glow: rgba(0,224,64,0.14);
   --bg: #000800;
   --bg2: #000f02;
@@ -133,6 +134,7 @@ h2 { font-size: 19px; letter-spacing: 1px; color: var(--amber-bright); margin-bo
 h3 { font-size: 16px; letter-spacing: 0.5px; color: var(--amber-bright); margin-bottom: 8px; }
 p { margin-bottom: 14px; color: var(--amber); }
 p.muted, span.muted, li.muted { color: var(--amber-dim); }
+p.muted { color: var(--amber-2); }
 strong { color: var(--white); }
 ul, ol { padding-left: 22px; margin-bottom: 14px; }
 li { margin-bottom: 6px; }
@@ -345,13 +347,13 @@ table.cmp tr:hover td { background: var(--amber-glow); }
 }
 
 /* ─── FINEPRINT (aviso legal discreto) ─────────────────────── */
-.fineprint { font-size: 11px; color: var(--amber-dim); line-height: 1.65; }
+.fineprint { font-size: 11px; color: var(--amber-2); line-height: 1.65; }
 .fineprint b, .fineprint strong { color: var(--amber); font-weight: normal; }
 
 /* ─── FAQ ───────────────────────────────────────────────────── */
 .faq-item { border: 1px solid var(--border); background: var(--bg2); margin-bottom: 10px; }
 .faq-q { padding: 14px 16px; font-weight: bold; color: var(--amber-bright); }
-.faq-a { padding: 0 16px 16px; color: var(--amber-dim); }
+.faq-a { padding: 0 16px 16px; color: var(--amber-2); }
 .faq-a strong { color: var(--white); }
 
 /* ─── WARN / DISCLAIMER BOX ─────────────────────────────────── */

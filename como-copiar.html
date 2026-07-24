@@ -6,7 +6,7 @@
 <title>Como copiar · MIA Trading System</title>
 <meta name="description" content="Passo a passo para copiar a MIA Trading System via MQL5 + MetaTrader 5 — da criação da conta à cópia automática 24/7.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -98,8 +98,8 @@
         <div class="hc">
           <h3 class="lang-pt">Depositar na conta</h3>
           <h3 class="lang-en">Fund the account</h3>
-          <p class="lang-pt">Em Depositar, escolha o método disponível na sua região (PIX, cartão, cripto etc.). Deposite pelo menos o mínimo recomendado (seção de custos). O saldo fica na sua conta — a MIA não tem acesso a ele nem pode sacar; o sinal apenas replica ordens.</p>
-          <p class="lang-en">Under Deposit, choose the method available in your region (card, crypto, local methods). Deposit at least the recommended minimum (costs section). The balance stays in your account — MIA has no access to it and cannot withdraw; the signal only replicates orders.</p>
+          <p class="lang-pt">Em Depositar, escolha o método disponível na sua região (PIX, cartão, cripto etc.). Deposite pelo menos o mínimo recomendado (seção de custos). O saldo fica sempre na sua conta.</p>
+          <p class="lang-en">Under Deposit, choose the method available in your region (card, crypto, local methods). Deposit at least the recommended minimum (costs section). The balance always stays in your account.</p>
         </div>
       </div>
     </div>
@@ -282,14 +282,9 @@
         <td>US$ 100<span class="lang-pt">/mês</span><span class="lang-en">/mo</span></td>
       </tr>
       <tr>
-        <td class="lang-pt">Depósito mínimo</td><td class="lang-en">Minimum deposit</td>
-        <td>US$ 2.000</td>
-        <td>US$ 3.000</td>
-      </tr>
-      <tr>
-        <td class="lang-pt">Depósito recomendado</td><td class="lang-en">Recommended deposit</td>
-        <td>US$ 2.000</td>
-        <td>US$ 4.000</td>
+        <td class="lang-pt">Depósito mínimo recomendado</td><td class="lang-en">Recommended minimum deposit</td>
+        <td data-deposit="essential.rec">US$ 2.000</td>
+        <td data-deposit="pro.rec">US$ 4.000</td>
       </tr>
     </table>
     <p class="muted lang-pt" style="font-size:12px;margin-top:10px"><b>Por que existe um mínimo?</b> A estratégia opera vários instrumentos ao mesmo tempo, alguns com lote mínimo relativamente alto (ex.: ouro). Com pouco saldo, a proporção da cópia arredonda para cima e acaba arriscando mais do que o previsto. O mínimo existe justamente para a sua conta seguir a carteira com fidelidade e risco controlado.</p>
@@ -328,6 +323,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=4"></script>
+<script src="script.js?v=5"></script>
 </body>
 </html>
