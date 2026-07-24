@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-23T20:30:50.596Z",
+  "generated_at": "2026-07-24T00:14:55.074Z",
   "pro": {
-    "balance": "US$ 4.421",
+    "balance": "US$ 4.423",
     "growth": "+2,01%",
     "growth_usd": "+US$ 84,36",
     "growth_positive": true,
@@ -25,7 +25,7 @@
       "ym": "2026-07",
       "label": "jul/26",
       "cum_usd": 84.36,
-      "bal": 4421.13
+      "bal": 4422.59
     }
   ]
 }
