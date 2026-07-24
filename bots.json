@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-07-19T20:18:21Z",
+  "account": "PRO",
+  "balance_usd": 4415.1,
+  "bots": [
+    { "label": "XAU 5m BRO #18", "profit_usd": 252.33 },
+    { "label": "XAU 5m RUSH #17", "profit_usd": 169.30 },
+    { "label": "US500 5m #12", "profit_usd": 63.41 },
+    { "label": "US100 5m ANCHOR #11", "profit_usd": 44.08 },
+    { "label": "BTC 1h NAKA #01", "profit_usd": 6.51 },
+    { "label": "ETH 4h AETHER #06", "profit_usd": -1.03 },
+    { "label": "ETH 4h COMET #07", "profit_usd": -23.19 },
+    { "label": "ETH 5m VOLT #19", "profit_usd": -22.85 },
+    { "label": "Cobre 2h #04", "profit_usd": -23.57 },
+    { "label": "XAU 5m BARS #16", "profit_usd": -23.89 },
+    { "label": "TSLA 15m #09", "profit_usd": -29.53 },
+    { "label": "BTC 5m ECHO #03", "profit_usd": -45.42 },
+    { "label": "BTC 5m RONIN #02", "profit_usd": -45.80 }
+  ]
+}

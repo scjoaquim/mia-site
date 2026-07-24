@@ -118,6 +118,21 @@
   </section>
 
   <section class="section">
+    <div class="section-tag lang-pt">// Ranking da frota PRO — lucro por estratégia (ao vivo)</div>
+    <div class="section-tag lang-en">// PRO fleet ranking — profit by strategy (live)</div>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="name"><span class="live-dot"></span><span class="lang-pt">Lucro por bot · conta PRO</span><span class="lang-en">Profit per bot · PRO account</span></span>
+        <span class="badge pill-cyan">ao vivo · US$</span>
+      </div>
+      <div class="panel-body">
+        <div id="bot-ranking"></div>
+        <p class="muted" style="font-size:11px;margin:12px 4px 0"><span class="lang-pt">Lucro realizado de cada estratégia na conta PRO real, desde o início do sinal. Amostra ainda pequena — o sinal é novo. Atualiza automaticamente.</span><span class="lang-en">Realized profit of each strategy on the live PRO account, since the signal's start. Still a small sample — the signal is new. Updates automatically.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="section-tag lang-pt">// Como ler as métricas</div>
     <div class="section-tag lang-en">// How to read the metrics</div>
     <div class="grid-2">
@@ -391,6 +406,57 @@
   // (rodada da GitHub Action), isso só garante que quem deixa a aba aberta
   // vê a atualização sem precisar dar refresh.
   setInterval(loadData, 60000);
+})();
+</script>
+<script>
+// Ranking de lucro por bot (conta PRO) — lê bots.json (mesmo padrão do data.json).
+// Fallback inline garante render mesmo sem o arquivo/internet. Nada aqui inventa dado.
+(function () {
+  var FB = { bots: [
+    { label: "XAU 5m BRO #18", profit_usd: 252.33 }, { label: "XAU 5m RUSH #17", profit_usd: 169.30 },
+    { label: "US500 5m #12", profit_usd: 63.41 }, { label: "US100 5m ANCHOR #11", profit_usd: 44.08 },
+    { label: "BTC 1h NAKA #01", profit_usd: 6.51 }, { label: "ETH 4h AETHER #06", profit_usd: -1.03 },
+    { label: "ETH 4h COMET #07", profit_usd: -23.19 }, { label: "ETH 5m VOLT #19", profit_usd: -22.85 },
+    { label: "Cobre 2h #04", profit_usd: -23.57 }, { label: "XAU 5m BARS #16", profit_usd: -23.89 },
+    { label: "TSLA 15m #09", profit_usd: -29.53 }, { label: "BTC 5m ECHO #03", profit_usd: -45.42 },
+    { label: "BTC 5m RONIN #02", profit_usd: -45.80 } ] };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var host = document.getElementById('bot-ranking'); if (!host) return;
+  function money(n) { var en = document.body.classList.contains('lang-en'); var s = n < 0 ? '−' : '+';
+    return s + 'US$ ' + Math.abs(n).toLocaleString(en ? 'en-US' : 'pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function render(data) {
+    var bots = (data && data.bots || []).slice().sort(function (a, b) { return b.profit_usd - a.profit_usd; });
+    if (!bots.length) return;
+    var mx = Math.max.apply(null, bots.map(function (b) { return Math.abs(b.profit_usd); })) || 1;
+    host.innerHTML = '';
+    bots.forEach(function (b) {
+      var pos = b.profit_usd >= 0, w = (Math.abs(b.profit_usd) / mx * 50).toFixed(1);
+      var row = document.createElement('div');
+      row.style.cssText = 'display:grid;grid-template-columns:130px 1fr 104px;gap:10px;align-items:center;padding:6px 2px;border-bottom:1px solid var(--border)';
+      row.innerHTML =
+        '<div style="font-size:12px;color:var(--amber-bright);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + b.label + '</div>' +
+        '<div style="position:relative;height:16px;background:var(--bg3);border:1px solid var(--border)">' +
+          '<div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border-bright)"></div>' +
+          '<div class="rkbar" data-w="' + w + '" style="position:absolute;top:2px;bottom:2px;width:0;' +
+            (pos ? 'left:50%;background:linear-gradient(90deg,var(--amber-dim),var(--green))' : 'right:50%;background:linear-gradient(270deg,#7a1a1a,var(--red))') +
+            ';transition:width .9s cubic-bezier(.2,.7,.2,1)"></div>' +
+        '</div>' +
+        '<div style="font-size:12.5px;text-align:right;color:' + (pos ? 'var(--green)' : 'var(--red)') + '">' + money(b.profit_usd) + '</div>';
+      host.appendChild(row);
+    });
+    var bars = host.querySelectorAll('.rkbar');
+    function grow() { bars.forEach(function (bar, i) { setTimeout(function () { bar.style.width = bar.getAttribute('data-w') + '%'; }, 55 * i); }); }
+    if (reduce) { bars.forEach(function (bar) { bar.style.width = bar.getAttribute('data-w') + '%'; }); return; }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); grow(); } }); }, { threshold: 0.2 });
+      io.observe(host);
+    } else { grow(); }
+  }
+  render(FB);
+  fetch('bots.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(function (d) { if (d && d.bots && d.bots.length) render(d); })
+    .catch(function () { /* mantém fallback */ });
 })();
 </script>
 </body>
