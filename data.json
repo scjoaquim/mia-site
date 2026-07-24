@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-07-24T15:18:42.974Z",
+  "generated_at": "2026-07-24T20:46:58.880Z",
   "pro": {
-    "balance": "US$ 4.588",
-    "growth": "+4,14%",
-    "growth_usd": "+US$ 174,02",
+    "balance": "US$ 4.425",
+    "growth": "+2,82%",
+    "growth_usd": "+US$ 118,53",
     "growth_positive": true,
     "dd": "11,25%",
-    "trades": "122",
-    "win_rate": "39%",
-    "profit_factor": "1,10"
+    "trades": "127",
+    "win_rate": "38%",
+    "profit_factor": "1,07"
   },
   "essential": {
-    "balance": "US$ 2.112",
-    "growth": "−1,14%",
-    "growth_usd": "−US$ 23,74",
+    "balance": "US$ 2.066",
+    "growth": "−2,76%",
+    "growth_usd": "−US$ 57,60",
     "growth_positive": false,
     "dd": "5,81%",
-    "trades": "34",
-    "win_rate": "26%",
-    "profit_factor": "0,91"
+    "trades": "38",
+    "win_rate": "24%",
+    "profit_factor": "0,80"
   },
   "pro_monthly": [
     {
       "ym": "2026-07",
       "label": "jul/26",
-      "cum_usd": 174.02,
-      "bal": 4588.17
+      "cum_usd": 118.53,
+      "bal": 4424.67
     }
   ]
 }
