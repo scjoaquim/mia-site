@@ -71,6 +71,8 @@ const fullPagePro = `
 ${listInfoItem('Growth: ', '0.69%')}
 ${listInfoItem('Profit: ', '135.94 USD')}
 ${listInfoItem('Balance: ', '4 321.23 USD')}
+${listInfoItem('Equity: ', '4 383.81 USD')}
+${listInfoItem('Initial Deposit: ', '4 200.00 USD')}
 ${dataColumnsItem('Trades:', '110')}
 ${dataColumnsItem('Profit Trades:', '41 (37.27%)')}
 ${dataColumnsItem('Loss Trades:', '69 (62.73%)')}
@@ -89,6 +91,8 @@ const fullPageEssential = `
 ${listInfoItem('Growth: ', '-4.86%')}
 ${listInfoItem('Profit: ', '-101.32 USD')}
 ${listInfoItem('Balance: ', '1 983.50 USD')}
+${listInfoItem('Equity: ', '1 998.20 USD')}
+${listInfoItem('Initial Deposit: ', '2 084.97 USD')}
 ${dataColumnsItem('Trades:', '30')}
 ${dataColumnsItem('Profit Trades:', '7 (23.33%)')}
 ${dataColumnsItem('Profit Factor:', '0.58')}
@@ -168,12 +172,18 @@ assert.equal(fPro.dd, 11.25);
 assert.equal(fPro.winRate, 37.27);
 assert.equal(fPro.profitFactor, 1.02);
 assert.equal(fPro.profitUsd, 135.94);
+assert.equal(fPro.balanceFull, 4321.23);
+assert.equal(fPro.equity, 4383.81); // open = Equity − Balance = 62.58
+assert.equal(fPro.initial, 4200); // saldo atual (equity) − inicial = crescimento total
 
 const fEss = extractFullPage(fullPageEssential, 'Essential');
 assert.equal(fEss.dd, 5.77);
 assert.equal(fEss.winRate, 23.33);
 assert.equal(fEss.profitFactor, 0.58);
 assert.equal(fEss.profitUsd, -101.32);
+assert.equal(fEss.balanceFull, 1983.50);
+assert.equal(fEss.equity, 1998.20); // open = +14.70
+assert.equal(fEss.initial, 2084.97);
 
 // --- findListInfoValue ---
 assert.equal(findListInfoValue(fullPagePro, 'Profit:'), '135.94 USD');
@@ -182,6 +192,9 @@ assert.equal(findListInfoValue(fullPageEssential, 'Profit:'), '-101.32 USD');
 // --- página "madura" sem o bloco de Profit: não deve quebrar, só ficar null ---
 const fOld = extractFullPage(fullPageNoProfitField, 'Old');
 assert.equal(fOld.profitUsd, null);
+assert.equal(fOld.balanceFull, null);
+assert.equal(fOld.equity, null);
+assert.equal(fOld.initial, null);
 assert.equal(fOld.dd, 7.5);
 assert.equal(fOld.winRate, 40);
 assert.equal(fOld.profitFactor, 1.3);

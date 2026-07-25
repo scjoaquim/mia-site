@@ -114,7 +114,7 @@ export function findListInfoValue(html, labelText) {
 }
 
 export function extractFullPage(html, label) {
-  const out = { dd: null, winRate: null, profitFactor: null, profitUsd: null };
+  const out = { dd: null, winRate: null, profitFactor: null, profitUsd: null, balanceFull: null, equity: null, initial: null };
 
   const profitTradesRaw = findDataColumnValue(html, 'Profit Trades:');
   if (profitTradesRaw) {
@@ -151,6 +151,24 @@ export function extractFullPage(html, label) {
     if (m) out.profitUsd = parseNum(m[1]);
   }
   if (out.profitUsd == null) console.warn(`[${label}] página completa: não achei Profit (US$) — campo não crítico, ok se sumir`);
+
+  // Balance e Equity (mesmo bloco s-list-info do topo). A diferença
+  // Equity − Balance é o P&L das operações ABERTAS (flutuante) — alimenta o
+  // tile "Em aberto". Campo não crítico: se sumir, o tile mantém o valor anterior.
+  function usdFromListInfo(labelText) {
+    const raw = findListInfoValue(html, labelText);
+    if (!raw) return null;
+    const cleaned = raw.replace(/<[^>]*>/g, '').replace(/&nbsp;|&#0*160;/gi, '');
+    const m = cleaned.match(/(-?[\d.,\s ]+?)\s*USD/i);
+    return m ? parseNum(m[1]) : null;
+  }
+  out.balanceFull = usdFromListInfo('Balance:');
+  out.equity = usdFromListInfo('Equity:');
+  out.initial = usdFromListInfo('Initial Deposit:');
+  if (out.initial == null) console.warn(`[${label}] página completa: não achei o Depósito inicial (Initial Deposit)`);
+  if (out.equity == null || out.balanceFull == null) {
+    console.warn(`[${label}] página completa: não achei Balance/Equity — tile "Em aberto" fica no valor anterior`);
+  }
 
   return out;
 }
@@ -246,6 +264,17 @@ async function buildSignal(key, { id, label }, previous) {
   const liveFields = [widget.balance, widget.growth, widget.trades, full.dd, full.winRate, full.profitFactor, full.profitUsd];
   const liveCount = liveFields.filter((v) => v != null).length;
 
+  // P&L em aberto (flutuante) = Equity − Balance da página completa.
+  const openUsd = full.equity != null && full.balanceFull != null ? full.equity - full.balanceFull : null;
+
+  // Saldo ATUAL = valor da conta agora, já incluindo as operações em aberto
+  // (Equity da MQL5; se faltar, cai pro Balance do widget). O "Crescimento" é
+  // simplesmente saldo atual − depósito inicial → embute fechado + em aberto.
+  const current = full.equity != null ? full.equity : widget.balance;
+  const initial = full.initial;
+  const totalUsd = current != null && initial != null ? current - initial : null;
+  const totalPct = totalUsd != null && initial ? (totalUsd / initial) * 100 : null;
+
   const result = {
     balance: widget.balance != null ? fmtBalance(widget.balance) : prev.balance ?? null,
     growth: widget.growth != null ? fmtSignedPct(widget.growth, 2) : prev.growth ?? null,
@@ -255,6 +284,13 @@ async function buildSignal(key, { id, label }, previous) {
     trades: widget.trades != null ? fmtInt(widget.trades) : prev.trades ?? null,
     win_rate: full.winRate != null ? fmtPct(Math.round(full.winRate), 0) : prev.win_rate ?? null,
     profit_factor: full.profitFactor != null ? fmtDecimal(full.profitFactor, 2) : prev.profit_factor ?? null,
+    open_usd: openUsd != null ? fmtSignedUsd(openUsd, 2) : prev.open_usd ?? null,
+    open_positive: openUsd != null ? openUsd >= 0 : prev.open_positive ?? true,
+    current: current != null ? fmtBalance(current) : prev.current ?? null,
+    initial: initial != null ? fmtBalance(initial) : prev.initial ?? null,
+    total_usd: totalUsd != null ? fmtSignedUsd(totalUsd, 2) : prev.total_usd ?? null,
+    total_pct: totalPct != null ? fmtSignedPct(totalPct, 2) : prev.total_pct ?? null,
+    total_positive: totalUsd != null ? totalUsd >= 0 : prev.total_positive ?? true,
   };
 
   // Falha crítica = nenhum dos 6 campos veio ao vivo nesta rodada (bloqueio

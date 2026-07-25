@@ -22,6 +22,7 @@
       <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
       <a href="como-copiar.html" data-nav><span class="lang-pt">Como copiar</span><span class="lang-en">How-to</span></a>
       <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
       <a href="faq.html" data-nav>FAQ</a>
       <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
       <span class="langsw">
@@ -42,6 +43,11 @@
     <p class="lang-pt">Resumo <strong>ao vivo</strong> de cada conta, direto da MQL5.</p>
     <p class="lang-en"><strong>Live</strong> summary of each account, straight from MQL5.</p>
 
+    <div class="infobox" style="margin-top:16px">
+      <p class="lang-pt" style="margin:0"><b>Como ler:</b> você vê quanto foi depositado no início e quanto a conta vale hoje, <b>já incluindo as operações em aberto</b>. A diferença entre os dois é o crescimento — mostrado em dólar e em %. Sinais novos têm poucas semanas, então os números ainda balançam; é esperado. O histórico oficial completo, com todas as métricas, fica na MQL5 (botão "Página completa") e os termos no <a href="glossario.html" data-nav>Glossário</a>.</p>
+      <p class="lang-en" style="margin:0"><b>How to read this:</b> you see how much was deposited at the start and what the account is worth today, <b>including open trades</b>. The difference between the two is the growth — shown in dollars and %. New signals have few weeks, so the numbers still swing; that's expected. The full official record, with every metric, is on MQL5 (the "Full page" button) and the terms are in the <a href="glossario.html" data-nav>Glossary</a>.</p>
+    </div>
+
     <div class="grid-2" style="margin-top:20px">
       <div class="panel">
         <div class="panel-head">
@@ -51,12 +57,9 @@
         <div class="panel-body">
           <div class="snapshot-note" style="margin:0 0 12px"><span class="lang-pt">Sinal criado em <strong>11/07/2026</strong></span><span class="lang-en">Signal created on <strong>2026-07-11</strong></span></div>
           <div class="kpi-grid">
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo</span><span class="lang-en">Balance</span></div><div class="k-val" id="pro-balance">US$ 4.421</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento</span><span class="lang-en">Growth</span></div><div class="k-val pos" id="pro-growth">+2,01%</div><div class="k-sub" id="pro-growth-usd">+US$ 84,36</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">DD máx</span><span class="lang-en">Max DD</span></div><div class="k-val" id="pro-dd">11,25%</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Operações</span><span class="lang-en">Trades</span></div><div class="k-val" id="pro-trades">116</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Acerto</span><span class="lang-en">Win rate</span></div><div class="k-val" id="pro-winrate">39%</div></div>
-            <div class="kpi"><div class="k-label">Profit factor</div><div class="k-val" id="pro-pf">1,05</div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo atual</span><span class="lang-en">Current value</span></div><div class="k-val" id="pro-current">US$ 4.479</div><div class="k-sub"><span class="lang-pt">inicial</span><span class="lang-en">initial</span> <span id="pro-initial">US$ 4.200</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (US$)</span><span class="lang-en">Growth (US$)</span></div><div class="k-val pos" id="pro-total-usd">+US$ 278,87</div><div class="k-sub"><span class="lang-pt">inclui em aberto</span><span class="lang-en">incl. open</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (%)</span><span class="lang-en">Growth (%)</span></div><div class="k-val pos" id="pro-total-pct">+6,64%</div></div>
           </div>
           <div class="snapshot-note" id="pro-snapshot-note"><span class="lang-pt">Snapshot 23/07/2026 · widget ao vivo abaixo</span><span class="lang-en">Snapshot 2026-07-23 · live widget below</span></div>
           <div style="border-top:1px solid var(--border);margin-top:14px;padding-top:14px">
@@ -77,12 +80,9 @@
         <div class="panel-body">
           <div class="snapshot-note" style="margin:0 0 12px"><span class="lang-pt">Sinal criado em <strong>16/07/2026</strong></span><span class="lang-en">Signal created on <strong>2026-07-16</strong></span></div>
           <div class="kpi-grid">
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo</span><span class="lang-en">Balance</span></div><div class="k-val" id="ess-balance">US$ 2.047</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento</span><span class="lang-en">Growth</span></div><div class="k-val neg" id="ess-growth">−4,90%</div><div class="k-sub" id="ess-growth-usd">−US$ 102,24</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">DD máx</span><span class="lang-en">Max DD</span></div><div class="k-val" id="ess-dd">5,81%</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Operações</span><span class="lang-en">Trades</span></div><div class="k-val" id="ess-trades">33</div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Acerto</span><span class="lang-en">Win rate</span></div><div class="k-val" id="ess-winrate">24%</div></div>
-            <div class="kpi"><div class="k-label">Profit factor</div><div class="k-val" id="ess-pf">0,61</div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo atual</span><span class="lang-en">Current value</span></div><div class="k-val" id="ess-current">US$ 2.104</div><div class="k-sub"><span class="lang-pt">inicial</span><span class="lang-en">initial</span> <span id="ess-initial">US$ 2.085</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (US$)</span><span class="lang-en">Growth (US$)</span></div><div class="k-val pos" id="ess-total-usd">+US$ 19,19</div><div class="k-sub"><span class="lang-pt">inclui em aberto</span><span class="lang-en">incl. open</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (%)</span><span class="lang-en">Growth (%)</span></div><div class="k-val pos" id="ess-total-pct">+0,92%</div></div>
           </div>
           <div style="margin-top:10px"><span class="badge" style="color:var(--amber-bright);border-color:var(--amber);background:var(--amber-glow);margin:0"><span class="lang-pt">⚠ Amostra pequena — alta variância esperada</span><span class="lang-en">⚠ Small sample — expect high variance</span></span></div>
           <div class="snapshot-note" id="ess-snapshot-note"><span class="lang-pt">Snapshot 23/07/2026 · widget ao vivo abaixo</span><span class="lang-en">Snapshot 2026-07-23 · live widget below</span></div>
@@ -122,48 +122,12 @@
     <div class="section-tag lang-en">// PRO fleet ranking — profit by strategy (live)</div>
     <div class="panel">
       <div class="panel-head">
-        <span class="name"><span class="live-dot"></span><span class="lang-pt">Lucro por bot · conta PRO</span><span class="lang-en">Profit per bot · PRO account</span></span>
+        <span class="name"><span class="live-dot"></span><span class="lang-pt">Lucro por robô · conta PRO</span><span class="lang-en">Profit per robot · PRO account</span></span>
         <span class="badge pill-cyan">ao vivo · US$</span>
       </div>
       <div class="panel-body">
         <div id="bot-ranking"></div>
         <p class="muted" style="font-size:11px;margin:12px 4px 0"><span class="lang-pt">Lucro realizado de cada estratégia na conta PRO real, desde o início do sinal. Amostra ainda pequena — o sinal é novo. Atualiza automaticamente.</span><span class="lang-en">Realized profit of each strategy on the live PRO account, since the signal's start. Still a small sample — the signal is new. Updates automatically.</span></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-tag lang-pt">// Como ler as métricas</div>
-    <div class="section-tag lang-en">// How to read the metrics</div>
-    <div class="grid-2">
-      <div class="panel">
-        <div class="panel-head">Growth</div>
-        <div class="panel-body">
-          <p class="lang-pt" style="margin:0">Retorno % encadeado da conta, ajustado por depósitos e saques. O valor em US$ ao lado é o lucro/prejuízo líquido absoluto no período. Um aporte grande distorce a curva — leia junto com as semanas ativas e o nº de operações.</p>
-          <p class="lang-en" style="margin:0">The account's compounded % return, adjusted for deposits and withdrawals. The USD figure next to it is the absolute net profit/loss for the period. A big deposit distorts the curve — read it alongside weeks active and number of trades.</p>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">Drawdown (DD)</div>
-        <div class="panel-body">
-          <p class="lang-pt" style="margin:0">Maior queda % a partir de um pico. É a principal medida de risco — e o que define a faixa de cada produto (Essential vs. PRO).</p>
-          <p class="lang-en" style="margin:0">The biggest % drop from a peak. It's the main risk measure — and what defines each product's tier (Essential vs. PRO).</p>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head lang-pt">Semanas ativas / trades</div>
-        <div class="panel-head lang-en">Weeks active / trades</div>
-        <div class="panel-body">
-          <p class="lang-pt" style="margin:0">O tamanho da amostra. A MQL5 exige 12 semanas de histórico público; quanto mais novo o sinal, menor a amostra — mais cautela.</p>
-          <p class="lang-en" style="margin:0">The sample size. MQL5 requires 12 weeks of public history; the newer the signal, the smaller the sample — more caution.</p>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-head">Profit Factor / Win Rate</div>
-        <div class="panel-body">
-          <p class="lang-pt" style="margin:0">Profit Factor > 1 = lucro bruto maior que a perda. Win Rate baixo ainda pode ser lucrativo se os ganhos médios superam as perdas.</p>
-          <p class="lang-en" style="margin:0">Profit Factor > 1 = gross profit beats gross loss. A low Win Rate can still be profitable if average wins beat average losses.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -237,17 +201,15 @@
   }
   function applySignal(prefix, d) {
     if (!d) return;
-    setText(prefix + '-balance', d.balance);
-    setText(prefix + '-growth', d.growth);
-    setText(prefix + '-growth-usd', d.growth_usd);
-    setText(prefix + '-dd', d.dd);
-    setText(prefix + '-trades', d.trades);
-    setText(prefix + '-winrate', d.win_rate);
-    setText(prefix + '-pf', d.profit_factor);
-    var growthEl = document.getElementById(prefix + '-growth');
-    if (growthEl && typeof d.growth_positive === 'boolean') {
-      growthEl.classList.remove('pos', 'neg');
-      growthEl.classList.add(d.growth_positive ? 'pos' : 'neg');
+    setText(prefix + '-current', d.current);
+    setText(prefix + '-initial', d.initial);
+    setText(prefix + '-total-usd', d.total_usd);
+    setText(prefix + '-total-pct', d.total_pct);
+    if (typeof d.total_positive === 'boolean') {
+      [prefix + '-total-usd', prefix + '-total-pct'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) { el.classList.remove('pos', 'neg'); el.classList.add(d.total_positive ? 'pos' : 'neg'); }
+      });
     }
   }
   function fmtUpdatedAt(iso) {
