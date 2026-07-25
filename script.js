@@ -205,3 +205,64 @@
     setInterval(function () { if (!document.hidden) fillStatus(); }, 60000);
   }
 })();
+
+// ─── Glossário automático: tooltip nos termos técnicos ───────────────────────
+// Enfia o mesmo tooltip (.tip) na 1ª vez que cada termo-chave aparece dentro do
+// <main> de qualquer página (MQL5, sinal, MetaTrader, Exness, etc). Só a 1ª
+// ocorrência por página, pra não poluir. Pula links, títulos, .tip já existentes,
+// blocos .no-gloss e o texto do idioma que não está ativo. Não inventa nada — só
+// marca palavras que já estão no HTML.
+(function () {
+  if (/glossario\.html$/.test(location.pathname)) return; // a própria página de termos não precisa
+  var main = document.querySelector('main'); if (!main) return;
+  var lang = document.body.classList.contains('lang-en') ? 'en' : 'pt';
+  var otherLang = lang === 'pt' ? 'lang-en' : 'lang-pt';
+  var TERMS = [
+    { keys: ['Exness'], pt: 'Corretora onde você abre a sua conta e deposita — o seu dinheiro fica lá e é você quem controla. É a que recomendamos.', en: 'The broker where you open your account and deposit — your money stays there and you control it. The one we recommend.' },
+    { keys: ['MetaQuotes'], pt: 'A empresa que criou o MetaTrader e a MQL5.', en: 'The company that created MetaTrader and MQL5.' },
+    { keys: ['MetaTrader 5', 'MetaTrader', 'MT5'], pt: 'O programa (gratuito) que executa as ordens de compra e venda na sua conta.', en: 'The free program that executes the buy and sell orders on your account.' },
+    { keys: ['MQL5'], pt: 'Serviço oficial de cópia de operações da MetaQuotes (criadora do MetaTrader). É por onde você assina o sinal.', en: "MetaQuotes' official copy-trading service (makers of MetaTrader). It's where you subscribe to the signal." },
+    { keys: ['VPS'], pt: 'Um computador na nuvem, ligado 24h, para a cópia não parar quando você desliga o seu PC.', en: "A cloud computer, on 24/7, so copying doesn't stop when your PC is off." },
+    { keys: (lang === 'en' ? ['signal'] : ['sinal']), pt: 'As ordens de compra e venda do robô; você assina e elas são copiadas na sua conta.', en: "The robot's buy and sell orders; you subscribe and they get copied to your account." }
+  ];
+  var SKIP = { A: 1, BUTTON: 1, SCRIPT: 1, STYLE: 1, CODE: 1, H1: 1, H2: 1 };
+  function eligible(node) {
+    if (!node.nodeValue || !/\S/.test(node.nodeValue)) return false;
+    var p = node.parentNode;
+    while (p && p !== main.parentNode) {
+      if (p.nodeType === 1) {
+        if (SKIP[p.tagName]) return false;
+        if (p.classList && (p.classList.contains('tip') || p.classList.contains('no-gloss') || p.classList.contains(otherLang))) return false;
+      }
+      p = p.parentNode;
+    }
+    return true;
+  }
+  function textNodes() {
+    var out = [], tw = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null), n;
+    while (n = tw.nextNode()) if (eligible(n)) out.push(n);
+    return out;
+  }
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function wrap(term) {
+    var re = new RegExp('(^|[^\\wÀ-ÿ])(' + term.keys.map(esc).join('|') + ')(?![\\wÀ-ÿ])', 'i');
+    var nodes = textNodes();
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i], m = re.exec(node.nodeValue);
+      if (!m) continue;
+      var matchStart = m.index + m[1].length, matchText = m[2];
+      var tip = document.createElement('span');
+      tip.className = 'tip'; tip.tabIndex = 0; tip.setAttribute('role', 'note');
+      tip.setAttribute('aria-label', matchText);
+      tip.appendChild(document.createTextNode(matchText));
+      var box = document.createElement('span'); box.className = 'tip-box'; box.textContent = term[lang];
+      tip.appendChild(box);
+      var mid = node.splitText(matchStart);
+      mid.splitText(matchText.length);
+      mid.parentNode.replaceChild(tip, mid);
+      return true;
+    }
+    return false;
+  }
+  TERMS.forEach(wrap);
+})();

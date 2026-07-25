@@ -471,3 +471,24 @@ footer a:hover { color: var(--amber); }
 .gterm .d { color: var(--amber-dim); font-size: 13.5px; line-height: 1.55; }
 .gterm .d b { color: var(--white); font-weight: normal; }
 @media (max-width: 720px) { .gterm { grid-template-columns: 1fr; gap: 4px; } }
+
+/* ─── TOOLTIP DE TERMO (hover/tap mostra a descrição, estilo dashboard) ─── */
+.tip { position: relative; color: var(--cyan); border-bottom: 1px dotted var(--cyan); text-shadow: 0 0 8px rgba(0,212,255,0.45); cursor: help; }
+.tip:focus { outline: none; }
+.tip .tip-box {
+  position: absolute; left: 50%; top: calc(100% + 10px); transform: translateX(-50%);
+  width: 270px; max-width: 78vw;
+  background: var(--bg3); border: 1px solid var(--cyan);
+  color: var(--amber-bright);
+  font-size: 12.5px; line-height: 1.5; letter-spacing: 0;
+  text-transform: none; text-shadow: none; text-align: left; font-weight: normal;
+  padding: 10px 12px;
+  opacity: 0; visibility: hidden; transition: opacity .15s ease; pointer-events: none;
+  z-index: 60; box-shadow: 0 8px 24px rgba(0,0,0,0.55);
+}
+.tip .tip-box::before {
+  content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-bottom-color: var(--cyan);
+}
+.tip:hover .tip-box, .tip:focus .tip-box, .tip:focus-within .tip-box { opacity: 1; visibility: visible; }
+@media (max-width: 600px) { .tip .tip-box { width: 220px; } }

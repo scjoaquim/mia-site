@@ -6,7 +6,7 @@
 <title>MIA Trading System</title>
 <meta name="description" content="MIA Trading System — robô de trading automatizado multi-ativos, copiado via MQL5 Signals (MetaQuotes). Gestão de risco disciplinada, diversificação e track record público.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -56,27 +56,33 @@
   <section class="section" style="padding-top:14px">
     <div class="section-tag lang-pt">// Em palavras simples</div>
     <div class="section-tag lang-en">// In plain words</div>
-    <div class="infobox" style="padding:20px 22px">
+    <div class="infobox no-gloss" style="padding:20px 22px">
       <p class="lang-pt" style="margin:0 0 14px;color:var(--amber-bright);font-size:16px">A MIA é um <strong>robô que compra e vende sozinho</strong> numa carteira de metais, índices, cripto e ações. Você <strong>não precisa saber operar</strong> nem ficar na frente do gráfico — depois de configurar uma vez, tudo acontece no automático.</p>
       <p class="lang-en" style="margin:0 0 14px;color:var(--amber-bright);font-size:16px">MIA is a <strong>robot that buys and sells on its own</strong> across a portfolio of metals, indices, crypto and stocks. You <strong>don't need to know how to trade</strong> or watch charts — once it's set up, it all runs automatically.</p>
-      <div class="grid-3" style="gap:12px">
+      <div class="grid-2" style="gap:12px">
         <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
           <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">1 · O "sinal"</b>
           <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">1 · The "signal"</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">São as ordens de compra e venda do robô. Você <strong>assina</strong> (paga uma mensalidade) e elas chegam sozinhas no seu programa e são copiadas na sua conta.</p>
-          <p class="lang-en" style="margin:0;font-size:13px">The robot's buy and sell orders. You <strong>subscribe</strong> (pay a monthly fee) and they arrive on their own in your program and get copied to your account.</p>
+          <p class="lang-pt" style="margin:0;font-size:13px">São as ordens de compra e venda do robô. Você <strong>assina</strong> (paga uma mensalidade) e elas são copiadas sozinhas na sua conta, <strong>na sua corretora</strong>.</p>
+          <p class="lang-en" style="margin:0;font-size:13px">The robot's buy and sell orders. You <strong>subscribe</strong> (pay a monthly fee) and they're copied on their own to your account, <strong>at your broker</strong>.</p>
         </div></div>
         <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
-          <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">2 · MetaTrader e MQL5</b>
-          <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">2 · MetaTrader &amp; MQL5</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">O <strong>MetaTrader</strong> é o programa (gratuito) onde as operações rodam. A <strong>MQL5</strong> é o serviço oficial de cópia, da MetaQuotes — a mesma empresa que criou o MetaTrader.</p>
-          <p class="lang-en" style="margin:0;font-size:13px"><strong>MetaTrader</strong> is the (free) program where trades run. <strong>MQL5</strong> is the official copy service by MetaQuotes — the same company that created MetaTrader.</p>
+          <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">2 · A corretora (Exness)</b>
+          <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">2 · The broker (Exness)</b>
+          <p class="lang-pt" style="margin:0;font-size:13px">É a empresa onde você abre a sua conta e deposita. <strong>O seu dinheiro fica lá, e é você quem controla</strong> — a MIA nunca toca nele. Recomendamos a Exness.</p>
+          <p class="lang-en" style="margin:0;font-size:13px">The company where you open your account and deposit. <strong>Your money lives there, and you're in control</strong> — MIA never touches it. We recommend Exness.</p>
         </div></div>
         <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
-          <b class="lang-pt" style="display:block;color:var(--green);font-size:13px;margin-bottom:6px">3 · Seu dinheiro é seu</b>
-          <b class="lang-en" style="display:block;color:var(--green);font-size:13px;margin-bottom:6px">3 · Your money is yours</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">O seu saldo fica na <strong>sua conta</strong>, na sua corretora. A MIA nunca acessa nem saca — ela só envia as ordens. Você pausa ou cancela quando quiser.</p>
-          <p class="lang-en" style="margin:0;font-size:13px">Your balance stays in <strong>your account</strong>, at your broker. MIA never accesses or withdraws — it only sends orders. Pause or cancel whenever you want.</p>
+          <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">3 · MetaTrader e MQL5</b>
+          <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">3 · MetaTrader &amp; MQL5</b>
+          <p class="lang-pt" style="margin:0;font-size:13px">O <strong>MetaTrader</strong> é o programa (gratuito) que executa as ordens de compra e venda. A <strong>MQL5</strong> é o serviço oficial de cópia, da MetaQuotes — criadora do MetaTrader.</p>
+          <p class="lang-en" style="margin:0;font-size:13px"><strong>MetaTrader</strong> is the (free) program that executes the buy and sell orders. <strong>MQL5</strong> is the official copy service by MetaQuotes — makers of MetaTrader.</p>
+        </div></div>
+        <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
+          <b class="lang-pt" style="display:block;color:var(--green);font-size:13px;margin-bottom:6px">4 · Seu dinheiro é seu</b>
+          <b class="lang-en" style="display:block;color:var(--green);font-size:13px;margin-bottom:6px">4 · Your money is yours</b>
+          <p class="lang-pt" style="margin:0;font-size:13px">O seu saldo fica na <strong>sua conta</strong>, na corretora. A MIA nunca acessa nem saca — só envia as ordens. Você pausa ou cancela quando quiser.</p>
+          <p class="lang-en" style="margin:0;font-size:13px">Your balance stays in <strong>your account</strong>, at the broker. MIA never accesses or withdraws — it only sends orders. Pause or cancel whenever you want.</p>
         </div></div>
       </div>
       <p style="margin:14px 0 0;font-size:13px;color:var(--amber-dim)"><span class="lang-pt">Novo nesses termos? Veja o passo a passo em <a href="como-copiar.html" data-nav>Como copiar</a> ou o <a href="glossario.html" data-nav>Glossário</a>.</span><span class="lang-en">New to these terms? See the step-by-step in <a href="como-copiar.html" data-nav>How-to</a> or the <a href="glossario.html" data-nav>Glossary</a>.</span></p>
@@ -269,6 +275,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>

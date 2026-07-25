@@ -300,8 +300,10 @@ async function buildSignal(key, { id, label }, previous) {
   if (critical) console.error(`[${label}] FALHA CRÍTICA: nenhum campo veio ao vivo nesta rodada.`);
 
   console.log(`[${label}] ${JSON.stringify(result)}`);
-  // raw = números crus (pro gráfico mensal): lucro cumulativo e saldo
-  return { result, critical, raw: { balance: widget.balance, profitUsd: full.profitUsd } };
+  // raw = números crus (pro gráfico mensal): agora usa o crescimento TOTAL
+  // (fechado + em aberto = Equity − depósito inicial) e o Equity, pra o gráfico
+  // bater com os quadros de retorno (Saldo atual / Crescimento).
+  return { result, critical, raw: { equity: current, totalUsd: totalUsd } };
 }
 
 async function main() {
@@ -312,15 +314,16 @@ async function main() {
     buildSignal('essential', SIGNALS.essential, previous),
   ]);
 
-  // Gráfico de lucro mês a mês (só PRO): upsert do mês corrente com o lucro
-  // cumulativo + saldo. Mês corrente em UTC (o runner do GitHub roda em UTC).
+  // Gráfico de lucro mês a mês (só PRO): upsert do mês corrente com o crescimento
+  // TOTAL cumulativo (fechado + em aberto = Equity − depósito inicial) e o Equity.
+  // Assim a barra do mês bate com os quadros de retorno. Mês em UTC (runner GitHub).
   const now = new Date();
   const ym = now.getUTCFullYear() + '-' + String(now.getUTCMonth() + 1).padStart(2, '0');
   let proMonthly = Array.isArray(previous.pro_monthly) ? previous.pro_monthly : [];
-  if (proOut.raw.profitUsd != null && proOut.raw.balance != null) {
-    proMonthly = upsertMonthly(proMonthly, ym, proOut.raw.profitUsd, proOut.raw.balance);
+  if (proOut.raw.totalUsd != null && proOut.raw.equity != null) {
+    proMonthly = upsertMonthly(proMonthly, ym, proOut.raw.totalUsd, proOut.raw.equity);
   } else {
-    console.warn('[PRO] sem lucro/saldo ao vivo nesta rodada — pro_monthly mantido como estava.');
+    console.warn('[PRO] sem crescimento/equity ao vivo nesta rodada — pro_monthly mantido como estava.');
   }
 
   // Só avança o "generated_at" se algum número realmente mudou. Isso evita
