@@ -266,3 +266,29 @@
   }
   TERMS.forEach(wrap);
 })();
+
+// ─── Posicionamento do tooltip: nunca deixa a caixa vazar da tela ────────────
+// No hover/foco de qualquer .tip, alinha a caixa e a empurra pra dentro da tela
+// se estiver passando da borda (esq/dir). A setinha continua apontando o termo.
+(function () {
+  function place(tip) {
+    var box = tip.querySelector('.tip-box'); if (!box) return;
+    box.style.left = '0px';
+    var tr = tip.getBoundingClientRect(), br = box.getBoundingClientRect();
+    var vw = document.documentElement.clientWidth, pad = 8, left = 0;
+    var boxRight = br.left + br.width;
+    if (boxRight > vw - pad) left = (vw - pad) - boxRight;
+    if (br.left + left < pad) left = pad - br.left;
+    box.style.left = left + 'px';
+    var arrow = (tr.left + tr.width / 2) - (br.left + left);
+    arrow = Math.max(10, Math.min(box.offsetWidth - 16, arrow));
+    box.style.setProperty('--arrow', arrow + 'px');
+  }
+  function handler(e) {
+    var t = e.target;
+    var tip = t && t.closest ? t.closest('.tip') : null;
+    if (tip) place(tip);
+  }
+  document.addEventListener('mouseover', handler, true);
+  document.addEventListener('focusin', handler, true);
+})();
