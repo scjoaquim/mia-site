@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-24T20:46:58.880Z",
+  "generated_at": "2026-07-25T06:06:13.757Z",
   "pro": {
-    "balance": "US$ 4.425",
+    "balance": "US$ 4.437",
     "growth": "+2,82%",
     "growth_usd": "+US$ 118,53",
     "growth_positive": true,
@@ -11,7 +11,7 @@
     "profit_factor": "1,07"
   },
   "essential": {
-    "balance": "US$ 2.066",
+    "balance": "US$ 2.065",
     "growth": "−2,76%",
     "growth_usd": "−US$ 57,60",
     "growth_positive": false,
@@ -25,7 +25,7 @@
       "ym": "2026-07",
       "label": "jul/26",
       "cum_usd": 118.53,
-      "bal": 4424.67
+      "bal": 4437.11
     }
   ]
 }
