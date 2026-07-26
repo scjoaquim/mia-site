@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26 14:21:10 UTC",
+  "generated_at": "2026-07-26 14:23:09 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,9 +7,9 @@
       "symbol": "ETH/USD",
       "tf": "cripto · 5M",
       "side": "SELL",
-      "price": 1890.9,
-      "profit_usd": 22.53,
-      "pct": 0.67,
+      "price": 1891.6,
+      "profit_usd": 21.26,
+      "pct": 0.63,
       "market_open": true,
       "series": [
         1894.92,
@@ -20,7 +20,8 @@
         1892.8,
         1892.2,
         1893.7,
-        1890.9
+        1890.9,
+        1891.6
       ]
     },
     {
