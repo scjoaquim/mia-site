@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26 14:57:10 UTC",
+  "generated_at": "2026-07-26 14:59:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -8,7 +8,7 @@
       "tf": "cripto · 5M",
       "side": "SELL",
       "price": 1896.8,
-      "profit_usd": 11.84,
+      "profit_usd": 11.82,
       "pct": 0.36,
       "market_open": true,
       "series": [
@@ -38,6 +38,7 @@
         1895.1,
         1896.0,
         1895.9,
+        1896.8,
         1896.8
       ]
     },
