@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-26 22:55:10 UTC",
+  "generated_at": "2026-07-26 22:57:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,9 +7,9 @@
       "symbol": "DE30",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 25276.0,
-      "profit_usd": 52.57,
-      "pct": 1.77,
+      "price": 25269.0,
+      "profit_usd": 51.68,
+      "pct": 1.74,
       "market_open": true,
       "series": [
         25080.45,
@@ -46,23 +46,8 @@
         25279.2,
         25280.2,
         25278.0,
-        25276.0
-      ]
-    },
-    {
-      "id": 354128732,
-      "symbol": "ETH/USD",
-      "tf": "cripto · 5M",
-      "side": "BUY",
-      "price": 1948.4,
-      "profit_usd": 0.47,
-      "pct": 0.03,
-      "market_open": true,
-      "series": [
-        1946.16,
-        1946.2,
-        1947.9,
-        1948.4
+        25276.0,
+        25269.0
       ]
     }
   ]
