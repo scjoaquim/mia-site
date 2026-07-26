@@ -292,3 +292,234 @@
   document.addEventListener('mouseover', handler, true);
   document.addEventListener('focusin', handler, true);
 })();
+
+// ─── "Operações ao vivo": dock fixo (site-wide) + quadro em Resultados ───────
+// Aditivo. Lê positions.json (gerado no VPS). Some sozinho se não houver dado.
+// Mercado aberto: linha/preço/P&L passeiam ANCORADOS no valor real (sync ~2min);
+// mercado fechado: congelado. Nada é inventado além da suavização entre syncs.
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var en = document.body.classList.contains('lang-en');
+  var N = 30, DKW = 180, DKH = 38, BDW = 200, BDH = 40, PADY = 5;
+  var LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+  function nf(v, d) { return Number(v).toLocaleString(en ? 'en-US' : 'pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function money(v) { return 'US$ ' + nf(Math.abs(v), 2); }
+  function money0(v) { return 'US$ ' + Math.abs(Math.round(v)).toLocaleString(en ? 'en-US' : 'pt-BR'); }
+  function signed(v, f) { return (v < 0 ? '−' : '+') + f(Math.abs(v)); }
+  function decFor(s) { return /XAU/.test(s) ? 1 : (/TSLA|ORCL/.test(s) ? 2 : 0); }
+  function tfLabel(tf) {
+    if (!en || !tf) return tf || '';
+    return tf.replace('metal', 'metal').replace('índice', 'index').replace('cripto', 'crypto').replace('ação', 'stock');
+  }
+  var T = {
+    ao: en ? 'Live operations' : 'Operações ao vivo',
+    lbl: en ? 'open result' : 'resultado em aberto',
+    all: en ? 'view all' : 'ver tudo',
+    closed: en ? 'Market closed' : 'Mercado fechado',
+    live: en ? 'live' : 'ao vivo',
+    price: en ? 'price ' : 'preço ',
+    last: en ? 'last ' : 'último ',
+    foot: en ? 'Real open positions of the PRO account — in profit and in loss, nothing hidden. Past performance does not guarantee future results.'
+             : 'Posições reais da conta PRO — em lucro e em prejuízo, sem esconder. Desempenho passado não garante resultados futuros.'
+  };
+  function cntTxt(n, o) { return en ? (n + ' positions · ' + o + ' open') : (n + ' posições · ' + o + ' abertos'); }
+  function mktTxt(o, n) { return en ? (o + ' of ' + n + ' markets open') : (o + ' de ' + n + ' mercados abertos'); }
+  var boardLink = 'resultados.html' + (en ? '?lang=en' : '') + '#mia-board';
+
+  // ---- DOM do dock ----
+  var dock = document.createElement('div'); dock.id = 'md-dock';
+  dock.innerHTML =
+    '<div class="md-top"><span class="md-dot"></span><span class="md-ao">' + T.ao + '</span>' +
+    '<span class="md-sep">|</span><span class="md-lbl">' + T.lbl + '</span> <span class="md-tot" id="md-tot">—</span>' +
+    '<span class="md-sep">|</span><span class="md-cnt" id="md-cnt"></span>' +
+    '<a class="md-cta" href="' + boardLink + '">' + T.all + ' →</a></div>' +
+    '<div class="md-row" id="md-row"></div>';
+  document.body.appendChild(dock);
+  var mdRow = document.getElementById('md-row');
+
+  var boardEl = document.getElementById('mia-board');   // só existe em Resultados
+  var mbRow = null, mbTot = null, mbMk = null;
+  if (boardEl) {
+    boardEl.className = 'section';
+    boardEl.innerHTML =
+      '<div class="section-tag">// ' + (en ? 'Live operations' : 'Operações ao vivo') + '</div>' +
+      '<div class="mb-panel">' +
+        '<div class="mb-head"><span class="mb-name"><span class="mb-dot"></span>' + T.ao + '</span>' +
+          '<span class="mb-mk" id="mb-mk"></span>' +
+          '<span class="mb-tot">' + T.lbl + ' <span class="mb-v" id="mb-tot">—</span></span></div>' +
+        '<div id="mb-rows"></div>' +
+        '<div class="mb-foot">' + T.foot + '</div>' +
+      '</div>';
+    mbRow = boardEl.querySelector('#mb-rows'); mbTot = boardEl.querySelector('#mb-tot'); mbMk = boardEl.querySelector('#mb-mk');
+  }
+
+  var state = {};       // id -> position state (+ bindings)
+  var started = false;
+
+  function smooth(pp) {
+    if (pp.length < 2) return '';
+    var d = 'M' + pp[0].x.toFixed(2) + ' ' + pp[0].y.toFixed(2);
+    for (var i = 0; i < pp.length - 1; i++) {
+      var p0 = pp[i - 1] || pp[i], p1 = pp[i], p2 = pp[i + 1], p3 = pp[i + 2] || p2;
+      var c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6, c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+      d += ' C' + c1x.toFixed(2) + ' ' + c1y.toFixed(2) + ' ' + c2x.toFixed(2) + ' ' + c2y.toFixed(2) + ' ' + p2.x.toFixed(2) + ' ' + p2.y.toFixed(2);
+    }
+    return d;
+  }
+  function drawBind(p, b) {
+    var slot = b.W / N, off = p.open ? p.frac : 0;
+    var rmn = Infinity, rmx = -Infinity, i;
+    for (i = 0; i < p.pts.length; i++) { if (p.pts[i] < rmn) rmn = p.pts[i]; if (p.pts[i] > rmx) rmx = p.pts[i]; }
+    if (p.cur < rmn) rmn = p.cur; if (p.cur > rmx) rmx = p.cur;
+    b.mn += (rmn - b.mn) * 0.12; b.mx += (rmx - b.mx) * 0.12;
+    var r = (b.mx - b.mn) || 1, lo = b.mn - r * 0.2, hi = b.mx + r * 0.2;
+    function Y(v) { return b.H - PADY - (v - lo) / (hi - lo) * (b.H - 2 * PADY); }
+    var pp = [];
+    for (i = 0; i <= N; i++) pp.push({ x: (i - off) * slot, y: Y(p.pts[i]) });
+    pp.push({ x: b.W, y: Y(p.cur) });
+    var win = p._disp >= 0, col = p.open ? (win ? '#00ff88' : '#ff3030') : '#2c6a43';
+    var line = smooth(pp);
+    b.ln.setAttribute('d', line); b.ln.setAttribute('stroke', col);
+    b.ar.setAttribute('d', line + ' L' + b.W + ' ' + b.H + ' L0 ' + b.H + ' Z');
+    b.ar.setAttribute('fill', p.open ? (win ? 'rgba(0,255,136,.11)' : 'rgba(255,48,48,.11)') : 'rgba(44,106,67,.06)');
+    b.dt.setAttribute('cx', b.W); b.dt.setAttribute('cy', Y(p.cur).toFixed(2)); b.dt.setAttribute('fill', p.open ? col : '#204d31');
+  }
+
+  function ensureViews(pos) {
+    var s = state[pos.id];
+    if (s) return s;
+    var dec = decFor(pos.symbol);
+    s = { id: pos.id, dec: dec, pts: [], cur: pos.price, target: pos.price, frac: 0, band: 1,
+          anchorPrice: pos.price, anchorPnl: pos.profit_usd || 0, anchorPct: (pos.pct == null ? 0 : pos.pct),
+          dir: (pos.side === 'SELL' ? -1 : 1), _disp: pos.profit_usd || 0, _init: false, binds: [] };
+    // seed série
+    var seed = (pos.series && pos.series.length) ? pos.series.slice(-(N + 1)) : [pos.price];
+    while (seed.length < N + 1) seed.unshift(seed[0]);
+    s.pts = seed.slice(); s.cur = seed[seed.length - 1];
+
+    // tile do dock
+    var tile = document.createElement('div'); tile.className = 'md-tile';
+    tile.innerHTML =
+      '<div class="md-head"><span class="md-sym">' + pos.symbol + '</span><span class="md-sidewrap"></span></div>' +
+      '<span class="md-frzwrap"></span>' +
+      '<svg class="md-spark" viewBox="0 0 ' + DKW + ' ' + DKH + '" preserveAspectRatio="none"><path class="ar"/><path class="ln" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle class="dt" r="2.3"/></svg>' +
+      '<div class="md-foot"><span class="md-pnl" data-pnl></span><span class="md-pc" data-pc></span></div>';
+    mdRow.appendChild(tile);
+    s.tile = tile; s._dkSide = tile.querySelector('.md-sidewrap'); s._dkFrz = tile.querySelector('.md-frzwrap');
+    s._dkPnl = tile.querySelector('[data-pnl]'); s._dkPc = tile.querySelector('[data-pc]');
+    s.binds.push({ ln: tile.querySelector('.ln'), ar: tile.querySelector('.ar'), dt: tile.querySelector('.dt'), W: DKW, H: DKH, mn: 0, mx: 1 });
+
+    // linha do quadro (só em Resultados)
+    if (mbRow) {
+      var row = document.createElement('div'); row.className = 'mb-row';
+      row.innerHTML =
+        '<span class="mb-sym">' + pos.symbol + '<span class="mb-tf">' + tfLabel(pos.tf) + '</span></span>' +
+        '<span class="mb-sidecell"></span>' +
+        '<span class="mb-sparkwrap"><svg class="mb-spark" viewBox="0 0 ' + BDW + ' ' + BDH + '" preserveAspectRatio="none"><path class="ar"/><path class="ln" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle class="dt" r="2.4"/></svg><span class="mb-frzwrap"></span></span>' +
+        '<span class="mb-lvls"></span>' +
+        '<span class="mb-pnl"><span class="mb-v" data-bpnl></span><br><span class="mb-pc" data-bpc></span></span>';
+      mbRow.appendChild(row);
+      s.row = row; s._bdSide = row.querySelector('.mb-sidecell'); s._bdFrz = row.querySelector('.mb-frzwrap');
+      s._bdLvls = row.querySelector('.mb-lvls'); s._bdPnl = row.querySelector('[data-bpnl]'); s._bdPc = row.querySelector('[data-bpc]');
+      s.binds.push({ ln: row.querySelector('.ln'), ar: row.querySelector('.ar'), dt: row.querySelector('.dt'), W: BDW, H: BDH, mn: 0, mx: 1 });
+    }
+    s.binds.forEach(function (b) { b.mn = Math.min.apply(null, s.pts); b.mx = Math.max.apply(null, s.pts); });
+    state[pos.id] = s;
+    return s;
+  }
+
+  function applyData(data) {
+    var arr = (data && data.positions) || [];
+    if (!arr.length) { dock.classList.remove('md-on'); if (boardEl) boardEl.setAttribute('hidden', ''); return; }
+    var seen = {};
+    arr.forEach(function (pos) {
+      seen[pos.id] = 1;
+      var s = ensureViews(pos);
+      s.open = !!pos.market_open; s._pos = pos; s._disp = pos.profit_usd || 0;
+      var buy = pos.side !== 'SELL', sideCls = buy ? 'md-buy' : 'md-sell';
+      if (pos.market_open) {
+        s.anchorPrice = pos.price; s.anchorPnl = pos.profit_usd || 0; s.anchorPct = (pos.pct == null ? 0 : pos.pct);
+        s.dir = buy ? 1 : -1;
+        s.band = Math.abs(pos.price) * (/BTC|ETH/.test(pos.symbol) ? 0.0004 : 0.00022);
+        if (!s._init) { s._init = true; s.cur = pos.price; s.target = pos.price; }
+      } else {
+        if (pos.series && pos.series.length) { s.pts = pos.series.slice(-(N + 1)); while (s.pts.length < N + 1) s.pts.unshift(s.pts[0]); }
+        s.cur = s.pts[s.pts.length - 1]; s.frac = 0; s._init = true;
+      }
+      // dock: lado/ao vivo + selo fechado + P&L
+      s._dkSide.innerHTML = '<span class="md-side ' + sideCls + '">' + pos.side + '</span>' + (pos.market_open ? '<span class="md-livedot"></span>' : '');
+      // no dock, tiles fechados omitem o badge (só o selo); simplifica: mantém badge escondido no fechado
+      if (!pos.market_open) s._dkSide.innerHTML = '';
+      s._dkFrz.innerHTML = pos.market_open ? '' : '<span class="md-frz">' + LOCK + ' ' + T.closed + '</span>';
+      s.tile.classList.toggle('md-closed', !pos.market_open);
+      s._dkPnl.textContent = signed(pos.profit_usd, money); s._dkPnl.className = 'md-pnl ' + (pos.profit_usd >= 0 ? 'md-pos' : 'md-neg');
+      s._dkPc.textContent = (pos.pct == null ? '' : signed(pos.pct, function (x) { return nf(x, 2); }) + '%');
+      // board
+      if (mbRow && s.row) {
+        s._bdSide.innerHTML = '<span class="mb-side ' + (buy ? 'mb-buy' : 'mb-sell') + '">' + pos.side + '</span>' + (pos.market_open ? '<span class="mb-status"><span class="mb-d"></span>' + T.live + '</span>' : '');
+        s._bdFrz.innerHTML = pos.market_open ? '' : '<span class="mb-frz">' + LOCK + ' ' + T.closed + '</span>';
+        s.row.classList.toggle('mb-closed', !pos.market_open);
+        s._bdLvls.innerHTML = (pos.market_open ? T.price : T.last) + '<b class="mb-cur">' + nf(pos.price, s.dec) + '</b>' + (pos.market_open ? '' : '<br><span class="mb-reopen">' + (pos.reopen || '') + '</span>');
+        s._bdCur = s._bdLvls.querySelector('.mb-cur');
+        s._bdPnl.textContent = signed(pos.profit_usd, money); s._bdPnl.className = 'mb-v ' + (pos.profit_usd >= 0 ? 'mb-pos' : 'mb-neg');
+        s._bdPc.textContent = (pos.pct == null ? '' : signed(pos.pct, function (x) { return nf(x, 2); }) + '%');
+      }
+    });
+    // remove sumidos
+    Object.keys(state).forEach(function (id) {
+      if (!seen[id]) { var s = state[id]; if (s.tile) s.tile.remove(); if (s.row) s.row.remove(); delete state[id]; }
+    });
+    var n = arr.length, nOpen = arr.filter(function (p) { return p.market_open; }).length;
+    document.getElementById('md-cnt').textContent = cntTxt(n, nOpen);
+    if (mbMk) mbMk.textContent = mktTxt(nOpen, n);
+    dock.classList.add('md-on');
+    if (boardEl) boardEl.removeAttribute('hidden');
+    if (!started && !reduce) { started = true; requestAnimationFrame(frame); }
+    else if (reduce) { renderStatic(); }
+  }
+
+  function renderStatic() {
+    Object.keys(state).forEach(function (id) { var s = state[id]; s.binds.forEach(function (b) { drawBind(s, b); }); });
+    updateTotals();
+  }
+  function updateTotals() {
+    var tot = 0; Object.keys(state).forEach(function (id) { tot += (state[id]._disp || 0); });
+    var te = document.getElementById('md-tot'); te.textContent = signed(tot, money0); te.className = 'md-tot ' + (tot >= 0 ? '' : 'md-neg');
+    if (mbTot) { mbTot.textContent = signed(tot, money0); mbTot.className = 'mb-v ' + (tot >= 0 ? '' : 'mb-neg'); }
+  }
+
+  function frame(now) {
+    var dt = frame._l ? now - frame._l : 16; frame._l = now; if (dt > 60) dt = 60;
+    Object.keys(state).forEach(function (id) {
+      var s = state[id];
+      if (s.open) {
+        s.frac += dt / 1200;
+        while (s.frac >= 1) {
+          s.frac -= 1; s.pts.push(s.cur); s.pts.shift();
+          var nt = s.cur + (Math.random() - 0.5) * s.band * 0.9 + (s.anchorPrice - s.cur) * 0.14;
+          if (nt > s.anchorPrice + s.band) nt = s.anchorPrice + s.band; if (nt < s.anchorPrice - s.band) nt = s.anchorPrice - s.band;
+          s.target = nt;
+        }
+        s.cur += (s.target - s.cur) * (1 - Math.exp(-dt / 430)); s.pts[N] = s.cur;
+        var pct = s.anchorPct + (s.cur - s.anchorPrice) / (s.anchorPrice || 1) * 100 * s.dir;
+        var perPct = s.anchorPct !== 0 ? s.anchorPnl / s.anchorPct : 0;
+        var pnl = s.anchorPnl + perPct * (pct - s.anchorPct); s._disp = pnl;
+        var pc = signed(pct, function (x) { return nf(x, 2); }) + '%';
+        s._dkPnl.textContent = signed(pnl, money); s._dkPnl.className = 'md-pnl ' + (pnl >= 0 ? 'md-pos' : 'md-neg'); s._dkPc.textContent = pc;
+        if (s._bdPnl) { s._bdPnl.textContent = signed(pnl, money); s._bdPnl.className = 'mb-v ' + (pnl >= 0 ? 'mb-pos' : 'mb-neg'); s._bdPc.textContent = pc; if (s._bdCur) s._bdCur.textContent = nf(s.cur, s.dec); }
+      }
+      s.binds.forEach(function (b) { drawBind(s, b); });
+    });
+    updateTotals();
+    requestAnimationFrame(frame);
+  }
+
+  function pull() {
+    fetch('positions.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(applyData)
+      .catch(function () { dock.classList.remove('md-on'); if (boardEl) boardEl.setAttribute('hidden', ''); });
+  }
+  pull();
+  setInterval(function () { if (!document.hidden) pull(); }, 60000);
+})();

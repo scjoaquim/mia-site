@@ -492,3 +492,98 @@ footer a:hover { color: var(--amber); }
 }
 .tip:hover .tip-box, .tip:focus .tip-box, .tip:focus-within .tip-box { opacity: 1; visibility: visible; }
 @media (max-width: 600px) { .tip .tip-box { width: 220px; } }
+
+/* ============================================================================
+   MIA — "Operações ao vivo" (dock fixo + quadro em Resultados)
+   Aditivo. Classes prefixadas (md-/mb-) e escopadas por ID p/ zero colisão.
+   Lê positions.json; some sozinho se não houver dado.
+   ============================================================================ */
+body { padding-bottom: 132px; }               /* respiro pro dock fixo */
+@media (max-width:720px){ body { padding-bottom: 120px; } }
+
+/* ---- DOCK FIXO (site-wide) ---- */
+#md-dock{ display:none; position:fixed; left:0; right:0; bottom:0; z-index:400; height:124px;
+  flex-direction:column; background:linear-gradient(180deg,#000f02,#00080a);
+  border-top:1px solid #005a1e; box-shadow:0 -10px 34px rgba(0,0,0,.6),0 -1px 0 rgba(0,255,136,.14);
+  font-family:'Share Tech Mono','Courier New',monospace; }
+#md-dock.md-on{ display:flex; }
+#md-dock .md-top{ height:32px; display:flex; align-items:center; gap:14px; padding:0 16px; border-bottom:1px solid #003010; white-space:nowrap; }
+#md-dock .md-dot{ width:9px; height:9px; border-radius:50%; background:#00ff88; position:relative; flex:none; }
+#md-dock .md-dot::after{ content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid #00ff88; animation:md-ping 1.6s cubic-bezier(0,0,.2,1) infinite; }
+@keyframes md-ping{0%{transform:scale(.6);opacity:.9}75%,100%{transform:scale(2.4);opacity:0}}
+#md-dock .md-ao{ font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#80ff80; }
+#md-dock .md-sep{ color:#005a1e; }
+#md-dock .md-lbl{ font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#008a28; }
+#md-dock .md-tot{ font-size:17px; color:#00ff88; font-variant-numeric:tabular-nums; text-shadow:0 0 10px rgba(0,255,136,.35); }
+#md-dock .md-tot.md-neg{ color:#ff3030; }
+#md-dock .md-cnt{ font-size:11px; color:#008a28; }
+#md-dock .md-cta{ margin-left:auto; color:#80ff80; text-decoration:none; font-size:12px; display:inline-flex; align-items:center; gap:6px; border:1px solid #005a1e; padding:4px 10px; border-radius:2px; }
+#md-dock .md-cta:hover{ background:#001404; }
+#md-dock .md-row{ flex:1; display:flex; overflow-x:auto; overflow-y:hidden; gap:1px; background:#003010; }
+#md-dock .md-row::-webkit-scrollbar{ height:0; }
+#md-dock .md-tile{ flex:1 1 0; min-width:158px; background:#000f02; padding:8px 12px; display:flex; flex-direction:column; gap:3px; position:relative; }
+#md-dock .md-tile.md-closed{ background:rgba(0,20,4,.3); }
+#md-dock .md-head{ display:flex; align-items:center; gap:7px; font-size:12px; }
+#md-dock .md-sym{ color:#80ff80; letter-spacing:.3px; }
+#md-dock .md-tile.md-closed .md-sym{ color:#00c246; }
+#md-dock .md-side{ font-size:9px; letter-spacing:.5px; padding:1px 5px; border-radius:2px; text-transform:uppercase; font-weight:bold; }
+#md-dock .md-side.md-buy{ color:#000800; background:#00ff88; }
+#md-dock .md-side.md-sell{ color:#000800; background:#ff3030; }
+#md-dock .md-livedot{ margin-left:auto; width:6px; height:6px; border-radius:50%; background:#00ff88; animation:md-blink 1.4s ease-in-out infinite; }
+@keyframes md-blink{0%,100%{opacity:1;box-shadow:0 0 5px #00ff88}50%{opacity:.3;box-shadow:none}}
+#md-dock .md-spark{ width:100%; height:38px; display:block; }
+#md-dock .md-tile.md-closed .md-spark{ opacity:.4; }
+#md-dock .md-frz{ position:absolute; top:7px; right:8px; z-index:2; display:inline-flex; align-items:center; gap:4px; font-size:8px; letter-spacing:.5px; text-transform:uppercase; color:#ffe8a0; border:1px solid rgba(255,232,160,.5); background:rgba(0,10,4,.85); padding:2px 6px; border-radius:2px; text-shadow:0 0 6px rgba(255,232,160,.45); }
+#md-dock .md-frz svg{ width:9px; height:9px; flex:none; }
+#md-dock .md-foot{ display:flex; justify-content:space-between; align-items:baseline; gap:6px; }
+#md-dock .md-pnl{ font-size:15px; font-variant-numeric:tabular-nums; }
+#md-dock .md-pnl.md-pos{ color:#00ff88; } #md-dock .md-pnl.md-neg{ color:#ff3030; }
+#md-dock .md-tile.md-closed .md-pnl.md-pos{ color:#2c6a43; } #md-dock .md-tile.md-closed .md-pnl.md-neg{ color:#7a2a2a; }
+#md-dock .md-pc{ font-size:10.5px; color:#008a28; }
+@media (max-width:720px){
+  #md-dock{ height:112px; }
+  #md-dock .md-top{ gap:8px; padding:0 12px; }
+  #md-dock .md-cnt, #md-dock .md-ao, #md-dock .md-sep{ display:none; }
+  #md-dock .md-tile{ flex:0 0 62%; }
+}
+@media (prefers-reduced-motion:reduce){ #md-dock .md-dot::after,#md-dock .md-livedot{ animation:none; } }
+
+/* ---- QUADRO COMPLETO (Modelo B) em Resultados ---- */
+#mia-board .mb-panel{ border:1px solid #005a1e; background:#000f02; font-family:'Share Tech Mono','Courier New',monospace; }
+#mia-board .mb-head{ padding:11px 14px; border-bottom:1px solid #003010; font-size:10.5px; letter-spacing:2px; color:#008a28; text-transform:uppercase; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+#mia-board .mb-name{ display:flex; align-items:center; gap:8px; color:#80ff80; }
+#mia-board .mb-dot{ width:8px; height:8px; border-radius:50%; background:#00ff88; position:relative; flex:none; }
+#mia-board .mb-dot::after{ content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid #00ff88; animation:md-ping 1.6s cubic-bezier(0,0,.2,1) infinite; }
+#mia-board .mb-mk{ font-size:10px; letter-spacing:1px; color:#008a28; }
+#mia-board .mb-tot{ font-variant-numeric:tabular-nums; } #mia-board .mb-tot .mb-v{ color:#00ff88; } #mia-board .mb-tot .mb-v.mb-neg{ color:#ff3030; }
+#mia-board .mb-row{ display:grid; grid-template-columns:150px 66px 1fr 96px 118px; gap:12px; align-items:center; padding:13px 14px; border-bottom:1px solid #003010; font-size:12.5px; }
+#mia-board .mb-row:last-child{ border-bottom:0; }
+#mia-board .mb-sym{ color:#80ff80; letter-spacing:.5px; }
+#mia-board .mb-sym .mb-tf{ color:#008a28; font-size:10px; display:block; letter-spacing:1px; }
+#mia-board .mb-side{ font-size:10px; letter-spacing:1px; padding:2px 7px; border-radius:2px; text-transform:uppercase; font-weight:bold; text-align:center; }
+#mia-board .mb-side.mb-buy{ color:#000800; background:#00ff88; } #mia-board .mb-side.mb-sell{ color:#000800; background:#ff3030; }
+#mia-board .mb-sidecell{ display:flex; flex-direction:column; align-items:center; gap:5px; }
+#mia-board .mb-status{ font-size:8.5px; letter-spacing:1px; text-transform:uppercase; display:inline-flex; align-items:center; gap:4px; color:#00ff88; }
+#mia-board .mb-status .mb-d{ width:5px; height:5px; border-radius:50%; background:#00ff88; animation:md-blink 1.4s ease-in-out infinite; }
+#mia-board .mb-sparkwrap{ position:relative; }
+#mia-board .mb-spark{ width:100%; height:40px; display:block; }
+#mia-board .mb-frz{ position:absolute; top:6px; right:8px; z-index:2; display:inline-flex; align-items:center; gap:4px; font-size:8px; letter-spacing:.5px; color:#ffe8a0; text-transform:uppercase; border:1px solid rgba(255,232,160,.5); background:rgba(0,10,4,.85); padding:2px 6px; border-radius:2px; text-shadow:0 0 6px rgba(255,232,160,.45); white-space:nowrap; pointer-events:none; }
+#mia-board .mb-frz svg{ width:9px; height:9px; flex:none; }
+#mia-board .mb-lvls{ font-size:10.5px; color:#008a28; text-align:right; line-height:1.55; }
+#mia-board .mb-lvls b{ color:#00e040; font-variant-numeric:tabular-nums; font-weight:normal; }
+#mia-board .mb-lvls .mb-reopen{ color:#2c6a43; font-size:9.5px; }
+#mia-board .mb-pnl{ text-align:right; font-variant-numeric:tabular-nums; }
+#mia-board .mb-pnl .mb-v{ font-size:15px; } #mia-board .mb-pnl .mb-v.mb-pos{ color:#00ff88; } #mia-board .mb-pnl .mb-v.mb-neg{ color:#ff3030; }
+#mia-board .mb-pnl .mb-pc{ font-size:10.5px; color:#008a28; }
+#mia-board .mb-row.mb-closed{ background:rgba(0,20,4,.25); }
+#mia-board .mb-row.mb-closed .mb-sym{ color:#00c246; }
+#mia-board .mb-row.mb-closed .mb-spark{ opacity:.42; }
+#mia-board .mb-row.mb-closed .mb-pnl .mb-v.mb-pos{ color:#2c6a43; } #mia-board .mb-row.mb-closed .mb-pnl .mb-v.mb-neg{ color:#7a2a2a; }
+#mia-board .mb-foot{ padding:11px 14px; border-top:1px solid #003010; font-size:10.5px; color:#00c246; line-height:1.6; }
+@media (max-width:720px){
+  #mia-board .mb-row{ grid-template-columns:auto auto 1fr; grid-template-areas:'sym side pnl' 'spark spark spark' 'lvls lvls lvls'; gap:6px 10px; }
+  #mia-board .mb-sym{ grid-area:sym; } #mia-board .mb-sidecell{ grid-area:side; flex-direction:row; gap:6px; align-items:center; } #mia-board .mb-sparkwrap{ grid-area:spark; }
+  #mia-board .mb-spark{ height:44px; }
+  #mia-board .mb-lvls{ grid-area:lvls; text-align:left; } #mia-board .mb-pnl{ grid-area:pnl; }
+}
+@media (prefers-reduced-motion:reduce){ #mia-board .mb-dot::after,#mia-board .mb-status .mb-d{ animation:none; } }
