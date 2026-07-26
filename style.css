@@ -503,8 +503,9 @@ body { padding-bottom: 132px; }               /* respiro pro dock fixo */
 
 /* ---- DOCK FIXO (site-wide) ---- */
 #md-dock{ display:none; position:fixed; left:0; right:0; bottom:0; z-index:400; height:124px;
-  flex-direction:column; background:linear-gradient(180deg,#000f02,#00080a);
-  border-top:1px solid #005a1e; box-shadow:0 -10px 34px rgba(0,0,0,.6),0 -1px 0 rgba(0,255,136,.14);
+  flex-direction:column; background:linear-gradient(180deg,#001a08,#00080a);
+  border-top:2px solid #00e040;
+  box-shadow:0 -14px 36px rgba(0,0,0,.7), 0 -4px 18px rgba(0,255,136,.30), 0 -1px 0 #00ff88;
   font-family:'Share Tech Mono','Courier New',monospace; }
 #md-dock.md-on{ display:flex; }
 #md-dock .md-top{ height:32px; display:flex; align-items:center; gap:14px; padding:0 16px; border-bottom:1px solid #003010; white-space:nowrap; }
