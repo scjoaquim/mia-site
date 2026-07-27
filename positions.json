@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27 03:35:10 UTC",
+  "generated_at": "2026-07-27 03:37:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "DE30",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 25272.5,
-      "profit_usd": 54.38,
-      "pct": 1.75,
+      "price": 25273.5,
+      "profit_usd": 54.5,
+      "pct": 1.76,
       "market_open": true,
       "series": [
-        25261.0,
         25262.5,
         25257.5,
         25261.7,
@@ -51,7 +50,8 @@
         25297.0,
         25281.0,
         25285.5,
-        25272.5
+        25272.5,
+        25273.5
       ]
     },
     {
@@ -59,9 +59,9 @@
       "symbol": "BTC/USD",
       "tf": "cripto · 5M",
       "side": "BUY",
-      "price": 65220.6,
-      "profit_usd": -3.65,
-      "pct": -0.06,
+      "price": 65230.6,
+      "profit_usd": -2.85,
+      "pct": -0.05,
       "market_open": true,
       "series": [
         65258.92,
@@ -70,7 +70,8 @@
         65268.2,
         65212.3,
         65212.5,
-        65220.6
+        65220.6,
+        65230.6
       ]
     }
   ]
