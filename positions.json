@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27 03:21:10 UTC",
+  "generated_at": "2026-07-27 03:23:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "DE30",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 25301.0,
-      "profit_usd": 57.95,
+      "price": 25300.5,
+      "profit_usd": 57.9,
       "pct": 1.87,
       "market_open": true,
       "series": [
-        25250.5,
         25252.0,
         25250.0,
         25254.0,
@@ -51,7 +50,8 @@
         25298.0,
         25298.0,
         25301.5,
-        25301.0
+        25301.0,
+        25300.5
       ]
     }
   ]
