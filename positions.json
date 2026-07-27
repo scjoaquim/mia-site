@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27 00:19:11 UTC",
+  "generated_at": "2026-07-27 00:21:11 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "DE30",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 25221.8,
-      "profit_usd": 48.0,
-      "pct": 1.55,
+      "price": 25213.5,
+      "profit_usd": 46.95,
+      "pct": 1.52,
       "market_open": true,
       "series": [
-        25275.0,
         25274.0,
         25285.0,
         25281.8,
@@ -51,7 +50,36 @@
         25321.6,
         25287.5,
         25240.2,
-        25221.8
+        25221.8,
+        25213.5
+      ]
+    },
+    {
+      "id": 354165072,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "BUY",
+      "price": 4106.1,
+      "profit_usd": -5.05,
+      "pct": -0.06,
+      "market_open": true,
+      "series": [
+        4106.074,
+        4106.1
+      ]
+    },
+    {
+      "id": 354165076,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "BUY",
+      "price": 4106.1,
+      "profit_usd": -5.05,
+      "pct": -0.06,
+      "market_open": true,
+      "series": [
+        4106.074,
+        4106.1
       ]
     }
   ]
