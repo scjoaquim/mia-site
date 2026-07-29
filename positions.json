@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29 22:37:11 UTC",
+  "generated_at": "2026-07-29 22:39:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,9 +7,9 @@
       "symbol": "US100",
       "tf": "índice · 5M",
       "side": "SELL",
-      "price": 27335.0,
-      "profit_usd": -8.22,
-      "pct": -0.5,
+      "price": 27338.3,
+      "profit_usd": -8.42,
+      "pct": -0.51,
       "market_open": true,
       "series": [
         27182.77,
@@ -49,7 +49,8 @@
         27303.3,
         27301.5,
         27315.5,
-        27335.0
+        27335.0,
+        27338.3
       ]
     },
     {
@@ -57,16 +58,17 @@
       "symbol": "ETH/USD",
       "tf": "cripto · 5M",
       "side": "BUY",
-      "price": 1903.9,
-      "profit_usd": -4.21,
-      "pct": -0.16,
+      "price": 1902.7,
+      "profit_usd": -5.75,
+      "pct": -0.23,
       "market_open": true,
       "series": [
         1904.44,
         1904.4,
         1904.0,
         1903.4,
-        1903.9
+        1903.9,
+        1902.7
       ]
     },
     {
@@ -74,12 +76,11 @@
       "symbol": "US100",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 27335.0,
-      "profit_usd": 3.29,
-      "pct": 0.41,
+      "price": 27338.3,
+      "profit_usd": 3.39,
+      "pct": 0.42,
       "market_open": true,
       "series": [
-        27154.0,
         27159.0,
         27191.7,
         27182.8,
@@ -118,7 +119,8 @@
         27303.3,
         27301.5,
         27315.5,
-        27335.0
+        27335.0,
+        27338.3
       ]
     },
     {
@@ -126,12 +128,11 @@
       "symbol": "ETH/USD",
       "tf": "cripto · 4H",
       "side": "SELL",
-      "price": 1903.9,
-      "profit_usd": -1.92,
-      "pct": -0.76,
+      "price": 1902.7,
+      "profit_usd": -1.75,
+      "pct": -0.69,
       "market_open": true,
       "series": [
-        1881.6,
         1883.9,
         1884.5,
         1885.3,
@@ -170,7 +171,8 @@
         1904.4,
         1904.0,
         1903.4,
-        1903.9
+        1903.9,
+        1902.7
       ]
     }
   ]
