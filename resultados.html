@@ -208,6 +208,13 @@
   // Lê data.pro_monthly (mantido pela Action): [{ym,label,cum_usd,bal}] com o
   // lucro CUMULATIVO por mês. Aqui derivamos o lucro DO mês = cumulativo do mês
   // − cumulativo do mês anterior, e o % = lucro do mês / saldo no início do mês.
+  // ⚠ O gráfico só desenha MESES INTEIROS. O sinal nasceu em 11/07/2026, então
+  // julho tem 20 dias e não é comparável com um mês cheio — desenhá-lo ao lado
+  // dos outros seria comparar coisas diferentes. Julho NÃO é apagado: continua
+  // no data.json, entra no cálculo do delta de agosto, aparece no acumulado dos
+  // quadros acima e no histórico oficial da MQL5. Aqui ele só não vira barra.
+  // Para voltar a mostrá-lo, é só apagar a linha abaixo (ou pôr '').
+  var CHART_START_YM = '2026-08';
   // Fallback = julho real, pra o gráfico já aparecer antes da 1ª rodada da Action.
   var MONTHLY_FALLBACK = [{ ym: '2026-07', label: 'jul/26', cum_usd: -57.86, bal: 4142.14 }];
   var monthlyData = MONTHLY_FALLBACK, chartShown = false;
@@ -223,7 +230,7 @@
       var usd = (m.cum_usd || 0) - prevCum;
       var balStart = i > 0 ? monthlyData[i - 1].bal : ((m.bal || 0) - usd);
       var pct = balStart ? (usd / balStart * 100) : 0;
-      r.push({ label: m.label, usd: usd, pct: pct });
+      r.push({ ym: m.ym, label: m.label, usd: usd, pct: pct });
     }
     return r;
   }
@@ -242,20 +249,33 @@
     // Janela móvel: sempre mostra os ÚLTIMOS 12 meses (o delta de cada mês já foi
     // calculado sobre o histórico inteiro em chartRows, então as barras ficam
     // certas mesmo cortando as mais antigas). Histórico completo segue na MQL5.
-    var allRows = chartRows();
+    // O filtro vem DEPOIS do chartRows de propósito: o delta de agosto é
+    // "cumulativo de agosto − cumulativo de julho". Filtrar antes faria o
+    // resultado de julho ser somado dentro da barra de agosto.
+    var allRows = chartRows().filter(function (r) { return r.ym == null || !CHART_START_YM || r.ym >= CHART_START_YM; });
     var rows = allRows.slice(-12);
     var rolling = allRows.length > 12;
     // nota: quando vira janela móvel, avisa que são os últimos 12 meses
     var note = document.getElementById('pro-monthly-note');
     if (note) {
       var ptEl = note.querySelector('.lang-pt'), enEl = note.querySelector('.lang-en');
-      if (ptEl) ptEl.textContent = rolling
+      var vazio = rows.length === 0;
+      if (ptEl) ptEl.textContent = vazio
+        ? 'Só entram meses inteiros. O sinal nasceu em 11/07/2026, então julho é parcial e fica de fora — o resultado dele está no acumulado acima e na MQL5. A primeira barra entra quando agosto fechar.'
+        : rolling
         ? 'Últimos 12 meses — crescimento do mês (fechado + em aberto). Histórico completo na página oficial.'
-        : 'Uma barra por mês — o crescimento do mês (fechado + em aberto), direto do sinal na MQL5. Um mês novo entra sozinho.';
-      if (enEl) enEl.textContent = rolling
+        : 'Uma barra por mês inteiro — o crescimento do mês (fechado + em aberto), direto do sinal na MQL5. Um mês novo entra sozinho.';
+      if (enEl) enEl.textContent = vazio
+        ? 'Full months only. The signal started on 2026-07-11, so July is partial and stays out — its result is in the totals above and on MQL5. The first bar appears once August closes.'
+        : rolling
         ? 'Last 12 months — monthly growth (closed + open). Full history on the official page.'
-        : 'One bar per month — the monthly growth (closed + open), straight from the MQL5 signal. A new month is added automatically.';
+        : 'One bar per full month — the monthly growth (closed + open), straight from the MQL5 signal. A new month is added automatically.';
     }
+    // Enquanto não houver nenhum mês inteiro, esconde a área do gráfico em vez
+    // de deixar um retângulo vazio de 330px: fica só o título e a explicação.
+    var wrap = svg.closest('.chart-wrap') || svg.parentNode;
+    if (wrap) wrap.style.display = rows.length ? '' : 'none';
+    if (!rows.length) { svg.innerHTML = ''; return; }
     var W = 720, H = 330, pT = 48, pB = 50, pL = 8, pR = 8, plotH = H - pT - pB;
     var GHOSTS = Math.max(0, 6 - rows.length);
     var slots = rows.length + GHOSTS, sW = (W - pL - pR) / Math.max(slots, 1), bW = Math.min(sW * 0.55, 46);
