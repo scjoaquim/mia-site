@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Atualiza data.json com os números ao vivo dos sinais MQL5 (PRO + Essential).
+// Atualiza data.json com os números ao vivo do sinal MQL5 PRO — o único produto.
 // Roda via GitHub Actions (scheduled). Sem dependências externas — usa fetch
 // nativo do Node 20+ e regex tolerante para não quebrar se a MQL5 mudar
 // espaçamento/atributos, mas ainda assim mantém a estrutura de classes atual.
@@ -17,7 +17,6 @@ import { readFile, writeFile } from 'node:fs/promises';
 
 const SIGNALS = {
   pro: { id: '2381728', label: 'PRO' },
-  essential: { id: '2382452', label: 'Essential' },
 };
 
 const UA =
@@ -309,12 +308,9 @@ async function buildSignal(key, { id, label }, previous) {
 async function main() {
   const previous = await loadExisting();
 
-  const [proOut, essentialOut] = await Promise.all([
-    buildSignal('pro', SIGNALS.pro, previous),
-    buildSignal('essential', SIGNALS.essential, previous),
-  ]);
+  const proOut = await buildSignal('pro', SIGNALS.pro, previous);
 
-  // Gráfico de lucro mês a mês (só PRO): upsert do mês corrente com o crescimento
+  // Gráfico de lucro mês a mês: upsert do mês corrente com o crescimento
   // TOTAL cumulativo (fechado + em aberto = Equity − depósito inicial) e o Equity.
   // Assim a barra do mês bate com os quadros de retorno. Mês em UTC (runner GitHub).
   const now = new Date();
@@ -333,20 +329,18 @@ async function main() {
   // diferença de verdade.
   const unchanged =
     JSON.stringify(proOut.result) === JSON.stringify(previous.pro || {}) &&
-    JSON.stringify(essentialOut.result) === JSON.stringify(previous.essential || {}) &&
     JSON.stringify(proMonthly) === JSON.stringify(previous.pro_monthly || []);
 
   const data = {
     generated_at: unchanged && previous.generated_at ? previous.generated_at : new Date().toISOString(),
     pro: proOut.result,
-    essential: essentialOut.result,
     pro_monthly: proMonthly,
   };
 
   await writeFile(DATA_JSON_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
   console.log(unchanged ? 'Nada mudou — data.json regravado sem novo timestamp.' : 'data.json atualizado.');
 
-  if (proOut.critical || essentialOut.critical) {
+  if (proOut.critical) {
     // sai com erro (o job aparece como falho no Actions) mas o commit dos
     // dados de fallback já foi escrito — os tiles do site não quebram.
     process.exitCode = 1;

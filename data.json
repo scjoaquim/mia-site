@@ -17,23 +17,6 @@
     "total_pct": "+3,44%",
     "total_positive": true
   },
-  "essential": {
-    "balance": "US$ 2.065",
-    "growth": "−2,76%",
-    "growth_usd": "−US$ 57,60",
-    "growth_positive": false,
-    "dd": "5,81%",
-    "trades": "38",
-    "win_rate": "24%",
-    "profit_factor": "0,80",
-    "open_usd": "+US$ 37,85",
-    "open_positive": true,
-    "current": "US$ 2.065",
-    "initial": "US$ 2.085",
-    "total_usd": "−US$ 19,88",
-    "total_pct": "−0,95%",
-    "total_positive": false
-  },
   "pro_monthly": [
     {
       "ym": "2026-07",

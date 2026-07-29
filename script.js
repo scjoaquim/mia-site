@@ -33,7 +33,7 @@
 // [data-deposit="produto.campo"] recebe o valor formatado no idioma atual.
 // O número já escrito no HTML é fallback — aparece igual mesmo sem JS.
 (function () {
-  var D = { essential: { min: 2000, rec: 2000 }, pro: { min: 4000, rec: 4000 } };
+  var D = { pro: { min: 4000, rec: 4000 } };
   var en = document.body.classList.contains('lang-en');
   function money(n) { return 'US$ ' + n.toLocaleString(en ? 'en-US' : 'pt-BR'); }
   document.querySelectorAll('[data-deposit]').forEach(function (el) {

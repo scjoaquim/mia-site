@@ -1,6 +1,6 @@
 name: Atualizar tiles de resultados (MQL5)
 
-# Busca os números ao vivo dos sinais MQL5 (PRO + Essential), regrava
+# Busca os números ao vivo do sinal MQL5 PRO, regrava
 # data.json e comita sozinho — a página resultados.html lê esse arquivo.
 # Ver scripts/update-tiles.mjs para a extração/formatação.
 
