@@ -17,6 +17,8 @@ import {
   fmtSignedUsd,
   monthLabel,
   upsertMonthly,
+  fmtUpdatedAt,
+  patchFallbackTiles,
 } from './update-tiles.mjs';
 
 // --- amostra do WIDGET (estrutura real: h3>span pro saldo, dl/dt/dd pro resto) ---
@@ -237,5 +239,69 @@ assert.deepEqual(mo.map((e) => e.ym), ['2026-06', '2026-07', '2026-08']);
 // arredonda pra 2 casas (evita ruído de float)
 assert.equal(upsertMonthly([], '2026-09', 12.3456, 5000.999)[0].cum_usd, 12.35);
 assert.equal(upsertMonthly([], '2026-09', 12.3456, 5000.999)[0].bal, 5001);
+
+// --- fallback estatico do resultados.html -----------------------------------
+// Trecho reduzido, com a MESMA estrutura das ancoras reais.
+const htmlTiles = [
+  '<div class="k-val" id="pro-current">US$ 4.479</div>',
+  '<span id="pro-initial">US$ 4.200</span>',
+  '<div class="k-val pos" id="pro-total-usd">+US$ 278,87</div>',
+  '<div class="k-val pos" id="pro-total-pct">+6,64%</div>',
+  '<div class="snapshot-note" id="pro-snapshot-note"><span class="lang-pt">Snapshot 23/07/2026 · widget ao vivo abaixo</span><span class="lang-en">Snapshot 2026-07-23 · live widget below</span></div>',
+  "  var MONTHLY_FALLBACK = [{ ym: '2026-07', label: 'jul/26', cum_usd: 278.87, bal: 4478.87 }];",
+].join('\n');
+
+const dadosNeg = {
+  generated_at: '2026-07-29T10:49:27.568Z',
+  pro: { current: 'US$ 4.142', initial: 'US$ 4.200', total_usd: '−US$ 57,86', total_pct: '−1,38%', total_positive: false },
+  pro_monthly: [{ ym: '2026-07', label: 'jul/26', cum_usd: -57.86, bal: 4142.14 }],
+};
+
+const t1 = patchFallbackTiles(htmlTiles, dadosNeg);
+assert.equal(t1.changed, true);
+assert.deepEqual(t1.warnings, []);
+assert.ok(t1.html.includes('id="pro-current">US$ 4.142<'));
+// conta negativa -> a classe TEM de virar neg (senao o numero sai verde)
+assert.ok(t1.html.includes('<div class="k-val neg" id="pro-total-usd">−US$ 57,86</div>'));
+assert.ok(t1.html.includes('<div class="k-val neg" id="pro-total-pct">−1,38%</div>'));
+assert.ok(!t1.html.includes('class="k-val pos"'));
+// carimbo com data, no mesmo formato que o JS escreve
+assert.ok(t1.html.includes('Atualizado automaticamente em 29/07/2026, 10:49 UTC · widget ao vivo abaixo'));
+assert.ok(t1.html.includes('Auto-updated at 07/29/2026, 10:49 UTC · live widget below'));
+assert.ok(t1.html.includes("var MONTHLY_FALLBACK = [{ ym: '2026-07', label: 'jul/26', cum_usd: -57.86, bal: 4142.14 }];"));
+// nada do valor velho sobrou
+['4.479', '278,87', '+6,64%', 'Snapshot'].forEach((velho) => assert.ok(!t1.html.includes(velho), velho));
+
+// idempotente: 2a passagem nao muda nada
+const t2 = patchFallbackTiles(t1.html, dadosNeg);
+assert.equal(t2.changed, false);
+assert.deepEqual(t2.warnings, []);
+
+// volta a positivo -> classe volta a pos
+const t3 = patchFallbackTiles(t1.html, {
+  ...dadosNeg,
+  pro: { ...dadosNeg.pro, total_usd: '+US$ 10,00', total_pct: '+0,24%', total_positive: true },
+});
+assert.ok(t3.html.includes('<div class="k-val pos" id="pro-total-usd">+US$ 10,00</div>'));
+
+// ANCORA AUSENTE = NAO GRAVA NADA (o mesmo contrato do sync_fb_fallback.py):
+// devolve o html ORIGINAL, changed=false e um aviso — nunca um HTML meio remendado.
+const semAncora = htmlTiles.replace('id="pro-total-pct"', 'id="pro-total-pct-RENOMEADO"');
+const t4 = patchFallbackTiles(semAncora, dadosNeg);
+assert.equal(t4.changed, false);
+assert.equal(t4.html, semAncora);
+assert.ok(t4.warnings.some((w) => w.includes('pro-total-pct') && w.includes('NADA foi gravado')));
+
+// ANCORA DUPLICADA tambem barra (dois blocos iguais = nao da pra saber qual e o bom)
+const t5 = patchFallbackTiles(htmlTiles + '\n' + htmlTiles, dadosNeg);
+assert.equal(t5.changed, false);
+assert.ok(t5.warnings.some((w) => w.includes('casou 2x')));
+
+// data invalida nao explode
+assert.equal(fmtUpdatedAt('nao-e-data'), null);
+const t6 = patchFallbackTiles(htmlTiles, { ...dadosNeg, generated_at: 'nao-e-data' });
+assert.equal(t6.changed, true); // os numeros ainda entram
+assert.ok(t6.html.includes('Snapshot 23/07/2026')); // a nota fica como estava
+assert.ok(t6.warnings.some((w) => w.includes('pro-snapshot-note')));
 
 console.log('OK — todos os testes offline passaram.');

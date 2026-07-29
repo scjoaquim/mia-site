@@ -1,7 +1,9 @@
 name: Atualizar tiles de resultados (MQL5)
 
-# Busca os números ao vivo do sinal MQL5 PRO, regrava
-# data.json e comita sozinho — a página resultados.html lê esse arquivo.
+# Busca os números ao vivo do sinal MQL5 PRO, regrava data.json e comita
+# sozinho — a página resultados.html lê esse arquivo.
+# Regrava também os números ESCRITOS no resultados.html (o fallback que
+# aparece sem JS / antes do fetch), pra ele não contradizer o data.json.
 # Ver scripts/update-tiles.mjs para a extração/formatação.
 
 on:
@@ -35,12 +37,12 @@ jobs:
 
       - name: Commitar se houve mudança
         run: |
-          if git diff --quiet -- data.json; then
-            echo "Sem mudanças em data.json — nada a commitar."
+          if git diff --quiet -- data.json resultados.html; then
+            echo "Sem mudanças em data.json/resultados.html — nada a commitar."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data.json
+          git add data.json resultados.html
           git commit -m "chore: atualizar tiles de resultados (auto)"
           git push

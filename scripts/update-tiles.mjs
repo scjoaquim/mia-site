@@ -23,6 +23,7 @@ const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 
 const DATA_JSON_PATH = new URL('../data.json', import.meta.url);
+const RESULTADOS_PATH = new URL('../resultados.html', import.meta.url);
 
 async function fetchText(url) {
   const res = await fetch(url, {
@@ -232,6 +233,108 @@ export function upsertMonthly(list, ym, cumUsd, bal) {
   return out;
 }
 
+// --- fallback estatico do resultados.html -----------------------------------
+// A pagina traz os numeros escritos no HTML e o JS sobrescreve com o data.json.
+// Sem isto, o valor escrito envelhece: em 29-Jul-2026 ele dizia "+6,64%" (de 23-Jul)
+// enquanto a conta estava em "−1,38%" — mostrando LUCRO num periodo de PERDA para
+// quem esta sem JS, com o fetch falhado, ou no instante antes dele responder.
+// Mesmo desenho do sync_fb_fallback.py (ranking): ancora estrita, idempotente, e
+// se QUALQUER ancora nao casar exatamente 1x nao grava nada e avisa.
+
+// Mesmo formato que o resultados.html escreve no navegador, pra o estatico e o
+// vivo nao se contradizerem na virgula.
+export function fmtUpdatedAt(iso) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return null;
+  const pt = d.toLocaleString('pt-BR', { timeZone: 'UTC', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' UTC';
+  const en = d.toLocaleString('en-US', { timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }) + ' UTC';
+  return { pt, en };
+}
+
+// Cada regra: [nome, regex com 1 grupo de captura por pedaco, funcao que devolve
+// o texto novo]. A regex TEM de casar exatamente uma vez.
+function fallbackRules(data) {
+  const pro = (data && data.pro) || {};
+  const cls = pro.total_positive === false ? 'neg' : 'pos';
+  const carimbo = fmtUpdatedAt(data && data.generated_at);
+  const rules = [];
+
+  const simples = (id, tag, valor) => ({
+    nome: id,
+    re: new RegExp('(<' + tag + ' [^>]*id="' + id + '">)([^<]*)(</' + tag + '>)'),
+    novo: (m) => m[1] + valor + m[3],
+    pular: valor == null,
+  });
+
+  rules.push(simples('pro-current', 'div', pro.current));
+  rules.push(simples('pro-initial', 'span', pro.initial));
+
+  for (const [id, valor] of [['pro-total-usd', pro.total_usd], ['pro-total-pct', pro.total_pct]]) {
+    rules.push({
+      nome: id,
+      re: new RegExp('(<div class="k-val )(pos|neg)(" id="' + id + '">)([^<]*)(</div>)'),
+      novo: (m) => m[1] + cls + m[3] + valor + m[5],
+      pular: valor == null,
+    });
+  }
+
+  rules.push({
+    nome: 'pro-snapshot-note',
+    re: /(<div class="snapshot-note" id="pro-snapshot-note"><span class="lang-pt">)([^<]*)(<\/span><span class="lang-en">)([^<]*)(<\/span><\/div>)/,
+    novo: (m) =>
+      m[1] + 'Atualizado automaticamente em ' + carimbo.pt + ' · widget ao vivo abaixo' +
+      m[3] + 'Auto-updated at ' + carimbo.en + ' · live widget below' + m[5],
+    pular: !carimbo,
+  });
+
+  const mensal = Array.isArray(data && data.pro_monthly) ? data.pro_monthly : null;
+  rules.push({
+    nome: 'MONTHLY_FALLBACK',
+    re: /(\s*var MONTHLY_FALLBACK = )(\[[^\]]*\])(;)/,
+    novo: (m) =>
+      m[1] +
+      '[' + mensal.map((e) =>
+        "{ ym: '" + e.ym + "', label: '" + e.label + "', cum_usd: " + e.cum_usd + ", bal: " + e.bal + ' }'
+      ).join(', ') + ']' +
+      m[3],
+    pular: !mensal || !mensal.length,
+  });
+
+  return rules;
+}
+
+// Devolve { html, changed, warnings }. NUNCA lanca: falhar aqui nao pode derrubar
+// a rodada, porque o data.json (a fonte de verdade) ja foi gravado antes.
+export function patchFallbackTiles(html, data) {
+  const warnings = [];
+  let out = html;
+  for (const r of fallbackRules(data)) {
+    if (r.pular) { warnings.push(`${r.nome}: sem valor no data.json — mantido como estava`); continue; }
+    const achados = out.match(new RegExp(r.re.source, r.re.flags.replace('g', '') + 'g'));
+    if (!achados || achados.length !== 1) {
+      warnings.push(`${r.nome}: ancora casou ${achados ? achados.length : 0}x (esperado 1) — NADA foi gravado`);
+      return { html, changed: false, warnings };
+    }
+    out = out.replace(r.re, (...args) => r.novo(args));
+  }
+  return { html: out, changed: out !== html, warnings };
+}
+
+async function syncFallbackTiles(data) {
+  let html;
+  try {
+    html = await readFile(RESULTADOS_PATH, 'utf8');
+  } catch (err) {
+    console.warn('[fallback] nao consegui ler o resultados.html:', err.message);
+    return;
+  }
+  const { html: novo, changed, warnings } = patchFallbackTiles(html, data);
+  warnings.forEach((w) => console.warn('[fallback] ' + w));
+  if (!changed) { console.log('[fallback] tiles estaticos ja alinhados — nada a gravar.'); return; }
+  await writeFile(RESULTADOS_PATH, novo, 'utf8');
+  console.log('[fallback] tiles estaticos do resultados.html realinhados ao data.json.');
+}
+
 async function loadExisting() {
   try {
     const txt = await readFile(DATA_JSON_PATH, 'utf8');
@@ -339,6 +442,10 @@ async function main() {
 
   await writeFile(DATA_JSON_PATH, JSON.stringify(data, null, 2) + '\n', 'utf8');
   console.log(unchanged ? 'Nada mudou — data.json regravado sem novo timestamp.' : 'data.json atualizado.');
+
+  // Mantem os numeros ESCRITOS no resultados.html iguais aos do data.json.
+  // Nunca derruba a rodada: o data.json ja esta gravado a esta altura.
+  await syncFallbackTiles(data);
 
   if (proOut.critical) {
     // sai com erro (o job aparece como falho no Actions) mas o commit dos
