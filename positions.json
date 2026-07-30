@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30 14:47:10 UTC",
+  "generated_at": "2026-07-30 14:49:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 64723.0,
-      "profit_usd": 2.31,
-      "pct": 0.36,
+      "price": 64676.4,
+      "profit_usd": 1.85,
+      "pct": 0.29,
       "market_open": true,
       "series": [
-        64754.1,
         64715.9,
         64706.1,
         64648.6,
@@ -51,7 +50,8 @@
         64760.2,
         64756.8,
         64703.3,
-        64723.0
+        64723.0,
+        64676.4
       ]
     },
     {
@@ -59,9 +59,9 @@
       "symbol": "XAU/USD",
       "tf": "metal · 5M",
       "side": "BUY",
-      "price": 4103.8,
-      "profit_usd": 2.05,
-      "pct": 0.05,
+      "price": 4102.4,
+      "profit_usd": 0.57,
+      "pct": 0.02,
       "market_open": true,
       "series": [
         4111.097,
@@ -89,7 +89,8 @@
         4106.6,
         4107.7,
         4109.7,
-        4103.8
+        4103.8,
+        4102.4
       ]
     },
     {
@@ -98,7 +99,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 33.64,
+      "profit_usd": 32.57,
       "pct": 0.0,
       "market_open": false,
       "series": [
