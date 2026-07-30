@@ -1,18 +1,31 @@
 {
-  "generated_at": "2026-07-30 05:01:11 UTC",
+  "generated_at": "2026-07-30 05:03:10 UTC",
   "account": "PRO",
   "positions": [
+    {
+      "id": 355616931,
+      "symbol": "Cobre",
+      "tf": "metal · 2H",
+      "side": "BUY",
+      "price": 13651.9,
+      "profit_usd": -3.59,
+      "pct": 0.0,
+      "market_open": true,
+      "series": [
+        13651.88,
+        13651.9
+      ]
+    },
     {
       "id": 355462893,
       "symbol": "US100",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 27334.5,
-      "profit_usd": 3.28,
-      "pct": 0.41,
+      "price": 27314.0,
+      "profit_usd": 2.67,
+      "pct": 0.33,
       "market_open": true,
       "series": [
-        27408.2,
         27416.5,
         27419.8,
         27435.5,
@@ -51,7 +64,8 @@
         27339.5,
         27332.5,
         27327.8,
-        27334.5
+        27334.5,
+        27314.0
       ]
     }
   ]
