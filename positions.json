@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30 04:33:10 UTC",
+  "generated_at": "2026-07-30 04:35:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "US100",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 27420.0,
-      "profit_usd": 5.8,
-      "pct": 0.72,
+      "price": 27412.5,
+      "profit_usd": 5.62,
+      "pct": 0.69,
       "market_open": true,
       "series": [
-        27378.5,
         27386.5,
         27368.5,
         27370.2,
@@ -51,7 +50,8 @@
         27407.8,
         27406.5,
         27414.0,
-        27420.0
+        27420.0,
+        27412.5
       ]
     }
   ]
