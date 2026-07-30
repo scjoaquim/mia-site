@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30 22:59:10 UTC",
+  "generated_at": "2026-07-30 23:01:11 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 64790.6,
-      "profit_usd": 2.99,
-      "pct": 0.47,
+      "price": 64782.2,
+      "profit_usd": 2.91,
+      "pct": 0.46,
       "market_open": true,
       "series": [
-        64725.9,
         64725.1,
         64706.5,
         64704.2,
@@ -51,7 +50,8 @@
         64821.1,
         64814.8,
         64800.3,
-        64790.6
+        64790.6,
+        64782.2
       ]
     },
     {
