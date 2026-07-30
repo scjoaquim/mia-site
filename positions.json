@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30 08:43:11 UTC",
+  "generated_at": "2026-07-30 08:45:11 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "US100",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 27376.8,
-      "profit_usd": 4.55,
+      "price": 27375.8,
+      "profit_usd": 4.52,
       "pct": 0.56,
       "market_open": true,
       "series": [
-        27309.8,
         27306.0,
         27295.0,
         27265.8,
@@ -51,7 +50,8 @@
         27401.2,
         27375.1,
         27378.1,
-        27376.8
+        27376.8,
+        27375.8
       ]
     },
     {
@@ -59,14 +59,15 @@
       "symbol": "ETH/USD",
       "tf": "cripto · 5M",
       "side": "BUY",
-      "price": 1912.4,
-      "profit_usd": 1.42,
-      "pct": 0.06,
+      "price": 1913.5,
+      "profit_usd": 3.41,
+      "pct": 0.12,
       "market_open": true,
       "series": [
         1911.81,
         1911.8,
-        1912.4
+        1912.4,
+        1913.5
       ]
     },
     {
@@ -75,7 +76,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 15.99,
+      "profit_usd": 16.3,
       "pct": 0.0,
       "market_open": false,
       "series": [
