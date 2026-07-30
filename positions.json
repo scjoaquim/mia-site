@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30 10:03:11 UTC",
+  "generated_at": "2026-07-30 10:05:11 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,8 +7,8 @@
       "symbol": "US100",
       "tf": "índice · 5M",
       "side": "BUY",
-      "price": 27397.5,
-      "profit_usd": -11.64,
+      "price": 27398.3,
+      "profit_usd": -11.5,
       "pct": -0.23,
       "market_open": true,
       "series": [
@@ -27,7 +27,8 @@
         27434.0,
         27413.5,
         27385.3,
-        27397.5
+        27397.5,
+        27398.3
       ]
     },
     {
@@ -35,12 +36,11 @@
       "symbol": "US100",
       "tf": "índice · 1H",
       "side": "BUY",
-      "price": 27397.5,
-      "profit_usd": 5.17,
+      "price": 27398.3,
+      "profit_usd": 5.19,
       "pct": 0.64,
       "market_open": true,
       "series": [
-        27375.8,
         27386.6,
         27366.1,
         27364.3,
@@ -79,7 +79,8 @@
         27434.0,
         27413.5,
         27385.3,
-        27397.5
+        27397.5,
+        27398.3
       ]
     },
     {
@@ -87,14 +88,15 @@
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 64508.8,
-      "profit_usd": 0.17,
+      "price": 64504.2,
+      "profit_usd": 0.13,
       "pct": 0.03,
       "market_open": true,
       "series": [
         64494.16,
         64494.2,
-        64508.8
+        64508.8,
+        64504.2
       ]
     },
     {
@@ -103,7 +105,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 21.91,
+      "profit_usd": 21.81,
       "pct": 0.0,
       "market_open": false,
       "series": [
