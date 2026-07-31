@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31 00:51:11 UTC",
+  "generated_at": "2026-07-31 00:53:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,9 +7,9 @@
       "symbol": "XAU/USD",
       "tf": "metal · 5M",
       "side": "SELL",
-      "price": 4094.0,
-      "profit_usd": -2.19,
-      "pct": -0.02,
+      "price": 4095.2,
+      "profit_usd": -5.78,
+      "pct": -0.05,
       "market_open": true,
       "series": [
         4092.202,
@@ -17,7 +17,8 @@
         4092.7,
         4091.3,
         4093.4,
-        4094.0
+        4094.0,
+        4095.2
       ]
     },
     {
@@ -25,9 +26,9 @@
       "symbol": "XAU/USD",
       "tf": "metal · 5M",
       "side": "SELL",
-      "price": 4094.0,
-      "profit_usd": -2.19,
-      "pct": -0.02,
+      "price": 4095.2,
+      "profit_usd": -5.78,
+      "pct": -0.05,
       "market_open": true,
       "series": [
         4092.202,
@@ -35,7 +36,23 @@
         4092.7,
         4091.3,
         4093.4,
-        4094.0
+        4094.0,
+        4095.2
+      ]
+    },
+    {
+      "id": 355989593,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4095.2,
+      "profit_usd": -3.88,
+      "pct": -0.03,
+      "market_open": true,
+      "series": [
+        4094.046,
+        4094.0,
+        4095.2
       ]
     },
     {
@@ -43,12 +60,11 @@
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 64685.3,
-      "profit_usd": 1.94,
-      "pct": 0.31,
+      "price": 64649.6,
+      "profit_usd": 1.58,
+      "pct": 0.25,
       "market_open": true,
       "series": [
-        64929.6,
         64997.0,
         65017.2,
         65022.3,
@@ -87,21 +103,8 @@
         64755.9,
         64699.6,
         64727.6,
-        64685.3
-      ]
-    },
-    {
-      "id": 355989593,
-      "symbol": "XAU/USD",
-      "tf": "metal · 5M",
-      "side": "SELL",
-      "price": 4094.0,
-      "profit_usd": -0.29,
-      "pct": -0.0,
-      "market_open": true,
-      "series": [
-        4094.046,
-        4094.0
+        64685.3,
+        64649.6
       ]
     },
     {
@@ -110,7 +113,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 43.49,
+      "profit_usd": 44.33,
       "pct": 0.0,
       "market_open": false,
       "series": [
