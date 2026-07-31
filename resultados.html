@@ -58,11 +58,11 @@
         <div class="panel-body">
           <div class="snapshot-note" style="margin:0 0 12px"><span class="lang-pt">Sinal criado em <strong>11/07/2026</strong></span><span class="lang-en">Signal created on <strong>2026-07-11</strong></span></div>
           <div class="kpi-grid">
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo atual</span><span class="lang-en">Current value</span></div><div class="k-val" id="pro-current">US$ 3.942</div><div class="k-sub"><span class="lang-pt">inicial</span><span class="lang-en">initial</span> <span id="pro-initial">US$ 4.200</span></div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (US$)</span><span class="lang-en">Growth (US$)</span></div><div class="k-val neg" id="pro-total-usd">−US$ 258,34</div><div class="k-sub"><span class="lang-pt">inclui em aberto</span><span class="lang-en">incl. open</span></div></div>
-            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (%)</span><span class="lang-en">Growth (%)</span></div><div class="k-val neg" id="pro-total-pct">−6,15%</div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Saldo atual</span><span class="lang-en">Current value</span></div><div class="k-val" id="pro-current">US$ 3.994</div><div class="k-sub"><span class="lang-pt">inicial</span><span class="lang-en">initial</span> <span id="pro-initial">US$ 4.200</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (US$)</span><span class="lang-en">Growth (US$)</span></div><div class="k-val neg" id="pro-total-usd">−US$ 206,35</div><div class="k-sub"><span class="lang-pt">inclui em aberto</span><span class="lang-en">incl. open</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (%)</span><span class="lang-en">Growth (%)</span></div><div class="k-val neg" id="pro-total-pct">−4,91%</div></div>
           </div>
-          <div class="snapshot-note" id="pro-snapshot-note"><span class="lang-pt">Atualizado automaticamente em 30/07/2026, 16:17 UTC · widget ao vivo abaixo</span><span class="lang-en">Auto-updated at 07/30/2026, 16:17 UTC · live widget below</span></div>
+          <div class="snapshot-note" id="pro-snapshot-note"><span class="lang-pt">Atualizado automaticamente em 31/07/2026, 08:10 UTC · widget ao vivo abaixo</span><span class="lang-en">Auto-updated at 07/31/2026, 08:10 UTC · live widget below</span></div>
           <div style="border-top:1px solid var(--border);margin-top:14px;padding-top:14px">
             <div class="section-tag" style="border:0;padding:0 0 8px"><span class="lang-pt">// ao vivo na MQL5</span><span class="lang-en">// live on MQL5</span></div>
             <iframe src="https://www.mql5.com/en/signals/widget/2381728?t=dark&fw=html" title="MIA Trading System PRO — MQL5" loading="lazy" style="width:100%;height:140px;border:0;display:block;background:var(--bg)"></iframe>
@@ -216,7 +216,7 @@
   // Para voltar a mostrá-lo, é só apagar a linha abaixo (ou pôr '').
   var CHART_START_YM = '2026-08';
   // Fallback = julho real, pra o gráfico já aparecer antes da 1ª rodada da Action.
-  var MONTHLY_FALLBACK = [{ ym: '2026-07', label: 'jul/26', cum_usd: -258.34, bal: 3941.66 }];
+  var MONTHLY_FALLBACK = [{ ym: '2026-07', label: 'jul/26', cum_usd: -206.35, bal: 3993.65 }];
   var monthlyData = MONTHLY_FALLBACK, chartShown = false;
 
   // compact = tira o "US$ " (o badge do painel já diz US$) — usado quando há
@@ -368,7 +368,7 @@
 // Ranking de lucro por bot (conta PRO) — lê bots.json (mesmo padrão do data.json).
 // Fallback inline garante render mesmo sem o arquivo/internet. Nada aqui inventa dado.
 (function () {
-  var FB = { bots: [ { label: "XAU 5m RUSH #17", profit_usd: 138.25 }, { label: "XAU 5m BRO #18", profit_usd: 128.58 }, { label: "XAU 1h TITAN #14", profit_usd: 75.28 }, { label: "XAU 15m MIDAS #13", profit_usd: 58.76 }, { label: "US100 5m ANCHOR #11", profit_usd: 42.29 }, { label: "BTC 1h NAKA #01", profit_usd: 12.44 }, { label: "Cobre 2h #04", profit_usd: 8.55 }, { label: "ORCL 15m #08", profit_usd: 3.52 }, { label: "ETH 4h AETHER #06", profit_usd: -1.03 }, { label: "BTC 5m RONIN #02", profit_usd: -6.03 }, { label: "ETH 5m VOLT #19", profit_usd: -11.50 }, { label: "XAU 5m BARS #16", profit_usd: -12.42 }, { label: "ETH 4h COMET #07", profit_usd: -23.19 }, { label: "US500 5m #12", profit_usd: -26.17 }, { label: "US100 1h MAGNET #10", profit_usd: -41.38 }, { label: "TSLA 15m #09", profit_usd: -50.18 } ] };
+  var FB = { bots: [ { label: "XAU 5m RUSH #17", profit_usd: 215.52 }, { label: "XAU 1h TITAN #14", profit_usd: 75.28 }, { label: "DE30 1h #05", profit_usd: 64.00 }, { label: "Cobre 2h #04", profit_usd: 56.19 }, { label: "XAU 15m MIDAS #13", profit_usd: 43.02 }, { label: "BTC 1h NAKA #01", profit_usd: 9.80 }, { label: "XAU 5m BARS #16", profit_usd: 6.71 }, { label: "ETH 4h AETHER #06", profit_usd: -3.10 }, { label: "XAU 5m BRO #18", profit_usd: -10.94 }, { label: "ETH 4h COMET #07", profit_usd: -23.19 }, { label: "US100 1h MAGNET #10", profit_usd: -29.92 }, { label: "US100 5m ANCHOR #11", profit_usd: -32.04 }, { label: "BTC 5m RONIN #02", profit_usd: -47.42 } ] };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var host = document.getElementById('bot-ranking'); if (!host) return;
   function money(n) { var en = document.body.classList.contains('lang-en'); var s = n < 0 ? '−' : '+';
