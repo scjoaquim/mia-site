@@ -1,50 +1,17 @@
 {
-  "generated_at": "2026-07-31 01:23:11 UTC",
+  "generated_at": "2026-07-31 01:25:11 UTC",
   "account": "PRO",
   "positions": [
-    {
-      "id": 356007072,
-      "symbol": "XAU/USD",
-      "tf": "metal · 5M",
-      "side": "SELL",
-      "price": 4093.2,
-      "profit_usd": -5.7,
-      "pct": -0.07,
-      "market_open": true,
-      "series": [
-        4091.302,
-        4091.3,
-        4094.1,
-        4093.2
-      ]
-    },
-    {
-      "id": 356007185,
-      "symbol": "XAU/USD",
-      "tf": "metal · 5M",
-      "side": "SELL",
-      "price": 4093.2,
-      "profit_usd": -5.7,
-      "pct": -0.07,
-      "market_open": true,
-      "series": [
-        4091.302,
-        4091.3,
-        4094.1,
-        4093.2
-      ]
-    },
     {
       "id": 355675577,
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 65023.4,
-      "profit_usd": 5.32,
-      "pct": 0.83,
+      "price": 65065.6,
+      "profit_usd": 5.74,
+      "pct": 0.9,
       "market_open": true,
       "series": [
-        64823.7,
         64807.9,
         64772.0,
         64723.4,
@@ -83,7 +50,42 @@
         65040.0,
         65088.2,
         65020.2,
-        65023.4
+        65023.4,
+        65065.6
+      ]
+    },
+    {
+      "id": 356007072,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4092.5,
+      "profit_usd": -4.38,
+      "pct": -0.05,
+      "market_open": true,
+      "series": [
+        4091.302,
+        4091.3,
+        4094.1,
+        4093.2,
+        4092.5
+      ]
+    },
+    {
+      "id": 356007185,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4092.5,
+      "profit_usd": -4.38,
+      "pct": -0.05,
+      "market_open": true,
+      "series": [
+        4091.302,
+        4091.3,
+        4094.1,
+        4093.2,
+        4092.5
       ]
     },
     {
@@ -92,7 +94,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 35.96,
+      "profit_usd": 35.25,
       "pct": 0.0,
       "market_open": false,
       "series": [
