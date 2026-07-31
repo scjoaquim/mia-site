@@ -1,18 +1,45 @@
 {
-  "generated_at": "2026-07-31 00:41:10 UTC",
+  "generated_at": "2026-07-31 00:43:10 UTC",
   "account": "PRO",
   "positions": [
+    {
+      "id": 355985789,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4092.2,
+      "profit_usd": 3.34,
+      "pct": 0.03,
+      "market_open": true,
+      "series": [
+        4092.202,
+        4092.2
+      ]
+    },
+    {
+      "id": 355985790,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4092.2,
+      "profit_usd": 3.34,
+      "pct": 0.03,
+      "market_open": true,
+      "series": [
+        4092.202,
+        4092.2
+      ]
+    },
     {
       "id": 355675577,
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 64695.8,
-      "profit_usd": 2.04,
-      "pct": 0.32,
+      "price": 64726.4,
+      "profit_usd": 2.35,
+      "pct": 0.37,
       "market_open": true,
       "series": [
-        64841.7,
         64870.5,
         64848.6,
         64841.8,
@@ -51,7 +78,8 @@
         64711.4,
         64709.6,
         64760.5,
-        64695.8
+        64695.8,
+        64726.4
       ]
     },
     {
@@ -60,7 +88,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 44.63,
+      "profit_usd": 44.42,
       "pct": 0.0,
       "market_open": false,
       "series": [
