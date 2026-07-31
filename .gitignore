@@ -1,0 +1,18 @@
+# ── mia-site — o que NUNCA vai para o repo do site ────────────────────────────
+# Criado 31-Jul-2026. Motivo: o repo nao tinha .gitignore nenhum, entao backups e
+# sobras de ferramenta apareciam no GitHub Desktop como se fossem para commitar.
+# Mesma convencao do repo da frota (AGENTE TRADE 1/.gitignore).
+
+# Backups de edicao (o padrao do projeto e' *.bak_<motivo>_<data>)
+*.bak
+*.bak_*
+
+# Sobras do lock do git: o bridge do Mac nao consegue apagar um .lock, so mover.
+# A receita e' mover TODOS (index.lock, HEAD.lock, objects/maintenance.lock) para
+# esta pasta antes de cada comando git. Sao ficheiros mortos - podem ser apagados
+# a mao a qualquer momento.
+_to_delete_git_lock/
+_to_delete/
+
+# Sistema
+.DS_Store
