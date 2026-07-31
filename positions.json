@@ -1,18 +1,49 @@
 {
-  "generated_at": "2026-07-31 00:45:11 UTC",
+  "generated_at": "2026-07-31 00:47:10 UTC",
   "account": "PRO",
   "positions": [
+    {
+      "id": 355985789,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4091.3,
+      "profit_usd": 5.95,
+      "pct": 0.05,
+      "market_open": true,
+      "series": [
+        4092.202,
+        4092.2,
+        4092.7,
+        4091.3
+      ]
+    },
+    {
+      "id": 355985790,
+      "symbol": "XAU/USD",
+      "tf": "metal · 5M",
+      "side": "SELL",
+      "price": 4091.3,
+      "profit_usd": 5.95,
+      "pct": 0.05,
+      "market_open": true,
+      "series": [
+        4092.202,
+        4092.2,
+        4092.7,
+        4091.3
+      ]
+    },
     {
       "id": 355675577,
       "symbol": "BTC/USD",
       "tf": "cripto · 1H",
       "side": "BUY",
-      "price": 64755.9,
-      "profit_usd": 2.64,
-      "pct": 0.42,
+      "price": 64699.6,
+      "profit_usd": 2.08,
+      "pct": 0.33,
       "market_open": true,
       "series": [
-        64848.6,
         64841.8,
         64885.2,
         64929.6,
@@ -51,37 +82,8 @@
         64760.5,
         64695.8,
         64726.4,
-        64755.9
-      ]
-    },
-    {
-      "id": 355985789,
-      "symbol": "XAU/USD",
-      "tf": "metal · 5M",
-      "side": "SELL",
-      "price": 4092.7,
-      "profit_usd": 1.7,
-      "pct": 0.02,
-      "market_open": true,
-      "series": [
-        4092.202,
-        4092.2,
-        4092.7
-      ]
-    },
-    {
-      "id": 355985790,
-      "symbol": "XAU/USD",
-      "tf": "metal · 5M",
-      "side": "SELL",
-      "price": 4092.7,
-      "profit_usd": 1.7,
-      "pct": 0.02,
-      "market_open": true,
-      "series": [
-        4092.202,
-        4092.2,
-        4092.7
+        64755.9,
+        64699.6
       ]
     },
     {
@@ -90,7 +92,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13651.9,
-      "profit_usd": 43.9,
+      "profit_usd": 42.13,
       "pct": 0.0,
       "market_open": false,
       "series": [
