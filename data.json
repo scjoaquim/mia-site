@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T20:50:52.567Z",
+  "generated_at": "2026-08-01T00:14:43.709Z",
   "pro": {
     "balance": "US$ 4.127",
     "growth": "−1,88%",
@@ -9,12 +9,12 @@
     "trades": "179",
     "win_rate": "37%",
     "profit_factor": "0,97",
-    "open_usd": "+US$ 6,33",
+    "open_usd": "+US$ 5,67",
     "open_positive": true,
-    "current": "US$ 4.127",
+    "current": "US$ 4.126",
     "initial": "US$ 4.200",
-    "total_usd": "−US$ 73,04",
-    "total_pct": "−1,74%",
+    "total_usd": "−US$ 73,70",
+    "total_pct": "−1,75%",
     "total_positive": false
   },
   "pro_monthly": [
@@ -23,6 +23,12 @@
       "label": "jul/26",
       "cum_usd": -73.04,
       "bal": 4126.96
+    },
+    {
+      "ym": "2026-08",
+      "label": "ago/26",
+      "cum_usd": -73.7,
+      "bal": 4126.3
     }
   ]
 }
