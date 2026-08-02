@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-08-01 10:25:02 UTC",
+  "generated_at": "2026-08-02 10:25:03 UTC",
   "account": "PRO",
-  "balance_usd": 4120.63,
+  "balance_usd": 4099.98,
   "bots": [
     {
       "label": "XAU 5m RUSH #17",
@@ -53,7 +53,7 @@
     },
     {
       "label": "BTC 5m RONIN #02",
-      "profit_usd": -47.42
+      "profit_usd": -68.07
     }
   ]
 }
