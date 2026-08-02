@@ -16,3 +16,25 @@ _to_delete/
 
 # Sistema
 .DS_Store
+
+# --- MODO MANUTENCAO 02-Ago-2026: fora do ar durante a revisao geral.
+#     Arquivos preservados no disco e no git (branch site-completo-pre-manutencao,
+#     tag snapshot-pre-manutencao-2026-08-02, commit c2f9a59cafac0ce09f30ad1b25a8206e6c8fde63).
+#     Restaurar com: bash restaurar-site.sh
+/resultados.html
+/produtos.html
+/faq.html
+/glossario.html
+/metodologia.html
+/como-copiar.html
+/contato.html
+/data.json
+/bots.json
+/positions.json
+/script.js
+/style.css
+/index.html.bak_13estrategias
+/produtos.html.bak_13estrategias
+/resultados.html.bak_nota_ranking_31jul
+/ativar-manutencao.sh
+/restaurar-site.sh
