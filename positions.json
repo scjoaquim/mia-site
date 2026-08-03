@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-03 07:35:11 UTC",
+  "generated_at": "2026-08-03 07:37:12 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -8,7 +8,7 @@
       "tf": "metal · 2H",
       "side": "BUY",
       "price": 13761.5,
-      "profit_usd": 30.39,
+      "profit_usd": 28.43,
       "pct": -0.0,
       "market_open": false,
       "series": [
