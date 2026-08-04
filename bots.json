@@ -1,11 +1,15 @@
 {
-  "generated_at": "2026-08-03 10:25:03 UTC",
+  "generated_at": "2026-08-04 10:25:03 UTC",
   "account": "PRO",
-  "balance_usd": 4099.98,
+  "balance_usd": 4085.2,
   "bots": [
     {
       "label": "XAU 5m RUSH #17",
-      "profit_usd": 215.52
+      "profit_usd": 151.77
+    },
+    {
+      "label": "Cobre 2h #04",
+      "profit_usd": 105.16
     },
     {
       "label": "XAU 1h TITAN #14",
@@ -14,10 +18,6 @@
     {
       "label": "DE30 1h #05",
       "profit_usd": 64.0
-    },
-    {
-      "label": "Cobre 2h #04",
-      "profit_usd": 56.19
     },
     {
       "label": "XAU 15m MIDAS #13",
