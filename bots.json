@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-08-05 10:25:04 UTC",
+  "generated_at": "2026-08-06 10:25:05 UTC",
   "account": "PRO",
-  "balance_usd": 4211.51,
+  "balance_usd": 4211.91,
   "bots": [
     {
       "label": "XAU 5m RUSH #17",
-      "profit_usd": 278.08
+      "profit_usd": 278.48
     },
     {
       "label": "Cobre 2h #04",
