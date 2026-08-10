@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resultados · MIA Trading System</title>
+<meta name="description" content="Resultado por ativo (ouro e cobre) da conta PRO da MIA, desde 1º de agosto de 2026 — calculado do extrato, só sobre operações encerradas.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=11">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="resultados.html" data-nav class="active"><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a>
+      <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
+      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
+      <a href="faq.html" data-nav>FAQ</a>
+      <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section" id="mia-board" hidden></section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Resultados</div>
+    <div class="section-tag lang-en">// Track record</div>
+    <h1 class="lang-pt">O que o OURO e o COBRE fizeram, desde 1º de agosto</h1>
+    <h1 class="lang-en">What GOLD and COPPER did, since August 1st</h1>
+
+    <div class="infobox" style="margin-top:16px">
+      <p class="lang-pt" style="margin:0 0 10px"><b>Por que "desde 1º de agosto".</b> Até julho, esta conta rodava treze robôs em vários mercados. Em agosto ela passou a rodar só o par que virou produto: o RUSH, no ouro, e o COBRE. Misturar as duas eras num mesmo número descreveria uma carteira que não existe mais — então o recorte começa onde a carteira atual começou.</p>
+      <p class="lang-en" style="margin:0 0 10px"><b>Why "since August 1st".</b> Until July this account ran thirteen robots across several markets. In August it switched to running only the pair that became the product: RUSH on gold, and COBRE on copper. Blending the two eras into one number would describe a portfolio that no longer exists — so the cut starts where the current portfolio started.</p>
+      <p class="lang-pt" style="margin:0"><b>⚠ Por isso os números aqui não batem com o widget da MQL5 abaixo.</b> O widget mostra a conta desde o primeiro dia, com as duas eras somadas — é o registro oficial e independente, e fica aqui exatamente por isso. Os números desta página são calculados do extrato da mesma conta, com o corte de 1º de agosto e apenas sobre operações <b>já encerradas</b>.</p>
+      <p class="lang-en" style="margin:0"><b>⚠ This is why the figures here don't match the MQL5 widget below.</b> The widget shows the account from day one, both eras added up — it is the official, independent record, and that is exactly why it stays on this page. The figures here are computed from the same account's statement, cut at August 1st, and only over <b>closed</b> trades.</p>
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="name"><span class="live-dot"></span><span class="lang-pt">Conta PRO · desde <span id="r-desde">01/08/2026</span></span><span class="lang-en">PRO account · since <span class="lang-en" id="r-desde-en">Aug 1, 2026</span></span></span>
+          <span class="badge pill-cyan"><span class="lang-pt">resultado fechado</span><span class="lang-en">closed results</span></span>
+        </div>
+        <div class="panel-body">
+          <div class="kpi-grid">
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Resultado (US$)</span><span class="lang-en">Result (US$)</span></div><div class="k-val" id="r-lucro">—</div><div class="k-sub"><span class="lang-pt">só operações encerradas</span><span class="lang-en">closed trades only</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Crescimento (%)</span><span class="lang-en">Growth (%)</span></div><div class="k-val" id="r-cresc">—</div><div class="k-sub" id="r-cresc-sub"></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Operações</span><span class="lang-en">Trades</span></div><div class="k-val" id="r-trades">—</div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Acerto</span><span class="lang-en">Win rate</span></div><div class="k-val" id="r-wr">—</div><div class="k-sub"><span class="lang-pt">acerto baixo pode ser lucrativo</span><span class="lang-en">a low rate can still be profitable</span></div></div>
+            <div class="kpi"><div class="k-label">Profit factor</div><div class="k-val" id="r-pf">—</div><div class="k-sub"><span class="lang-pt">acima de 1 = ganhou mais do que perdeu</span><span class="lang-en">above 1 = won more than it lost</span></div></div>
+            <div class="kpi"><div class="k-label"><span class="lang-pt">Maior queda</span><span class="lang-en">Largest drop</span></div><div class="k-val" id="r-dd">—</div><div class="k-sub"><span class="lang-pt">sobre resultado fechado</span><span class="lang-en">on closed results</span></div></div>
+          </div>
+          <div class="snapshot-note" id="r-note"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="muted lang-pt" style="font-size:12px;margin-top:14px"><b>Maior queda</b> aqui é medida sobre a soma das operações já encerradas. O "drawdown" que a MQL5 publica é medido sobre o valor da conta a cada instante, incluindo posição em aberto — é outra medida, e costuma ser maior. Não são o mesmo número e não devem ser comparados.</p>
+    <p class="muted lang-en" style="font-size:12px;margin-top:14px"><b>Largest drop</b> here is measured on the sum of closed trades. The "drawdown" MQL5 publishes is measured on account value at every instant, including open positions — a different measure, usually larger. They are not the same number and should not be compared.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Por ativo</div>
+    <div class="section-tag lang-en">// By asset</div>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="name"><span class="live-dot"></span><span class="lang-pt">Resultado por ativo</span><span class="lang-en">Result by asset</span></span>
+        <span class="badge pill-cyan">US$</span>
+      </div>
+      <div class="panel-body">
+        <div id="asset-ranking"></div>
+        <p class="muted" style="font-size:11px;margin:12px 4px 0">
+          <span class="lang-pt">Dois ativos hoje, porque o produto é um par. Cada produto novo entra aqui como um ativo novo — a lista cresce sozinha à medida que a frota de pesquisa entrega. O resultado é realizado, já com custo de operação e swap descontados.</span>
+          <span class="lang-en">Two assets today, because the product is a pair. Each new product shows up here as a new asset — the list grows as the research fleet delivers. Results are realized, with trading costs and swap already deducted.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Mês a mês</div>
+    <div class="section-tag lang-en">// Month by month</div>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="name"><span class="live-dot"></span><span class="lang-pt">Resultado por mês</span><span class="lang-en">Result per month</span></span>
+        <span class="badge pill-cyan">US$</span>
+      </div>
+      <div class="panel-body" style="padding:18px 16px 8px">
+        <div class="chart-wrap"><svg id="r-chart" viewBox="0 0 720 330" preserveAspectRatio="xMidYMid meet"></svg></div>
+        <p class="muted" style="font-size:11px;margin:6px 4px 8px">
+          <span class="lang-pt">Uma barra por mês, com o resultado encerrado naquele mês. A linha é o acumulado desde o corte. Um mês novo entra sozinho. Amostra ainda curta — os números balançam, e isso é esperado.</span>
+          <span class="lang-en">One bar per month, showing that month's closed result. The line is the running total since the cut. New months appear on their own. The sample is still short — numbers swing, and that is expected.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// O registro oficial, na MQL5</div>
+    <div class="section-tag lang-en">// The official record, on MQL5</div>
+    <div class="panel">
+      <div class="panel-body">
+        <p class="lang-pt" style="margin:0 0 12px">A mesma conta é publicada como sinal na MQL5, pela MetaQuotes. É um registro que a MIA <b>não controla e não edita</b> — e é por isso que ele fica aqui, mesmo mostrando um recorte diferente do desta página (a conta inteira, incluindo a era dos treze robôs, e incluindo posição em aberto).</p>
+        <p class="lang-en" style="margin:0 0 12px">The same account is published as a signal on MQL5, by MetaQuotes. It is a record MIA <b>does not control and cannot edit</b> — which is why it stays here, even though it shows a different slice than this page does (the whole account, including the thirteen-robot era, and including open positions).</p>
+        <iframe src="https://www.mql5.com/en/signals/widget/2381728?t=dark&fw=html" title="MIA Trading System PRO — MQL5" loading="lazy" style="width:100%;height:140px;border:0;display:block;background:var(--bg)"></iframe>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap">
+        <a href="https://www.mql5.com/en/signals/2381728" target="_blank" rel="noopener" class="btn btn-sm"><span class="lang-pt">Página completa na MQL5 ↗</span><span class="lang-en">Full page on MQL5 ↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="warnbox">
+      <p class="lang-pt" style="margin:0"><b>Transparência sobre estágio.</b> A amostra desta página começa em 1º de agosto de 2026 — é curta, e uma amostra curta oscila muito. Estes números não são previsão de nada: descrevem o que uma conta específica fez num período específico. As estratégias foram validadas por muito mais tempo em teste, mas teste não é dinheiro real, e dinheiro real ainda tem poucas semanas aqui.</p>
+      <p class="lang-en" style="margin:0"><b>Transparency about stage.</b> This page's sample starts on August 1st, 2026 — it is short, and a short sample swings a lot. These figures forecast nothing: they describe what one specific account did over one specific period. The strategies were validated over far longer in testing, but testing is not real money, and real money here is still only weeks old.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="panel-head"><span class="lang-pt">Quer ser avisado quando o MIA RUSH abrir?</span><span class="lang-en">Want to know when MIA RUSH opens?</span></div>
+      <div class="panel-body" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+        <p style="margin:0;flex:1;min-width:240px">
+          <span class="lang-pt">A lista de espera é o canal do Telegram — é por lá que sai o aviso.</span>
+          <span class="lang-en">The waitlist is the Telegram channel — that's where the word goes out.</span>
+        </p>
+        <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary pulse"><span class="lang-pt">Entrar no Telegram ↗</span><span class="lang-en">Join Telegram ↗</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ─── Resultados: um arquivo só (resultados.json), gerado no VPS ─────────────
+   Fallback inline abaixo: a página desenha algo mesmo se o fetch falhar. O
+   gerador do VPS sincroniza este bloco — não edite à mão sem sincronizar lá. */
+var FB = {"generated_at":null,"desde":"2026-08-01","lucro_usd":null,"crescimento_pct":null,
+          "saldo_no_corte_estimado":true,"trades":null,"win_rate":null,"profit_factor":null,
+          "queda_max_fechado_pct":null,"mensal":[],"ativos":[]};
+(function () {
+  // ⚠ NAO usar document.body.classList aqui: quem poe a classe lang-* e o script.js,
+  //   que so carrega DEPOIS deste bloco. Ler a URL e' a mesma fonte que ele usa.
+  var en = new URLSearchParams(location.search).get('lang') === 'en';
+  var LOC = en ? 'en-US' : 'pt-BR';
+  function usd(n, sign) {
+    if (n == null) return '—';
+    var s = (sign && n > 0 ? '+' : (n < 0 ? '−' : '')) + 'US$ ' +
+            Math.abs(n).toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return s;
+  }
+  function pct(n, sign) {
+    if (n == null) return '—';
+    return (sign && n > 0 ? '+' : (n < 0 ? '−' : '')) +
+           Math.abs(n).toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
+  }
+  function set(id, txt, cls) {
+    var el = document.getElementById(id); if (!el) return;
+    el.textContent = txt;
+    el.classList.remove('neg', 'pos');
+    if (cls) el.classList.add(cls);
+  }
+  function sgn(n) { return n == null ? null : (n < 0 ? 'neg' : (n > 0 ? 'pos' : null)); }
+
+  function render(d) {
+    set('r-lucro', usd(d.lucro_usd, true), sgn(d.lucro_usd));
+    set('r-cresc', pct(d.crescimento_pct, true), sgn(d.crescimento_pct));
+    set('r-trades', d.trades == null ? '—' : String(d.trades));
+    set('r-wr', d.win_rate == null ? '—' : d.win_rate + '%');
+    set('r-pf', d.profit_factor == null ? '—' : d.profit_factor.toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+    set('r-dd', d.queda_max_fechado_pct == null ? '—'
+      : (d.queda_max_fechado_pct > 0 ? '−' : '') + pct(d.queda_max_fechado_pct),
+      d.queda_max_fechado_pct > 0 ? 'neg' : null);
+
+    // O % de crescimento depende do saldo no corte. Se o gerador não teve os
+    // depósitos/saques para o calcular, ele marca `estimado` — e a página diz.
+    var sub = document.getElementById('r-cresc-sub');
+    if (sub) sub.textContent = d.crescimento_pct == null ? ''
+      : (d.saldo_no_corte_estimado ? (en ? 'estimated — see note' : 'estimado — ver nota') : '');
+
+    var note = document.getElementById('r-note');
+    if (note && d.generated_at) {
+      note.textContent = (en ? 'Computed from the account statement · updated ' : 'Calculado do extrato da conta · atualizado ') + d.generated_at
+        + (d.saldo_no_corte_estimado ? (en
+            ? ' · growth % assumes no deposits or withdrawals since the cut'
+            : ' · o % de crescimento assume que não houve depósito nem saque desde o corte') : '');
+    }
+    if (d.desde) {
+      var p = d.desde.split('-');
+      var a = document.getElementById('r-desde'); if (a) a.textContent = p[2] + '/' + p[1] + '/' + p[0];
+      var b = document.getElementById('r-desde-en');
+      if (b) b.textContent = new Date(d.desde + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+    }
+    assets(d.ativos || []);
+    chart(d.mensal || []);
+  }
+
+  // ── barras horizontais por ativo, proporcionais ao maior valor absoluto ──
+  function assets(list) {
+    var host = document.getElementById('asset-ranking'); if (!host) return;
+    host.innerHTML = '';
+    if (!list.length) {
+      host.innerHTML = '<p class="muted" style="margin:0;font-size:13px">' +
+        (en ? 'No data yet.' : 'Ainda sem dados.') + '</p>';
+      return;
+    }
+    var max = Math.max.apply(null, list.map(function (a) { return Math.abs(a.profit_usd || 0); })) || 1;
+    list.forEach(function (a) {
+      var neg = (a.profit_usd || 0) < 0;
+      var w = Math.max(2, Math.round(100 * Math.abs(a.profit_usd || 0) / max));
+      var row = document.createElement('div');
+      row.style.cssText = 'margin:0 0 14px';
+      row.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px">' +
+          '<b style="letter-spacing:.08em">' + (en ? a.label_en : a.label_pt) +
+            ' <span class="muted" style="font-weight:400;font-size:11px">' + a.symbol + '</span></b>' +
+          '<span class="' + (neg ? 'neg' : 'pos') + '" style="font-variant-numeric:tabular-nums">' + usd(a.profit_usd, true) + '</span>' +
+        '</div>' +
+        '<div style="height:9px;background:var(--bg3);border:1px solid var(--border);border-radius:2px;overflow:hidden">' +
+          '<div style="height:100%;width:' + w + '%;background:' + (neg ? 'var(--red,#ff5555)' : 'var(--green)') + ';opacity:.72"></div>' +
+        '</div>' +
+        '<div class="muted" style="font-size:11px;margin-top:4px">' +
+          (a.trades != null ? a.trades + (en ? ' trades' : ' operações') : '') +
+          (a.win_rate != null ? ' · ' + (en ? 'win rate ' : 'acerto ') + a.win_rate + '%' : '') +
+          (a.profit_factor != null ? ' · PF ' + a.profit_factor.toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '') +
+        '</div>';
+      host.appendChild(row);
+    });
+  }
+
+  // ── barras mensais + linha do acumulado ──
+  function chart(m) {
+    var svg = document.getElementById('r-chart'); if (!svg) return;
+    svg.innerHTML = '';
+    var W = 720, H = 330, L = 62, R = 18, T = 18, B = 44;
+    var iw = W - L - R, ih = H - T - B;
+    function el(t, at) { var e = document.createElementNS('http://www.w3.org/2000/svg', t);
+      for (var k in at) e.setAttribute(k, at[k]); return e; }
+    if (!m.length) {
+      var tx = el('text', { x: W / 2, y: H / 2, 'text-anchor': 'middle', fill: 'var(--amber-dim)', 'font-size': 14 });
+      tx.textContent = en ? 'No data yet.' : 'Ainda sem dados.'; svg.appendChild(tx); return;
+    }
+    var vals = m.map(function (x) { return x.lucro_usd; }).concat(m.map(function (x) { return x.cum_usd; }));
+    var hi = Math.max.apply(null, vals.concat([0])), lo = Math.min.apply(null, vals.concat([0]));
+    var pad = (hi - lo) * 0.12 || 10; hi += pad; lo -= pad;
+    function y(v) { return T + ih * (hi - v) / (hi - lo); }
+    // grade + zero
+    [0, .25, .5, .75, 1].forEach(function (f) {
+      var yy = T + ih * f, v = hi - (hi - lo) * f;
+      svg.appendChild(el('line', { x1: L, y1: yy, x2: W - R, y2: yy, stroke: 'var(--border)', 'stroke-width': 1 }));
+      var t = el('text', { x: L - 8, y: yy + 4, 'text-anchor': 'end', fill: 'var(--amber-dim)', 'font-size': 11 });
+      t.textContent = Math.round(v).toLocaleString(LOC); svg.appendChild(t);
+    });
+    svg.appendChild(el('line', { x1: L, y1: y(0), x2: W - R, y2: y(0), stroke: 'var(--border-bright)', 'stroke-width': 1.4 }));
+    var step = iw / m.length, bw = Math.min(56, step * 0.5);
+    var pts = [];
+    m.forEach(function (d, i) {
+      var cx = L + step * (i + 0.5);
+      var y0 = y(0), y1 = y(d.lucro_usd);
+      svg.appendChild(el('rect', { x: cx - bw / 2, y: Math.min(y0, y1), width: bw,
+        height: Math.max(1, Math.abs(y1 - y0)),
+        fill: d.lucro_usd < 0 ? 'var(--red,#ff5555)' : 'var(--green)', opacity: .55 }));
+      var lb = el('text', { x: cx, y: H - B + 18, 'text-anchor': 'middle', fill: 'var(--amber-dim)', 'font-size': 11 });
+      lb.textContent = d.label; svg.appendChild(lb);
+      pts.push([cx, y(d.cum_usd)]);
+    });
+    if (pts.length > 1) {
+      svg.appendChild(el('polyline', { points: pts.map(function (p) { return p.join(','); }).join(' '),
+        fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 2 }));
+    }
+    pts.forEach(function (p) { svg.appendChild(el('circle', { cx: p[0], cy: p[1], r: 3, fill: 'var(--cyan)' })); });
+  }
+
+  render(FB);
+  fetch('resultados.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+    .then(render)
+    .catch(function () { /* mantém o fallback desenhado */ });
+})();
+</script>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System licencia programas de trading automatizado que você instala na <strong>sua própria conta</strong> de corretagem. Você mantém titularidade e controle total dessa conta a qualquer momento — a MIA nunca acessa nem movimenta seu dinheiro.</p>
+    <p class="lang-en">MIA Trading System licenses automated trading programs that you install on <strong>your own</strong> brokerage account. You retain full ownership and control of that account at all times — MIA never accesses or moves your money.</p>
+    <p>© 2026 MIA Trading System · <a href="index.html" data-nav>Home</a> · <a href="produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a> · <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a> · <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a> · <a href="faq.html" data-nav>FAQ</a> · <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=9"></script>
+</body>
+</html>
