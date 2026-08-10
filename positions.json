@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10 08:19:11 UTC",
+  "generated_at": "2026-08-10 08:21:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "XAU/USD",
       "tf": "metal · 5M",
       "side": "BUY",
-      "price": 4351.9,
-      "profit_usd": 29.3,
-      "pct": 0.23,
+      "price": 4353.4,
+      "profit_usd": 33.59,
+      "pct": 0.26,
       "market_open": true,
       "series": [
-        4356.2,
         4354.5,
         4354.9,
         4355.2,
@@ -51,7 +50,8 @@
         4351.9,
         4351.9,
         4351.9,
-        4351.9
+        4351.9,
+        4353.4
       ]
     }
   ]
