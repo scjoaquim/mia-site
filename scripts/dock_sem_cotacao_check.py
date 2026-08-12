@@ -141,6 +141,19 @@ checa("mktTxt trata o singular (pt e en)",
       and tem("(n === 1 ? ' market open'    : ' markets open')"),
       "com 1 mercado volta a ler-se \"1 de 1 mercados abertos\".")
 
+# O mesmo defeito bateu duas vezes, em ficheiros diferentes: o contador do dock
+# (script.js) e a linha de cada ativo (resultados.html). O COBRE abre com UMA
+# operacao, portanto o singular aparece no dia um.
+RESULTADOS = AQUI.parent / "_novo_site" / "resultados.html"
+if RESULTADOS.is_file():
+    r_liso = re.sub(r"\s+", " ", RESULTADOS.read_text(encoding="utf-8"))
+    checa("resultados.html trata o singular das operacoes",
+          "(a.trades === 1 ? ' operação' : ' operações')" in r_liso
+          and "(a.trades === 1 ? ' trade' : ' trades')" in r_liso,
+          "com 1 operacao volta a ler-se \"1 operacoes\" / \"1 trades\".")
+else:
+    checa("resultados.html encontrado", False, "nao achei %s" % RESULTADOS)
+
 checa("as formas antigas sairam",
       not tem("(n + ' posições · ' + o + ' abertos')") and not tem("(n + ' positions · ' + o + ' open')"),
       "a versao sem singular ainda esta no ficheiro.")

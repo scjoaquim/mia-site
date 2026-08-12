@@ -234,7 +234,8 @@ var FB = {"generated_at":null,"desde":"2026-08-01","lucro_usd":null,"crescimento
           '<div style="height:100%;width:' + w + '%;background:' + (neg ? 'var(--red,#ff5555)' : 'var(--green)') + ';opacity:.72"></div>' +
         '</div>' +
         '<div class="muted" style="font-size:11px;margin-top:4px">' +
-          (a.trades != null ? a.trades + (en ? ' trades' : ' operações') : '') +
+          (a.trades != null ? a.trades + (en ? (a.trades === 1 ? ' trade' : ' trades')
+                                                : (a.trades === 1 ? ' operação' : ' operações')) : '') +
           (a.win_rate != null ? ' · ' + (en ? 'win rate ' : 'acerto ') + a.win_rate + '%' : '') +
           (a.profit_factor != null ? ' · PF ' + a.profit_factor.toLocaleString(LOC, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '') +
         '</div>';
