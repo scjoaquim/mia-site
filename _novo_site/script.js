@@ -322,6 +322,7 @@
     live: en ? 'live' : 'ao vivo',
     price: en ? 'price ' : 'preço ',
     last: en ? 'last ' : 'último ',
+    nopr: en ? 'no quote ' : 'sem cotação ',
     foot: en ? 'Real open positions of the PRO account — in profit and in loss, nothing hidden. Past performance does not guarantee future results.'
              : 'Posições reais da conta PRO — em lucro e em prejuízo, sem esconder. Desempenho passado não garante resultados futuros.'
   };
@@ -370,6 +371,14 @@
     return d;
   }
   function drawBind(p, b) {
+    // [3.3 - 12-Ago] Sem cotacao nenhuma NAO se desenha linha. Com pts a null, as
+    // comparacoes abaixo coagem null para 0 e o grafico sai uma reta achatada - que o
+    // olho le como dado real. Melhor nada do que uma forma inventada.
+    if (p.noData) {
+      b.ln.setAttribute('d', ''); b.ar.setAttribute('d', '');
+      b.dt.setAttribute('cx', -99);   // tira o ponto do viewBox; o desenho normal repoe
+      return;
+    }
     var slot = b.W / N, off = p.open ? p.frac : 0;
     var rmn = Infinity, rmx = -Infinity, i;
     for (i = 0; i < p.pts.length; i++) { if (p.pts[i] < rmn) rmn = p.pts[i]; if (p.pts[i] > rmx) rmx = p.pts[i]; }
@@ -396,7 +405,12 @@
           anchorPrice: pos.price, anchorPnl: pos.profit_usd || 0, anchorPct: (pos.pct == null ? 0 : pos.pct),
           dir: (pos.side === 'SELL' ? -1 : 1), _disp: pos.profit_usd || 0, _init: false, binds: [] };
     // seed série
-    var seed = (pos.series && pos.series.length) ? pos.series.slice(-(N + 1)) : [pos.price];
+    // [3.3] `: [pos.price]` com price null enchia a linha de zeros. Sem serie E sem
+    // preco nao ha por onde semear -> marca-se noData e o drawBind nao desenha.
+    var seed = (pos.series && pos.series.length) ? pos.series.slice(-(N + 1))
+             : (pos.price == null ? [] : [pos.price]);
+    s.noData = !seed.length;
+    if (s.noData) seed = [0];
     while (seed.length < N + 1) seed.unshift(seed[0]);
     s.pts = seed.slice(); s.cur = seed[seed.length - 1];
 
@@ -448,6 +462,16 @@
     arr.forEach(function (pos) {
       seen[pos.id] = 1;
       var s = ensureViews(pos);
+      // [3.3] noData recalcula-se a cada pull: a cotacao pode voltar.
+      var semDados = (pos.price == null) && !(pos.series && pos.series.length);
+      if (s.noData && !semDados) {
+        // voltou a haver dado: re-semear, senao a linha ficava presa nos zeros do seed
+        var re = (pos.series && pos.series.length) ? pos.series.slice(-(N + 1)) : [pos.price];
+        while (re.length < N + 1) re.unshift(re[0]);
+        s.pts = re.slice(); s.cur = re[re.length - 1];
+        s.binds.forEach(function (b) { b.mn = Math.min.apply(null, s.pts); b.mx = Math.max.apply(null, s.pts); });
+      }
+      s.noData = semDados;
       s.open = !!pos.market_open; s._pos = pos; s._disp = pos.profit_usd || 0;
       var buy = pos.side !== 'SELL', sideCls = buy ? 'md-buy' : 'md-sell';
       if (pos.market_open) {
@@ -472,7 +496,11 @@
         s._bdSide.innerHTML = '<span class="mb-side ' + (buy ? 'mb-buy' : 'mb-sell') + '">' + pos.side + '</span>' + (pos.market_open ? '<span class="mb-status"><span class="mb-d"></span>' + T.live + '</span>' : '');
         s._bdFrz.innerHTML = pos.market_open ? '' : '<span class="mb-frz">' + LOCK + ' ' + T.closed + '</span>';
         s.row.classList.toggle('mb-closed', !pos.market_open);
-        s._bdLvls.innerHTML = (pos.market_open ? T.price : T.last) + '<b class="mb-cur">' + nf(pos.price, s.dec) + '</b>' + (pos.market_open ? '' : '<br><span class="mb-reopen">' + (pos.reopen || '') + '</span>');
+        // [3.3] nf() e' Number(v).toLocaleString(): null -> "0" e ausente -> "NaN".
+        // Nenhum dos dois rebenta, os dois mentem. Guarda explicita antes de formatar.
+        var _lbl = (pos.price == null) ? T.nopr : (pos.market_open ? T.price : T.last);
+        var _val = (pos.price == null) ? '—' : nf(pos.price, s.dec);
+        s._bdLvls.innerHTML = _lbl + '<b class="mb-cur">' + _val + '</b>' + (pos.market_open ? '' : '<br><span class="mb-reopen">' + (pos.reopen || '') + '</span>');
         s._bdCur = s._bdLvls.querySelector('.mb-cur');
         s._bdPnl.textContent = signed(pos.profit_usd, money); s._bdPnl.className = 'mb-v ' + (pos.profit_usd >= 0 ? 'mb-pos' : 'mb-neg');
         s._bdPc.textContent = (pos.pct == null ? '' : signed(pos.pct, function (x) { return nf(x, 2); }) + '%');
