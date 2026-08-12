@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12 18:09:11 UTC",
+  "generated_at": "2026-08-12 18:11:11 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -10,7 +10,7 @@
       "price": 14098.9,
       "profit_usd": -2.57,
       "pct": -0.05,
-      "market_open": true,
+      "market_open": false,
       "series": [
         14105.0,
         14102.3,
@@ -52,7 +52,8 @@
         14098.9,
         14098.9,
         14098.9
-      ]
+      ],
+      "reopen": "aguardando sessão"
     }
   ]
 }
