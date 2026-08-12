@@ -21,18 +21,18 @@ _to_delete/
 #     Arquivos preservados no disco e no git (branch site-completo-pre-manutencao,
 #     tag snapshot-pre-manutencao-2026-08-02, commit c2f9a59cafac0ce09f30ad1b25a8206e6c8fde63).
 #     Restaurar com: bash restaurar-site.sh
-/resultados.html
-/produtos.html
-/faq.html
-/glossario.html
-/metodologia.html
-/como-copiar.html
-/contato.html
+#
+# --- [S4 - 12-Ago-2026] FIM DA MANUTENCAO. As paginas do site, o script.js e o
+#     style.css SAIRAM desta lista e voltaram ao controlo de versoes. Estavam aqui
+#     so enquanto o site estava fora do ar.
+#     !! Mantidos, o defeito era silencioso: na raiz so o index.html e o 404.html
+#     continuavam sob controlo de versoes, logo um `git add` NAO apanhava as outras
+#     paginas nem o script.js - e o index.html novo subia a apontar para paginas
+#     que nunca foram publicadas, e sem o script do dock. Nenhum erro a avisar.
+#     !! O restaurar-site.sh continua a NAO se correr: ele traz o site de 02-Ago.
 /data.json
 /bots.json
 /positions.json
-/script.js
-/style.css
 /index.html.bak_13estrategias
 /produtos.html.bak_13estrategias
 /resultados.html.bak_nota_ranking_31jul

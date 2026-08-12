@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossário · MIA Trading System</title>
+<meta name="description" content="Glossário da MIA Trading System — os termos de trading e de cópia (sinal, MQL5, MetaTrader, drawdown, profit factor, VPS e mais) explicados em linguagem simples, para quem está começando.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=11">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a>
+      <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
+      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="glossario.html" data-nav class="active"><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
+      <a href="faq.html" data-nav>FAQ</a>
+      <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Glossário</div>
+    <div class="section-tag lang-en">// Glossary</div>
+    <h1 class="lang-pt">Os termos, em português de gente</h1>
+    <h1 class="lang-en">The terms, in plain language</h1>
+    <p class="lang-pt">Sem enrolação: cada palavra técnica do site explicada em uma frase. Não precisa decorar nada — é só consultar quando bater a dúvida.</p>
+    <p class="lang-en">No jargon: every technical word on the site explained in one sentence. Nothing to memorize — just check it whenever a term trips you up.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// O básico — os que importam pra decidir</div>
+    <div class="section-tag lang-en">// The basics — what matters to decide</div>
+    <div class="gloss">
+      <div class="gterm"><div class="t"><span class="lang-pt">Licença · chave</span><span class="lang-en">Licence · key</span></div><div class="d"><span class="lang-pt">O direito de usar o robô por um período. Você paga o período (mês ou trimestre) e recebe uma <b>chave</b> — um código que o robô usa para se identificar. Enquanto a chave vale, ele opera; quando vence, ele para de abrir operações novas.</span><span class="lang-en">The right to use the robot for a period. You pay for the period (month or quarter) and get a <b>key</b> — a code the robot uses to identify itself. While the key is valid it trades; when it expires it stops opening new trades.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">EA · Expert Advisor</span><span class="lang-en">EA · Expert Advisor</span></div><div class="d"><span class="lang-pt">O nome técnico de um <b>robô que roda dentro do MetaTrader</b>. É um arquivo que você copia para uma pasta e arrasta para o gráfico. O MIA RUSH é um EA.</span><span class="lang-en">The technical name for a <b>robot that runs inside MetaTrader</b>. A file you copy into a folder and drag onto a chart. MIA RUSH is an EA.</span></div></div>
+      <div class="gterm"><div class="t">MQL5 <span class="muted">· MQL5 Signals</span></div><div class="d"><span class="lang-pt">O serviço oficial de cópia de operações da MetaQuotes, dentro do MetaTrader. É onde a MIA publica o histórico ao vivo da conta — <b>não é onde a licença é vendida</b>.</span><span class="lang-en">MetaQuotes' official trade-copying service, inside MetaTrader. It is where MIA publishes the account's live track record — <b>not where the licence is sold</b>.</span></div></div>
+      <div class="gterm"><div class="t">MetaTrader 5 <span class="muted">· MT5</span></div><div class="d"><span class="lang-pt">O programa gratuito onde as operações acontecem — pense nele como o "app do banco", só que para investir. É nele que o robô é instalado.</span><span class="lang-en">The free program where trades happen — think of it as your "banking app", but for investing. It's where the robot is installed.</span></div></div>
+      <div class="gterm"><div class="t">MetaQuotes</div><div class="d"><span class="lang-pt">A empresa que criou o MetaTrader e a MQL5 — a maior do setor. É quem opera a plataforma de cópia.</span><span class="lang-en">The company that created MetaTrader and MQL5 — the biggest in the field. It runs the copy platform.</span></div></div>
+      <div class="gterm"><div class="t">Drawdown <span class="muted">· DD</span></div><div class="d"><span class="lang-pt">A <b>maior queda</b> que a conta já teve antes de se recuperar — o "tombo máximo". Quanto menor, mais tranquilo. Ex.: DD de 11% = em algum momento a conta caiu 11% do pico.</span><span class="lang-en">The <b>biggest drop</b> the account had before recovering — the "worst dip". The smaller, the calmer. E.g. 11% DD = at some point it fell 11% from its peak.</span></div></div>
+      <div class="gterm"><div class="t">Profit Factor</div><div class="d"><span class="lang-pt">Para cada US$1 que o robô perdeu, quanto ele ganhou. <b>Acima de 1 = ganhou mais do que perdeu.</b> Abaixo de 1 = está no vermelho no período.</span><span class="lang-en">For every $1 the robot lost, how much it made. <b>Above 1 = won more than it lost.</b> Below 1 = in the red for the period.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Win rate · Acerto</span><span class="lang-en">Win rate</span></div><div class="d"><span class="lang-pt">De cada 100 operações, quantas deram lucro. <b>Importante:</b> um número baixo (ex.: 30%) ainda pode ser lucrativo, se os acertos ganham mais do que os erros perdem.</span><span class="lang-en">Out of every 100 trades, how many were profitable. <b>Important:</b> a low number (e.g. 30%) can still be profitable if wins earn more than losses lose.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Crescimento · Growth</span><span class="lang-en">Growth</span></div><div class="d"><span class="lang-pt">Quanto a conta cresceu, em %. O valor em US$ ao lado é o lucro (ou prejuízo) absoluto no período.</span><span class="lang-en">How much the account grew, in %. The USD figure beside it is the absolute profit (or loss) in the period.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Depósito mínimo</span><span class="lang-en">Minimum deposit</span></div><div class="d"><span class="lang-pt">O valor que você põe na sua própria conta para o robô conseguir dimensionar as operações direito. <b>Esse dinheiro continua seu</b>, fica na sua conta e você saca quando quiser — não é pago à MIA.</span><span class="lang-en">The amount you put in your own account so the robot can size trades properly. <b>This money stays yours</b>, sits in your account, and you withdraw it anytime — it's not paid to MIA.</span></div></div>
+      <div class="gterm"><div class="t">VPS</div><div class="d"><span class="lang-pt">Um computador na nuvem que fica <b>ligado 24 horas</b> para o robô não parar quando você desliga o seu PC. Custa poucos dólares por mês.</span><span class="lang-en">A cloud computer that's <b>on 24/7</b> so the robot doesn't stop when you turn off your PC. Costs a few dollars a month.</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Outros termos que você vai ver</div>
+    <div class="section-tag lang-en">// Other terms you'll come across</div>
+    <div class="gloss">
+      <div class="gterm"><div class="t"><span class="lang-pt">Índices</span><span class="lang-en">Indices</span></div><div class="d"><span class="lang-pt">Cestas de ações negociadas como um bloco — ex.: o índice das maiores empresas dos EUA.</span><span class="lang-en">Baskets of stocks traded as one block — e.g. the index of the largest US companies.</span></div></div>
+      <div class="gterm"><div class="t">XAUUSD · XCUUSD</div><div class="d"><span class="lang-pt">Os códigos do <b>ouro</b> e do <b>cobre</b> na corretora. São os dois ativos que o MIA RUSH opera.</span><span class="lang-en">The broker's codes for <b>gold</b> and <b>copper</b>. The two assets MIA RUSH trades.</span></div></div>
+      <div class="gterm"><div class="t">CFD</div><div class="d"><span class="lang-pt">O tipo de contrato usado para operar ouro, índices etc. <b>sem precisar comprar o ativo físico</b>.</span><span class="lang-en">The contract type used to trade gold, indices, etc. <b>without owning the physical asset</b>.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Alavancagem</span><span class="lang-en">Leverage</span></div><div class="d"><span class="lang-pt">Operar um valor maior do que você depositou. Amplia o ganho <b>e</b> a perda — por isso o aviso de risco.</span><span class="lang-en">Trading a larger amount than you deposited. It amplifies gains <b>and</b> losses — hence the risk warning.</span></div></div>
+      <div class="gterm"><div class="t">Slippage</div><div class="d"><span class="lang-pt">A pequena diferença entre o preço que o robô mirou e o que a corretora executou — por isso o seu resultado pode variar um pouco do histórico publicado.</span><span class="lang-en">The small gap between the price the robot aimed for and the one the broker filled — why your result may differ slightly from the published record.</span></div></div>
+      <div class="gterm"><div class="t">Spread</div><div class="d"><span class="lang-pt">A diferença entre o preço de compra e o de venda; é um custo em cada operação. "Mais apertado" = mais barato.</span><span class="lang-en">The gap between the buy and sell price; a cost on every trade. "Tighter" = cheaper.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Lote · lote mínimo</span><span class="lang-en">Lot · minimum lot</span></div><div class="d"><span class="lang-pt">A menor quantidade que dá para negociar de cada ativo. É por causa dele que existe um depósito mínimo.</span><span class="lang-en">The smallest amount you can trade of each asset. It's the reason a minimum deposit exists.</span></div></div>
+      <div class="gterm"><div class="t">KYC</div><div class="d"><span class="lang-pt">Verificação de identidade — enviar documento e comprovante de endereço. Exigido por lei em qualquer corretora séria.</span><span class="lang-en">Identity verification — uploading an ID and proof of address. Required by law at any serious broker.</span></div></div>
+      <div class="gterm"><div class="t">AutoTrading</div><div class="d"><span class="lang-pt">O botão no MetaTrader que autoriza operações automáticas. Sem ele ligado, o robô não opera.</span><span class="lang-en">The button in MetaTrader that allows automated trading. Without it on, the robot won't trade.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">OTP · senha de uso único</span><span class="lang-en">OTP · one-time password</span></div><div class="d"><span class="lang-pt">Código temporário de login (tipo o do banco). Contas que usam isso não funcionam no VPS.</span><span class="lang-en">A temporary login code (like your bank's). Accounts using it can't run on a VPS.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Baixa correlação</span><span class="lang-en">Low correlation</span></div><div class="d"><span class="lang-pt">Estratégias que não sobem e descem juntas — se uma vai mal, outra pode ir bem, o que suaviza os resultados.</span><span class="lang-en">Strategies that don't rise and fall together — if one struggles, another may do well, smoothing results.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Rompimento-reteste · pullback de tendência</span><span class="lang-en">Breakout-retest · trend pullback</span></div><div class="d"><span class="lang-pt">Os dois <b>estilos</b> do MIA RUSH — um em cada ativo. No <b>rompimento-reteste</b> o robô espera o preço furar um nível e voltar a tocá-lo antes de entrar. No <b>pullback de tendência</b> ele compra o recuo dentro de uma alta já estabelecida.</span><span class="lang-en">MIA RUSH's two <b>styles</b>, one per asset. In <b>breakout-retest</b> the robot waits for price to break a level and come back to touch it before entering. In <b>trend pullback</b> it buys the dip inside an established uptrend.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Frota</span><span class="lang-en">Fleet</span></div><div class="d"><span class="lang-pt">O conjunto de estratégias que a MIA mantém em pesquisa e teste. Nem toda estratégia da frota vira produto — só as que passam na régua sozinhas.</span><span class="lang-en">The set of strategies MIA keeps in research and testing. Not every one becomes a product — only those that clear the bar on their own.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Carteira · portfólio</span><span class="lang-en">Portfolio</span></div><div class="d"><span class="lang-pt">O conjunto de estratégias e operações funcionando como um time — não uma aposta só.</span><span class="lang-en">The set of strategies and trades working as a team — not a single bet.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Fração fixa (risco)</span><span class="lang-en">Fixed fraction (risk)</span></div><div class="d"><span class="lang-pt">O robô arrisca sempre uma fatia pequena e igual do saldo em cada operação (ex.: 0,5%) — nunca "aposta tudo".</span><span class="lang-en">The robot always risks a small, equal slice of the balance per trade (e.g. 0.5%) — it never "bets it all".</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Gate de volatilidade</span><span class="lang-en">Volatility gate</span></div><div class="d"><span class="lang-pt">Um filtro que <b>impede uma entrada</b> quando o mercado está parado demais para aquele setup pagar o custo. O RUSH tem um, só nas vendas.</span><span class="lang-en">A filter that <b>blocks an entry</b> when the market is too quiet for that setup to cover its cost. RUSH has one, on short entries only.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Disjuntor</span><span class="lang-en">Circuit breaker</span></div><div class="d"><span class="lang-pt">Uma trava que <b>desliga uma estratégia sozinha</b> quando o mercado entra num regime ruim para ela, e a religa quando o regime muda. O cobre tem um, avaliado semana a semana.</span><span class="lang-en">A lock that <b>shuts a strategy down on its own</b> when the market turns hostile to it, and switches it back on when the regime changes. Copper has one, evaluated week by week.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Conta Standard × Pro</span><span class="lang-en">Standard vs Pro account</span></div><div class="d"><span class="lang-pt">Dois tipos de conta na corretora. A Pro tem custos menores por operação — e é a única em que o MIA RUSH foi medido, por isso é a exigida.</span><span class="lang-en">Two broker account types. Pro has lower per-trade costs — and it is the only one MIA RUSH was measured on, which is why it is required.</span></div></div>
+      <div class="gterm"><div class="t"><span class="lang-pt">Amostra · variância</span><span class="lang-en">Sample · variance</span></div><div class="d"><span class="lang-pt">"Amostra pequena" = ainda são poucas operações, então os números balançam mais no começo. É normal e esperado num histórico curto.</span><span class="lang-en">"Small sample" = still few trades, so numbers swing more early on. Normal and expected for a short track record.</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="infobox">
+      <p class="lang-pt" style="margin:0">Faltou algum termo? Fale com a gente no <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">grupo do Telegram</a> — a gente explica e adiciona aqui.</p>
+      <p class="lang-en" style="margin:0">Missing a term? Ask us in the <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">Telegram group</a> — we'll explain it and add it here.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System licencia programas de trading automatizado que você instala na <strong>sua própria conta</strong> de corretagem. Você mantém titularidade e controle total dessa conta a qualquer momento — a MIA nunca acessa nem movimenta seu dinheiro.</p>
+    <p class="lang-en">MIA Trading System licenses automated trading programs that you install on <strong>your own</strong> brokerage account. You retain full ownership and control of that account at all times — MIA never accesses or moves your money.</p>
+    <p>© 2026 MIA Trading System · <a href="index.html" data-nav>Home</a> · <a href="produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a> · <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a> · <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a> · <a href="faq.html" data-nav>FAQ</a> · <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=9"></script>
+</body>
+</html>

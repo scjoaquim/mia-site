@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Como funciona · MIA Trading System</title>
+<meta name="description" content="Como instalar e ligar o MIA RUSH: conta Exness Pro, MetaTrader 5, chave de licença e VPS. O que o robô recusa fazer, e os custos separados.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css?v=11">
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a>
+      <a href="como-funciona.html" data-nav class="active"><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
+      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
+      <a href="faq.html" data-nav>FAQ</a>
+      <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-tag lang-pt">// Como funciona</div>
+    <div class="section-tag lang-en">// How it works</div>
+    <h1 class="lang-pt">Do zero até o robô operando</h1>
+    <h1 class="lang-en">From zero to the robot trading</h1>
+    <p class="lang-pt">Quatro etapas. Nenhuma delas exige saber operar — a mais técnica é copiar um arquivo para uma pasta. Se travar em qualquer ponto, o <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">grupo do Telegram</a> resolve.</p>
+    <p class="lang-en">Four steps. None of them requires knowing how to trade — the most technical one is copying a file into a folder. If you get stuck at any point, the <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">Telegram group</a> will sort it out.</p>
+    <div class="warnbox" style="margin:18px 0">
+      <p class="lang-pt" style="margin:0"><b>⚠</b> O MIA RUSH <b>ainda não está à venda</b>. Este guia descreve como vai funcionar, para você saber no que está entrando antes de entrar. Os passos podem mudar em detalhe até a abertura.</p>
+      <p class="lang-en" style="margin:0"><b>⚠</b> MIA RUSH is <b>not on sale yet</b>. This guide describes how it will work, so you know what you're getting into before you get into it. Details may change until launch.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="steps">
+      <div class="step">
+        <div class="num">01</div>
+        <h3 class="lang-pt">A conta na corretora</h3>
+        <h3 class="lang-en">The broker account</h3>
+        <p class="lang-pt">Abra uma conta real do tipo <strong>Exness Pro</strong> e passe pela verificação de identidade (documento e comprovante de endereço — é exigência legal, toda corretora séria pede). Deposite pelo menos o saldo indicado.</p>
+        <p class="lang-en">Open a real <strong>Exness Pro</strong> account and complete identity verification (ID and proof of address — a legal requirement at any serious broker). Fund it with at least the recommended balance.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3 class="lang-pt">O MetaTrader 5</h3>
+        <h3 class="lang-en">MetaTrader 5</h3>
+        <p class="lang-pt">Instale o <strong>MetaTrader 5</strong> (gratuito) e entre com os dados da conta. Confira que o ouro (XAUUSD) e o cobre (XCUUSD) aparecem na lista de símbolos — sem os dois, o robô não opera.</p>
+        <p class="lang-en">Install <strong>MetaTrader 5</strong> (free) and log in with your account details. Check that gold (XAUUSD) and copper (XCUUSD) appear in the symbol list — without both, the robot won't trade.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3 class="lang-pt">A licença</h3>
+        <h3 class="lang-en">The licence</h3>
+        <p class="lang-pt">Contrate o plano (mensal ou trimestral). Você recebe o <strong>arquivo do robô</strong> e uma <strong>chave</strong>. Copie o arquivo para a pasta de Expert Advisors do MetaTrader e reinicie o programa.</p>
+        <p class="lang-en">Buy a plan (monthly or quarterly). You receive the <strong>robot file</strong> and a <strong>key</strong>. Copy the file into MetaTrader's Expert Advisors folder and restart the program.</p>
+      </div>
+      <div class="step">
+        <div class="num">04</div>
+        <h3 class="lang-pt">Ligar</h3>
+        <h3 class="lang-en">Switch on</h3>
+        <p class="lang-pt">Abra o gráfico do ouro, arraste o robô para cima dele, cole a chave e confirme. Ligue o <strong>AutoTrading</strong>. Ele valida a licença, baixa os parâmetros e começa a trabalhar.</p>
+        <p class="lang-en">Open the gold chart, drag the robot onto it, paste the key and confirm. Turn on <strong>AutoTrading</strong>. It validates the licence, downloads the parameters and starts working.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// O VPS — e por que quase todo mundo precisa</div>
+    <div class="section-tag lang-en">// The VPS — and why almost everyone needs one</div>
+    <div class="infobox" style="padding:18px 20px">
+      <p class="lang-pt" style="margin:0 0 10px">O robô só age enquanto o MetaTrader está aberto e conectado. Se o seu computador dorme, cai a internet, ou você simplesmente fecha o programa, <strong>as operações daquele período não acontecem</strong> — e as que estiverem abertas ficam sem quem as acompanhe até o terminal voltar.</p>
+      <p class="lang-en" style="margin:0 0 10px">The robot only acts while MetaTrader is open and connected. If your computer sleeps, the internet drops, or you simply close the program, <strong>the trades of that period do not happen</strong> — and any open ones go unattended until the terminal returns.</p>
+      <p class="lang-pt" style="margin:0">Um <strong>VPS</strong> é um computador na nuvem que fica ligado por você, 24 horas. Custa poucos dólares por mês e resolve isso de vez. O ouro opera de domingo à noite a sexta à noite, e o robô avalia o mercado a cada poucos segundos — não é um sistema que dá para acompanhar só de dia.</p>
+      <p class="lang-en" style="margin:0">A <strong>VPS</strong> is a cloud computer that stays on for you, around the clock. It costs a few dollars a month and settles the matter. Gold trades from Sunday night to Friday night, and the robot checks the market every few seconds — this is not a system you can run only during the day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// O que o robô recusa fazer</div>
+    <div class="section-tag lang-en">// What the robot refuses to do</div>
+    <p class="lang-pt">Como você não configura nada, o robô precisa se recusar a rodar errado sozinho. Se qualquer uma destas condições não bater, ele <strong>não opera</strong> e diz o motivo na tela:</p>
+    <p class="lang-en">Since you configure nothing, the robot has to refuse to run wrong on its own. If any of these conditions fails, it <strong>does not trade</strong>, and says why on screen:</p>
+    <table class="cmp" style="margin-top:12px">
+      <tr><th class="lang-pt">Condição</th><th class="lang-en">Condition</th><th class="lang-pt">Por quê</th><th class="lang-en">Why</th></tr>
+      <tr>
+        <td class="lang-pt">Conta Exness Pro</td><td class="lang-en">Exness Pro account</td>
+        <td class="lang-pt">É o ambiente de custo em que os números foram medidos.</td><td class="lang-en">It is the cost environment the figures were measured in.</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Cobre disponível</td><td class="lang-en">Copper available</td>
+        <td class="lang-pt">Sem ele não existe a carteira validada — e o robô prefere parar a rodar metade.</td><td class="lang-en">Without it there is no validated portfolio — and the robot would rather stop than run half.</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Gráfico certo</td><td class="lang-en">Right chart</td>
+        <td class="lang-pt">Ele roda no gráfico do ouro e recusa outros, para não haver dúvida de onde está.</td><td class="lang-en">It runs on the gold chart and refuses others, so there is no doubt where it is.</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Saldo acima do mínimo</td><td class="lang-en">Balance above the minimum</td>
+        <td class="lang-pt">Abaixo dele, o lote mínimo distorce o risco a ponto de o histórico não valer.</td><td class="lang-en">Below it, the minimum lot distorts risk to the point where the track record no longer applies.</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Histórico suficiente</td><td class="lang-en">Enough price history</td>
+        <td class="lang-pt">As estratégias usam médias longas. Com pouco histórico baixado, os sinais mudam — e ninguém percebe.</td><td class="lang-en">The strategies use long averages. With too little history downloaded the signals change — and nobody notices.</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Licença válida</td><td class="lang-en">Valid licence</td>
+        <td class="lang-pt">Sem os parâmetros do servidor, o robô é uma casca vazia: não abre nada.</td><td class="lang-en">Without the server's parameters the robot is an empty shell: it opens nothing.</td>
+      </tr>
+    </table>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--amber-dim)">
+      <span class="lang-pt">Na ativação, ele também calcula e mostra o <strong>risco efetivo da sua conta</strong> — com o saldo que encontrou e a volatilidade do momento, não o valor nominal.</span>
+      <span class="lang-en">On activation it also computes and shows <strong>your account's effective risk</strong> — using the balance it finds and current volatility, not the nominal figure.</span>
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-tag lang-pt">// Custos, separados</div>
+    <div class="section-tag lang-en">// Costs, itemised</div>
+    <table class="cmp">
+      <tr><th class="lang-pt">O quê</th><th class="lang-en">What</th><th class="lang-pt">Quanto</th><th class="lang-en">How much</th><th class="lang-pt">Pago a quem</th><th class="lang-en">Paid to</th></tr>
+      <tr>
+        <td class="lang-pt">Licença do MIA RUSH</td><td class="lang-en">MIA RUSH licence</td>
+        <td class="lang-pt">R$ 159/mês ou R$ 429/trimestre</td><td class="lang-en">US$ 29/month or US$ 79/quarter</td>
+        <td>MIA</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">MetaTrader 5</td><td class="lang-en">MetaTrader 5</td>
+        <td class="lang-pt">Gratuito</td><td class="lang-en">Free</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">VPS (recomendado)</td><td class="lang-en">VPS (recommended)</td>
+        <td class="lang-pt">Alguns dólares por mês</td><td class="lang-en">A few dollars a month</td>
+        <td class="lang-pt">Provedor do VPS</td><td class="lang-en">VPS provider</td>
+      </tr>
+      <tr>
+        <td class="lang-pt">Custo das operações (spread)</td><td class="lang-en">Trading cost (spread)</td>
+        <td class="lang-pt">Embutido em cada operação</td><td class="lang-en">Built into each trade</td>
+        <td class="lang-pt">Corretora</td><td class="lang-en">Broker</td>
+      </tr>
+      <tr style="color:var(--green)">
+        <td class="lang-pt"><strong>Seu depósito</strong></td><td class="lang-en"><strong>Your deposit</strong></td>
+        <td class="lang-pt"><strong data-deposit="rush.rec">US$ 2.500</strong> indicado</td><td class="lang-en"><strong data-deposit="rush.rec">US$ 2,500</strong> recommended</td>
+        <td class="lang-pt"><strong>ninguém — continua seu</strong></td><td class="lang-en"><strong>nobody — it stays yours</strong></td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="panel">
+      <div class="panel-head"><span class="lang-pt">Quer ser avisado quando abrir?</span><span class="lang-en">Want to know when it opens?</span></div>
+      <div class="panel-body" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+        <p style="margin:0;flex:1;min-width:240px">
+          <span class="lang-pt">A lista de espera é o canal do Telegram. Dá para tirar dúvidas por lá antes, sem compromisso.</span>
+          <span class="lang-en">The waitlist is the Telegram channel. You can ask questions there first, no strings attached.</span>
+        </p>
+        <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary pulse"><span class="lang-pt">Entrar no Telegram ↗</span><span class="lang-en">Join Telegram ↗</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System licencia programas de trading automatizado que você instala na <strong>sua própria conta</strong> de corretagem. Você mantém titularidade e controle total dessa conta a qualquer momento — a MIA nunca acessa nem movimenta seu dinheiro.</p>
+    <p class="lang-en">MIA Trading System licenses automated trading programs that you install on <strong>your own</strong> brokerage account. You retain full ownership and control of that account at all times — MIA never accesses or moves your money.</p>
+    <p>© 2026 MIA Trading System · <a href="index.html" data-nav>Home</a> · <a href="produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a> · <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a> · <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a> · <a href="faq.html" data-nav>FAQ</a> · <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="script.js?v=9"></script>
+</body>
+</html>

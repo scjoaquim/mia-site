@@ -68,9 +68,12 @@ def tem(trecho: str) -> bool:
 
 
 falhas = []
+TOTAL = 0
 
 
 def checa(nome: str, condicao: bool, dica: str) -> None:
+    global TOTAL
+    TOTAL += 1
     if condicao:
         print("  ok    %s" % nome)
     else:
@@ -123,8 +126,30 @@ checa("sem preco, escreve um traco",
       tem("(pos.price == null) ? '—' : nf(pos.price, s.dec)"),
       "e o traco que diz ao leitor que nao ha numero, em vez de inventar um.")
 
+# ── ASSUNTO SEPARADO: singular/plural do contador (S4, 12-Ago-2026) ──────────
+# Nao e do 3.3. Anda neste ficheiro para nao multiplicar cadeados de uma linha
+# cada. Com UMA posicao aberta - o caso no dia do lancamento - lia-se
+# "1 posicoes . 1 abertos" e "1 de 1 mercados abertos", nas duas linguas.
+
+checa("cntTxt trata o singular (pt e en)",
+      tem("(n === 1 ? ' posição'  : ' posições')") and tem("(n === 1 ? ' position' : ' positions')")
+      and tem("(o === 1 ? ' aberta' : ' abertas')"),
+      "com 1 posicao volta a ler-se \"1 posicoes . 1 abertos\".")
+
+checa("mktTxt trata o singular (pt e en)",
+      tem("(n === 1 ? ' mercado aberto' : ' mercados abertos')")
+      and tem("(n === 1 ? ' market open'    : ' markets open')"),
+      "com 1 mercado volta a ler-se \"1 de 1 mercados abertos\".")
+
+checa("as formas antigas sairam",
+      not tem("(n + ' posições · ' + o + ' abertos')") and not tem("(n + ' positions · ' + o + ' open')"),
+      "a versao sem singular ainda esta no ficheiro.")
+
+# -----------------------------------------------------------------------------
 print("")
 if falhas:
-    print(">>> %d FALHA(S). O conserto do 3.3 do lado do site nao esta no ficheiro." % len(falhas))
+    print(">>> %d FALHA(S) em %d verificacoes." % (len(falhas), TOTAL))
+    for n in falhas:
+        print("    - %s" % n)
     raise SystemExit(1)
-print("8 verificacoes, todas ok.")
+print("%d verificacoes, todas ok." % TOTAL)
