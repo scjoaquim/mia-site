@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-13 06:40:03 UTC",
+  "generated_at": "2026-08-13 07:40:03 UTC",
   "account": "PRO",
   "desde": "2026-08-01",
-  "saldo_atual": 4282.17,
+  "saldo_atual": 4259.39,
   "saldo_no_corte": 4099.98,
   "saldo_no_corte_estimado": true,
-  "lucro_usd": 182.19,
-  "crescimento_pct": 4.44,
-  "queda_max_fechado_pct": 1.55,
+  "lucro_usd": 159.41,
+  "crescimento_pct": 3.89,
+  "queda_max_fechado_pct": 1.65,
   "mensal": [
     {
       "ym": "2026-08",
       "label": "ago/26",
-      "lucro_usd": 182.19,
-      "cum_usd": 182.19,
-      "trades": 16
+      "lucro_usd": 159.41,
+      "cum_usd": 159.41,
+      "trades": 17
     }
   ],
   "ativos": [
@@ -31,13 +31,13 @@
       "symbol": "XCUUSD",
       "label_pt": "COBRE",
       "label_en": "COPPER",
-      "profit_usd": 48.97,
-      "trades": 1,
-      "win_rate": 100,
-      "profit_factor": null
+      "profit_usd": 26.19,
+      "trades": 2,
+      "win_rate": 50,
+      "profit_factor": 2.15
     }
   ],
-  "trades": 16,
-  "win_rate": 44,
-  "profit_factor": 2.22
+  "trades": 17,
+  "win_rate": 41,
+  "profit_factor": 1.93
 }
