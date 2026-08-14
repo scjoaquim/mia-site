@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14 03:05:11 UTC",
+  "generated_at": "2026-08-14 03:07:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "Cobre",
       "tf": "metal · 2H",
       "side": "BUY",
-      "price": 14054.1,
-      "profit_usd": -13.22,
-      "pct": -0.38,
+      "price": 14061.3,
+      "profit_usd": -11.57,
+      "pct": -0.33,
       "market_open": true,
       "series": [
-        14081.6,
         14069.9,
         14073.9,
         14075.8,
@@ -51,7 +50,8 @@
         14058.1,
         14050.7,
         14048.9,
-        14054.1
+        14054.1,
+        14061.3
       ]
     }
   ]
