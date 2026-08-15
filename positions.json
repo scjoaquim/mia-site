@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14 21:15:10 UTC",
+  "generated_at": "2026-08-15 00:01:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -53,7 +53,7 @@
         4376.0,
         4376.0
       ],
-      "reopen": "aguardando sessão"
+      "reopen": "reabre seg"
     },
     {
       "id": 360892495,
@@ -106,7 +106,7 @@
         14160.5,
         14160.5
       ],
-      "reopen": "aguardando sessão"
+      "reopen": "reabre seg"
     },
     {
       "id": 361220769,
@@ -159,7 +159,7 @@
         4376.0,
         4376.0
       ],
-      "reopen": "aguardando sessão"
+      "reopen": "reabre seg"
     }
   ]
 }
