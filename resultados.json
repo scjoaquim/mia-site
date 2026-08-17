@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-08-17 04:40:03 UTC",
+  "generated_at": "2026-08-17 05:40:03 UTC",
   "account": "PRO",
   "desde": "2026-08-01",
-  "saldo_atual": 4327.89,
-  "saldo_no_corte": 4116.72,
+  "saldo_atual": 4306.84,
+  "saldo_no_corte": 4095.67,
   "saldo_no_corte_estimado": true,
   "lucro_usd": 211.17,
-  "crescimento_pct": 5.13,
-  "queda_max_fechado_pct": 1.64,
+  "crescimento_pct": 5.16,
+  "queda_max_fechado_pct": 1.65,
   "mensal": [
     {
       "ym": "2026-08",
