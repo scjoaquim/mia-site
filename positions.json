@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17 20:49:10 UTC",
+  "generated_at": "2026-08-17 20:51:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -8,11 +8,10 @@
       "tf": "metal · 5M",
       "side": "BUY",
       "price": 4416.0,
-      "profit_usd": 198.31,
+      "profit_usd": 198.26,
       "pct": 1.52,
       "market_open": true,
       "series": [
-        4416.4,
         4415.4,
         4416.7,
         4415.4,
@@ -51,6 +50,7 @@
         4415.7,
         4415.3,
         4416.8,
+        4416.0,
         4416.0
       ]
     },
