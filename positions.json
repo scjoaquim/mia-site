@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17 21:13:10 UTC",
+  "generated_at": "2026-08-17 21:15:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -10,7 +10,7 @@
       "price": 4416.6,
       "profit_usd": 199.93,
       "pct": 1.53,
-      "market_open": true,
+      "market_open": false,
       "series": [
         4418.1,
         4419.0,
@@ -52,7 +52,8 @@
         4416.6,
         4416.6,
         4416.6
-      ]
+      ],
+      "reopen": "aguardando sessão"
     },
     {
       "id": 361763005,
