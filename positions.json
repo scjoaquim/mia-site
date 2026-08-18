@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-18 00:49:10 UTC",
+  "generated_at": "2026-08-18 00:51:10 UTC",
   "account": "PRO",
   "positions": [
     {
@@ -7,12 +7,11 @@
       "symbol": "XAU/USD",
       "tf": "metal · 5M",
       "side": "BUY",
-      "price": 4429.7,
-      "profit_usd": 239.26,
+      "price": 4429.8,
+      "profit_usd": 239.55,
       "pct": 1.84,
       "market_open": true,
       "series": [
-        4421.0,
         4421.6,
         4422.0,
         4422.1,
@@ -51,7 +50,8 @@
         4429.5,
         4430.1,
         4429.0,
-        4429.7
+        4429.7,
+        4429.8
       ]
     },
     {
@@ -59,12 +59,11 @@
       "symbol": "Cobre",
       "tf": "metal · 2H",
       "side": "BUY",
-      "price": 14167.0,
-      "profit_usd": -9.27,
+      "price": 14167.5,
+      "profit_usd": -9.16,
       "pct": -0.25,
       "market_open": true,
       "series": [
-        14126.4,
         14124.9,
         14128.7,
         14134.4,
@@ -103,7 +102,8 @@
         14168.2,
         14168.1,
         14166.4,
-        14167.0
+        14167.0,
+        14167.5
       ]
     }
   ]
