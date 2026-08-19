@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-08-19 17:40:03 UTC",
+  "account": "PRO",
+  "desde": "2026-08-01",
+  "saldo_atual": 4232.68,
+  "saldo_no_corte": 4043.0,
+  "saldo_no_corte_estimado": true,
+  "lucro_usd": 189.68,
+  "crescimento_pct": 4.69,
+  "queda_max_fechado_pct": 1.67,
+  "mensal": [
+    {
+      "ym": "2026-08",
+      "label": "ago/26",
+      "lucro_usd": 189.68,
+      "cum_usd": 189.68,
+      "trades": 20
+    }
+  ],
+  "ativos": [
+    {
+      "symbol": "XAUUSD",
+      "label_pt": "OURO",
+      "label_en": "GOLD",
+      "profit_usd": 133.82,
+      "trades": 16,
+      "win_rate": 44,
+      "profit_factor": 1.9
+    },
+    {
+      "symbol": "XCUUSD",
+      "label_pt": "COBRE",
+      "label_en": "COPPER",
+      "profit_usd": 55.86,
+      "trades": 4,
+      "win_rate": 50,
+      "profit_factor": 2.24
+    }
+  ],
+  "trades": 20,
+  "win_rate": 45,
+  "profit_factor": 1.98
+}
