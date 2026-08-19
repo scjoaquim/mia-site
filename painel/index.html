@@ -141,7 +141,11 @@
     servidor: ['O servidor respondeu com erro (%s). Tente de novo daqui a pouco.',
                'The server answered with an error (%s). Try again in a moment.'],
     sem_rede: ['Não consegui falar com o servidor. Verifique a sua internet e tente de novo.',
-               'Could not reach the server. Check your connection and try again.']
+               'Could not reach the server. Check your connection and try again.'],
+    /* ⛔ 404 nao e avaria: e o painel ainda nao existir no servidor. Enquanto o
+       produto nao abre, dizer "erro 404" a um visitante e parecer partido. */
+    ainda_nao: ['O painel ainda não está no ar. Se você já recebeu um token, fale com a gente pela página de Contato.',
+                'The panel is not live yet. If you already have a token, reach us on the Contact page.']
   };
 
   function diz(chave, tipo, extra) {
@@ -177,6 +181,7 @@
       }
       if (r.status === 401)      diz('invalido', 'mau');
       else if (r.status === 403) diz('revogado', 'mau');
+      else if (r.status === 404 || r.status === 503) diz('ainda_nao', 'neutro');
       else                       diz('servidor', 'mau', r.status);
       botao.disabled = false;
     }).catch(function () {
