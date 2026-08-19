@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,follow">
+<title>Painel do cliente · MIA Trading System</title>
+<meta name="description" content="Acompanhe o seu robô MIA ao vivo na sua conta: operações abertas, histórico e saldo. Somente leitura. O acesso é por token, enviado no e-mail da compra.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css?v=11">
+<style>
+  .caixa-token { max-width: 620px; margin: 0 auto; }
+  #pf label { display:block; font-size:12px; letter-spacing:3px; text-transform:uppercase;
+              color:var(--amber-dim); margin-bottom:10px; }
+  #pt { width:100%; box-sizing:border-box; background:var(--bg); color:var(--amber-bright);
+        border:1px solid var(--border-bright); border-radius:4px; padding:13px 14px;
+        font-family:inherit; font-size:15px; letter-spacing:1px; }
+  #pt::placeholder { color:var(--border-bright); letter-spacing:1px; }
+  #pt:focus { outline:none; border-color:var(--amber); box-shadow:0 0 0 3px var(--amber-glow); }
+  #pb { margin-top:14px; width:100%; }
+  #pb[disabled] { opacity:.55; cursor:default; }
+  .recado { min-height:22px; margin:14px 0 0; font-size:14px; line-height:1.5; }
+  .recado.mau { color:var(--red); }
+  .recado.bom { color:var(--green); }
+  .recado.neutro { color:var(--amber-dim); }
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="../index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="../index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="../produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a>
+      <a href="../como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
+      <a href="../metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="../glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
+      <a href="../painel/" data-nav class="active"><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+      <a href="../faq.html" data-nav>FAQ</a>
+      <a href="../contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="padding-bottom:10px">
+    <div class="kicker lang-pt">// o seu robô, ao vivo</div>
+    <div class="kicker lang-en">// your robot, live</div>
+    <h1 class="glow">PAINEL</h1>
+    <p class="lead lang-pt">Acompanhe aqui o seu robô <strong>ao vivo</strong>, na sua conta.</p>
+    <p class="lead lang-en">Follow your robot <strong>live</strong>, on your own account.</p>
+  </section>
+
+  <section class="section" style="padding-top:0">
+
+    <div class="panel caixa-token">
+      <div class="panel-head">
+        <span><span class="lang-pt">Entrar no painel</span><span class="lang-en">Open the panel</span></span>
+        <span class="badge pill-cyan"><span class="lang-pt">somente leitura</span><span class="lang-en">read only</span></span>
+      </div>
+      <div class="panel-body">
+        <form id="pf" autocomplete="off" novalidate>
+          <label for="pt"><span class="lang-pt">Cole aqui o seu token de acesso</span><span class="lang-en">Paste your access token</span></label>
+          <input id="pt" name="token" type="text" spellcheck="false" autocapitalize="off"
+                 autocorrect="off" autocomplete="off"
+                 placeholder="0000000000000000.00000000000000000000000000000000">
+          <button id="pb" class="btn btn-primary" type="submit"><span class="lang-pt">Abrir painel</span><span class="lang-en">Open panel</span></button>
+        </form>
+        <p id="pr" class="recado" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="infobox caixa-token" style="margin-top:18px">
+      <p class="lang-pt" style="margin:0 0 10px"><b>Onde está o meu token?</b> Ele chega no e-mail da sua compra, junto com a chave de licença do robô. São <b>duas coisas diferentes</b>: a chave faz o robô operar, o token só serve para olhar.</p>
+      <p class="lang-en" style="margin:0 0 10px"><b>Where is my token?</b> It arrives in your purchase email, next to the robot's license key. They are <b>two different things</b>: the key makes the robot trade, the token only lets you look.</p>
+      <p class="lang-pt" style="margin:0 0 10px">Se o token aparecer num print ou numa conversa, <b>ninguém consegue operar na sua conta com ele</b> &mdash; no pior caso, alguém vê os seus números. Mesmo assim, avise a gente e emitimos outro: o antigo deixa de valer e <b>o robô não para</b>.</p>
+      <p class="lang-en" style="margin:0 0 10px">If the token shows up in a screenshot or a chat, nobody can trade on your account with it &mdash; at worst someone sees your figures. Even so, tell us and we issue another: the old one stops working and <b>the robot keeps running</b>.</p>
+      <p class="lang-pt" style="margin:0">Perdeu o e-mail? Fale com a gente em <a href="../contato.html" data-nav>Contato</a>.</p>
+      <p class="lang-en" style="margin:0">Lost the email? Reach us on the <a href="../contato.html" data-nav>Contact</a> page.</p>
+    </div>
+
+    <p class="fineprint lang-pt" style="max-width:620px;margin:16px auto 0;text-align:center">Esta página não envia ordens e não altera nada na sua conta. Não existe botão de fechar posição, nem de ligar ou desligar o robô.</p>
+    <p class="fineprint lang-en" style="max-width:620px;margin:16px auto 0;text-align:center">This page sends no orders and changes nothing in your account. There is no close-position button, and no start or stop.</p>
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System licencia programas de trading automatizado que você instala na <strong>sua própria conta</strong> de corretagem. Você mantém titularidade e controle total dessa conta a qualquer momento — a MIA nunca acessa nem movimenta seu dinheiro.</p>
+    <p class="lang-en">MIA Trading System licenses automated trading programs that you install on <strong>your own</strong> brokerage account. You retain full ownership and control of that account at all times — MIA never accesses or moves your money.</p>
+    <p>© 2026 MIA Trading System · <a href="../index.html" data-nav>Home</a> · <a href="../produtos.html" data-nav><span class="lang-pt">Produto</span><span class="lang-en">Product</span></a> · <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="../como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a> · <a href="../metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="../glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a> · <a href="../faq.html" data-nav>FAQ</a> · <a href="../contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="../script.js?v=9"></script>
+<script>
+/* ── A PORTA DO PAINEL ──────────────────────────────────────────────
+   Tres caminhos de entrada, um so destino:
+     1. o cliente cola o token e carrega no botao;
+     2. o link do email traz o token no #fragmento -> tenta sozinho;
+     3. token errado -> recado claro, e o token FICA na caixa para ele emendar.
+
+   ⛔ O #FRAGMENTO, NUNCA ?query: o que vem depois do # nao e enviado ao
+      servidor em pedido nenhum. Em ?query ficaria nos logs de acesso, nos
+      referers e em qualquer proxy pelo caminho.
+   ⛔ O TOKEN SAI DA BARRA DE ENDERECOS assim que e lido (replaceState), para
+      nao ficar no historico do navegador nem num print da barra.        */
+(function () {
+  var API   = 'https://licencas.miats.trade';
+  var FORMA = /^[0-9a-f]{16}\.[0-9a-f]{32}$/;   /* painel_token.py, _RE_TOKEN */
+
+  var form = document.getElementById('pf');
+  var campo = document.getElementById('pt');
+  var botao = document.getElementById('pb');
+  var recado = document.getElementById('pr');
+  var en = document.body.classList.contains('lang-en');
+
+  var T = {
+    forma:    ['Isso não parece um token. Ele tem 16 letras e números, um ponto, e mais 32 depois. Confira se copiou tudo, do início ao fim.',
+               'That does not look like a token. It is 16 letters and digits, a dot, then 32 more. Check you copied all of it.'],
+    vazio:    ['Cole o token que veio no e-mail da sua compra.',
+               'Paste the token from your purchase email.'],
+    a_ver:    ['Verificando...', 'Checking...'],
+    bom:      ['Token confirmado. Abrindo o painel...', 'Token confirmed. Opening the panel...'],
+    invalido: ['Token não reconhecido. Se você pediu um token novo, o antigo deixou de valer &mdash; use o mais recente.',
+               'Token not recognised. If you asked for a new token, the old one stopped working &mdash; use the latest.'],
+    revogado: ['Esta licença está revogada. Fale com a gente pela página de Contato.',
+               'This license is revoked. Reach us on the Contact page.'],
+    servidor: ['O servidor respondeu com erro (%s). Tente de novo daqui a pouco.',
+               'The server answered with an error (%s). Try again in a moment.'],
+    sem_rede: ['Não consegui falar com o servidor. Verifique a sua internet e tente de novo.',
+               'Could not reach the server. Check your connection and try again.']
+  };
+
+  function diz(chave, tipo, extra) {
+    var txt = T[chave][en ? 1 : 0];
+    if (extra !== undefined) txt = txt.replace('%s', extra);
+    recado.innerHTML = txt;
+    recado.className = 'recado ' + (tipo || 'neutro');
+  }
+
+  function limpa(t) {
+    return String(t || '').trim().replace(/^#/, '').replace(/\s+/g, '').toLowerCase();
+  }
+
+  function tentar(bruto) {
+    var tok = limpa(bruto);
+    if (!tok)            { diz('vazio', 'mau'); campo.focus(); return; }
+    if (!FORMA.test(tok)) { diz('forma', 'mau'); campo.focus(); return; }
+
+    botao.disabled = true;
+    diz('a_ver', 'neutro');
+
+    fetch(API + '/v1/panel/health', {
+      method: 'GET',
+      headers: { 'X-Panel-Token': tok },
+      cache: 'no-store'
+    }).then(function (r) {
+      if (r.status === 200) {
+        diz('bom', 'bom');
+        /* o token viaja no #fragmento tambem daqui para a frente: o app.html
+           guarda-o em sessionStorage e limpa a barra. */
+        location.href = 'app.html#' + tok;
+        return;
+      }
+      if (r.status === 401)      diz('invalido', 'mau');
+      else if (r.status === 403) diz('revogado', 'mau');
+      else                       diz('servidor', 'mau', r.status);
+      botao.disabled = false;
+    }).catch(function () {
+      diz('sem_rede', 'mau');
+      botao.disabled = false;
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    tentar(campo.value);
+  });
+
+  /* Caminho 2: o link do email. Le o fragmento, LIMPA A BARRA, poe o token na
+     caixa (para ele poder emendar se falhar) e tenta sozinho. */
+  var doHash = limpa(location.hash);
+  if (doHash) {
+    history.replaceState(null, '', location.pathname + location.search);
+    campo.value = doHash;
+    tentar(doHash);
+  } else {
+    campo.focus();
+  }
+})();
+</script>
+
+</body>
+</html>
