@@ -147,9 +147,13 @@
 </main>
 
 <script>
-/* ─── Resultados: um arquivo só (resultados.json), gerado no VPS ─────────────
-   Fallback inline abaixo: a página desenha algo mesmo se o fetch falhar. O
-   gerador do VPS sincroniza este bloco — não edite à mão sem sincronizar lá. */
+/* ─── Resultados: vem do Railway, alimentado pelo EA na conta PRO ────────────
+   ⭐ 22-Ago-2026: a fonte deixou de ser o `resultados.json` que o VPS da
+   Contabo empurrava (e que morre em 1-Set) e passou a ser um endereço público
+   que lê o banco do painel. O formato é o MESMO, campo a campo — provado
+   contra o arquivo publicado: 27 ops / +195,35 / saldo no corte 4100,61.
+   Fallback inline abaixo: a página desenha algo mesmo se o fetch falhar. */
+var FONTE = 'https://licencas.miats.trade/v1/site/resultados';
 var FB = {"generated_at":null,"desde":"2026-08-01","lucro_usd":null,"crescimento_pct":null,
           "saldo_no_corte_estimado":true,"trades":null,"win_rate":null,"profit_factor":null,
           "queda_max_fechado_pct":null,"mensal":[],"ativos":[]};
@@ -193,12 +197,35 @@ var FB = {"generated_at":null,"desde":"2026-08-01","lucro_usd":null,"crescimento
     if (sub) sub.textContent = d.crescimento_pct == null ? ''
       : (d.saldo_no_corte_estimado ? (en ? 'estimated — see note' : 'estimado — ver nota') : '');
 
+    // ⛔⛔ A PÁGINA PASSA A DIZER QUANDO OS NÚMEROS PARARAM (22-Ago-2026).
+    //    Em 20-Ago o terminal que alimentava a fonte foi desligado e estes
+    //    números ficaram 14 h no ar dando-se por atuais, sem o trade daquela
+    //    tarde. O dock já tinha a trava de 15 min e sumiu sozinho; os números
+    //    não tinham nada e mentiram. Agora têm.
+    //
+    // ⚠ E a hora mostrada é `telemetria_em`, NÃO `generated_at`. No arquivo
+    //    antigo os dois eram a mesma coisa. No endereço novo, `generated_at`
+    //    é a hora em que o servidor montou a resposta — ele nunca envelhece.
+    //    Mostrá-lo aqui faria a página dizer "atualizado agora" com o robô
+    //    morto há uma semana: pior do que o defeito que isto conserta.
     var note = document.getElementById('r-note');
     if (note && d.generated_at) {
-      note.textContent = (en ? 'Computed from the account statement · updated ' : 'Calculado do extrato da conta · atualizado ') + d.generated_at
-        + (d.saldo_no_corte_estimado ? (en
-            ? ' · growth % assumes no deposits or withdrawals since the cut'
-            : ' · o % de crescimento assume que não houve depósito nem saque desde o corte') : '');
+      var quando = d.telemetria_em || d.generated_at;
+      if (d.stale) {
+        note.textContent = (en
+            ? '⚠ These numbers have STOPPED updating. Last read from the account: '
+            : '⚠ Estes números PARARAM de atualizar. Última leitura da conta: ')
+          + quando
+          + (en ? '. They may not reflect the current result.'
+                : '. Podem não refletir o resultado atual.');
+        note.style.color = 'var(--red)';
+      } else {
+        note.style.color = '';
+        note.textContent = (en ? 'Computed from the account statement · updated ' : 'Calculado do extrato da conta · atualizado ') + quando
+          + (d.saldo_no_corte_estimado ? (en
+              ? ' · growth % assumes no deposits or withdrawals since the cut'
+              : ' · o % de crescimento assume que não houve depósito nem saque desde o corte') : '');
+      }
     }
     if (d.desde) {
       var p = d.desde.split('-');
@@ -288,10 +315,22 @@ var FB = {"generated_at":null,"desde":"2026-08-01","lucro_usd":null,"crescimento
   }
 
   render(FB);
-  fetch('resultados.json?t=' + Date.now(), { cache: 'no-store' })
+  fetch(FONTE + '?t=' + Date.now(), { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw 0; return r.json(); })
     .then(render)
-    .catch(function () { /* mantém o fallback desenhado */ });
+    .catch(function () {
+      // ⛔ Falhar CALADO era o defeito antigo, e é a regra da casa a evitar.
+      //    Sem isto, a fonte fora do ar deixaria a página com travessões em
+      //    tudo e nenhuma explicação — o visitante não saberia se o robô não
+      //    operou ou se a página não conseguiu ler.
+      var note = document.getElementById('r-note');
+      if (note) {
+        note.textContent = en
+          ? '⚠ Could not read the account results right now. Please try again in a few minutes.'
+          : '⚠ Não foi possível ler os resultados da conta agora. Tente de novo daqui a alguns minutos.';
+        note.style.color = 'var(--red)';
+      }
+    });
 })();
 </script>
 
