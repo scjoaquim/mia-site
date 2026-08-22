@@ -297,7 +297,9 @@
 })();
 
 // ─── "Operações ao vivo": dock fixo (site-wide) + quadro em Resultados ───────
-// Aditivo. Lê positions.json (gerado no VPS). Some sozinho se não houver dado.
+// Aditivo. Lê as posições abertas do Railway (ver DOCK_FONTE, no fim deste
+// bloco), alimentadas pelo MIA_Telemetria na conta PRO. Some sozinho se não
+// houver dado, e some também se o dado estiver velho — ver a trava de validade.
 // Mercado aberto: linha/preço/P&L passeiam ANCORADOS no valor real (sync ~2min);
 // mercado fechado: congelado. Nada é inventado além da suavização entre syncs.
 (function () {
@@ -550,8 +552,21 @@
     requestAnimationFrame(frame);
   }
 
+  // ⭐ 22-Ago-2026: o dock deixou de ler o `positions.json` que o VPS da
+  //    Contabo empurrava e passou a ler o Railway, alimentado pelo EA.
+  //
+  // ⭐⭐ E a URL ABSOLUTA conserta, de graca, o defeito aberto desde 19-Ago:
+  //     com `positions.json` relativo, a pagina do PAINEL pedia
+  //     `/painel/positions.json`, que nunca existiu — e o dock morria la,
+  //     em silencio. Agora todas as paginas pedem o mesmo endereco.
+  //
+  // ⚠ A trava de validade acima continua a valer e continua a ser a peca
+  //   certa: o servidor devolve em `generated_at` a hora em que o ROBO falou,
+  //   nao a hora do pedido. Se o EA parar, o dock some, como sumiu em 20-Ago.
+  var DOCK_FONTE = 'https://licencas.miats.trade/v1/site/posicoes';
+
   function pull() {
-    fetch('positions.json?t=' + Date.now(), { cache: 'no-store' })
+    fetch(DOCK_FONTE + '?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .then(applyData)
       .catch(function () { dock.classList.remove('md-on'); if (boardEl) boardEl.setAttribute('hidden', ''); });
