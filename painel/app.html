@@ -954,7 +954,7 @@
           <div class="mtt-bub">Lucro ou prejuizo realizado (posicoes ja fechadas) na janela selecionada: em DOLAR (destaque) e, logo abaixo, em R (1R = risco definido por trade — mede o desempenho sem depender do tamanho da conta).</div>
           <div class="stat-label">P&amp;L PERÍODO</div>
           <div class="stat-value" id="ov-pnl">—</div>
-          <div class="stat-sub"><span id="ov-rsum" style="font-weight:bold;font-size:16px;">—</span> &middot; <span id="ov-pnl-sub">últimos 7 dias</span></div>
+          <div class="stat-sub"><span id="ov-rsum" style="font-weight:bold;font-size:16px;">—</span><span id="ov-pnl-pct"></span> &middot; <span id="ov-pnl-sub">últimos 7 dias</span></div>
         </div>
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Trades no Periodo">?</span>
@@ -1003,9 +1003,10 @@
           <div class="stat-row c2">
             <div class="stat-card">
               <span class="mtt" role="button" tabindex="0" aria-label="O que e Lucro de Trading">?</span>
-              <div class="mtt-bub">O que as operacoes geraram de fato = Saldo &minus; aportes liquidos (depositos &minus; saques). Imune a depositos/saques: mostra so o lucro/prejuizo REALIZADO das posicoes ja fechadas (o flutuante das abertas fica no P&L Aberto). A media/mes usa os meses desde o 1o aporte. Este numero e da CONTA INTEIRA e bate com o card P&L PERIODO na janela TOTAL. Se aparecer aqui uma linha vermelha de "nao atribuido", e porque ha dinheiro no saldo que a API nao consegue ligar a trade nenhum — nesse caso o P&L PERIODO esta incompleto nesse valor.</div>
+              <div class="mtt-bub" id="mtt-lucro">O que as operacoes geraram de fato = Saldo &minus; aportes liquidos (depositos &minus; saques). Imune a depositos/saques: mostra so o lucro/prejuizo REALIZADO das posicoes ja fechadas (o flutuante das abertas fica no P&L Aberto). A media/mes usa os meses desde o 1o aporte. Este numero e da CONTA INTEIRA e bate com o card P&L PERIODO na janela TOTAL. Se aparecer aqui uma linha vermelha de "nao atribuido", e porque ha dinheiro no saldo que a API nao consegue ligar a trade nenhum — nesse caso o P&L PERIODO esta incompleto nesse valor.</div>
               <div class="stat-label">LUCRO DE TRADING</div>
               <div class="stat-value" id="cash-trading-pnl">—</div>
+              <div class="stat-delta" id="cash-pnl-pct" style="font-size:17px;display:none;">—</div>
               <div class="stat-sub"><span id="cash-pnl-permes">—</span>/m&ecirc;s em m&eacute;dia</div>
               <!-- [31-Jul] reconciliacao conta x frota (preenchida por renderCashflow) -->
               <div class="stat-sub" id="cash-pnl-split" style="margin-top:4px;line-height:1.5;"></div>
@@ -4631,8 +4632,31 @@ function updateOverviewFromHistory(history) {
     || 100;
   const deltaEl = document.getElementById('ov-saldo-delta');
   if (deltaEl) {
-    if (total === 0) { deltaEl.textContent = '- sem variacao'; deltaEl.className = 'stat-delta neu'; }
+    if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE) {
+      // [24-Ago, Parte 3] ⛔ O saldo e da CONTA INTEIRA; a percentagem e do que o ROBO
+      // fez. Pendurada na caixa do saldo, ela dizia que aquele saldo tinha rendido
+      // aquilo — que so seria verdade numa conta onde so o robo opera. Sai daqui.
+      deltaEl.textContent = '';
+      deltaEl.className = 'stat-delta neu';
+    }
+    else if (total === 0) { deltaEl.textContent = '- sem variacao'; deltaEl.className = 'stat-delta neu'; }
     else { const base = ovStartCapital(total, balance); const pct = ((total/base)*100).toFixed(2); deltaEl.textContent = (total>=0?'+ ':'')+pct+'%'; deltaEl.className = 'stat-delta '+(total>=0?'up':'dn'); }
+  }
+  // ── A percentagem DA JANELA, ao lado do R ────────────────────────
+  // lucro dos trades do robo na janela ÷ saldo no FIM da janela (= o saldo de agora).
+  // ⚠ Nota de metodo, ja registada na especificacao: usar o saldo do FIM como base
+  //    subestima o retorno quando houve aporte no meio, e superestima quando houve
+  //    saque. E uma escolha simples e defensavel — mas e uma escolha.
+  const pctJanEl = document.getElementById('ov-pnl-pct');
+  if (pctJanEl) {
+    if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE && balance > 0 && closed.length) {
+      const pj = (total / balance * 100).toFixed(2);
+      pctJanEl.textContent = ' · ' + (total >= 0 ? '+' : '-') + Math.abs(pj) + '%';
+      pctJanEl.style.color = total >= 0 ? 'var(--green)' : 'var(--red)';
+      pctJanEl.style.fontWeight = 'bold';
+    } else {
+      pctJanEl.textContent = '';
+    }
   }
 
   if (closed.length === 0) drawChartFlat(balance); else drawChartFromHistory(closed);
@@ -5357,6 +5381,16 @@ window.addEventListener('DOMContentLoaded', () => {
       const pai = dd.parentElement;
       if (pai) pai.style.display = 'none';
     });
+
+    // [24-Ago, Parte 3] A explicacao da caixa LUCRO DE TRADING descrevia a formula
+    // que morreu (saldo menos aportes) e ate ensinava a ler a linha vermelha do
+    // "nao atribuido", que deixou de existir. Reescrita para o que a caixa faz agora.
+    const _mttL = document.getElementById('mtt-lucro');
+    if (_mttL) _mttL.textContent =
+      'O que os robos geraram: a soma de todos os trades fechados desde a instalacao. '
+    + 'Nao muda quando voce deposita ou saca — e o resultado das operacoes, e nada mais. '
+    + 'A percentagem e este lucro dividido pelo saldo atual da conta. '
+    + 'A media por mes usa os meses desde o primeiro movimento registado na conta.';
 
     // a aba do monitor de risco le /risk_mode, que o painel nao tem
     const _risco = [...document.querySelectorAll('.nav-item')]
@@ -6199,7 +6233,29 @@ function closeApiCfg() { document.getElementById('apicfg-overlay').classList.rem
 // fecho anterior à janela buscada, os dois cards voltam a divergir — e sem esta linha isso
 // aconteceria em SILÊNCIO, que é o modo de falha que este projeto já pagou caro várias vezes.
 // Agora o silêncio significa "fecha"; qualquer coisa na tela significa "não fecha, olhe para mim".
+// ─── [24-Ago, Parte 3] O LUCRO QUE O ROBO FEZ ────────────────────
+// A soma limpa dos trades fechados que chegaram, desde a instalacao.
+// ⛔ Devolve null enquanto o historico nao chegou — para a caixa mostrar "—" em vez
+//    de um zero, que pareceria resposta e nao e.
+// ⚠ Limite conhecido e aceite: a API devolve no maximo 365 dias. Numa conta com o
+//    robo instalado ha mais de um ano, este numero e dos ultimos 365 dias.
+function lucroDosTrades(){
+  const h = Array.isArray(window._liveHistoryAll) ? window._liveHistoryAll
+          : (Array.isArray(window._liveHistory) ? window._liveHistory : null);
+  if (h === null) return null;
+  return h.reduce((soma, t) => soma + (t.pnl || 0), 0);
+}
+
 function renderCashReconcile(bal, net) {
+  // [24-Ago, Parte 3] No painel esta linha deixou de ter sentido: ela media a
+  // distancia entre "saldo − aportes" e a soma dos trades. Como o LUCRO DE TRADING
+  // passou a SER a soma dos trades, a distancia e zero por construcao — nao ha o
+  // que atribuir. No dashboard da frota a linha fica, que la a formula nao mudou.
+  if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE) {
+    const e = document.getElementById('cash-pnl-split');
+    if (e) { e.innerHTML = ''; e.title = ''; }
+    return;
+  }
   const el = document.getElementById('cash-pnl-split');
   if (!el) return;
   el.innerHTML = '';
@@ -6251,13 +6307,41 @@ function renderCashflow() {
     e.classList.remove('sk','up','dn');
     if (cls) e.classList.add(cls);
   };
-  // Lucro de trading REAL = saldo − aporte líquido (imune a depósitos/saques)
-  if (typeof bal === 'number') {
-    const tp = bal - net;
-    setV('cash-trading-pnl', (tp >= 0 ? '+' : '-') + money(tp), tp >= 0 ? 'up' : 'dn');
+  // ── [24-Ago, Parte 3] O LUCRO DE TRADING ─────────────────────────
+  // ⛔ MORREU a formula `saldo − aportes`. Ela foi escrita para o dashboard DELE,
+  //    onde tudo o que a conta faz e dele e tudo conta. Num painel de cliente e pior
+  //    que um erro de soma: se o cliente operar a mao ou correr outro robo, esse
+  //    resultado entrava aqui como se o MIA o tivesse feito. E com os aportes a zero
+  //    o "lucro" virava o SALDO INTEIRO — medido em 24-Ago: 4327,19 − 0 = 4327,19,
+  //    com 206,56 de trades. O painel dava ao robo credito por 4120,63 que nao fez.
+  // ⭐ Passa a ser a soma dos trades do robo. Assim o numero e dele e de mais ninguem.
+  const usaSomaEA = (typeof PANEL_MODE !== 'undefined' && PANEL_MODE);
+  const lucro = usaSomaEA ? lucroDosTrades()
+              : (typeof bal === 'number' ? bal - net : null);
+  if (lucro === null) {
+    setV('cash-trading-pnl', '—');
+    setV('cash-pnl-permes', '—');
+  } else {
+    setV('cash-trading-pnl', (lucro >= 0 ? '+' : '-') + money(lucro), lucro >= 0 ? 'up' : 'dn');
     setV('cash-pnl-permes',
-      months !== null ? (tp >= 0 ? '+' : '-') + money(tp / months) : '—',
-      months !== null ? (tp >= 0 ? 'up' : 'dn') : null);
+      months !== null ? (lucro >= 0 ? '+' : '-') + money(lucro / months) : '—',
+      months !== null ? (lucro >= 0 ? 'up' : 'dn') : null);
+  }
+  // ── O PERCENTUAL, que veio da caixa do saldo ─────────────────────
+  // ⭐ Decisao dele (opcao B, 24-Ago): a percentagem acompanha o numero da caixa onde
+  //    vive. Aqui o numero e "desde a instalacao", logo a percentagem tambem e — e nao
+  //    muda com a janela. A percentagem DA JANELA vive na caixa do P&L PERIODO, ao
+  //    lado do R, que e a caixa que fala da janela.
+  const pctEl = document.getElementById('cash-pnl-pct');
+  if (pctEl) {
+    if (usaSomaEA && lucro !== null && typeof bal === 'number' && bal > 0) {
+      const pct = (lucro / bal * 100).toFixed(2);
+      pctEl.style.display = '';
+      pctEl.textContent = (lucro >= 0 ? '+ ' : '- ') + Math.abs(pct) + '%';
+      pctEl.className = 'stat-delta ' + (lucro >= 0 ? 'up' : 'dn');
+    } else {
+      pctEl.style.display = 'none';
+    }
   }
   setV('cash-out', money(totalOut));                                  // neutro (saque ≠ perda)
   setV('cash-out-permes', months !== null ? money(totalOut / months) : '—');
