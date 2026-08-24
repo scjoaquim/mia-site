@@ -880,11 +880,9 @@
         </div>
         <div class="box-body" id="ov-about-body" style="display:none;line-height:1.7;">
           <p style="margin-bottom:10px;">
-            O <b style="color:var(--amber-bright);">MIA TRADING SYSTEM</b> é uma frota de robôs de trading 100% automática
-            operando CFDs numa conta MT5 (Exness): índices, ouro/metais, cripto e ações US.
-            Cada bot executa um único setup validado em backtest e re-validado ao vivo, sempre com stop
-            e risco fixo (~0,5% do saldo por trade). A frota roda 24/7 em VPS, com monitor de risco,
-            freio de frota em camadas e relatórios automáticos.
+            Este painel acompanha <b style="color:var(--amber-bright);">os robôs MIA</b>. Se você operar
+            à mão nesta conta, ou usar outro robô, essas operações <b>não aparecem aqui</b> e não entram
+            em nenhum número. A única exceção é o <b>saldo</b>, que é o da conta inteira.
           </p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
             <div style="background:var(--bg3);border:1px solid var(--border-bright);padding:8px 12px;">
@@ -1018,6 +1016,7 @@
               <div class="stat-label">TOTAL SACADO</div>
               <div class="stat-value" id="cash-out">—</div>
               <div class="stat-sub"><span id="cash-out-permes">—</span>/m&ecirc;s em m&eacute;dia</div>
+              <div class="stat-sub" style="opacity:.75;">Apenas os realizados ap&oacute;s a instala&ccedil;&atilde;o dos rob&ocirc;s.</div>
             </div>
           </div>
           <div id="cash-ledger-wrap" style="display:none;margin-top:12px;">
@@ -4600,7 +4599,7 @@ function updateOverviewFromHistory(history) {
   // e o WR piorarem e nao teria como saber porque — e o rotulo honesto e' a diferenca
   // entre "o painel mudou" e "o painel mentiu".
   const periodSubs   = { '1d':'ultimas 24h','1w':'ultimos 7 dias','1m':'ultimos 30 dias','6m':'ultimos 6 meses','1y':'ultimo ano',
-                         'all':'conta inteira · inclui aposentados' };
+                         'all':'desde a instalação dos robôs' };
 
   const closed = ovScopedTrades();
   const wins  = closed.filter(t => t.win).length;
