@@ -4954,7 +4954,16 @@ const botStates = {'xaur2rsi2':'stop', 'xaubrk':'stop', 'xaulz':'stop', 'us100mr
 // Risco por trade (%) configurado em cada bot — defaults de produção, actualizado via setRisk()
 const botRisk = {'xaur2rsi2':1.0, 'xaubrk':0.5, 'xaulz':0.5, 'us100mr':0.5, 'xausurp':0.5, 'de30wedge':0.5, 'xaubrk5m':0.5, 'xaubrk5mrun':0.5, 'btclz1h':0.5, 'ethlz4h':0.5, 'ethbrk4h':0.5, 'btcbrk5m':0.5, 'cobrepull':0.5, 'usr2fix':0.5};
 const BOT_LABEL = {'5m':'BTC 5m #1', '15m':'BTC 15m #1', 'us500':'US500 5m #1', 'trail':'US500 5m #2', 'ethtrail':'ETH 5m #1', 'btctrail2':'BTC 5m #2', 'us100a':'US100 5m #1', 'us500r':'US500 5m #3', 'us100l':'US100 5m #2', 'btcl':'BTC 5m #3', 'ethl':'ETH 5m #2', 'ethf':'ETH 5m #3', 'usdjpy':'USDJPY 5m #1', 'xau':'XAU 5m #1', 'xaul':'XAU 5m #2', 'us30r':'US30 5m #1', 'us30l':'US30 5m #2', 'us30f':'US30 5m #3', 'de30r':'DE30 5m #1', 'de30l':'DE30 5m #2', 'de40sp':'DE40 15m #1', 'de40spv':'DE40 15m #2', 'xausp':'XAU 15m #1', 'eth1h':'ETH 1h #1', 'us500be':'US500 5m #4', 'xaube':'XAU 5m #3', 'xaur2':'XAU 5m #4', 'xaufbe':'XAU 5m #5', 'xaurrsi':'XAU 5m #6', 'xaur2rsi':'XAU 5m #7', 'xaur2rsi2':'XAU 5m BARS #16', 'xaufbersi':'XAU 5m #9', 'us30fvol':'US30 5m #4', 'us500rsi':'US500 5m #12', 'us100fvol':'US100 5m #3', 'tsla':'TSLA 15m #09', 'orcl':'ORCL 15m #08', 'xaubrk':'XAU 1h TITAN #14', 'btccloud':'BTC 4h #1', 'btclz':'BTC 4h #2', 'xaulz':'XAU 15m MIDAS #13', 'us100mr':'US100 1h MAGNET #10', 'xausurp':'XAU 1h SURP #15', 'de30wedge':'DE30 1h #05', 'xaubrk5m':'XAU 5m RUSH #17', 'xaubrk5mrun':'XAU 5m BRO #18', 'btclz1h':'BTC 1h NAKA #01', 'ethlz4h':'ETH 4h AETHER #06', 'ethbrk4h':'ETH 4h COMET #07', 'ethr2':'ETH 5m VOLT #19', 'btcbrk5m':'BTC 5m RONIN #02', 'btcbrk5mb':'BTC 5m ECHO #03', 'cobrepull':'Cobre 2h #04', 'usr2fix':'US100 5m ANCHOR #11', 'xaubars2':'XAU 5m BARS 2', 'earush':'XAU 5m RUSH (EA)', 'eacobre':'Cobre 2h (EA)', 'eabars':'XAU 5m BARS (EA)'};
-function botLabel(b) { return BOT_LABEL[b] || b; }
+function botLabel(b) {
+  // [24-Ago] O cliente comprou MIA RUSH, MIA COBRE e MIA BARS. O BOT_LABEL traduz
+  // esses codigos para "XAU 5m RUSH (EA)", "Cobre 2h (EA)", "XAU 5m BARS (EA)" —
+  // que sao os nomes INTERNOS da frota dele, e apareciam na tabela do Historico.
+  // ⭐ O mapa certo ja existia (PANEL_NOMES); so nao passava por aqui. Como todas as
+  //    telas chamam botLabel, isto arruma a tabela, o ranking e os chips de uma vez.
+  if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE
+      && typeof PANEL_NOMES !== 'undefined' && PANEL_NOMES[b]) return PANEL_NOMES[b];
+  return BOT_LABEL[b] || b;
+}
 function toggleBot(tf) {
   const isRun = botStates[tf] === 'run';
   setBotState(tf, isRun ? 'stop' : 'run');
@@ -5330,6 +5339,19 @@ window.addEventListener('DOMContentLoaded', () => {
     // a linha do marco fica escondida ate o /account dizer a data da instalacao
     const _marco = document.getElementById('hist-marco');
     if (_marco) _marco.style.display = 'none';
+
+    // ── [24-Ago] A FILA "BOT:" SAI DO PAINEL ──────────────────────
+    // ⛔ Aquela lista nao vem dos dados: esta ESCRITA no HTML, um botao por bot da
+    //    frota dele (XAU 1H TITAN #14, BTC 1H NAKA #01, DE30 1H #05...). Na conta de
+    //    um cliente ela promete bots que nao existem ali — foi o que ele viu.
+    // ⭐ E e redundante: a fila "ROBO:" ja e construida DOS TRADES que chegam
+    //    (painelBotoesPorBot), logo mostra exactamente os robos que a conta tem.
+    // Esconde-se o PAI de cada dropdown, para levar junto o rotulo "BOT:", que e o
+    // irmao anterior. Sao tres: Historico (dd-hist), Ranking (dd-ctrl), Log (dd-log).
+    document.querySelectorAll('.dd.botdd').forEach(dd => {
+      const pai = dd.parentElement;
+      if (pai) pai.style.display = 'none';
+    });
 
     // a aba do monitor de risco le /risk_mode, que o painel nao tem
     const _risco = [...document.querySelectorAll('.nav-item')]
