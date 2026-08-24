@@ -4542,7 +4542,12 @@ function ovStartCapital(total, balance) {
 //    Tem os robos que comprou. O universo do painel nasce DOS DADOS que chegam,
 //    e nao das listas da frota — que nao conhecem os robos do EA e faziam a
 //    Overview contar ZERO trades com o historico cheio.
-const PANEL_NOMES = { earush: 'MIA RUSH', eacobre: 'MIA COBRE', eabars: 'MIA BARS' };
+// [24-Ago, decisao dele] O nome traz o ATIVO, para escalar: no dia em que existir
+// BARS no BTC, "MIA BARS" nao distinguiria os dois. E o "MIA" sai daqui porque a tela
+// inteira ja e MIA — no celular ele fica, que la a mensagem chega sozinha e precisa
+// de remetente. O cobre nunca teve apelido; ganhou DIP, que e o que ele faz: espera
+// o recuo e compra, em vez de perseguir o rompimento como o RUSH.
+const PANEL_NOMES = { earush: 'XAU RUSH', eacobre: 'COBRE DIP', eabars: 'XAU BARS' };
 const PANEL_FILAS = [['ov', 'ov-seg'], ['ov', 'rk-seg'], ['hist', 'hist-seg']];
 let _panelAssinatura = '';
 
