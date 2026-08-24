@@ -5071,7 +5071,9 @@ function filterHistResult(r, el) {
 function applyCustomDates() {
   customFrom = document.getElementById('date-from').value;
   customTo   = document.getElementById('date-to').value;
-  renderHist();
+  // [24-Ago] ⛔ Chamava renderHist(), que pinta a lista de DEMONSTRACAO (ALL_TRADES).
+  // Com o painel ligado o caminho e outro: pedir o que faltar e repintar com os vivos.
+  if (apiConnected) pollHistory(); else renderHist();
 }
 
 function renderHist() {
@@ -6038,7 +6040,16 @@ async function pollHistory() {
     // conta #196723892 é de 11-Jul), mas passaria a mentir em silêncio no dia em que a
     // conta cruzasse 30 dias. Agora a janela é o MAIOR dos dois seletores.
     const API_MAX_DAYS = 365;
-    const daysMap   = { '1d':1, '1w':7, '30d':30, '6m':182, '1y':365, 'all':API_MAX_DAYS, 'custom':30 };
+    // [24-Ago] O CUSTOM pedia 30 dias fixos, entao uma data de inicio mais antiga que
+    // isso nao tinha como aparecer, por mais que a pessoa a escolhesse. Agora pede o
+    // que a data exige, ate ao teto da API.
+    const diasAteHoje = (iso) => {
+      const ms = Date.parse(String(iso) + 'T00:00:00Z');
+      if (isNaN(ms)) return 30;
+      return Math.min(API_MAX_DAYS, Math.max(1, Math.ceil((Date.now() - ms) / 86400000) + 1));
+    };
+    const daysMap   = { '1d':1, '1w':7, '30d':30, '6m':182, '1y':365, 'all':API_MAX_DAYS,
+                        'custom': (customFrom ? diasAteHoje(customFrom) : 30) };
     const ovDaysMap = { '1d':1, '1w':7, '1m':30,  '6m':182, '1y':365, 'all':API_MAX_DAYS };
     const days = Math.min(Math.max(daysMap[histPeriod] || 30, ovDaysMap[currentOvPeriod] || 7), API_MAX_DAYS);
     const data = await apiFetch(`/history?days=${days}`);
@@ -6085,6 +6096,31 @@ async function pollHistory() {
   } catch(e) { /* mantém demo se falhar */ }
 }
 
+// ─── [24-Ago] A JANELA DO HISTORICO, APLICADA NA TELA ────────────
+// ⛔ Ate hoje o renderHistLive nao tinha filtro de data NENHUM — medido: zero. O
+//    corte por periodo era feito no SERVIDOR, pelo `days` que o pollHistory pede.
+//    Duas consequencias, e a segunda e a maior:
+//    1. o CUSTOM nao tinha como funcionar: as datas escolhidas nunca chegavam a
+//       lado nenhum, e o mapa mandava um `custom: 30` fixo;
+//    2. o `days` e o MAIOR dos dois seletores (Historico e Overview). Com o Overview
+//       em TOTAL, o Historico mostrava 365 dias mesmo com 1D escolhido.
+// ⇒ A janela passa a ser aplicada AQUI. O servidor continua a limitar QUANTO vem;
+//   quem decide o que se VE e o seletor da propria pagina.
+// ⚠ Usa o _tradeTimeMs e nao o HIST_PERIODS: as datas vem em UTC sem sufixo, e o
+//   `new Date(...)` do HIST_PERIODS leria isso como hora local — 3 horas de desvio,
+//   que numa janela de 1D chega a mudar o conjunto.
+function histDentroDaJanela(dt){
+  if(!dt) return false;
+  if(histPeriod === 'custom'){
+    if(!customFrom || !customTo) return true;      // meia escolha nao filtra nada
+    const d = String(dt).slice(0,10);
+    return d >= customFrom && d <= customTo;
+  }
+  const dias = {'1d':1, '1w':7, '30d':30, '6m':182, '1y':365}[histPeriod];
+  if(!dias) return true;                           // 'all' = tudo o que veio
+  return _tradeTimeMs({dt: dt}) >= Date.now() - dias*86400000;
+}
+
 function renderHistLive(data) {
   const allowed = filteredBots('hist');   // segmento E estratégia combinados (AND)
   const filterByBots = !(segState.hist === 'all' && stratState.hist === 'all');  // 'all'+'all' = mostra tudo (inclui aposentados)
@@ -6092,6 +6128,7 @@ function renderHistLive(data) {
     if (histBot !== 'all') { if (t.bot !== histBot) return false; }
     else if (filterByBots) { if (!allowed.includes(t.bot)) return false; }
     if (histResult !== 'all' && t.win !== (histResult === 'win')) return false;
+    if (!histDentroDaJanela(t.dt)) return false;   // [24-Ago] a janela da propria pagina
     return true;
   });
   const wins = filtered.filter(t => t.win).length;
