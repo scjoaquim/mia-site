@@ -1342,7 +1342,7 @@
       <div class="stat-row c4" style="margin-bottom:16px;">
         <div class="stat-card"><span class="mtt" role="button" tabindex="0" aria-label="O que e Total Trades">?</span><div class="mtt-bub">Trades fechados dentro do periodo e dos filtros selecionados acima.</div><div class="stat-label">TOTAL TRADES</div><div class="stat-value" id="h-total">—</div></div>
         <div class="stat-card"><span class="mtt" role="button" tabindex="0" aria-label="O que e Win Rate">?</span><div class="mtt-bub">Fracao dos trades fechados com lucro. Isolado diz pouco: WR baixo com caudas grandes (trailing) pode ser mais lucrativo que WR alto de alvos curtos.</div><div class="stat-label">WIN RATE</div><div class="stat-value" id="h-wr">—</div></div>
-        <div class="stat-card"><span class="mtt" role="button" tabindex="0" aria-label="O que e P&amp;L Total">?</span><div class="mtt-bub">Resultado realizado do periodo: em dolar (em cima) e em R (embaixo). 1R = o risco definido na entrada de cada trade.</div><div class="stat-label">P&amp;L TOTAL</div><div class="stat-value up" id="h-pnl">—</div><div class="stat-sub" id="h-pnl-r" style="font-size:13px;margin-top:3px;">—</div></div>
+        <div class="stat-card"><span class="mtt" role="button" tabindex="0" aria-label="O que e P&amp;L Total">?</span><div class="mtt-bub" id="mtt-hist-pnl">Resultado realizado do periodo: em dolar (em cima) e em R (embaixo). 1R = o risco definido na entrada de cada trade.</div><div class="stat-label">P&amp;L TOTAL</div><div class="stat-value up" id="h-pnl">—</div><div class="stat-sub" id="h-pnl-r" style="font-size:13px;margin-top:3px;">—</div></div>
         <div class="stat-card"><span class="mtt" role="button" tabindex="0" aria-label="O que e Profit Factor">?</span><div class="mtt-bub">Ganhos brutos divididos pelas perdas brutas no periodo. Acima de 1 e lucrativo; a partir de ~1,5 e solido.</div><div class="stat-label">PROFIT FACTOR</div><div class="stat-value up" id="h-pf">—</div></div>
       </div>
 
@@ -1356,7 +1356,7 @@
               <th>ESTRATÉGIA</th>
               <th>ENTRADA</th>
               <th>SAÍDA</th>
-              <th>R</th>
+              <th id="th-hist-r">R</th>
               <th>P&amp;L $</th>
               <th>RESULTADO</th>
             </tr>
@@ -4651,7 +4651,8 @@ function updateOverviewFromHistory(history) {
   if (pctJanEl) {
     if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE && balance > 0 && closed.length) {
       const pj = (total / balance * 100).toFixed(2);
-      pctJanEl.textContent = ' · ' + (total >= 0 ? '+' : '-') + Math.abs(pj) + '%';
+      // [24-Ago] sem o R antes dele, o ponto separador inicial ficaria orfao
+      pctJanEl.textContent = (total >= 0 ? '+' : '-') + Math.abs(pj) + '%';
       pctJanEl.style.color = total >= 0 ? 'var(--green)' : 'var(--red)';
       pctJanEl.style.fontWeight = 'bold';
     } else {
@@ -4835,17 +4836,46 @@ function renderOverviewAnalytics() {
 
   const pfEl = document.getElementById('ov-pf-agg');
   if (pfEl) { pfEl.textContent = trades.length ? pfTxt(agg.pf) : '-'; pfEl.style.color = trades.length ? pfColor(agg.pf) : ''; }
+  // ─── [24-Ago, decisao dele] O R SAI DO PAINEL DO CLIENTE ─────────
+  // «o resultado em R pode tirar. isso e pouco intuitivo e um cliente nem olha.»
+  // ⭐ E nao e so gosto: 1R = o risco medido na entrada, e quando esse risco vem
+  //    errado o R estoura. Medido em 24-Ago: um trade com risco de $0,20 numa conta
+  //    de $4.327 punha +783,70R ao lado de um prejuizo de $57,20. Ver
+  //    ACHADO_RISCO_ABSURDO_NO_R_20260824.md — o defeito continua por achar, o que
+  //    sai daqui e so a vitrina dele.
+  // ⚠ O dashboard da frota fica IGUAL: la o R e a metrica de quem opera.
+  const _semR = (typeof PANEL_MODE !== 'undefined' && PANEL_MODE);
+  const _clo  = trades.filter(t => t.pnl != null);
+  const _avg  = _clo.length ? _clo.reduce((s,t) => s + t.pnl, 0) / _clo.length : null;
+  const _dol  = v => (v>=0?'+':'') + '$' + v.toFixed(2);
+  const _cor  = v => (v>=0 ? 'var(--green)' : 'var(--red)');
+
   const expEl = document.getElementById('ov-exp');
-  if (expEl) { expEl.textContent = agg.exp!==null ? fmtR(agg.exp) : '-'; expEl.style.color = agg.exp!==null ? (agg.exp>=0?'var(--green)':'var(--red)') : ''; }
+  if (expEl) {
+    if (_semR) {
+      // a EXPECTANCIA passa a ser em DOLAR: e o mesmo numero que estava na
+      // sublinha, promovido a numero grande. O rotulo ja diz "/ TRADE".
+      expEl.textContent = _avg !== null ? _dol(_avg) : '-';
+      expEl.style.color = _avg !== null ? _cor(_avg) : '';
+    } else {
+      expEl.textContent = agg.exp!==null ? fmtR(agg.exp) : '-';
+      expEl.style.color = agg.exp!==null ? (agg.exp>=0?'var(--green)':'var(--red)') : '';
+    }
+  }
   const rsumEl = document.getElementById('ov-rsum');
-  if (rsumEl) { rsumEl.textContent = trades.length ? fmtR(agg.rsum) : '-'; rsumEl.style.color = trades.length ? (agg.rsum>=0?'var(--green)':'var(--red)') : ''; }
-  // Expectância em dólar (média de $ por trade fechado) — sublinha do card de Expectância
+  if (rsumEl) {
+    if (_semR) { rsumEl.textContent = ''; }
+    else { rsumEl.textContent = trades.length ? fmtR(agg.rsum) : '-'; rsumEl.style.color = trades.length ? (agg.rsum>=0?'var(--green)':'var(--red)') : ''; }
+  }
   const expUsdEl = document.getElementById('ov-exp-usd');
   if (expUsdEl) {
-    const clo = trades.filter(t => t.pnl != null);
-    const avg = clo.length ? clo.reduce((s,t) => s + t.pnl, 0) / clo.length : null;
-    expUsdEl.textContent = avg !== null ? (avg>=0?'+':'') + '$' + avg.toFixed(2) : '-';
-    expUsdEl.style.color  = avg !== null ? (avg>=0?'var(--green)':'var(--red)') : '';
+    if (_semR) {
+      // a sublinha em dolar deixou de ter sentido: o numero grande ja e ela
+      const _pai = expUsdEl.parentElement; if (_pai) _pai.style.display = 'none';
+    } else {
+      expUsdEl.textContent = _avg !== null ? _dol(_avg) : '-';
+      expUsdEl.style.color  = _avg !== null ? _cor(_avg) : '';
+    }
   }
 
   const dd = drawDrawdown(trades);
@@ -5387,6 +5417,21 @@ window.addEventListener('DOMContentLoaded', () => {
     // [24-Ago, Parte 3] A explicacao da caixa LUCRO DE TRADING descrevia a formula
     // que morreu (saldo menos aportes) e ate ensinava a ler a linha vermelha do
     // "nao atribuido", que deixou de existir. Reescrita para o que a caixa faz agora.
+    // ── [24-Ago] O R SAI DA TELA ──────────────────────────────────
+    // A coluna do Historico esconde-se por CSS (a celula e a 7a); o cabecalho e o
+    // sub-numero do P&L TOTAL, por display. E a explicacao que ensinava a ler o R
+    // deixa de descrever uma coluna que ja nao existe.
+    const _estR = document.createElement('style');
+    _estR.textContent = 'body.painel #hist-tbody td:nth-child(7){display:none !important}';
+    document.head.appendChild(_estR);
+    const _thR = document.getElementById('th-hist-r');
+    if (_thR) _thR.style.display = 'none';
+    const _hR = document.getElementById('h-pnl-r');
+    if (_hR) _hR.style.display = 'none';
+    const _mttH = document.getElementById('mtt-hist-pnl');
+    if (_mttH) _mttH.textContent =
+      'Resultado realizado dos trades do robo dentro do periodo e dos filtros escolhidos acima.';
+
     const _mttL = document.getElementById('mtt-lucro');
     if (_mttL) _mttL.textContent =
       'O que os robos geraram: a soma de todos os trades fechados desde a instalacao. '
