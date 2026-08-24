@@ -1251,7 +1251,7 @@
         </div>
         <button class="tsel-btn" id="hist-legacy-btn" onclick="toggleLegacy(this)" title="Frota viva: 17 bots ativos. Por padrao o painel esconde trades anteriores ao marco zero (11-Jun 12:53 BRT) E de bots aposentados/excluidos. Clique para reexibir todo o historico antigo (pre-marco + aposentados)." style="margin-left:auto;">INCLUIR ANTIGO</button>
       </div>
-      <div style="font-size:10px;color:var(--amber-dim);margin:-8px 0 12px;">⊙ marco zero: 11-Jun 12:53 BRT — analiticas contam so a frota validada daqui pra frente</div>
+      <div id="hist-marco" style="font-size:10px;color:var(--amber-dim);margin:-8px 0 12px;">⊙ marco zero: 11-Jun 12:53 BRT — analiticas contam so a frota validada daqui pra frente</div>
 
       <!-- Filtro por ESTRATÉGIA (independente do segmento) -->
       <div id="hist-strat" style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
@@ -4517,7 +4517,9 @@ function ovStartCapital(total, balance) {
   // vida inteira. Se "INCLUIR ANTIGO" estiver ligado, "all" volta a ser a conta toda.
   let startMs;
   if (currentOvPeriod === 'all') {
-    startMs = (!window._showLegacy && FLEET_BASELINE_MS) ? FLEET_BASELINE_MS : 0;
+    // [24-Ago] no painel isto e a data de instalacao do robo; no dashboard, 11-Jun.
+    const _mz = marcoZeroMs();
+    startMs = (!window._showLegacy && _mz) ? _mz : 0;
   } else {
     const daysMap = { '1d':1, '1w':7, '1m':30, '6m':182, '1y':365 };
     startMs = Date.now() - (daysMap[currentOvPeriod] || 7) * 86400000;
@@ -5318,7 +5320,16 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('painel');
 
     const _ban = document.getElementById('ro-banner');
-    if (_ban) _ban.textContent = '◷ PAINEL DO CLIENTE — somente leitura · a sua conta, ao vivo';
+    if (_ban) _ban.textContent = '◷ PAINEL DO CLIENTE — a sua conta, ao vivo';
+
+    // [24-Ago] "INCLUIR ANTIGO" nao tem o que incluir: no painel nao ha frota velha
+    // nem piso temporal (pisoDeExibicaoMs() = 0). Um botao que nao muda nada mente.
+    const _antigo = document.getElementById('hist-legacy-btn');
+    if (_antigo) _antigo.style.display = 'none';
+
+    // a linha do marco fica escondida ate o /account dizer a data da instalacao
+    const _marco = document.getElementById('hist-marco');
+    if (_marco) _marco.style.display = 'none';
 
     // a aba do monitor de risco le /risk_mode, que o painel nao tem
     const _risco = [...document.querySelectorAll('.nav-item')]
@@ -5686,6 +5697,9 @@ async function pollAccount() {
       throw new Error(msg);
     }
   }
+  // [24-Ago] O marco zero do cliente: o dia em que o robo entrou nesta conta.
+  window._panelRobotSinceMs = _marcoParaMs(d.robot_since);
+  pintarMarcoZero();
   // Saldo total
   window._balance = d.balance;
   // Depósitos/saques: base para a % de retorno NÃO ser distorcida por aportes.
@@ -5816,6 +5830,53 @@ function updateRiskExposure(positions) {
 // Para reexibir o historico antigo: botao "INCLUIR ANTIGO" no Historico (ou window._showLegacy=true).
 const FLEET_BASELINE_MS = Date.parse('2026-06-11T15:53:00Z');
 window._showLegacy = false;
+
+// ─── [24-Ago, Parte 2b] O MARCO ZERO DO CLIENTE ──────────────────
+// No dashboard da frota o marco e 11-Jun: o dia em que a frota DELE foi validada.
+// No painel do cliente isso nao quer dizer nada — o marco dele e o dia em que o
+// robo entrou na conta dele. Chega em /v1/panel/account como `robot_since`, no
+// formato "YYYY-MM-DD HH:MM" em UTC (o mesmo dos exit_time dos trades).
+window._panelRobotSinceMs = 0;   // 0 = ainda nao chegou, ou licenca nunca ativada
+
+// "2026-08-19 14:32" em UTC -> ms. Devolve 0 no que nao souber ler.
+// ⚠ Sem o "Z" o Date.parse leria isto como hora LOCAL e o marco andava 3 horas.
+function _marcoParaMs(txt){
+  if(!txt) return 0;
+  const t = String(txt).trim().replace(' ','T');
+  let ms = Date.parse(t.length <= 16 ? t + ':00Z' : t);
+  if(isNaN(ms)) ms = Date.parse(txt);
+  return isNaN(ms) ? 0 : ms;
+}
+
+// O marco de EXIBICAO: da o rotulo na tela e o inicio da janela TOTAL.
+function marcoZeroMs(){
+  if(typeof PANEL_MODE !== 'undefined' && PANEL_MODE) return window._panelRobotSinceMs || 0;
+  return FLEET_BASELINE_MS;
+}
+
+// ⛔ O PISO QUE ESCONDE TRADES E OUTRA COISA, e no painel ele nao existe.
+// No dashboard da frota o piso tira da vista os trades da frota velha. Na conta de
+// um cliente TODO trade que chega e do robo que ele comprou: cortar por data so
+// poderia esconder dinheiro que o robo fez de facto — por exemplo se a licenca
+// tiver sido ativada depois de o robo ja ter operado. Por isso, no painel: 0.
+function pisoDeExibicaoMs(){
+  if(typeof PANEL_MODE !== 'undefined' && PANEL_MODE) return 0;
+  return FLEET_BASELINE_MS;
+}
+
+// Escreve a linha do marco zero no Historico. Corre outra vez a cada /account.
+function pintarMarcoZero(){
+  if(typeof PANEL_MODE === 'undefined' || !PANEL_MODE) return;  // dashboard: fica o texto da frota
+  const el = document.getElementById('hist-marco');
+  if(!el) return;
+  const ms = window._panelRobotSinceMs || 0;
+  if(!ms){ el.style.display = 'none'; return; }   // sem data, nao se inventa uma
+  const MES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const d = new Date(ms);
+  el.style.display = '';
+  el.textContent = '⊙ robô instalado nesta conta em '
+    + String(d.getDate()).padStart(2,'0') + '-' + MES[d.getMonth()] + '-' + d.getFullYear();
+}
 // ── FROTA ATIVA (18 bots, fonte de verdade = restart.ps1 / CONTEXTO.md) ──
 // O marco zero acima e so TEMPORAL: nao esconde bots APOSENTADOS depois do marco
 // (xau/xaur2/xaufbe/xaufbersi rodaram ate 22-Jun). Esta whitelist remove os deals
@@ -5883,8 +5944,10 @@ function _tradeTimeMs(t){
 function applyFleetBaseline(arr){
   if(window._showLegacy) return arr;   // "INCLUIR ANTIGO" = mostra pre-marco E aposentados
   // Dois filtros (AND): piso temporal (marco zero) + frota ATIVA (esconde aposentados).
+  // [24-Ago] no painel do cliente o piso e 0 e nada se esconde — ver pisoDeExibicaoMs().
+  const _piso = pisoDeExibicaoMs();
   return (arr||[]).filter(t =>
-    ACTIVE_BOTS.has(t.bot) && (!FLEET_BASELINE_MS || _tradeTimeMs(t) >= FLEET_BASELINE_MS)
+    ACTIVE_BOTS.has(t.bot) && (!_piso || _tradeTimeMs(t) >= _piso)
   );
 }
 function toggleLegacy(btn){
