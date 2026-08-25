@@ -5371,7 +5371,19 @@ const DI_MOTIVOS = {
   manual:  'fechada à mão',
 };
 
-function diMotivo(r) { return DI_MOTIVOS[String(r || '')] || 'motivo não registado'; }
+// ⛔ O motivo sozinho MENTE quando o stop ja tinha sido movido para o lucro.
+//    Medido em 25-Ago nos dados ao vivo: duas operacoes de 24-Ago diziam
+//    "bateu no stop de protecao" ao lado de um resultado VERDE de +US$ 0,60.
+//    A frase e o numero contradiziam-se lado a lado.
+//    ⚠ E o mesmo defeito que ele ja aprovou consertar no robo ("hit stop" nao
+//    distingue prejuizo de breakeven) — mas aqui conserta-se sem recompilar.
+function diMotivo(r, resultado) {
+  const cod = String(r || '');
+  if (cod === 'sl' && resultado !== undefined && Number(resultado) >= 0) {
+    return Number(resultado) > 0 ? 'fechada no stop, já protegida' : 'fechada no zero a zero';
+  }
+  return DI_MOTIVOS[cod] || 'motivo não registado';
+}
 
 function diRobo(cod) {
   if (typeof PANEL_NOMES !== 'undefined' && PANEL_NOMES[cod]) return PANEL_NOMES[cod];
@@ -5462,27 +5474,40 @@ function diLinhaFechada(t) {
   const classe = bom ? 'di-ganho' : (mau ? 'di-perda' : '');
   const compra = String(t.type || '').toUpperCase() === 'BUY';
 
-  // O R só aparece quando o robô soube medir o risco na entrada.
-  // ⛔ Sem risk_usd NÃO se inventa um R por regra de bolso nesta aba:
-  //    isto é um diário do que aconteceu, não uma analítica.
+  // ⛔⛔ O R NAO ENTRA NESTA TELA — decisao dele, 24-Ago-2026: "o R sai da
+  //    tela do cliente". Eu tinha-o posto de volta sem reparar; sai em 25-Ago.
+  //    ⚠ E os dados ao vivo mostraram porque a decisao estava certa: uma
+  //    operacao de 21-Ago chegou com risco de US$ 0,20 e o R dava +792.5R
+  //    (e o defeito C4, causa por achar). Um cliente leria um numero absurdo.
+  // ⭐ O RISCO EM DINHEIRO FICA: "risco na entrada US$ 37,92" e informacao
+  //    boa, em unidade que qualquer pessoa entende. O que sai e o R.
   const risco = (t.risk_usd && t.risk_usd > 0) ? Number(t.risk_usd) : null;
-  const R = risco ? ((liq >= 0 ? '+' : '−') + Math.abs(liq / risco).toFixed(1) + 'R') : null;
+
+  // ⚠ Quando o EA nao acha o negocio de ENTRADA da posicao, o preco chega 0 e
+  //    a hora chega no zero do calendario. Medido em 25-Ago: uma operacao
+  //    mostrava "entrada 0" e "aberta 01/01 00:00". Isso nao e um preco nem
+  //    uma hora — e um buraco, e a tela passa a dize-lo com essas palavras.
+  const temEntrada = Number(t.entry_price) > 0;
+  const abertura = diData(t.entry_time);
+  const temAbertura = !!abertura && abertura.getUTCFullYear() > 2000;
 
   const det = [];
-  det.push('entrada <b>' + t.entry_price + '</b> · saída <b>' + t.exit_price + '</b>');
+  det.push(temEntrada
+    ? 'entrada <b>' + t.entry_price + '</b> · saída <b>' + t.exit_price + '</b>'
+    : '<span style="color:var(--white)">entrada não registada</span> · saída <b>' + t.exit_price + '</b>');
   det.push('lote <b>' + t.volume + '</b>');
   if (t.gross_profit !== undefined) det.push('bruto <b>' + diDinheiro(t.gross_profit, true) + '</b>');
   if (t.swap !== undefined && Number(t.swap) !== 0) det.push('swap <b>' + diDinheiro(t.swap, true) + '</b>');
   if (t.commission !== undefined && Number(t.commission) !== 0) det.push('comissão <b>' + diDinheiro(t.commission, true) + '</b>');
-  if (risco) det.push('risco na entrada <b>' + diDinheiro(risco) + '</b>' + (R ? ' · <b>' + R + '</b>' : ''));
-  det.push('aberta ' + diHoraCurta(t.entry_time));
+  if (risco) det.push('risco na entrada <b>' + diDinheiro(risco) + '</b>');
+  if (temAbertura) det.push('aberta ' + diHoraCurta(t.entry_time));
 
   return '<div class="di-linha ' + classe + '">'
     + '<div class="di-topo">'
     +   '<span class="di-hora">' + diHoraCurta(t.exit_time) + '</span>'
     +   '<span class="di-robo">' + diRobo(t.strategy) + '</span>'
     +   '<span class="di-lado ' + (compra ? 'di-compra' : 'di-venda') + '">' + (compra ? 'COMPRA' : 'VENDA') + ' ' + (t.symbol || '') + '</span>'
-    +   '<span class="di-motivo">' + diMotivo(t.reason) + '</span>'
+    +   '<span class="di-motivo">' + diMotivo(t.reason, liq) + '</span>'
     +   '<span class="di-res ' + classe + '">' + diDinheiro(liq, true) + '</span>'
     + '</div>'
     + '<div class="di-detalhe">' + det.join('<span style="opacity:.4">│</span>') + '</div>'
