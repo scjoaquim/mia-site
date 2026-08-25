@@ -585,6 +585,47 @@
   }
 
   /* ─── SECTION HEADER ──────────────────────────────────────── */
+  /* ═══ DIÁRIO (25-Ago-2026) ═══════════════════════════════════
+     Uma linha por operação. Em telas estreitas as colunas empilham,
+     por isso é flex com quebra, e não tabela. */
+  .di-linha {
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    border-left: 3px solid var(--border-bright);
+  }
+  .di-linha.di-ganho { border-left-color: var(--green); }
+  .di-linha.di-perda { border-left-color: var(--red); }
+  .di-topo {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .di-hora { font-size: 12px; color: var(--amber-dim); letter-spacing: 1px; }
+  .di-robo {
+    font-size: 13px; color: var(--white); letter-spacing: 1px;
+    border: 1px solid var(--border-bright); padding: 1px 7px;
+  }
+  .di-lado { font-size: 13px; letter-spacing: 1px; }
+  .di-lado.di-compra { color: var(--cyan); }
+  .di-lado.di-venda  { color: var(--amber-bright); }
+  .di-motivo { font-size: 13px; color: var(--amber-dim); }
+  .di-res { margin-left: auto; font-size: 17px; letter-spacing: 1px; }
+  .di-res.di-ganho { color: var(--green); }
+  .di-res.di-perda { color: var(--red); }
+  .di-detalhe {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: 12px; color: var(--amber-dim);
+  }
+  .di-detalhe b { color: var(--amber); font-weight: normal; }
+  .di-vazio {
+    border: 1px dashed var(--border-bright); padding: 18px;
+    text-align: center; font-size: 13px; color: var(--amber-dim);
+  }
+  @media (max-width: 560px) {
+    .di-res { margin-left: 0; width: 100%; }
+  }
+
   .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .sec-title { font-size: 12px; color: var(--amber-bright); letter-spacing: 2px; }
   .sec-sub { font-size: 10px; color: var(--amber-dim); }
@@ -811,6 +852,9 @@
   </div>
   <div class="nav-item" onclick="showPage('history',this)">
     <span class="nav-arrow">►</span> HISTÓRICO
+  </div>
+  <div class="nav-item" onclick="showPage('diario',this)">
+    <span class="nav-arrow">►</span> DIÁRIO
   </div>
   <div class="nav-item" onclick="showPage('monitor',this)">
     <span class="nav-arrow">►</span> MONITOR DE RISCO
@@ -3915,6 +3959,63 @@
     <!-- ════════════════════════════════════════════════════════
          PAGE: LOGS
     ═══════════════════════════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════════════════════
+         DIÁRIO — o que o robô fez, contado como no aviso do celular,
+         mas mais completo. Pedido dele em 23-Ago; construído em 25-Ago.
+
+         ⛔ NÃO confundir com a página LOGS logo abaixo: essa é o
+            terminal do dashboard antigo (frota Python) e continua
+            escondida do cliente. Esta é nova e é a que ele vê.
+
+         ⭐ Os resumos são somados AQUI, no navegador, das mesmas linhas
+            que a lista mostra — por isso é impossível o resumo e a
+            lista discordarem um do outro.
+         ══════════════════════════════════════════════════════════ -->
+    <div class="page" id="page-diario">
+      <div class="sec-head">
+        <div class="sec-title">─ DIÁRIO DO ROBÔ ─</div>
+        <div class="sec-sub" id="diario-quando">a carregar…</div>
+      </div>
+
+      <div class="box" style="margin-bottom:14px;">
+        <div class="box-body" style="font-size:13px;line-height:1.7;color:var(--amber-dim);">
+          Tudo o que o robô abriu e fechou, na ordem em que aconteceu. É a mesma coisa que
+          chega ao seu celular — <span style="color:var(--amber-bright);">só que mais completa</span>:
+          aqui cabe o motivo da saída, o risco da entrada e os custos separados, que não cabem
+          num aviso. <span style="color:var(--amber-bright);">E aqui não falta nada</span>: o aviso do
+          celular pode perder uma operação que abra e feche enquanto o servidor reinicia; esta
+          página lê o histórico da conta, por isso mostra todas.
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+        <div class="time-sel" id="diario-tsel">
+          <button class="tsel-btn" onclick="diarioPeriodo(7,this)">7 DIAS</button>
+          <button class="tsel-btn active" onclick="diarioPeriodo(30,this)">30 DIAS</button>
+          <button class="tsel-btn" onclick="diarioPeriodo(90,this)">3 MESES</button>
+          <button class="tsel-btn" onclick="diarioPeriodo(365,this)">1 ANO</button>
+        </div>
+      </div>
+
+      <div class="stat-row c4" id="diario-resumos"></div>
+      <div style="font-size:11px;color:var(--amber-dim);margin:-6px 0 20px;">
+        ⊙ o dia fecha à meia-noite de Greenwich (21h no horário de Brasília) — é o mesmo
+        corte que o aviso do seu celular usa, para os dois nunca discordarem
+      </div>
+
+      <div class="sec-head" style="margin-top:6px;">
+        <div class="sec-title">─ ABERTAS AGORA ─</div>
+        <div class="sec-sub" id="diario-abertas-n"></div>
+      </div>
+      <div id="diario-abertas" style="margin-bottom:22px;"></div>
+
+      <div class="sec-head">
+        <div class="sec-title">─ O QUE JÁ FECHOU ─</div>
+        <div class="sec-sub" id="diario-fechadas-n"></div>
+      </div>
+      <div id="diario-fechadas"></div>
+    </div>
+
     <div class="page" id="page-logs">
       <div class="sec-head">
         <div class="sec-title">─ LOGS DO SISTEMA ─</div>
@@ -4084,6 +4185,10 @@
   <button class="mob-nav-btn" id="mn-history" onclick="mobShowPage('history')">
     <span class="mob-nav-icon">≡</span>
     <span class="mob-nav-label">HISTÓRICO</span>
+  </button>
+  <button class="mob-nav-btn" id="mn-diario" onclick="mobShowPage('diario')">
+    <span class="mob-nav-icon">✎</span>
+    <span class="mob-nav-label">DIÁRIO</span>
   </button>
   <button class="mob-nav-btn" id="mn-monitor" onclick="mobShowPage('monitor')">
     <span class="mob-nav-icon">◎</span>
@@ -4403,7 +4508,8 @@ function showSegBotButtons(prefix, allowed) {
 // ════════════════════════════════════════════════════════════════
 const pageTitles = {
   overview:'OVERVIEW.EXE', ranking:'RANKING.EXE', positions:'POSICOES.EXE',
-  history:'HISTORICO.EXE', monitor:'MONITOR_RISCO.EXE', bots:'CONTROLE_BOTS.EXE', logs:'LOGS.EXE'
+  history:'HISTORICO.EXE', monitor:'MONITOR_RISCO.EXE', bots:'CONTROLE_BOTS.EXE', logs:'LOGS.EXE',
+  diario:'DIARIO.EXE'
 };
 function showPage(id, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -4415,6 +4521,7 @@ function showPage(id, el) {
     const t = document.getElementById('log-terminal');
     if (t) setTimeout(() => { t.scrollTop = t.scrollHeight; }, 50);
   }
+  if (id === 'diario') diarioAbriu();
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -5235,6 +5342,233 @@ function extractLogTimestamp(msg) {
   // Sem timestamp próprio → herdar da linha anterior (ex: "Fechamento candle 5m em...")
   return _lastKnownTs;
 }
+
+// ══════════════════════════════════════════════════════════════════
+//  DIÁRIO DO ROBÔ — 25-Ago-2026
+//
+//  ⛔ Esta aba NÃO usa o `_liveHistory` do dashboard. Pede os dados
+//     ela própria, crus, e por dois motivos:
+//       1. o `mapped` do pollHistory deita fora os campos que esta aba
+//          existe para mostrar (motivo, swap, comissão, lucro bruto);
+//       2. o `applyFleetBaseline` filtra pela lista ACTIVE_BOTS, que é
+//          a frota Python dele — não os robôs do cliente.
+//
+//  ⭐ E os resumos são somados DESTAS MESMAS linhas, aqui no navegador.
+//     Assim o resumo e a lista não têm como discordar: é o mesmo dado,
+//     na mesma tela, no mesmo instante.
+// ══════════════════════════════════════════════════════════════════
+
+let _diDias = 30;
+let _diTimer = null;
+
+// O motivo da saída, como o EA o manda (MIA_Painel.mqh, MiaPainel_Motivo).
+// ⛔ São EXACTAMENTE estes cinco valores mais o vazio. Não inventar outros.
+const DI_MOTIVOS = {
+  tp:      'atingiu o alvo',
+  sl:      'bateu no stop de proteção',
+  stopout: 'encerrada pela corretora (margem)',
+  ea:      'fechada pelo robô',
+  manual:  'fechada à mão',
+};
+
+function diMotivo(r) { return DI_MOTIVOS[String(r || '')] || 'motivo não registado'; }
+
+function diRobo(cod) {
+  if (typeof PANEL_NOMES !== 'undefined' && PANEL_NOMES[cod]) return PANEL_NOMES[cod];
+  return String(cod || '—').toUpperCase();
+}
+
+function diDinheiro(n, comSinal) {
+  if (n === null || n === undefined || isNaN(n)) return '—';
+  const s = (comSinal && n > 0 ? '+' : (n < 0 ? '−' : ''));
+  return s + 'US$ ' + Math.abs(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+// ⚠ As horas chegam do servidor como "AAAA-MM-DD HH:MM", em UTC e sem fuso.
+//    Sem o Z o navegador lê-as como hora local e desloca tudo.
+function diData(txt) {
+  if (!txt) return null;
+  const d = new Date(String(txt).replace(' ', 'T') + 'Z');
+  return isNaN(d.getTime()) ? null : d;
+}
+function diHoraCurta(txt) {
+  const d = diData(txt);
+  if (!d) return String(txt || '—');
+  const p = n => String(n).padStart(2, '0');
+  return p(d.getUTCDate()) + '/' + p(d.getUTCMonth() + 1) + ' ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes());
+}
+function diDiaUTC(d) {
+  const p = n => String(n).padStart(2, '0');
+  return d.getUTCFullYear() + '-' + p(d.getUTCMonth() + 1) + '-' + p(d.getUTCDate());
+}
+
+// ─── OS RESUMOS ───────────────────────────────────────────────────
+// Somados das linhas fechadas. O dia é o de Greenwich, o mesmo corte
+// que o robô usa nos avisos (MIA_Notify.mqh: MiaResumo_MeiaNoite(TimeGMT)).
+function diResumos(fechadas) {
+  const agora = new Date();
+  const hojeUTC = diDiaUTC(agora);
+  const ontemUTC = diDiaUTC(new Date(agora.getTime() - 86400000));
+  const dow = (agora.getUTCDay() + 6) % 7;
+  const iniSemana = diDiaUTC(new Date(agora.getTime() - dow * 86400000));
+  const iniMes = hojeUTC.slice(0, 8) + '01';
+
+  const janela = (desde, ate) => {
+    const dentro = fechadas.filter(t => {
+      const d = diData(t.exit_time);
+      if (!d) return false;
+      const dia = diDiaUTC(d);
+      return dia >= desde && dia <= ate;
+    });
+    return {
+      n: dentro.length,
+      total: dentro.reduce((a, t) => a + (Number(t.profit) || 0), 0),
+      ganhos: dentro.filter(t => Number(t.profit) > 0).length,
+    };
+  };
+  const bonito = iso => iso.slice(8, 10) + '/' + iso.slice(5, 7);
+
+  return [
+    { rot: 'HOJE',        sub: bonito(hojeUTC),              d: janela(hojeUTC, hojeUTC) },
+    { rot: 'ONTEM',       sub: bonito(ontemUTC),             d: janela(ontemUTC, ontemUTC) },
+    { rot: 'ESTA SEMANA', sub: 'desde ' + bonito(iniSemana), d: janela(iniSemana, hojeUTC) },
+    { rot: 'ESTE MÊS',    sub: 'desde ' + bonito(iniMes),    d: janela(iniMes, hojeUTC) },
+  ];
+}
+
+function diPintaResumos(fechadas) {
+  const alvo = document.getElementById('diario-resumos');
+  if (!alvo) return;
+  alvo.innerHTML = diResumos(fechadas).map(x => {
+    const cor = x.d.n === 0 ? '' : (x.d.total > 0 ? 'color:var(--green);' : (x.d.total < 0 ? 'color:var(--red);' : ''));
+    const linha2 = x.d.n === 0
+      ? 'nenhuma operação'
+      : x.d.n + (x.d.n === 1 ? ' operação' : ' operações') + ' · ' + x.d.ganhos + ' no ganho';
+    // ⚠ A data vai na linha DE BAIXO, nao no rotulo: em "ESTA SEMANA · desde
+    //   24/08" o rotulo partia em duas linhas e os quatro cartoes ficavam de
+    //   alturas diferentes. Medido na pre-visualizacao de 25-Ago.
+    return '<div class="stat-card">'
+      + '<div class="stat-label">' + x.rot + '</div>'
+      + '<div class="stat-value" style="' + cor + '">' + (x.d.n === 0 ? '—' : diDinheiro(x.d.total, true)) + '</div>'
+      + '<div class="stat-sub">' + linha2 + '<br><span style="opacity:.7">' + x.sub + '</span></div>'
+      + '</div>';
+  }).join('');
+}
+
+// ─── AS LINHAS ────────────────────────────────────────────────────
+function diLinhaFechada(t) {
+  const liq = Number(t.profit);
+  const bom = liq > 0, mau = liq < 0;
+  const classe = bom ? 'di-ganho' : (mau ? 'di-perda' : '');
+  const compra = String(t.type || '').toUpperCase() === 'BUY';
+
+  // O R só aparece quando o robô soube medir o risco na entrada.
+  // ⛔ Sem risk_usd NÃO se inventa um R por regra de bolso nesta aba:
+  //    isto é um diário do que aconteceu, não uma analítica.
+  const risco = (t.risk_usd && t.risk_usd > 0) ? Number(t.risk_usd) : null;
+  const R = risco ? ((liq >= 0 ? '+' : '−') + Math.abs(liq / risco).toFixed(1) + 'R') : null;
+
+  const det = [];
+  det.push('entrada <b>' + t.entry_price + '</b> · saída <b>' + t.exit_price + '</b>');
+  det.push('lote <b>' + t.volume + '</b>');
+  if (t.gross_profit !== undefined) det.push('bruto <b>' + diDinheiro(t.gross_profit, true) + '</b>');
+  if (t.swap !== undefined && Number(t.swap) !== 0) det.push('swap <b>' + diDinheiro(t.swap, true) + '</b>');
+  if (t.commission !== undefined && Number(t.commission) !== 0) det.push('comissão <b>' + diDinheiro(t.commission, true) + '</b>');
+  if (risco) det.push('risco na entrada <b>' + diDinheiro(risco) + '</b>' + (R ? ' · <b>' + R + '</b>' : ''));
+  det.push('aberta ' + diHoraCurta(t.entry_time));
+
+  return '<div class="di-linha ' + classe + '">'
+    + '<div class="di-topo">'
+    +   '<span class="di-hora">' + diHoraCurta(t.exit_time) + '</span>'
+    +   '<span class="di-robo">' + diRobo(t.strategy) + '</span>'
+    +   '<span class="di-lado ' + (compra ? 'di-compra' : 'di-venda') + '">' + (compra ? 'COMPRA' : 'VENDA') + ' ' + (t.symbol || '') + '</span>'
+    +   '<span class="di-motivo">' + diMotivo(t.reason) + '</span>'
+    +   '<span class="di-res ' + classe + '">' + diDinheiro(liq, true) + '</span>'
+    + '</div>'
+    + '<div class="di-detalhe">' + det.join('<span style="opacity:.4">│</span>') + '</div>'
+    + '</div>';
+}
+
+function diLinhaAberta(p) {
+  const corr = Number(p.profit);
+  const classe = corr > 0 ? 'di-ganho' : (corr < 0 ? 'di-perda' : '');
+  const compra = String(p.type || '').toUpperCase() === 'BUY';
+  const det = [];
+  det.push('entrada <b>' + p.open_price + '</b>');
+  det.push('lote <b>' + p.volume + '</b>');
+  if (p.sl) det.push('stop <b>' + p.sl + '</b>');
+  if (p.tp) det.push('alvo <b>' + p.tp + '</b>');
+  det.push('aberta ' + diHoraCurta(p.open_time));
+  return '<div class="di-linha ' + classe + '">'
+    + '<div class="di-topo">'
+    +   '<span class="di-hora">ABERTA</span>'
+    +   '<span class="di-robo">' + diRobo(p.strategy) + '</span>'
+    +   '<span class="di-lado ' + (compra ? 'di-compra' : 'di-venda') + '">' + (compra ? 'COMPRA' : 'VENDA') + ' ' + (p.symbol || '') + '</span>'
+    +   '<span class="di-motivo">resultado neste momento</span>'
+    +   '<span class="di-res ' + classe + '">' + diDinheiro(corr, true) + '</span>'
+    + '</div>'
+    + '<div class="di-detalhe">' + det.join('<span style="opacity:.4">│</span>') + '</div>'
+    + '</div>';
+}
+
+// ─── CARREGAR ─────────────────────────────────────────────────────
+async function diarioCarrega() {
+  const quando = document.getElementById('diario-quando');
+  try {
+    const [fech, abertas] = await Promise.all([
+      apiFetch('/history?days=' + _diDias),
+      apiFetch('/positions').catch(() => []),
+    ]);
+
+    const lista = (Array.isArray(fech) ? fech : []).slice().sort((a, b) =>
+      String(b.exit_time || '').localeCompare(String(a.exit_time || '')));
+
+    diPintaResumos(lista);
+
+    const ab = Array.isArray(abertas) ? abertas : [];
+    document.getElementById('diario-abertas').innerHTML = ab.length
+      ? ab.map(diLinhaAberta).join('')
+      : '<div class="di-vazio">Nenhuma posição aberta neste momento.</div>';
+    document.getElementById('diario-abertas-n').textContent =
+      ab.length ? (ab.length === 1 ? '1 posição' : ab.length + ' posições') : '';
+
+    document.getElementById('diario-fechadas').innerHTML = lista.length
+      ? lista.map(diLinhaFechada).join('')
+      : '<div class="di-vazio">Nenhuma operação fechada neste período.</div>';
+    document.getElementById('diario-fechadas-n').textContent =
+      lista.length ? (lista.length === 1 ? '1 operação' : lista.length + ' operações') : '';
+
+    if (quando) {
+      const p = n => String(n).padStart(2, '0');
+      const a = new Date();
+      quando.textContent = 'atualizado às ' + p(a.getHours()) + ':' + p(a.getMinutes())
+        + ' · últimos ' + _diDias + ' dias';
+    }
+  } catch (e) {
+    // ⛔ Falhar em silêncio esconderia avaria. A tela diz.
+    if (quando) quando.textContent = 'não foi possível carregar — tentando de novo em 1 min';
+  }
+}
+
+function diarioPeriodo(dias, el) {
+  _diDias = dias;
+  document.querySelectorAll('#diario-tsel .tsel-btn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  diarioCarrega();
+}
+
+// Só pede dados enquanto a aba está aberta — não vale gastar pedidos
+// do cliente a atualizar uma página que ninguém está a ver.
+function diarioAbriu() {
+  diarioCarrega();
+  if (_diTimer) clearInterval(_diTimer);
+  _diTimer = setInterval(() => {
+    const pg = document.getElementById('page-diario');
+    if (!pg || !pg.classList.contains('active') || document.hidden) return;
+    diarioCarrega();
+  }, 60000);
+}
+
 
 function addLog(tag, level, msg) {
   const t = document.getElementById('log-terminal');
