@@ -60,17 +60,17 @@
     <div class="section-tag lang-en">// The two strategies</div>
     <div class="grid-2">
       <div class="panel">
-        <div class="panel-head"><span>RUSH · <span class="lang-pt">Ouro</span><span class="lang-en">Gold</span> · XAUUSD</span><span class="badge pill-cyan">M5</span></div>
+        <div class="panel-head"><span>RUSH · <span class="lang-pt">Ouro</span><span class="lang-en">Gold</span> · XAUUSD</span></div>
         <div class="panel-body">
-          <p class="lang-pt" style="margin:0">Rompimento com reteste. O robô espera o preço romper um canal, e em vez de entrar na hora, deixa uma ordem no reteste — entra mais barato ou não entra. O alvo é calculado pelo tamanho do movimento que gerou o sinal, e há um filtro que corta as vendas quando a volatilidade está baixa demais para o setup pagar.</p>
-          <p class="lang-en" style="margin:0">Breakout with retest. The robot waits for price to break a channel and, instead of entering immediately, leaves an order at the retest — it gets in cheaper or not at all. The target is measured from the move that produced the signal, and a filter cuts short entries when volatility is too low for the setup to pay.</p>
+          <p class="lang-pt" style="margin:0">Opera o ouro nos dois lados, compra e venda. Todo trade nasce com stop e alvo definidos antes de a ordem existir, e o robô descarta o sinal quando as condições não pagam o risco.</p>
+          <p class="lang-en" style="margin:0">Trades gold both ways, buying and selling. Every trade is born with its stop and target set before the order exists, and the robot discards the signal when conditions do not pay for the risk.</p>
         </div>
       </div>
       <div class="panel">
-        <div class="panel-head"><span>COBRE · <span class="lang-pt">Cobre</span><span class="lang-en">Copper</span> · XCUUSD</span><span class="badge pill-cyan">2H</span></div>
+        <div class="panel-head"><span>COBRE · <span class="lang-pt">Cobre</span><span class="lang-en">Copper</span> · XCUUSD</span></div>
         <div class="panel-body">
-          <p class="lang-pt" style="margin:0">Pullback a favor da tendência. Só compra, e só quando a tendência de fundo está de pé. Tem um <strong>disjuntor semanal</strong>: se o cobre entra numa sequência de fundos e topos descendentes, a estratégia se desarma sozinha e só volta quando o padrão se inverte.</p>
-          <p class="lang-en" style="margin:0">Trend pullback. Long only, and only while the underlying trend holds. It carries a <strong>weekly circuit breaker</strong>: if copper enters a sequence of lower lows and lower highs, the strategy stands itself down and only returns when the pattern reverses.</p>
+          <p class="lang-pt" style="margin:0">Opera o cobre só na compra — nunca vende. Se o mercado entra num período ruim para ele, o robô se desliga sozinho e só volta quando melhora. Você não precisa fazer nada.</p>
+          <p class="lang-en" style="margin:0">Trades copper long only — it never sells. If the market turns bad for it, the robot switches itself off and only comes back when things improve. You do nothing.</p>
         </div>
       </div>
     </div>
@@ -86,23 +86,14 @@
   <section class="section" id="planos">
     <div class="section-tag lang-pt">// Planos da licença</div>
     <div class="section-tag lang-en">// Licence plans</div>
-    <div class="grid-2">
+    <div style="max-width:420px">
       <div class="panel">
         <div class="panel-head"><span class="lang-pt">Mensal</span><span class="lang-en">Monthly</span></div>
         <div class="panel-body">
-          <div class="lang-pt" style="font-size:28px;color:var(--white)">R$ 159<span style="font-size:13px;color:var(--amber-dim)"> /mês</span></div>
-          <div class="lang-en" style="font-size:28px;color:var(--white)">US$ 29<span style="font-size:13px;color:var(--amber-dim)"> /month</span></div>
+          <div class="lang-pt" style="font-size:28px;color:var(--white)">R$ 499<span style="font-size:13px;color:var(--amber-dim)"> /mês</span></div>
+          <div class="lang-en" style="font-size:28px;color:var(--white)">US$ 99<span style="font-size:13px;color:var(--amber-dim)"> /month</span></div>
           <p class="lang-pt" style="margin:10px 0 0;font-size:13px">Renova mês a mês. Cancela quando quiser — o robô para no fim do período pago.</p>
           <p class="lang-en" style="margin:10px 0 0;font-size:13px">Renews monthly. Cancel any time — the robot stops at the end of the paid period.</p>
-        </div>
-      </div>
-      <div class="panel" style="border-color:var(--green)">
-        <div class="panel-head" style="color:var(--green)"><span class="lang-pt">Trimestral</span><span class="lang-en">Quarterly</span></div>
-        <div class="panel-body">
-          <div class="lang-pt" style="font-size:28px;color:var(--green)">R$ 429<span style="font-size:13px;color:var(--amber-dim)"> /3 meses</span></div>
-          <div class="lang-en" style="font-size:28px;color:var(--green)">US$ 79<span style="font-size:13px;color:var(--amber-dim)"> /3 months</span></div>
-          <p class="lang-pt" style="margin:10px 0 0;font-size:13px">Sai a R$ 143/mês. Mesmo produto, mesma licença — só o período muda.</p>
-          <p class="lang-en" style="margin:10px 0 0;font-size:13px">Works out at US$ 26.33/month. Same product, same licence — only the period changes.</p>
         </div>
       </div>
     </div>
@@ -177,8 +168,8 @@
       </tr>
     </table>
     <div class="warnbox" style="margin-top:14px">
-      <p class="lang-pt" style="margin:0"><b>⚠</b> Leia a última coluna. Numa conta de <strong>US$ 1.000</strong>, com o mercado agitado, uma única operação arrisca <strong>3,01%</strong> — <strong>seis vezes</strong> o que foi validado. E não trate essa coluna como caso raro: o RUSH é um sistema de rompimento, ou seja, ele <strong>dispara justamente quando a volatilidade se expande</strong>. As colunas da direita são o ambiente natural dele, não a exceção. É por isso que o indicado é US$ 2.500 e não o mínimo. O robô opera entre os dois valores, mas quem escolhe o risco maior é você, sabendo o número.</p>
-      <p class="lang-en" style="margin:0"><b>⚠</b> Read the last column. On a <strong>US$ 1,000</strong> account, in a busy market, a single trade risks <strong>3.01%</strong> — <strong>six times</strong> what was validated. And do not read that column as a rare case: RUSH is a breakout system, meaning it <strong>fires precisely when volatility expands</strong>. The right-hand columns are its natural habitat, not the exception. That is why the recommended figure is US$ 2,500 and not the minimum. The robot trades between the two, but taking the larger risk is your choice, with the number in front of you.</p>
+      <p class="lang-pt" style="margin:0"><b>⚠</b> Leia a última coluna. Numa conta de <strong>US$ 1.000</strong>, com o mercado agitado, uma única operação arrisca <strong>3,01%</strong> — <strong>seis vezes</strong> o que foi validado. E não trate essa coluna como caso raro: o RUSH <strong>opera justamente quando o mercado acelera</strong>. As colunas da direita são o ambiente natural dele, não a exceção. É por isso que o indicado é US$ 2.500 e não o mínimo. O robô opera entre os dois valores, mas quem escolhe o risco maior é você, sabendo o número.</p>
+      <p class="lang-en" style="margin:0"><b>⚠</b> Read the last column. On a <strong>US$ 1,000</strong> account, in a busy market, a single trade risks <strong>3.01%</strong> — <strong>six times</strong> what was validated. And do not read that column as a rare case: RUSH <strong>trades precisely when the market speeds up</strong>. The right-hand columns are its natural habitat, not the exception. That is why the recommended figure is US$ 2,500 and not the minimum. The robot trades between the two, but taking the larger risk is your choice, with the number in front of you.</p>
     </div>
     <p style="margin:12px 0 0;font-size:13px;color:var(--amber-dim)">
       <span class="lang-pt">Na ativação, o robô calcula e mostra o risco efetivo <em>da sua conta</em>, com o saldo que encontrou e a volatilidade do momento — não o valor nominal.</span>
