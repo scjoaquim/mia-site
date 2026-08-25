@@ -605,7 +605,30 @@
   .di-msg.di-abre  { border-left-color: var(--cyan); }
   .di-msg.di-ganho { border-left-color: var(--green); }
   .di-msg.di-perda { border-left-color: var(--red); }
-  .di-msg.di-resumo { border-left-color: var(--white); background: var(--bg3); }
+  /* ⭐ OS RELATORIOS TEM PESO PROPRIO — pedido dele, 25-Ago.
+     No meio de um fluxo de avisos todos iguais, o relatorio e' o que se
+     procura ao abrir a pagina. Cresce, ganha moldura inteira e respira. */
+  .di-msg.di-resumo {
+    border: 1px solid var(--border-bright);
+    border-left: 4px solid var(--white);
+    background: linear-gradient(90deg, rgba(255,232,160,0.07), var(--bg3) 45%);
+    padding: 15px 16px;
+    margin: 12px 0 14px;
+    align-items: center;
+  }
+  .di-msg.di-resumo .di-mrc { font-size: 17px; width: 20px; }
+  .di-msg.di-resumo .di-frase {
+    font-size: 18px; line-height: 1.45; letter-spacing: 0.5px;
+    color: var(--white);
+  }
+  .di-msg.di-resumo .di-frase b { color: var(--amber-bright); }
+  .di-msg.di-resumo .di-cont { color: var(--amber); }
+  .di-msg.di-resumo .di-valor { font-size: 21px; letter-spacing: 1px; display: inline-block; }
+  .di-msg.di-resumo .di-rel { color: var(--amber-dim); }
+  @media (max-width: 620px) {
+    .di-msg.di-resumo .di-frase { font-size: 15px; }
+    .di-msg.di-resumo .di-valor { font-size: 18px; display: block; margin-top: 3px; }
+  }
   .di-msg.di-viva  { border-left-color: var(--cyan); box-shadow: inset 0 0 0 1px rgba(0,212,255,.12); }
 
   .di-mrc { flex: none; width: 15px; text-align: center; font-size: 13px; line-height: 1.5; }
@@ -5450,7 +5473,11 @@ function diCauda(n, ganhos, total) {
   else if (total < -0.005) palavra = 'PREJUIZO de ';
   else                     palavra = 'resultado zerado, ';
   const cor = total > 0.005 ? 'di-lucro' : (total < -0.005 ? 'di-preju' : '');
-  return n + ' trades · ' + ganhos + ' ganhos · <span class="' + cor + '">' + palavra
+  // ⭐ 25-Ago, pedido dele: os relatorios ganham destaque. O VALOR leva classe
+  //    propria (`di-valor`) para poder crescer sozinho dentro do relatorio,
+  //    sem mexer no tamanho das linhas de trade.
+  return '<span class="di-cont">' + n + ' trades · ' + ganhos + ' ganhos</span> · '
+       + '<span class="di-valor ' + cor + '">' + palavra
        + 'US$ ' + Math.abs(total).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) + '</span>';
 }
 
