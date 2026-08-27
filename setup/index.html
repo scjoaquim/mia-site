@@ -7,7 +7,7 @@
 
       [[[LINK_ROBO]]]        RESOLVIDO em 26-Ago: /download/MIA_RushPro.ex5,
                              no proprio site. Ja nao ha link em falta.
-      [[[VIDEO_1]]]..[[[VIDEO_8]]]   um por passo. Cada um e' uma caixa que DIZ
+      [[[VIDEO_1]]]..[[[VIDEO_9]]]   um por passo. Cada um e' uma caixa que DIZ
                              que o video vai ali; trocar pelo <iframe> quando
                              existir. A pagina funciona sem eles.
 
@@ -26,7 +26,10 @@
      porque foi escrito no ambiente do Claude e nunca gravado no disco dele.
      Este ficheiro nasce ja no disco — foi essa a licao.
 
-  ⭐ SAO OITO PASSOS, nao sete. Em 23-Ago ele acrescentou o passo 3 — ligar o
+  ⭐ SAO NOVE PASSOS desde 27-Ago-2026, quando ele apanhou que faltava CRIAR a
+     conta de negociacao Pro e a senha de negociacao — o passo 2. Antes eram oito.
+
+  ⭐ E eram OITO, nao sete. Em 23-Ago ele acrescentou o passo 3 — ligar o
      MetaTrader a conta da Exness — porque «essa etapa e um pouco confusa para a
      maioria dos leigos: eles tem dificuldade em entender que a exness e a
      corretora, e onde o saldo fica». ⇒ O passo comeca por SEPARAR AS DUAS
@@ -121,8 +124,8 @@
     <h1 class="lang-pt">Do zero ao robô operando</h1>
     <h1 class="lang-en">From zero to the robot trading</h1>
 
-    <p class="lang-pt">Oito passos, na ordem. Faça um de cada vez — a ordem importa, e o passo 4 é o que mais gente pula.</p>
-    <p class="lang-en">Eight steps, in order. One at a time — the order matters, and step 4 is the one most people skip.</p>
+    <p class="lang-pt">Nove passos, na ordem. Faça um de cada vez — a ordem importa, e o passo 5 é o que mais gente pula.</p>
+    <p class="lang-en">Nine steps, in order. One at a time — the order matters, and step 5 is the one most people skip.</p>
 
     <!-- ⛔ 26-Ago-2026: o aviso deixou de ser "nao esta a venda" — ha compras reais
          desde hoje, por convite. O aviso continua a existir porque a moldura ainda
@@ -180,18 +183,59 @@
       </div>
     </div>
 
-    <!--=================== 2 ===================-->
+    <!--=================== 2 (NOVO, 27-Ago) ===================-->
+    <!-- ⛔⛔ O BURACO QUE ELE APANHOU EM 27-Ago-2026.
+         Registar-se na Exness NAO da uma conta de negociacao. O passo 1 acabava
+         na verificacao de identidade e o seguinte ja mandava «entre com os dados
+         da conta» — dados que ainda nao existiam. Quem parasse aqui nao tinha
+         tela nenhuma a dizer que faltava alguma coisa: o vazio nao da erro.
+         ⇒ E' tambem aqui que nasce a SENHA DE NEGOCIACAO, e por isso o aviso das
+           duas senhas comeca neste passo em vez de aparecer so no 4. -->
     <div class="passo">
       <div class="passo-cab">
         <div class="passo-num">02</div>
+        <h3><span class="lang-pt">Crie a conta de negociação <b>Pro</b> e a senha</span><span class="lang-en">Create the <b>Pro</b> trading account and its password</span></h3>
+      </div>
+      <div class="passo-corpo">
+
+        <div class="infobox" style="margin:0 0 12px">
+          <p class="lang-pt" style="margin:0"><b>Registar-se na Exness ainda não é ter uma conta para operar.</b> O passo 1 criou o seu acesso ao site deles. Agora, dentro da <strong>Área do Cliente</strong>, falta criar a <strong>conta de negociação</strong> — é essa que o robô vai usar, e é nela que fica o dinheiro.</p>
+          <p class="lang-en" style="margin:0"><b>Signing up with Exness is not yet having an account to trade on.</b> Step 1 created your access to their website. Inside the <strong>Personal Area</strong> you still have to create the <strong>trading account</strong> — that is the one the robot uses, and where the money sits.</p>
+        </div>
+
+        <p class="lang-pt">Na Área do Cliente, escolha <strong>abrir uma conta nova</strong>, do tipo <strong>real</strong> e <strong>Pro</strong> — não Standard, não demo. No fim, a Exness pede que você <strong>defina uma senha de negociação</strong>.</p>
+        <p class="lang-en">In the Personal Area, choose to <strong>open a new account</strong>, <strong>real</strong> and <strong>Pro</strong> — not Standard, not demo. At the end, Exness asks you to <strong>set a trading password</strong>.</p>
+
+        <div class="warnbox" style="margin:12px 0">
+          <p class="lang-pt" style="margin:0"><b>⚠ Guarde essa senha, e saiba que não é a do site.</b> São duas senhas diferentes, e é a de negociação que o MetaTrader vai pedir no passo 4. Se você já tinha criado a conta e não sabe a senha, dá para redefinir nos detalhes dela, na própria Área do Cliente.</p>
+          <p class="lang-en" style="margin:0"><b>⚠ Keep that password, and know it is not the website one.</b> They are two different passwords, and MetaTrader will ask for the trading one in step 4. If the account already exists and you do not know its password, you can reset it in the account details, in the Personal Area itself.</p>
+        </div>
+
+        <p class="lang-pt">Aproveite e anote também o <strong>número da conta</strong> e o <strong>servidor</strong>, que aparecem nos detalhes dela. São os outros dois dados que o passo 4 vai pedir.</p>
+        <p class="lang-en">While you are there, note the <strong>account number</strong> and the <strong>server</strong> shown in its details. They are the other two things step 4 will ask for.</p>
+
+        <!-- [[[VIDEO_2]]] — trocar esta caixa pelo <iframe> do video curto deste
+             passo. Fica um buraco DECLARADO e nao um espaco em branco. -->
+        <div class="video-passo">
+          <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>criar a conta Pro e a senha de negociação — em breve</span>
+          <span class="lang-en"><b>▶ Video for this step</b><br>creating the Pro account and its trading password — coming soon</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!--=================== 3 ===================-->
+    <div class="passo">
+      <div class="passo-cab">
+        <div class="passo-num">03</div>
         <h3><span class="lang-pt">Instale o MetaTrader 5 <b>no computador</b></span><span class="lang-en">Install MetaTrader 5 <b>on a computer</b></span></h3>
       </div>
       <div class="passo-corpo">
         <!-- ⚠ «computador, nao celular» estava no desenho de 20-Ago, e e' o tipo de
              coisa que parece obvia para quem escreve e nao e' para quem le. O app
              de telemovel do MT5 NAO corre robos. -->
-        <p class="lang-pt"><strong>Tem de ser no computador</strong> — Windows ou Mac. O aplicativo do MetaTrader no celular serve para acompanhar, mas <strong>não roda robôs</strong>. Se você instalar só no celular, não vai conseguir passar do passo 6.</p>
-        <p class="lang-en"><strong>It must be on a computer</strong> — Windows or Mac. The MetaTrader phone app is fine for watching, but it <strong>does not run robots</strong>. Installing only on the phone means you cannot get past step 6.</p>
+        <p class="lang-pt"><strong>Tem de ser no computador</strong> — Windows ou Mac. O aplicativo do MetaTrader no celular serve para acompanhar, mas <strong>não roda robôs</strong>. Se você instalar só no celular, não vai conseguir passar do passo 7.</p>
+        <p class="lang-en"><strong>It must be on a computer</strong> — Windows or Mac. The MetaTrader phone app is fine for watching, but it <strong>does not run robots</strong>. Installing only on the phone means you cannot get past step 7.</p>
         <!-- ⛔⛔ O LINK VAI AQUI DE PROPOSITO, e o motivo e' seguranca, nao comodidade.
              Mandar o cliente procurar «metatrader 5 download» no Google e' mandá-lo
              escolher entre resultados patrocinados — e e' assim que se instala um
@@ -208,9 +252,9 @@
           <a href="https://www.metatrader5.com/en/download" target="_blank" rel="noopener" class="btn btn-primary lang-en">Download MetaTrader 5 (official site) ↗</a>
         </div>
 
-        <p class="lang-pt">Depois de instalar, entre com o login e a senha da conta que você abriu no passo 1. Se preferir, a área do cliente da Exness também oferece o download — e nunca outro lugar.</p>
-        <p class="lang-en">After installing, log in with the account you opened in step 1. Your Exness client area also offers the download — and nowhere else does.</p>
-        <!-- [[[VIDEO_2]]] — trocar esta caixa pelo <iframe> do video curto
+        <p class="lang-pt">Depois de instalar, entre com o login e a senha da conta que você criou no passo 2. Se preferir, a área do cliente da Exness também oferece o download — e nunca outro lugar.</p>
+        <p class="lang-en">After installing, log in with the account you created in step 2. Your Exness client area also offers the download — and nowhere else does.</p>
+        <!-- [[[VIDEO_3]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
@@ -222,7 +266,7 @@
     </div>
 
 
-    <!--=================== 3 (NOVO, 23-Ago) ===================-->
+    <!--=================== 4 (NOVO, 23-Ago) ===================-->
     <!-- ⭐ Pedido dele: «essa etapa e um pouco confusa para a maioria dos leigos.
          eles tem dificuldade em entender que a exness e a corretora, e onde o
          saldo fica». ⇒ O passo comeca por SEPARAR AS DUAS COISAS, e so depois
@@ -232,7 +276,7 @@
          negociacao NAO e' a senha do site da Exness. -->
     <div class="passo">
       <div class="passo-cab">
-        <div class="passo-num">03</div>
+        <div class="passo-num">04</div>
         <h3><span class="lang-pt">Ligue o MetaTrader à sua conta da Exness</span><span class="lang-en">Connect MetaTrader to your Exness account</span></h3>
       </div>
       <div class="passo-corpo">
@@ -255,10 +299,10 @@
              nem como exemplo. -->
         <p class="lang-pt"><strong>1. O número da conta</strong> — só números, tipo <code>123456789</code>. É o seu "login".<br>
         <strong>2. A senha da conta de negociação</strong> — veja o aviso abaixo.<br>
-        <strong>3. O servidor</strong> — um nome como <code>Exness-MT5Real12</code>. O número do fim muda de conta para conta: use o que a Exness mostrar na sua.</p>
+        <strong>3. O servidor</strong> — normalmente <code>Exness-MT5Real11</code>. ⚠ Mas o número do fim <strong>pode ser outro na sua conta</strong>: o que vale é o que a Exness mostrar nos detalhes dela. Se a lista do MetaTrader tiver dezenas de servidores, escreva <code>Exness</code> no campo de busca em vez de rolar.</p>
         <p class="lang-en"><strong>1. The account number</strong> — digits only, like <code>123456789</code>. This is your login.<br>
         <strong>2. The trading account password</strong> — see the warning below.<br>
-        <strong>3. The server</strong> — a name like <code>Exness-MT5Real12</code>. The number at the end differs per account: use the one Exness shows for yours.</p>
+        <strong>3. The server</strong> — usually <code>Exness-MT5Real11</code>. ⚠ But the number at the end <strong>may differ on your account</strong>: what counts is the one Exness shows in its details. If MetaTrader lists dozens of servers, type <code>Exness</code> in the search box instead of scrolling.</p>
 
         <!-- ⛔⛔ A CONFUSAO QUE MAIS CUSTA. Quase toda a gente tenta primeiro a
              senha com que entrou no site da Exness, ve «senha invalida», e
@@ -277,7 +321,7 @@
         <p class="lang-pt"><strong>Como saber que deu certo:</strong> o canto inferior direito do MetaTrader deixa de dizer "sem conexão" e passa a mostrar a velocidade da ligação, e o seu saldo aparece na aba <strong>Negociação</strong>. Se o saldo apareceu, está ligado.</p>
         <p class="lang-en"><strong>How to know it worked:</strong> the bottom-right corner of MetaTrader stops saying "no connection" and starts showing the link speed, and your balance shows up under the <strong>Trade</strong> tab. If the balance is there, you are connected.</p>
 
-        <!-- [[[VIDEO_3]]] — trocar esta caixa pelo <iframe> do video curto
+        <!-- [[[VIDEO_4]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
@@ -286,10 +330,10 @@
         </div>
       </div>
     </div>
-    <!--=================== 4 ===================-->
+    <!--=================== 5 ===================-->
     <div class="passo" style="border-color:var(--border-bright)">
       <div class="passo-cab">
-        <div class="passo-num">04</div>
+        <div class="passo-num">05</div>
         <h3><span class="lang-pt">Autorize a URL no MetaTrader <b>— antes do robô</b></span><span class="lang-en">Authorise the URL in MetaTrader <b>— before the robot</b></span></h3>
       </div>
       <div class="passo-corpo">
@@ -321,7 +365,7 @@
 
         <p class="lang-pt">Use o botão <strong>Copiar</strong> — assim não há risco de errar uma letra. Cole no MetaTrader e clique OK.</p>
         <p class="lang-en">Use the <strong>Copy</strong> button — that way there is no risk of a typo. Paste it into MetaTrader and click OK.</p>
-        <!-- [[[VIDEO_4]]] — trocar esta caixa pelo <iframe> do video curto
+        <!-- [[[VIDEO_5]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
@@ -332,10 +376,10 @@
       </div>
     </div>
 
-    <!--=================== 5 ===================-->
+    <!--=================== 6 ===================-->
     <div class="passo">
       <div class="passo-cab">
-        <div class="passo-num">05</div>
+        <div class="passo-num">06</div>
         <h3><span class="lang-pt">Baixe o robô</span><span class="lang-en">Download the robot</span></h3>
       </div>
       <div class="passo-corpo">
@@ -355,7 +399,7 @@
         </div>
         <p class="lang-pt" style="font-size:.86rem;opacity:.75">Se o seu navegador avisar que o arquivo é incomum, é esperado — ele não é assinado como um programa de loja. O arquivo correto tem <strong>161.588 bytes</strong>.</p>
         <p class="lang-en" style="font-size:.86rem;opacity:.75">If your browser warns that the file is uncommon, that is expected — it is not signed like a store application. The correct file is <strong>161,588 bytes</strong>.</p>
-        <!-- [[[VIDEO_5]]] — trocar esta caixa pelo <iframe> do video curto
+        <!-- [[[VIDEO_6]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
@@ -366,10 +410,10 @@
       </div>
     </div>
 
-    <!--=================== 6 ===================-->
+    <!--=================== 7 ===================-->
     <div class="passo">
       <div class="passo-cab">
-        <div class="passo-num">06</div>
+        <div class="passo-num">07</div>
         <h3><span class="lang-pt">Arraste para o gráfico e cole a <b>chave de licença</b></span><span class="lang-en">Drag it onto a chart and paste the <b>licence key</b></span></h3>
       </div>
       <div class="passo-corpo">
@@ -451,9 +495,9 @@
         <p class="lang-pt">⭐ Se alguma das duas ficar desligada, <strong>o robô escreve no gráfico qual delas é</strong> — ele sabe distinguir, e diz explicitamente que a outra já está aberta.</p>
         <p class="lang-en">⭐ If either one is off, <strong>the robot writes on the chart which one it is</strong> — it tells them apart, and says explicitly that the other is already open.</p>
 
-        <p class="lang-pt"><strong>O segundo código do e-mail — o token do painel — não entra aqui.</strong> Ele é usado no passo 8, e só serve para olhar.</p>
-        <p class="lang-en"><strong>The second code in the email — the panel token — does not go here.</strong> It is used in step 8, and it only lets you look.</p>
-        <!-- [[[VIDEO_6]]] — trocar esta caixa pelo <iframe> do video curto
+        <p class="lang-pt"><strong>O segundo código do e-mail — o token do painel — não entra aqui.</strong> Ele é usado no passo 9, e só serve para olhar.</p>
+        <p class="lang-en"><strong>The second code in the email — the panel token — does not go here.</strong> It is used in step 9, and it only lets you look.</p>
+        <!-- [[[VIDEO_7]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
@@ -464,10 +508,10 @@
       </div>
     </div>
 
-    <!--=================== 7 ===================-->
+    <!--=================== 8 ===================-->
     <div class="passo">
       <div class="passo-cab">
-        <div class="passo-num">07</div>
+        <div class="passo-num">08</div>
         <h3><span class="lang-pt">Deixe rodando no <b>VPS</b>, para não depender do seu computador</span><span class="lang-en">Move it to a <b>VPS</b>, so it does not depend on your computer</span></h3>
       </div>
       <div class="passo-corpo">
@@ -486,7 +530,7 @@
 
         <p class="lang-pt">Depois de sincronizar, pode fechar o MetaTrader do seu computador. O robô continua lá.</p>
         <p class="lang-en">Once synchronised, you can close MetaTrader on your computer. The robot keeps going.</p>
-        <!-- [[[VIDEO_7]]] — trocar esta caixa pelo <iframe> do video curto
+        <!-- [[[VIDEO_8]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
@@ -497,10 +541,10 @@
       </div>
     </div>
 
-    <!--=================== 8 ===================-->
+    <!--=================== 9 ===================-->
     <div class="passo" style="border-color:var(--border-bright)">
       <div class="passo-cab">
-        <div class="passo-num">08</div>
+        <div class="passo-num">09</div>
         <h3><span class="lang-pt">Acompanhe no painel, com o <b>token de acesso</b></span><span class="lang-en">Watch it on the panel, with your <b>access token</b></span></h3>
       </div>
       <div class="passo-corpo">
@@ -513,7 +557,7 @@
         <div style="margin-top:14px">
           <a href="../painel/" data-nav class="btn btn-primary"><span class="lang-pt">Abrir o painel ↗</span><span class="lang-en">Open the panel ↗</span></a>
         </div>
-        <!-- [[[VIDEO_8]]] — trocar esta caixa pelo <iframe> do video curto
+        <!-- [[[VIDEO_9]]] — trocar esta caixa pelo <iframe> do video curto
              deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
              assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
