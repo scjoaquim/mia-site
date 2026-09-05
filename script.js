@@ -39,8 +39,9 @@
   // [05-Set-2026] Decisao dele: o site mostra UM numero por perfil — o saldo minimo
   //   SUGERIDO — e mais nenhum. O minimo tecnico (o piso compilado no EA) e' outra
   //   coisa e nao vai para a vitrina.
-  var D = { balance: { sug: 4000 }, compact: { sug: 2000 },
-            rush: { min: 1000, rec: 2500 }, pro: { min: 1000, rec: 2500 } };
+  // [05-Set-2026] As chaves `rush`/`pro` sairam depois da varredura final: zero
+  //   ocorrencias de rush.rec / rush.min / pro.rec / pro.min em todo o site.
+  var D = { balance: { sug: 4000 }, compact: { sug: 2000 } };
   var en = document.body.classList.contains('lang-en');
   function money(n) { return 'US$ ' + n.toLocaleString(en ? 'en-US' : 'pt-BR'); }
   document.querySelectorAll('[data-deposit]').forEach(function (el) {
