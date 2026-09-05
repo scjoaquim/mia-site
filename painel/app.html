@@ -1031,7 +1031,7 @@
         </div>
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e P&amp;L do Periodo">?</span>
-          <div class="mtt-bub">Lucro ou prejuizo realizado (posicoes ja fechadas) na janela selecionada: em DOLAR (destaque) e, logo abaixo, em R (1R = risco definido por trade — mede o desempenho sem depender do tamanho da conta).</div>
+          <div class="mtt-bub">Lucro ou prejuizo realizado (so posicoes ja fechadas) na janela selecionada, em dolar. Logo abaixo: a mesma quantia em percentagem do saldo de agora, e a janela a que se refere.</div>
           <div class="stat-label">P&amp;L PERÍODO</div>
           <div class="stat-value" id="ov-pnl">—</div>
           <div class="stat-sub"><span id="ov-rsum" style="font-weight:bold;font-size:16px;">—</span><span id="ov-pnl-pct"></span> &middot; <span id="ov-pnl-sub">últimos 7 dias</span></div>
@@ -1058,13 +1058,13 @@
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Profit Factor">?</span>
           <div class="mtt-bub">Soma dos ganhos dividida pela soma das perdas no periodo. Acima de 1 e lucrativo; a partir de ~1,5 e solido.</div>
-          <div class="stat-label">PROFIT FACTOR (FROTA)</div>
+          <div class="stat-label">PROFIT FACTOR</div>   <!-- [05-Set] era "(FROTA)": o JS ja o corrigia no painel, mas a palavra ficava na tela ate o primeiro render -->
           <div class="stat-value" id="ov-pf-agg">—</div>
           <div class="stat-sub">ganhos &divide; perdas</div>
         </div>
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Expectancia por Trade">?</span>
-          <div class="mtt-bub">Resultado medio esperado por trade: em R (destaque; multiplos do risco arriscado) e, logo abaixo, em dolar (media de $ por trade).</div>
+          <div class="mtt-bub">Resultado medio por trade na janela selecionada, em dolar: o lucro (ou prejuizo) do periodo dividido pelo numero de operacoes fechadas.</div>
           <div class="stat-label">EXPECT&Acirc;NCIA / TRADE</div>
           <div class="stat-value" id="ov-exp">—</div>
           <div class="stat-sub"><span id="ov-exp-usd">—</span> por trade</div>
@@ -1191,7 +1191,7 @@
       <!-- Ranking de bots -->
       <div class="box tipwrap">
         <span class="mtt" role="button" tabindex="0" aria-label="O que e o Ranking de Bots">?</span>
-        <div class="mtt-bub">Tabela por bot na janela e filtros selecionados: trades, win rate, P&amp;L em $ e em R, profit factor e drawdown. Clique no cabecalho de uma coluna para ordenar por ela.</div>
+        <div class="mtt-bub">Tabela por bot na janela e filtros selecionados: trades, win rate, profit factor e P&amp;L em $. Clique no cabecalho de uma coluna para ordenar por ela.</div>
         <div class="box-title">
           <span>─ RANKING DE BOTS ─────────────</span>
           <span style="font-size:10px;color:var(--amber-dim);">clique no cabe&ccedil;alho p/ ordenar</span>
@@ -1207,7 +1207,7 @@
       <!-- Contribuicao / grupos (unificado: bot/segmento/estrategia x R/$) -->
       <div class="box tipwrap">
         <span class="mtt" role="button" tabindex="0" aria-label="O que e Contribuicao">?</span>
-        <div class="mtt-bub">Quanto cada bot (ou segmento/estrategia, conforme o AGRUPAR) contribuiu para o resultado do periodo, em R ou em $. Barras negativas = quem tirou resultado da frota.</div>
+        <div class="mtt-bub">Quanto cada bot (ou segmento/estrategia, conforme o AGRUPAR) contribuiu para o resultado do periodo, em $. Barras negativas = quem tirou resultado da frota.</div>
         <div class="box-title" style="flex-wrap:wrap;gap:8px;">
           <span>─ CONTRIBUI&Ccedil;&Atilde;O ──────────</span>
           <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:auto;">
@@ -1217,11 +1217,8 @@
               <button class="tsel-btn"        id="ov-grp-seg"   onclick="setGroupMode('seg',this)">SEGMENTO</button>
               <button class="tsel-btn"        id="ov-grp-strat" onclick="setGroupMode('strat',this)">ESTRAT&Eacute;GIA</button>
             </div>
-            <div class="time-sel" style="display:inline-flex;align-items:center;">
-              <span style="font-size:9px;color:var(--amber-dim);padding:0 6px;letter-spacing:1px;">M&Eacute;TRICA</span>
-              <button class="tsel-btn active" id="ov-met-r"   onclick="setGroupMetric('r',this)">P&amp;L R</button>
-              <button class="tsel-btn"        id="ov-met-usd" onclick="setGroupMetric('usd',this)">LUCRO $</button>
-            </div>
+            <!-- [05-Set] seletor METRICA (P&L R / LUCRO $) REMOVIDO: fica so o dinheiro.
+                 Para repor: os dois botoes; o setGroupMetric continua no ficheiro. -->
           </div>
         </div>
         <div class="box-body"><div id="ov-contrib"></div></div>
@@ -1233,16 +1230,9 @@
            fecharam todos: BTC 5m (674 aposentado 26-Jul) e XAU R2+RSI (654/675 consolidados
            no 676 em 03-Jul). Para reabrir: repor esta caixa + AB_PAIRS + renderAB (git). -->
 
-      <!-- Distribuicao de R -->
-      <div class="box tipwrap">
-        <span class="mtt" role="button" tabindex="0" aria-label="O que e a Distribuicao de R">?</span>
-        <div class="mtt-bub">Histograma dos resultados por trade medidos em R (1R = risco definido na entrada). O perfil do trailing e assimetrico: muitas perdas pequenas de ~-1R pagas por poucas caudas grandes positivas.</div>
-        <div class="box-title">
-          <span>─ DISTRIBUI&Ccedil;&Atilde;O DE R ─────────────</span>
-          <span style="font-size:10px;color:var(--amber-dim);">skew positivo do trailing: poucos R grandes pagam muitos pequenos</span>
-        </div>
-        <div class="box-body"><div id="ov-rdist"></div></div>
-      </div>
+      <!-- [05-Set] caixa DISTRIBUICAO DE R REMOVIDA (decisao do Joaquim): o painel do
+           cliente deixa de falar em R. O renderRDist continua no ficheiro e volta a
+           pintar assim que o <div id="ov-rdist"> for reposto aqui. -->
     </div>
 
     <!-- ════════════════════════════════════════════════════════
@@ -4688,7 +4678,33 @@ function ovStartCapital(total, balance) {
 // inteira ja e MIA — no celular ele fica, que la a mensagem chega sozinha e precisa
 // de remetente. O cobre nunca teve apelido; ganhou DIP, que e o que ele faz: espera
 // o recuo e compra, em vez de perseguir o rompimento como o RUSH.
-const PANEL_NOMES = { earush: 'XAU RUSH', eacobre: 'COBRE DIP', eabars: 'XAU BARS' };
+const PANEL_NOMES = {
+  earush: 'XAU RUSH', eacobre: 'COBRE DIP', eabars: 'XAU BARS',
+  // ⭐ [05-Set] OS SETE DO `MIA_Balance_2.0`. Os nomes sao os `g_nomes_cliente` do EA,
+  //    na letra (`MIA_Balance_2.0.mq5:213`) — o painel e o celular dizem a MESMA coisa.
+  //    Os codigos sao os `g_nomes_base`, que e o que o EA grava no campo `strategy`.
+  eyexau:   'XAU EYE',   eyebtc:   'BTC EYE',   eyeeth:    'ETH EYE',
+  eyeus500: 'US500 EYE', eyeustec: 'USTEC EYE',
+  scopexau: 'XAU SCOPE', scopebtc: 'BTC SCOPE',
+  // ⛔⛔ [05-Set] A `MIA_Telemetria` (04-Set) rotula OS MESMOS sete magics com o prefixo
+  //    "ea" (`MIA_Telemetria.mq5:537-543`), e as duas escrevem no MESMO `/v1/telemetry`.
+  //    Enquanto o servidor nao for alinhado, o mesmo robo pode chegar com DOIS codigos.
+  // ⛔⛔ CORRECAO DA REVISAO, e o comentario anterior estava ERRADO: eu tinha escrito que
+  //    dar o MESMO nome aos dois "impede o painel de partir um bot em dois". NAO impede.
+  //    O ranking agrupa por `t.bot` (o CODIGO), nao pelo nome — dar o mesmo nome so' fazia
+  //    aparecerem DUAS linhas chamadas "XAU EYE", com os trades, o PF e o WR repartidos ao
+  //    meio, e DOIS botoes iguais na fila ROBO, sem o cliente poder perceber porque ha dois.
+  //    Era ESCONDER a divisao, que e' pior do que mostra-la.
+  // ⛔ E juntar os dois codigos num so' seria PIOR ainda: se o servidor guardar os dois
+  //    registos do mesmo negocio (nao esta medido qual e a chave dele), somar os dois
+  //    DUPLICAVA o dinheiro na tela. Nao se junta o que nao se mediu.
+  //    ⇒ nomes DISTINTOS, com a origem a' vista. Duas linhas continuam a ser duas linhas,
+  //      mas agora dizem porque. ⚠ O conserto de verdade e' no servidor/telemetria, e e dele.
+  //    ⚠ Nada disto chega ao cliente: a `MIA_Telemetria` nao vai na distribuicao.
+  eaeyexau:   'XAU EYE ·tel',   eaeyebtc:   'BTC EYE ·tel',   eaeyeeth:    'ETH EYE ·tel',
+  eaeyeus500: 'US500 EYE ·tel', eaeyeustec: 'USTEC EYE ·tel',
+  eascopexau: 'XAU SCOPE ·tel', eascopebtc: 'BTC SCOPE ·tel'
+};
 const PANEL_FILAS = [['ov', 'ov-seg'], ['ov', 'rk-seg'], ['hist', 'hist-seg']];
 let _panelAssinatura = '';
 
@@ -4875,8 +4891,8 @@ function drawChart(data) {
 // ════════════════════════════════════════════════════════════════
 const OV_DAYS = { '1d':1, '1w':7, '1m':30, '6m':182, '1y':365, 'all':99999 };
 let ovGroupMode = 'bot';     // dimensao do painel CONTRIBUICAO: 'bot' | 'seg' | 'strat'
-let ovGroupMetric = 'r';     // metrica/ordenacao: 'r' (P&L em R) | 'usd' (lucro $)
-let ovRankSort = { key:'rsum', dir:-1 };
+let ovGroupMetric = 'usd';   // [05-Set] o painel mede em DINHEIRO; o R saiu do RANKING
+let ovRankSort = { key:'pnl', dir:-1 };   // [05-Set] era 'rsum' (R); ordena por P&L $
 
 const SEG_LABEL   = { btc:'CRYPTO', usmarket:'INDEX', usstocks:'US STOCKS', metais:'METAIS', outro:'OUTRO' };
 const STRAT_LABEL = { tf5m:'5M', tf15m:'15M', tf1h:'1H', tf2h:'2H', tf4h:'4H', outro:'OUTRO' };
@@ -4934,12 +4950,30 @@ function pfColor(pf){ return pf>=1.3 ? 'var(--green)' : pf>=1 ? 'var(--cyan)' : 
 // ⚠ Consequência ACEITE: no TOTAL o PF e o WR PIORAM, porque os aposentados entram.
 // É a verdade da conta; a vista da frota validada continua em 1D/1S/1M/6M/1A e no RANKING.
 function ovScopedTrades() {
-  const h = (currentOvPeriod === 'all' && Array.isArray(window._liveHistoryAll))
+  // [05-Set] A troca de universo no TOTAL e do DASHBOARD DA FROTA (decisao de 31-Jul:
+  // o TOTAL tem de bater com o LUCRO DE TRADING da conta inteira). No PAINEL do cliente
+  // ela so podia mentir — o rotulo diz "desde a instalacao dos robos" e as outras janelas
+  // liam outro conjunto. Com o `applyFleetBaseline` a nao filtrar no painel, os dois
+  // conjuntos ja sao o mesmo; a condicao fica escrita para nao voltar por acidente.
+  const _painel = (typeof PANEL_MODE !== 'undefined' && PANEL_MODE);
+  const h = (!_painel && currentOvPeriod === 'all' && Array.isArray(window._liveHistoryAll))
     ? window._liveHistoryAll                 // TOTAL = tudo o que a conta fez
     : (window._liveHistory || []);           // demais janelas = frota validada pós-marco
   const days = OV_DAYS[currentOvPeriod] || 7;
   const cutoff = Date.now() - days*86400000;
-  let t = h.filter(x => new Date(x.dt).getTime() >= cutoff && x.win !== null && x.win !== undefined);
+  // [05-Set] ⛔ era `new Date(x.dt).getTime()`. O x.dt e "YYYY-MM-DD HH:MM" em UTC SEM sufixo,
+  //   e o `new Date` le isso como hora LOCAL -> os trades apareciam 3 h mais NOVOS do que sao
+  //   (UTC-3), ou seja cada janela era 3 h mais LONGA na ponta velha (1D = 27 h). O Historico
+  //   ja tinha sido consertado em 24-Ago com o _tradeTimeMs; o Overview/Ranking ficou para tras.
+  // ⛔ [05-Set, revisao] O `x.dt &&` e uma REGRESSAO minha desta manha, apanhada na revisao.
+  //   O `new Date(undefined).getTime()` antigo dava `NaN`, e `NaN >= cutoff` e' FALSO ⇒ um
+  //   registo sem data caia fora de todas as janelas. O `_tradeTimeMs` devolve **0**, e no
+  //   TOTAL o corte e' negativo (`OV_DAYS.all = 99999`) ⇒ `0 >= negativo` e' VERDADE: o
+  //   registo entrava. E a seguir o `drawDrawdown` faz `a.dt.localeCompare(b.dt)` sobre um
+  //   `undefined` ⇒ **TypeError**, e a Overview inteira ficava com o conteudo velho na tela.
+  //   Alem disso o Historico continuava a exclui-lo (`histDentroDaJanela` devolve false sem
+  //   `dt`) ⇒ reintroduzia, por outra porta, o "os numeros nao batem" de hoje de manha.
+  let t = h.filter(x => x.dt && _tradeTimeMs(x) >= cutoff && x.win !== null && x.win !== undefined);
   const allAll = (segState.ov === 'all' && stratState.ov === 'all');
   if (!allAll) {
     const allowed = filteredBots('ov');
@@ -5024,7 +5058,7 @@ function renderOverviewAnalytics() {
 
   renderRanking(trades);
   renderContrib(trades);
-  renderRDist(trades);
+  renderRDist(trades);   // [05-Set] inerte: o #ov-rdist saiu da pagina RANKING
 }
 
 function drawDrawdown(trades){
@@ -5072,17 +5106,16 @@ function renderRanking(trades){
     if (av==null) av=-1e9; if (bv==null) bv=-1e9;
     return dir*(av-bv);
   });
-  const cols=[['label','BOT','left'],['n','TR','right'],['wr','WR','right'],['pf','PF','right'],['pnl','P&L $','right'],['rsum','P&L R','right'],['exp','EXP R','right']];
+  // [05-Set] sairam 'rsum' (P&L R) e 'exp' (EXP R): o painel do cliente mede em dinheiro.
+  const cols=[['label','BOT','left'],['n','TR','right'],['wr','WR','right'],['pf','PF','right'],['pnl','P&L $','right']];
   head.innerHTML = cols.map(c=>'<th onclick="setOvRankSort(\''+c[0]+'\')" style="cursor:pointer;text-align:'+c[2]+';padding:6px 8px;border-bottom:1px solid var(--border-bright);color:var(--amber-dim);font-size:10px;letter-spacing:1px;white-space:nowrap;">'+c[1]+(ovRankSort.key===c[0]?(ovRankSort.dir<0?' ▼':' ▲'):'')+'</th>').join('');
-  if (!rows.length){ body.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--amber-dim);padding:18px;">SEM TRADES NO PERIODO</td></tr>'; return; }
+  if (!rows.length){ body.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--amber-dim);padding:18px;">SEM TRADES NO PERIODO</td></tr>'; return; }
   body.innerHTML = rows.map(r=>'<tr style="border-bottom:1px solid var(--border);">'
     +'<td style="padding:6px 8px;color:var(--cyan);white-space:nowrap;">'+r.label+'</td>'
     +'<td style="padding:6px 8px;text-align:right;">'+r.n+'</td>'
     +'<td style="padding:6px 8px;text-align:right;color:'+(r.wr>=50?'var(--green)':r.wr>=40?'var(--amber)':'var(--red)')+';">'+(r.wr!=null?Math.round(r.wr)+'%':'-')+'</td>'
     +'<td style="padding:6px 8px;text-align:right;font-weight:bold;color:'+pfColor(r.pf)+';">'+pfTxt(r.pf)+'</td>'
     +'<td class="'+(r.pnl>=0?'rk-pos':'rk-neg')+'" style="padding:6px 8px;text-align:right;">'+fmtUSD(r.pnl)+'</td>'
-    +'<td class="'+(r.rsum>=0?'rk-pos':'rk-neg')+'" style="padding:6px 8px;text-align:right;">'+fmtR(r.rsum)+'</td>'
-    +'<td class="'+(r.exp!=null?(r.exp>=0?'rk-pos':'rk-neg'):'')+'" style="padding:6px 8px;text-align:right;">'+(r.exp!=null?fmtR(r.exp):'-')+'</td>'
     +'</tr>').join('');
 }
 
@@ -6416,11 +6449,29 @@ window._panelRobotSinceMs = 0;   // 0 = ainda nao chegou, ou licenca nunca ativa
 
 // "2026-08-19 14:32" em UTC -> ms. Devolve 0 no que nao souber ler.
 // ⚠ Sem o "Z" o Date.parse leria isto como hora LOCAL e o marco andava 3 horas.
+// ⛔⛔ [05-Set, revisao] UM SO LEITOR DE DATA, e a trava passa a ser o FUSO.
+// A versao anterior decidia pelo COMPRIMENTO (`length <= 16 ? +':00Z' : tal e qual`).
+// Consequencia MEDIDA (`TZ=America/Bahia`): uma data com SEGUNDOS — "2026-09-05 10:00:30",
+// 19 caracteres — nao levava o `Z`, e o `Date.parse` lia-a como hora LOCAL. **+3,01 h**,
+// que e exactamente o defeito que se consertou hoje de manha, de volta pela porta do lado,
+// e em silencio no dia em que a API acrescentasse segundos ao campo.
+// ⚠ E o mesmo codigo estava COPIADO em dois sitios (`_marcoParaMs` e `_tradeTimeMs`) —
+//   a licao do dia, na letra: um conserto de data feito num sitio nao se propaga ao outro.
+//   Por isso os dois passam a chamar ESTE.
+// A regra: se a string nao traz fuso (`Z` ou `+hh:mm`), e UTC — que e o que o servidor grava.
+function _msUtc(txt){
+  if(!txt) return NaN;
+  let t = String(txt).trim().replace(' ', 'T');
+  if(!/(Z|[+-]\d{2}:?\d{2})$/i.test(t)){
+    if(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(t)) t += ':00';       // sem segundos
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(t)) t += 'Z';                     // so' a data ja e' UTC por norma
+  }
+  let ms = Date.parse(t);
+  if(isNaN(ms)) ms = Date.parse(txt);   // ultimo recurso: o que o browser souber
+  return ms;
+}
 function _marcoParaMs(txt){
-  if(!txt) return 0;
-  const t = String(txt).trim().replace(' ','T');
-  let ms = Date.parse(t.length <= 16 ? t + ':00Z' : t);
-  if(isNaN(ms)) ms = Date.parse(txt);
+  const ms = _msUtc(txt);
   return isNaN(ms) ? 0 : ms;
 }
 
@@ -6506,18 +6557,29 @@ const PAUSED_BOTS = new Set([
 // segundo AND e tambem os apanha se o toggle "INCLUIR ANTIGO" estiver ligado — que e
 // exatamente quando o utilizador PEDIU para os ver, logo respeitamos o toggle.
 function fleetLiveOnly(trades){
+  // ⛔⛔ [05-Set] NO PAINEL DO CLIENTE NAO HA FROTA. O `ACTIVE_BOTS` e o `PAUSED_BOTS` sao
+  //    listas da frota DELE, escritas a mao, e nao conhecem os robos que um cliente compra.
+  //    Um bot fora dessas listas desaparecia da tabela de comparacao — em SILENCIO. Media-se
+  //    assim: os sete do BALANCE (`eyexau`… `scopebtc`) nao estao em lista nenhuma.
+  //    O `painelBotoesPorBot` ja assume isto ha muito ("a frota do cliente e a conta dele").
+  if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE) return trades || [];
   if (window._showLegacy) return trades;   // "INCLUIR ANTIGO" = mostra aposentados E pausados
   return (trades||[]).filter(t => ACTIVE_BOTS.has(t.bot) && !PAUSED_BOTS.has(t.bot));
 }
 function _tradeTimeMs(t){
   // t.dt = exit_time "YYYY-MM-DD HH:MM" em UTC (a api grava UTC explicito) — [21-Jun] data de FECHO
+  // [05-Set, revisao] o parser saiu daqui para o `_msUtc`, que e o mesmo do marco zero.
   if(!t || !t.dt) return 0;
-  const s = String(t.dt).trim().replace(' ','T');
-  let ms = Date.parse(s.length<=16 ? s+':00Z' : s);
-  if(isNaN(ms)) ms = Date.parse(t.dt);
+  const ms = _msUtc(t.dt);
   return isNaN(ms) ? 0 : ms;
 }
 function applyFleetBaseline(arr){
+  // ⛔⛔ [05-Set] Mesma razao do `fleetLiveOnly`: no painel o piso ja era 0, mas o filtro
+  //    `ACTIVE_BOTS` ficava — e apagava da FONTE qualquer robo fora da lista da frota.
+  //    Consequencia medida no codigo: o TOTAL (que le o `_liveHistoryAll`, sem filtro)
+  //    mostrava trades que 1D/1S/1M/6M/1A e o RANKING nao mostravam. Era o "os numeros
+  //    nao batem". No painel, o universo passa a ser a conta do cliente, sempre.
+  if(typeof PANEL_MODE !== 'undefined' && PANEL_MODE) return (arr||[]).slice();
   if(window._showLegacy) return arr;   // "INCLUIR ANTIGO" = mostra pre-marco E aposentados
   // Dois filtros (AND): piso temporal (marco zero) + frota ATIVA (esconde aposentados).
   // [24-Ago] no painel do cliente o piso e 0 e nada se esconde — ver pisoDeExibicaoMs().
