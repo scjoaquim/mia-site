@@ -33,7 +33,11 @@
 // [data-deposit="produto.campo"] recebe o valor formatado no idioma atual.
 // O número já escrito no HTML é fallback — aparece igual mesmo sem JS.
 (function () {
-  var D = { rush: { min: 1000, rec: 2500 }, pro: { min: 1000, rec: 2500 } };
+  // [05-Set-2026] Os dois perfis do MIA BALANCE. As chaves `rush`/`pro` ficam enquanto
+  //   houver paginas por actualizar — saem na varredura final, e nao antes: apagar
+  //   uma chave ainda usada deixaria o numero antigo na tela, calado.
+  var D = { balance: { min: 2000, rec: 4000 }, compact: { min: 500, rec: 1000 },
+            rush: { min: 1000, rec: 2500 }, pro: { min: 1000, rec: 2500 } };
   var en = document.body.classList.contains('lang-en');
   function money(n) { return 'US$ ' + n.toLocaleString(en ? 'en-US' : 'pt-BR'); }
   document.querySelectorAll('[data-deposit]').forEach(function (el) {
