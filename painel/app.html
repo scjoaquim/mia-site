@@ -966,7 +966,7 @@
           </p>
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
             <div style="background:var(--bg3);border:1px solid var(--border-bright);padding:8px 12px;">
-              <div style="font-size:10px;color:var(--amber-dim);letter-spacing:1px;margin-bottom:3px;">FROTA EM EXIBIÇÃO</div>
+              <div style="font-size:10px;color:var(--amber-dim);letter-spacing:1px;margin-bottom:3px;" id="ov-about-fleet-label">FROTA EM EXIBIÇÃO</div>
               <div id="ov-about-fleet-name" style="color:var(--amber-bright);font-weight:bold;">—</div>
             </div>
             <div style="background:var(--bg3);border:1px solid var(--border-bright);padding:8px 12px;" id="ov-about-account-card">
@@ -974,7 +974,7 @@
               <div id="ov-about-account" style="color:var(--amber-bright);">—</div>
             </div>
           </div>
-          <div style="font-size:10px;color:var(--amber-dim);letter-spacing:1px;margin-bottom:6px;">BOTS DESTA FROTA:</div>
+          <div style="font-size:10px;color:var(--amber-dim);letter-spacing:1px;margin-bottom:6px;" id="ov-about-chips-label">BOTS DESTA FROTA:</div>
           <div id="ov-about-fleet-chips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
         </div>
       </div>
@@ -1253,7 +1253,7 @@
         </div>
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Risco Exposto">?</span>
-          <div class="mtt-bub">Perda total se todas as posicoes abertas sairem no stop atual, em % do saldo (e em $). Stops ja movidos acima da entrada (trailing) reduzem ou zeram este numero.</div>
+          <div class="mtt-bub">Perda total se todas as posicoes abertas sairem no stop atual, em % do saldo (e em $). Stops ja movidos acima da entrada (trailing) reduzem ou zeram este numero. Aparece &quot;&mdash;&quot; quando o painel nao consegue medir o risco de alguma posicao aberta: e melhor dizer que nao sabe do que mostrar um zero.</div>
           <div class="stat-label">RISCO EXPOSTO</div>
           <div class="stat-value" id="pos-risk-pct">—</div>
           <div class="stat-sub" id="pos-risk-usd">≈ $0.00</div>
@@ -1278,17 +1278,14 @@
           <span>ESTADO</span>
           <span>AÇÃO</span>
         </div>
-        <div class="pos-row">
-          <span style="color:var(--amber-bright);font-weight:bold;">BTCUSD</span>
-          <span class="pill pill-run" style="font-size:10px;">BUY</span>
-          <span style="color:var(--amber);">BTC 5m</span>
-          <span>$67,420</span>
-          <span style="font-size:11px;line-height:1.6;">SL $67,080<br>TP $68,270</span>
-          <span id="p1-pnl" style="font-weight:bold;">—</span>
-          <span class="pill pill-open">ABERTA</span>
-          <span>
-            <button class="btn btn-close" onclick="confirmClose('BTCUSD','BTC 5m','BUY',1)">✕ FECHAR</button>
-          </span>
+        <!-- ⛔⛔ [05-Set, revisao] SAIU DAQUI UMA POSICAO DE DEMONSTRACAO ESCRITA A MAO:
+             BTCUSD BUY $67.420, SL $67.080, TP $68.270, com botao de FECHAR. Ela estava no
+             HTML, logo aparecia ANTES do primeiro `/positions` com sucesso — e ficava na
+             tela para sempre se a chamada falhasse (so o `renderPositionsLive` a apagava).
+             Um cliente com a rede fraca abria o painel e via uma posicao aberta em Bitcoin
+             que nao tem. A lista viva e' construida pelo `renderPositionsLive`. -->
+        <div class="pos-row" id="pos-vazio" style="color:var(--amber-dim);">
+          <span style="grid-column:1/-1;">— sem posições abertas</span>
         </div>
 
       </div>
@@ -4552,9 +4549,13 @@ function showPage(id, el) {
 // ════════════════════════════════════════════════════════════════
 function tick() {
   const t = new Date().toLocaleTimeString('pt-PT');
-  document.getElementById('clock').textContent = t;
+  document.getElementById('clock').textContent = t;   // este e' o relogio, e pode andar
+  // ⛔ [05-Set, revisao] o `UPD:` andava ao segundo mesmo com a ligacao em baixo — dizia
+  //   "actualizado agora" por cima de numeros de ha' uma hora. Passa a ser a hora da ULTIMA
+  //   resposta boa do servidor; sem nenhuma, fica em `--:--:--`.
   const el = document.getElementById('pos-upd');
-  if(el) el.textContent = 'UPD: '+t;
+  if (el) el.textContent = 'UPD: ' + (window._posOkMs
+    ? new Date(window._posOkMs).toLocaleTimeString('pt-PT') : '--:--:--');
 }
 setInterval(tick,1000); tick();
 
@@ -4620,6 +4621,26 @@ function setOvPeriod(p, el) {
     } else {
       updateOverviewFromHistory(window._liveHistory);
     }
+  } else if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE) {
+    // ⛔⛔ [05-Set, revisao] AQUI O PAINEL PINTAVA NUMEROS INVENTADOS.
+    //   Sem ligacao (`apiConnected === false`, que um unico erro em `pollApi` provoca),
+    //   clicar numa janela lia o `OV_PERIODS` — uma tabela de DEMONSTRACAO — e escrevia
+    //   «+$5.21 · 18 trades · 11 win / 7 loss · ▲ +5.35%» e uma curva a subir. Nada disso
+    //   veio da conta do cliente. Nao era um resto escondido: era o caminho NORMAL do botao.
+    // ⇒ No painel, sem dados escreve-se um travessao. Um «—» honesto vale mais que um
+    //   numero bonito que nao e' de ninguem.
+    const _lab = { '1d':'ÚLTIMO DIA','1w':'ÚLTIMA SEMANA','1m':'ÚLTIMO MÊS','6m':'6 MESES','1y':'1 ANO','all':'TOTAL' };
+    const _sub = { '1d':'últimas 24h','1w':'últimos 7 dias','1m':'últimos 30 dias','6m':'últimos 6 meses','1y':'último ano','all':'desde a instalação dos robôs' };
+    const _por = (id, txt, cls) => { const e = document.getElementById(id); if (!e) return;
+                                     e.textContent = txt; if (cls !== undefined) e.className = cls; };
+    _por('ov-pnl', '—', 'stat-value');
+    _por('ov-pnl-sub', _sub[p] || '');
+    _por('ov-trades', '—', 'stat-value');
+    _por('ov-trades-sub', 'sem ligação ao servidor');
+    _por('ov-saldo-delta', '', 'stat-delta neu');
+    _por('ov-wr', '—', 'stat-delta neu');
+    _por('chart-period-label', _lab[p] || '');
+    drawChartFlat(window._balance || 0);
   } else {
     const d = OV_PERIODS[p];
     document.getElementById('ov-pnl').textContent = d.pnl;
@@ -4718,6 +4739,7 @@ function painelBotoesPorBot() {
   (window._liveHistory   || []).forEach(t => { const c = _cod(t); if (c) vistos.add(String(c)); });
   (window._lastPositions || []).forEach(o => { const c = _cod(o); if (c) vistos.add(String(c)); });
   const codigos = [...vistos].filter(Boolean).sort();
+  window._panelCodigos = codigos;   // [05-Set] a caixa SOBRE O SISTEMA passa a ler daqui
   const assinatura = codigos.join(',');
   if (!codigos.length || assinatura === _panelAssinatura) return;
   _panelAssinatura = assinatura;
@@ -5280,6 +5302,12 @@ function applyCustomDates() {
 }
 
 function renderHist() {
+  // ⛔⛔ [05-Set, revisao] Esta funcao pinta o `ALL_TRADES` — NOVE trades de BTCUSD de Junho,
+  //   escritos a mao para a demonstracao — e ela e' chamada em cinco sitios sempre que
+  //   `apiConnected` for falso. Um cliente com a rede fraca clicava «1S» no Historico e via
+  //   nove operacoes que nao existem, com os cartoes TOTAL/WIN RATE/P&L/PF calculados sobre
+  //   elas. ⇒ No painel, mostra-se o que ha (ou nada), nunca a demonstracao.
+  if (typeof PANEL_MODE !== 'undefined' && PANEL_MODE) { renderHistLive(window._liveHistory || []); return; }
   const allowed = filteredBots('hist');   // segmento E estratégia combinados (AND)
   const filterByBots = !(segState.hist === 'all' && stratState.hist === 'all');  // 'all'+'all' = mostra tudo (inclui aposentados)
   let data = ALL_TRADES.filter(t => {
@@ -6087,9 +6115,24 @@ const FLEET_META = {
 };
 function renderAboutBox() {
   const meta = FLEET_META[ACTIVE_FLEET] || FLEET_META.pro;
-  const bots = fleetBots();
+  // ⛔⛔ [05-Set, revisao] ESTA CAIXA MOSTRAVA A FROTA INTERNA AO CLIENTE.
+  //   O `fleetBots()` devolve o `SEGMENTS.all` — a frota do dono — e as etiquetas saiam
+  //   pelo `BOT_LABEL`: o cliente abria "▸ ABRIR" e lia «FROTA PRO — 21 bots» seguido de
+  //   `XAU 1h TITAN #14`, `TSLA 15m #09`, `Cobre 2h #04`… nomes internos de robos que nao
+  //   sao dele e que ele nao comprou. Era o mesmo defeito que a fila "ROBO:" corrigiu em
+  //   24-Ago, vivo noutro sitio — e a edicao de hoje PIOROU-O, porque os codigos do cliente
+  //   tambem passaram a entrar no `SEGMENTS.all`.
+  // ⇒ No painel, esta caixa fala dos robos DELE, que e a unica frota que lhe diz respeito.
+  const _painel = (typeof PANEL_MODE !== 'undefined' && PANEL_MODE);
+  const bots = _painel ? (window._panelCodigos || []) : fleetBots();
+  const lblF = document.getElementById('ov-about-fleet-label');
+  const lblC = document.getElementById('ov-about-chips-label');
+  if (_painel && lblF) lblF.textContent = 'ROBÔS NESTA CONTA';
+  if (_painel && lblC) lblC.textContent = 'OS SEUS ROBÔS:';
   const nameEl = document.getElementById('ov-about-fleet-name');
-  if (nameEl) nameEl.textContent = 'FROTA ' + meta.name + ' — ' + bots.length + ' bots';
+  if (nameEl) nameEl.textContent = _painel
+    ? (bots.length ? bots.length + (bots.length === 1 ? ' robô' : ' robôs') : '—')
+    : ('FROTA ' + meta.name + ' — ' + bots.length + ' bots');
   const acctEl = document.getElementById('ov-about-account');
   if (acctEl) {
     // Ao vivo usa a conta reportada pela API; sem ligação cai no rótulo da frota.
@@ -6098,7 +6141,15 @@ function renderAboutBox() {
     acctEl.textContent = login + server;
   }
   const chipsEl = document.getElementById('ov-about-fleet-chips');
-  if (chipsEl) chipsEl.innerHTML = bots.map(b => '<span class="fleet-chip">' + botLabel(b) + '</span>').join('');
+  if (chipsEl) {
+    if (_painel && !bots.length) {
+      // sem robo nenhum ainda: dizer isso, em vez de uma fila vazia que parece avaria
+      chipsEl.innerHTML = '<span style="color:var(--amber-dim);">Ainda sem operações registadas. '
+        + 'Assim que um robô operar nesta conta, ele aparece aqui.</span>';
+    } else {
+      chipsEl.innerHTML = bots.map(b => '<span class="fleet-chip">' + botLabel(b) + '</span>').join('');
+    }
+  }
 }
 
 function updateFleetToggleUI() {
@@ -6200,6 +6251,11 @@ function setConnStatus(state, detail = '') {
   } else if (state === 'connecting') {
     dot.style.color = '#ffcc00'; label.style.color = '#ffcc00';
     label.textContent = '◌ LIGANDO...'; desc.textContent = _connFleetTag() + API_URL;
+  } else if (state === 'degraded') {
+    // [05-Set, revisao] ligado, mas ha' uma parte que nao esta a chegar. Nem verde nem
+    // vermelho: o cliente tem de saber que o que ve' nao e' de agora.
+    dot.style.color = '#ffcc00'; label.style.color = '#ffcc00';
+    label.textContent = '⚠ DADOS ANTIGOS'; desc.textContent = detail || 'nem tudo está a atualizar';
   } else if (state === 'error') {
     dot.style.color = 'var(--red)'; label.style.color = 'var(--red)';
     label.textContent = '✗ ERRO'; desc.textContent = detail || 'Sem ligação';
@@ -6221,7 +6277,16 @@ async function pollApi() {
     await Promise.all([pollAccount(), pollPositions(), pollBotStatus(), pollHistory(),
       (window.pollSpreads ? window.pollSpreads() : Promise.resolve()),
       (window.refreshFleetCb ? window.refreshFleetCb() : Promise.resolve())]);
-    if (!window._fleetMismatch) setConnStatus('live');
+    if (!window._fleetMismatch) {
+      // [05-Set, revisao] o `pollHistory` engolia a propria falha; agora marca-a, e o
+      // cabecalho para de dizer LIGADO quando o historico ficou para tras.
+      if (window._histFalhou) {
+        const _q = window._histOkMs
+          ? 'histórico não atualiza desde ' + new Date(window._histOkMs).toLocaleTimeString('pt-PT')
+          : 'o histórico ainda não chegou';
+        setConnStatus('degraded', _q);
+      } else setConnStatus('live');
+    }
     if (window.renderMonitorPanels) try { window.renderMonitorPanels(); } catch(e) {}
   } catch(e) {
     apiConnected = false;
@@ -6309,14 +6374,21 @@ async function pollAccount() {
   // [24-Ago] O marco zero do cliente: o dia em que o robo entrou nesta conta.
   window._panelRobotSinceMs = _marcoParaMs(d.robot_since);
   pintarMarcoZero();
+  // ⛔⛔ [05-Set, revisao] CONTA NOVA REBENTAVA AQUI, E FICAVA EM ERRO PARA SEMPRE.
+  //   O `/account` devolve `{}` no 404 — de proposito, e' o "ainda sem dados desta conta".
+  //   O `d.balance.toFixed(2)` tres linhas abaixo atirava `TypeError`, o erro subia pelo
+  //   `Promise.all` do `pollApi`, e a tela ficava a piscar «✗ Ligação perdida — a
+  //   reconectar…» de 8 em 8 segundos, para sempre, a um cliente cujo unico problema era
+  //   ainda nao ter operado. ⇒ sem saldo, escreve-se um travessao e segue-se.
+  const _semSaldo = (typeof d.balance !== 'number' || !isFinite(d.balance));
   // Saldo total
-  window._balance = d.balance;
+  if (!_semSaldo) window._balance = d.balance;
   // Depósitos/saques: base para a % de retorno NÃO ser distorcida por aportes.
   window._netDeposits = (typeof d.net_deposits === 'number') ? d.net_deposits : undefined;
   window._deposits    = Array.isArray(d.deposits) ? d.deposits : [];
   renderCashflow();
   const balEl = document.getElementById('ov-balance');
-  if (balEl) balEl.textContent = '\$' + d.balance.toFixed(2);
+  if (balEl) balEl.textContent = _semSaldo ? '—' : ('\$' + d.balance.toFixed(2));
   // Cabeçalho: conta e servidor AO VIVO (evita rótulo hardcoded defasado pós-migração de conta)
   const accEl = document.getElementById('hdr-account');
   if (accEl && d.login) accEl.textContent = 'CONTA: ' + d.login;
@@ -6360,6 +6432,7 @@ async function toggleRiskMode() {
 async function pollPositions() {
   const positions = await apiFetch('/positions');
   window._lastPositions = positions;
+  window._posOkMs = Date.now();   // [05-Set] a hora que o `UPD:` mostra — a da resposta, nao a do relogio
   painelBotoesPorBot();   // posicoes: um cliente novo pode ter aberto sem ter fechado
   renderPositionsLive(positions);
   updateRiskExposure(positions);
@@ -6422,10 +6495,31 @@ function updateRiskExposure(positions) {
   const balance = window._balance
     || parseFloat((document.getElementById('ov-balance')?.textContent || '').replace(/[^0-9.]/g,''))
     || 0;
+  // ⛔⛔ [05-Set, revisao] ISTO DIZIA `0%`, A VERDE, COM POSICOES ABERTAS.
+  //   O `botRisk[p.strategy] || 0` cai em ZERO para todo o robo que nao esteja na lista
+  //   escrita a mao — e essa lista so conhece a frota do dono. No painel do cliente NENHUM
+  //   codigo la esta (`earush`, `eyexau`, `scopebtc`…), logo a soma dava sempre zero, e o
+  //   zero pintava-se de VERDE ("abaixo do alvo"). Um zero que parece resposta e nao e.
+  // ⇒ Nao sabendo, diz-se que nao se sabe. So se soma quando TODAS as posicoes tem risco
+  //   conhecido; basta uma desconhecida para o total deixar de ser um total.
+  const _pos = positions || [];
+  const n = _pos.length;
+  const _semRisco = _pos.filter(p => typeof botRisk[p.strategy] !== 'number');
+  if (!n) {
+    pctEl.textContent = '0%';
+    usdEl.textContent = '≈ \$0.00 · 0 posições';
+    pctEl.className = 'stat-value neu';
+    return;
+  }
+  if (_semRisco.length) {
+    pctEl.textContent = '—';
+    usdEl.textContent = 'não medido · ' + n + ' posiç' + (n===1?'ão aberta':'ões abertas');
+    pctEl.className = 'stat-value neu';
+    return;
+  }
   let totalPct = 0;
-  (positions || []).forEach(p => { totalPct += (botRisk[p.strategy] || 0); });
+  _pos.forEach(p => { totalPct += botRisk[p.strategy]; });
   const totalUsd = balance * totalPct / 100;
-  const n = (positions || []).length;
   pctEl.textContent = totalPct ? totalPct.toFixed(1).replace(/\.0$/,'') + '%' : '0%';
   usdEl.textContent = '≈ \$' + totalUsd.toFixed(2) + ' · ' + n + ' posiç' + (n===1?'ão':'ões');
   // Cor: verde até 7% (exposição alvo), âmbar 7–10%, vermelho acima
@@ -6668,7 +6762,18 @@ async function pollHistory() {
     renderHistLive(cut);
     updateOverviewFromHistory(cut);
     renderCashflow();   // a reconciliacao do CAIXA depende do historico — repintar quando ele chega
-  } catch(e) { /* mantém demo se falhar */ }
+    window._histFalhou = false; window._histOkMs = Date.now();
+  } catch(e) {
+    // ⛔⛔ [05-Set, revisao] AQUI ESTAVA `catch(e) { /* mantém demo se falhar */ }`.
+    //   O erro NUNCA saia desta funcao ⇒ o `pollApi` nao o via e voltava a pintar
+    //   «● LIGADO» a verde, com os numeros da hora passada na tela e o relogio a andar ao
+    //   segundo por cima deles. **E' o defeito que o comentario de 31-Jul, tres ecras acima,
+    //   diz ter custado caro** — foi fechado para o caso do 422 e ficou aberto para todos os
+    //   outros. ⇒ nao se rebenta a sessao (os numeros que ja' la estao continuam validos),
+    //   mas o cabecalho passa a dizer que estao VELHOS.
+    window._histFalhou = true;
+    console.warn('[painel] /history falhou:', (e && e.message) || e);
+  }
 }
 
 // ─── [24-Ago] A JANELA DO HISTORICO, APLICADA NA TELA ────────────
