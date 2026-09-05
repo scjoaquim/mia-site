@@ -60,8 +60,8 @@
   <section class="section" style="padding-top:6px">
     <div class="section-tag lang-pt">// Os dez robôs</div>
     <div class="section-tag lang-en">// The ten robots</div>
-    <p class="lang-pt">Cada robô é uma estratégia própria, com a sua entrada, o seu stop e a sua saída. Não é o mesmo robô repetido em vários mercados.</p>
-    <p class="lang-en">Each robot is its own strategy, with its own entry, stop and exit. It is not one robot repeated across markets.</p>
+    <p class="lang-pt">Cada robô é uma estratégia própria — não é o mesmo robô repetido em vários mercados.</p>
+    <p class="lang-en">Each robot is its own strategy — not one robot repeated across markets.</p>
     <table class="cmp" style="margin-top:12px">
       <tr>
         <th class="lang-pt">Mercado</th><th class="lang-en">Market</th>
@@ -153,8 +153,8 @@
       <span class="lang-en">Both profiles live in the same program and the same licence. Switching costs nothing and needs no reinstall.</span>
     </p>
     <div class="warnbox" style="margin-top:14px">
-      <p class="lang-pt" style="margin:0"><b>⚠ O risco por operação é um alvo, não uma garantia.</b> A corretora tem um <strong>lote mínimo</strong>: quanto menor a conta, mais operações caem nesse piso, e aí o risco real fica <em>acima</em> do alvo — o robô não tem como evitar. É por isso que existe um saldo sugerido, e não só um mínimo técnico. <strong>Na ativação, o robô calcula e mostra o risco efetivo <em>da sua conta</em></strong>, com o saldo que encontrou e a volatilidade do momento — não o valor nominal. O número está na tela antes de a primeira ordem existir.</p>
-      <p class="lang-en" style="margin:0"><b>⚠ Risk per trade is a target, not a guarantee.</b> The broker has a <strong>minimum lot</strong>: the smaller the account, the more trades land on that floor, and real risk then sits <em>above</em> target — the robot cannot avoid it. That is why there is a suggested balance and not just a technical minimum. <strong>On activation the robot computes and displays the effective risk of <em>your</em> account</strong>, using the balance it finds and current volatility — not the nominal figure. The number is on screen before the first order exists.</p>
+      <p class="lang-pt" style="margin:0"><b>⚠ O risco por operação é um alvo.</b> Em conta pequena, o lote mínimo da corretora empurra o risco real para cima — é por isso que existe um saldo sugerido. <strong>Na ativação, o robô mostra o risco efetivo da sua conta</strong>, antes da primeira ordem.</p>
+      <p class="lang-en" style="margin:0"><b>⚠ Risk per trade is a target.</b> On a small account the broker's minimum lot pushes real risk up — that is why there is a suggested balance. <strong>On activation the robot shows your account's effective risk</strong>, before the first order.</p>
     </div>
   </section>
 
@@ -162,12 +162,10 @@
     <div class="section-tag lang-pt">// Por que não se escolhe robô a robô</div>
     <div class="section-tag lang-en">// Why you don't pick robot by robot</div>
     <div class="infobox" style="padding:18px 20px">
-      <p class="lang-pt" style="margin:0 0 10px">Porque a gestão de risco foi medida com <strong>os robôs rodando juntos</strong>, não um a um. Medida em conjunto, a carteira cai <strong>menos</strong> do que a soma das quedas isoladas — eles não caem todos ao mesmo tempo, e é daí que vem a maior parte do ganho de segurança.</p>
-      <p class="lang-en" style="margin:0 0 10px">Because risk was measured with <strong>the robots running together</strong>, not one by one. Taken as one portfolio, the drawdown is <strong>smaller</strong> than the sum of the separate ones — they do not all fall at the same time, and that is where most of the safety comes from.</p>
-      <p class="lang-pt" style="margin:0 0 10px">Com dez caixinhas para marcar, dá para montar mais de mil carteiras — e <strong>nenhuma delas foi medida</strong>. Não é teoria: as carteiras ruins existem. Tirar o ouro derruba a maior parte do retorno; ficar só com o ouro aumenta a queda. Por isso não há caixinhas: há <strong>dois perfis</strong>, e cada um existe porque foi medido inteiro, com os números dele.</p>
-      <p class="lang-en" style="margin:0 0 10px">With ten checkboxes you can build over a thousand portfolios — and <strong>none of them was measured</strong>. This is not theory: the bad ones exist. Drop gold and most of the return goes with it; keep only gold and the drawdown grows. So there are no checkboxes: there are <strong>two profiles</strong>, and each exists because it was measured as a whole, with its own numbers.</p>
-      <p class="lang-pt" style="margin:0;font-size:13px;color:var(--amber-dim)">A regra é essa, e vale para o que vier depois: um perfil só existe depois de medido.</p>
-      <p class="lang-en" style="margin:0;font-size:13px;color:var(--amber-dim)">That is the rule, and it holds for whatever comes next: a profile exists only after it has been measured.</p>
+      <p class="lang-pt" style="margin:0 0 10px">Porque o risco foi medido com <strong>os robôs rodando juntos</strong>. Eles não caem todos ao mesmo tempo — e é daí que vem a segurança da carteira, não de cada robô isolado.</p>
+      <p class="lang-en" style="margin:0 0 10px">Because risk was measured with <strong>the robots running together</strong>. They do not all fall at the same time — that is where the portfolio's safety comes from, not from any single robot.</p>
+      <p class="lang-pt" style="margin:0">Com dez caixinhas dá para montar mais de mil carteiras, e <strong>nenhuma foi medida</strong>. Por isso há dois perfis, e não caixinhas: <strong>um perfil só existe depois de medido inteiro</strong>.</p>
+      <p class="lang-en" style="margin:0">Ten checkboxes make over a thousand portfolios, and <strong>none was measured</strong>. Hence two profiles and no checkboxes: <strong>a profile exists only once it has been measured as a whole</strong>.</p>
     </div>
   </section>
 
@@ -232,10 +230,8 @@
     <div class="section-tag lang-pt">// O que vem depois</div>
     <div class="section-tag lang-en">// What comes next</div>
     <div class="infobox" style="padding:18px 20px">
-      <p class="lang-pt" style="margin:0 0 10px">A frota de pesquisa da MIA continua a testar estratégias em outros mercados. Cada uma entra no produto — ou não entra — depois de passar sozinha na mesma régua: sinal reproduzido contra o backtest, queda medida, e a carteira inteira remedida com ela dentro.</p>
-      <p class="lang-en" style="margin:0 0 10px">MIA's research fleet keeps testing strategies on other markets. Each one joins the product — or does not — after clearing the same bar on its own: signals reproduced against the backtest, drawdown measured, and the whole portfolio remeasured with it in.</p>
-      <p class="lang-pt" style="margin:0;font-size:13px;color:var(--amber-dim)">Nada de prometer hoje e entregar aos poucos. Cada um com o número na mesa. <a href="metodologia.html" data-nav>Ver a régua →</a></p>
-      <p class="lang-en" style="margin:0;font-size:13px;color:var(--amber-dim)">No promising today and delivering piecemeal. Each with its numbers on the table. <a href="metodologia.html" data-nav>See the bar →</a></p>
+      <p class="lang-pt" style="margin:0">A pesquisa continua em outros mercados. Uma estratégia nova só entra no produto depois de passar na mesma régua — e com a carteira inteira remedida com ela dentro. <a href="metodologia.html" data-nav>Ver a régua →</a></p>
+      <p class="lang-en" style="margin:0">Research continues on other markets. A new strategy only joins the product after clearing the same bar — with the whole portfolio remeasured with it in. <a href="metodologia.html" data-nav>See the bar →</a></p>
     </div>
   </section>
 
