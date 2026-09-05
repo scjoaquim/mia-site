@@ -143,20 +143,19 @@
         <td><strong>1,0%</strong></td>
       </tr>
       <tr>
-        <td class="lang-pt">Saldo mínimo</td><td class="lang-en">Minimum balance</td>
-        <td><strong data-deposit="balance.min">US$ 2.000</strong></td>
-        <td><strong data-deposit="compact.min">US$ 500</strong></td>
-      </tr>
-      <tr>
-        <td class="lang-pt">Saldo indicado</td><td class="lang-en">Recommended balance</td>
-        <td><strong data-deposit="balance.rec">US$ 4.000</strong></td>
-        <td><strong data-deposit="compact.rec">US$ 1.000</strong></td>
+        <td class="lang-pt">Saldo mínimo sugerido</td><td class="lang-en">Suggested minimum balance</td>
+        <td><strong data-deposit="balance.sug">US$ 4.000</strong></td>
+        <td><strong data-deposit="compact.sug">US$ 2.000</strong></td>
       </tr>
     </table>
     <p style="margin:12px 0 0;font-size:13px;color:var(--amber-dim)">
       <span class="lang-pt">Os dois perfis vivem no mesmo programa e na mesma licença. Trocar de perfil não custa nada e não pede instalação nova.</span>
       <span class="lang-en">Both profiles live in the same program and the same licence. Switching costs nothing and needs no reinstall.</span>
     </p>
+    <div class="warnbox" style="margin-top:14px">
+      <p class="lang-pt" style="margin:0"><b>⚠ O risco por operação é um alvo, não uma garantia.</b> A corretora tem um <strong>lote mínimo</strong>: quanto menor a conta, mais operações caem nesse piso, e aí o risco real fica <em>acima</em> do alvo — o robô não tem como evitar. É por isso que existe um saldo sugerido, e não só um mínimo técnico. <strong>Na ativação, o robô calcula e mostra o risco efetivo <em>da sua conta</em></strong>, com o saldo que encontrou e a volatilidade do momento — não o valor nominal. O número está na tela antes de a primeira ordem existir.</p>
+      <p class="lang-en" style="margin:0"><b>⚠ Risk per trade is a target, not a guarantee.</b> The broker has a <strong>minimum lot</strong>: the smaller the account, the more trades land on that floor, and real risk then sits <em>above</em> target — the robot cannot avoid it. That is why there is a suggested balance and not just a technical minimum. <strong>On activation the robot computes and displays the effective risk of <em>your</em> account</strong>, using the balance it finds and current volatility — not the nominal figure. The number is on screen before the first order exists.</p>
+    </div>
   </section>
 
   <section class="section">
@@ -217,8 +216,8 @@
       </tr>
       <tr>
         <td class="lang-pt">Saldo</td><td class="lang-en">Balance</td>
-        <td class="lang-pt">BALANCE: mínimo <strong data-deposit="balance.min">US$ 2.000</strong>, indicado <strong data-deposit="balance.rec">US$ 4.000</strong>. COMPACT: mínimo <strong data-deposit="compact.min">US$ 500</strong>, indicado <strong data-deposit="compact.rec">US$ 1.000</strong>. Abaixo do mínimo o robô não opera — ver a secção seguinte antes de decidir.</td>
-        <td class="lang-en">BALANCE: minimum <strong data-deposit="balance.min">US$ 2,000</strong>, recommended <strong data-deposit="balance.rec">US$ 4,000</strong>. COMPACT: minimum <strong data-deposit="compact.min">US$ 500</strong>, recommended <strong data-deposit="compact.rec">US$ 1,000</strong>. Below the minimum the robot does not trade — read the next section before deciding.</td>
+        <td class="lang-pt">Saldo mínimo sugerido: <strong data-deposit="balance.sug">US$ 4.000</strong> no BALANCE, <strong data-deposit="compact.sug">US$ 2.000</strong> no COMPACT.</td>
+        <td class="lang-en">Suggested minimum balance: <strong data-deposit="balance.sug">US$ 4,000</strong> on BALANCE, <strong data-deposit="compact.sug">US$ 2,000</strong> on COMPACT.</td>
       </tr>
       <tr>
         <td class="lang-pt">Configuração</td><td class="lang-en">Configuration</td>
@@ -228,22 +227,6 @@
     </table>
   </section>
 
-  <section class="section">
-    <div class="section-tag lang-pt">// O número que quase ninguém mostra</div>
-    <div class="section-tag lang-en">// The number almost nobody shows</div>
-    <p class="lang-pt">O risco por operação de cada perfil é um <strong>alvo</strong>. Numa conta pequena esse alvo não se cumpre: a corretora tem um <strong>lote mínimo</strong>, e quando a conta é pequena demais a operação cai nesse piso — o risco real fica <em>acima</em> do alvo, e o robô não tem como evitar. Dois números medidos, dos que costumam ficar de fora:</p>
-    <p class="lang-en">Each profile's risk per trade is a <strong>target</strong>. On a small account the target is not met: the broker has a <strong>minimum lot</strong>, and when the account is too small the trade lands on that floor — real risk sits <em>above</em> target, and the robot cannot avoid it. Two measured numbers, of the kind usually left out:</p>
-    <div class="warnbox" style="margin-top:14px">
-      <p class="lang-pt" style="margin:0 0 10px"><b>⚠ BALANCE.</b> Para o alvo de 0,5% valer em nove de cada dez operações, seria preciso um saldo de cerca de <strong>US$ 8.000</strong> — o dobro do indicado. Entre o mínimo e esse valor, o robô opera, mas o risco real de algumas operações fica acima de 0,5%, e quem manda nesse número é o robô do <strong>ouro</strong>, que é o de lote mais grosso.</p>
-      <p class="lang-pt" style="margin:0"><b>⚠ COMPACT.</b> Numa conta de <strong data-deposit="compact.min">US$ 500</strong>, o <strong>BTC SCOPE</strong> foi medido a <strong>1,40%</strong> por operação, e não a 1,0%. E a cauda é pior que a mediana: uma operação isolada pode chegar a <strong>12% da conta</strong>. Dobrar o saldo para <strong data-deposit="compact.rec">US$ 1.000</strong> corta essa cauda por cinco. É por isso que o indicado é o dobro do mínimo, nos dois perfis.</p>
-      <p class="lang-en" style="margin:0 0 10px"><b>⚠ BALANCE.</b> For the 0.5% target to hold in nine out of ten trades, the balance would need to be around <strong>US$ 8,000</strong> — twice the recommended figure. Between the minimum and that, the robot trades, but real risk on some trades sits above 0.5%, and the one driving that number is the <strong>gold</strong> robot, the one with the coarsest lot.</p>
-      <p class="lang-en" style="margin:0"><b>⚠ COMPACT.</b> On a <strong data-deposit="compact.min">US$ 500</strong> account, <strong>BTC SCOPE</strong> was measured at <strong>1.40%</strong> per trade, not 1.0%. And the tail is worse than the median: a single trade can reach <strong>12% of the account</strong>. Doubling to <strong data-deposit="compact.rec">US$ 1,000</strong> cuts that tail fivefold. That is why the recommended figure is twice the minimum, on both profiles.</p>
-    </div>
-    <p style="margin:12px 0 0;font-size:13px;color:var(--amber-dim)">
-      <span class="lang-pt">Na ativação, o robô calcula e mostra o risco efetivo <em>da sua conta</em>, com o saldo que encontrou e a volatilidade do momento — não o valor nominal. O número está na tela antes de a primeira ordem existir.</span>
-      <span class="lang-en">On activation the robot computes and displays the effective risk of <em>your</em> account, using the balance it finds and current volatility — not the nominal figure. The number is on screen before the first order exists.</span>
-    </p>
-  </section>
 
   <section class="section">
     <div class="section-tag lang-pt">// O que vem depois</div>
