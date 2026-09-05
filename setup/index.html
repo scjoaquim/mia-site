@@ -428,6 +428,12 @@
                 existia. ⇒ o texto agora diz o ativo, e ensina a abrir o grafico.
 
              2) ⛔ SEM O XCUUSD DISPONIVEL, O ROBO NAO OPERA NADA — nem o ouro.
+                [05-Set] MEDIDO no MIA_Balance_2.0: o SymbolSelect e' SO' do cobre
+                (`:510`) e o MiaBars_Aquecer so' aquece XAUUSD e XCUUSD (`:632-636`).
+                ⇒ BTCUSD, ETHUSD, US500 e USTEC **nao entram sozinhos** na Observacao
+                do Mercado. Por isso o passo manda fazer «Mostrar tudo» ANTES, em vez
+                de o deixar como saida de emergencia. E' o remendo do lado do cliente;
+                o conserto do lado do EA e' uma linha por simbolo, e e' decisao dele.
                 Esta escrito no proprio codigo: a gestao de risco foi medida com
                 as estrategias a correr juntas. Se o cobre nao estiver na conta,
                 o robo trava tudo — e a mensagem fala do cobre, nao do grafico,
@@ -443,8 +449,10 @@
           <p class="lang-en" style="margin:0"><b>⚠ It must be the XAUUSD (gold) chart.</b> Not just any chart. On another symbol the robot simply does not trade — and sits there for hours with no sign on screen.</p>
         </div>
 
-        <p class="lang-pt"><strong>Como abrir o gráfico certo:</strong> na janela <strong>Observação do Mercado</strong>, à esquerda, procure <code>XAUUSD</code>. Clique nele com o <strong>botão direito</strong> e escolha <strong>Janela do Gráfico</strong>. Se o XAUUSD não estiver na lista, clique com o botão direito na janela e escolha <strong>Mostrar tudo</strong>.</p>
-        <p class="lang-en"><strong>How to open the right chart:</strong> in the <strong>Market Watch</strong> window on the left, find <code>XAUUSD</code>. Right-click it and choose <strong>Chart Window</strong>. If XAUUSD is not listed, right-click the window and choose <strong>Show All</strong>.</p>
+        <p class="lang-pt"><strong>Antes de mais nada, na janela <strong>Observação do Mercado</strong> (à esquerda): clique com o <strong>botão direito</strong> dentro dela e escolha <strong>Mostrar tudo</strong>.</strong> Isso põe todos os mercados na lista — o robô precisa de ver os do seu perfil para poder operá-los.</p>
+        <p class="lang-en"><strong>First, in the <strong>Market Watch</strong> window on the left: <strong>right-click</strong> inside it and choose <strong>Show All</strong>.</strong> That puts every market on the list — the robot needs to see the ones in your profile in order to trade them.</p>
+        <p class="lang-pt"><strong>Depois abra o gráfico certo:</strong> procure <code>XAUUSD</code> nessa lista, clique nele com o <strong>botão direito</strong> e escolha <strong>Janela do Gráfico</strong>.</p>
+        <p class="lang-en"><strong>Then open the right chart:</strong> find <code>XAUUSD</code> in that list, right-click it and choose <strong>Chart Window</strong>.</p>
 
         <!-- ⛔ SAIU DAQUI, em 23-Ago, uma caixa a mandar o cliente conferir se o
              XCUUSD aparecia na Observacao do Mercado. Estava ERRADA e era minha:
@@ -456,6 +464,9 @@
 
         <p class="lang-pt">Com o gráfico do XAUUSD aberto, arraste o robô do <strong>Navegador</strong> para cima dele. Abre uma janela de propriedades: cole ali a <strong>chave de licença</strong> — o primeiro dos dois códigos do seu e-mail, aquele com o formato <code>XXXX-XXXX-XXXX-XXXX</code>.</p>
         <p class="lang-en">With the XAUUSD chart open, drag the robot from the <strong>Navigator</strong> onto it. A properties window opens: paste the <strong>licence key</strong> there — the first of the two codes in your email, the one shaped like <code>XXXX-XXXX-XXXX-XXXX</code>.</p>
+
+        <p class="lang-pt">Na mesma janela, logo abaixo, está o <strong>Perfil do produto</strong>: <strong>MIA BALANCE</strong> (os dez robôs) ou <strong>MIA COMPACT</strong> (quatro). Ele vem em BALANCE. É a única escolha que você faz — o resto dos parâmetros vem do servidor.</p>
+        <p class="lang-en">In the same window, just below, is the <strong>product profile</strong>: <strong>MIA BALANCE</strong> (all ten robots) or <strong>MIA COMPACT</strong> (four). It comes set to BALANCE. It is the only choice you make — every other parameter comes from the server.</p>
 
         <!-- ⚠ Isto estava no desenho de 20-Ago e parece pequeno ate acontecer:
              sob Wine e em alguns teclados o atalho de colar nao funciona nessa
