@@ -302,6 +302,31 @@
   }
   document.addEventListener('mouseover', handler, true);
   document.addEventListener('focusin', handler, true);
+
+  // ⛔⛔ [06-Set] O `place` só corria no HOVER ou no FOCO. Num TELEMÓVEL não há hover:
+  //   até ao primeiro toque, cada caixa fica onde nasceu — `left: 0` do seu `.tip` —
+  //   com 220 px de largura. Uma caixa que comece a 286 px chega aos 506, e como ela
+  //   está no fluxo (é `visibility: hidden`, NÃO `display: none`), **empurra a largura
+  //   da página**. Resultado: o site inteiro rolava na horizontal no telemóvel.
+  //   ⭐ Medido, com controlo: esconder as `.tip-box` levava o `scrollWidth` de
+  //   409/443/445/449/506 para 390 exactos em TODAS as páginas — e as duas páginas que
+  //   já estavam certas eram justamente as que não têm caixa nenhuma dentro da tela
+  //   (o `glossario`, onde o script não corre, e o `contato`, onde elas cabem).
+  //   ⇒ posiciona-se TODA a gente no arranque e a cada redimensionamento. A caixa passa
+  //   a nascer já dentro da tela, e o primeiro toque deixa de a ver saltar.
+  function colocarTodas() {
+    document.querySelectorAll('.tip').forEach(place);
+  }
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', colocarTodas);
+  else
+    colocarTodas();
+  // o glossário injecta as caixas depois de correr: dá-se-lhe uma segunda passagem
+  setTimeout(colocarTodas, 0);
+  var _tmr = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(_tmr); _tmr = setTimeout(colocarTodas, 120);
+  });
 })();
 
 // ─── "Operações ao vivo": dock fixo (site-wide) + quadro em Resultados ───────
