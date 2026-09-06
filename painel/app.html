@@ -4630,7 +4630,11 @@ function setOvPeriod(p, el) {
     // ⇒ No painel, sem dados escreve-se um travessao. Um «—» honesto vale mais que um
     //   numero bonito que nao e' de ninguem.
     const _lab = { '1d':'ÚLTIMO DIA','1w':'ÚLTIMA SEMANA','1m':'ÚLTIMO MÊS','6m':'6 MESES','1y':'1 ANO','all':'TOTAL' };
-    const _sub = { '1d':'últimas 24h','1w':'últimos 7 dias','1m':'últimos 30 dias','6m':'últimos 6 meses','1y':'último ano','all':'desde a instalação dos robôs' };
+    // ⛔ [06-Set] A chave 'all' dizia «desde a instalação dos robôs» e isso NUNCA foi verdade:
+    //   o /history do servidor tem tecto `le=365` (painel_rotas.py:231), logo o TOTAL é, no
+    //   melhor dos casos, «os últimos 365 dias». Decisão dele: o rótulo TOTAL basta — uma
+    //   palavra só, e não promete data nenhuma. A chave saiu; o `|| ''` já trata a ausência.
+    const _sub = { '1d':'últimas 24h','1w':'últimos 7 dias','1m':'últimos 30 dias','6m':'últimos 6 meses','1y':'último ano' };
     const _por = (id, txt, cls) => { const e = document.getElementById(id); if (!e) return;
                                      e.textContent = txt; if (cls !== undefined) e.className = cls; };
     _por('ov-pnl', '—', 'stat-value');
@@ -4784,8 +4788,9 @@ function updateOverviewFromHistory(history) {
   // [31-Jul, 2ª volta] o TOTAL diz de que universo fala. Sem isto, o utilizador via o PF
   // e o WR piorarem e nao teria como saber porque — e o rotulo honesto e' a diferenca
   // entre "o painel mudou" e "o painel mentiu".
-  const periodSubs   = { '1d':'ultimas 24h','1w':'ultimos 7 dias','1m':'ultimos 30 dias','6m':'ultimos 6 meses','1y':'ultimo ano',
-                         'all':'desde a instalação dos robôs' };
+  // ⛔ [06-Set] 'all' saiu pela mesma razao do _sub: o TOTAL nao vai «desde a instalacao»,
+  //   vai ate ao tecto de 365 dias do servidor. O rotulo TOTAL diz o que ha a dizer.
+  const periodSubs   = { '1d':'ultimas 24h','1w':'ultimos 7 dias','1m':'ultimos 30 dias','6m':'ultimos 6 meses','1y':'ultimo ano' };
 
   const closed = ovScopedTrades();
   const wins  = closed.filter(t => t.win).length;
@@ -4974,7 +4979,7 @@ function pfColor(pf){ return pf>=1.3 ? 'var(--green)' : pf>=1 ? 'var(--cyan)' : 
 function ovScopedTrades() {
   // [05-Set] A troca de universo no TOTAL e do DASHBOARD DA FROTA (decisao de 31-Jul:
   // o TOTAL tem de bater com o LUCRO DE TRADING da conta inteira). No PAINEL do cliente
-  // ela so podia mentir — o rotulo diz "desde a instalacao dos robos" e as outras janelas
+  // ela so podia mentir — o rotulo dizia "desde a instalacao dos robos" (saiu em 06-Set) e as outras janelas
   // liam outro conjunto. Com o `applyFleetBaseline` a nao filtrar no painel, os dois
   // conjuntos ja sao o mesmo; a condicao fica escrita para nao voltar por acidente.
   const _painel = (typeof PANEL_MODE !== 'undefined' && PANEL_MODE);
@@ -5963,7 +5968,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const _mttL = document.getElementById('mtt-lucro');
     if (_mttL) _mttL.textContent =
-      'O que os robos geraram: a soma de todos os trades fechados desde a instalacao. '
+      'O que os robos geraram: o total dos trades fechados que o painel recebeu. '
     + 'Nao muda quando voce deposita ou saca — e o resultado das operacoes, e nada mais. '
     + 'A percentagem e este lucro dividido pelo saldo atual da conta. '
     + 'A media por mes usa os meses desde o primeiro movimento registado na conta.';
@@ -6720,7 +6725,17 @@ async function pollHistory() {
     const daysMap   = { '1d':1, '1w':7, '30d':30, '6m':182, '1y':365, 'all':API_MAX_DAYS,
                         'custom': (customFrom ? diasAteHoje(customFrom) : 30) };
     const ovDaysMap = { '1d':1, '1w':7, '1m':30,  '6m':182, '1y':365, 'all':API_MAX_DAYS };
-    const days = Math.min(Math.max(daysMap[histPeriod] || 30, ovDaysMap[currentOvPeriod] || 7), API_MAX_DAYS);
+    // ⛔⛔ [06-Set] ERA `Math.min(Math.max(daysMap[...], ovDaysMap[...]), API_MAX_DAYS)`, e essa
+    //   era a causa do A6: a caixa LUCRO DE TRADING soma o `_liveHistoryAll`, que e' EXACTAMENTE
+    //   o que esta busca trouxe. No arranque trazia 30 dias; ao clicar TOTAL passava a 365 ⇒ a
+    //   MESMA caixa saltava de valor sem que nada tivesse mudado na conta. Agora pede-se sempre
+    //   o tecto: o numero e' o mesmo em qualquer janela, e as janelas continuam a cortar por
+    //   cima (ovScopedTrades corta por OV_DAYS, renderHistLive pelo periodo do Historico).
+    // ⚠ Custo: uma busca maior no arranque. Medido como aceitavel — o tecto sao 365 dias e as
+    //   contas de cliente tem dezenas de trades, nao milhares.
+    // ⏳ Fica por fazer (A7, sem pressa ate Ago-2027): o tecto e' do SERVIDOR (`le=365`). Quando
+    //   um robo passar de um ano, o TOTAL deixa de somar os trades mais velhos — e nao avisa.
+    const days = API_MAX_DAYS;
     const data = await apiFetch(`/history?days=${days}`);
 
     // Converter formato API → formato interno do dashboard
@@ -6951,7 +6966,8 @@ function closeApiCfg() { document.getElementById('apicfg-overlay').classList.rem
 // aconteceria em SILÊNCIO, que é o modo de falha que este projeto já pagou caro várias vezes.
 // Agora o silêncio significa "fecha"; qualquer coisa na tela significa "não fecha, olhe para mim".
 // ─── [24-Ago, Parte 3] O LUCRO QUE O ROBO FEZ ────────────────────
-// A soma limpa dos trades fechados que chegaram, desde a instalacao.
+// A soma limpa dos trades fechados que chegaram. [06-Set] Nao e' "desde a instalacao":
+// e' tudo o que a busca do /history trouxe, e essa busca tem tecto de 365 dias no servidor.
 // ⛔ Devolve null enquanto o historico nao chegou — para a caixa mostrar "—" em vez
 //    de um zero, que pareceria resposta e nao e.
 // ⚠ Limite conhecido e aceite: a API devolve no maximo 365 dias. Numa conta com o
@@ -7046,7 +7062,7 @@ function renderCashflow() {
   }
   // ── O PERCENTUAL, que veio da caixa do saldo ─────────────────────
   // ⭐ Decisao dele (opcao B, 24-Ago): a percentagem acompanha o numero da caixa onde
-  //    vive. Aqui o numero e "desde a instalacao", logo a percentagem tambem e — e nao
+  //    vive. Aqui o numero e o TOTAL dos trades recebidos, logo a percentagem tambem e — e nao
   //    muda com a janela. A percentagem DA JANELA vive na caixa do P&L PERIODO, ao
   //    lado do R, que e a caixa que fala da janela.
   const pctEl = document.getElementById('cash-pnl-pct');
