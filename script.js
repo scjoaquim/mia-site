@@ -178,40 +178,10 @@
     decodeEls.forEach(function (el) { io.observe(el); });
   }
 
-  // 3. LINHA DE STATUS — "SISTEMA ATIVO · atualizado há X" com horário real do
-  //    resultados.json. Fica escondida por padrão; só aparece se o fetch der certo.
-  function relTime(iso, en) {
-    var then = new Date(iso).getTime();
-    if (isNaN(then)) return null;
-    var min = Math.max(0, Math.round((Date.now() - then) / 60000));
-    if (min < 1) return en ? 'moments ago' : 'agora mesmo';
-    if (min < 60) return en ? min + ' min ago' : 'há ' + min + ' min';
-    var h = Math.round(min / 60);
-    if (h < 24) return en ? h + 'h ago' : 'há ' + h + ' h';
-    var d = Math.round(h / 24);
-    return en ? d + 'd ago' : 'há ' + d + ' d';
-  }
-  var statusEls = document.querySelectorAll('[data-live-status]');
-  if (statusEls.length) {
-    var fillStatus = function () {
-      fetch('resultados.json?t=' + Date.now(), { cache: 'no-store' })
-        .then(function (res) { if (!res.ok) throw 0; return res.json(); })
-        .then(function (data) {
-          if (!data.generated_at) throw 0;
-          statusEls.forEach(function (s) {
-            s.querySelectorAll('[data-live-ago]').forEach(function (b) {
-              var en = !!b.closest('.lang-en');
-              var txt = relTime(data.generated_at, en);
-              if (txt) b.textContent = txt;
-            });
-            s.classList.add('on');
-          });
-        })
-        .catch(function () { /* sem resultados.json → linha fica escondida, sem erro visível */ });
-    };
-    fillStatus();
-    setInterval(function () { if (!document.hidden) fillStatus(); }, 60000);
-  }
+  // [06-Set-2026] Saiu daqui o bloco da LINHA DE STATUS (34 linhas): procurava
+  // [data-live-status], que nao existe em pagina nenhuma desde a migracao de 22-Ago,
+  // e era o ultimo leitor do resultados.json. Nunca corria uma linha.
+  // Copia do ficheiro anterior em script.js.bak_pre_limpeza_20260906.
 })();
 
 // ─── Glossário automático: tooltip nos termos técnicos ───────────────────────
