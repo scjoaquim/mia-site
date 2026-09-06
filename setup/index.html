@@ -465,8 +465,29 @@
         <p class="lang-pt">Com o gráfico do XAUUSD aberto, arraste o robô do <strong>Navegador</strong> para cima dele. Abre uma janela de propriedades: cole ali a <strong>chave de licença</strong> — o primeiro dos dois códigos do seu e-mail, aquele com o formato <code>XXXX-XXXX-XXXX-XXXX</code>.</p>
         <p class="lang-en">With the XAUUSD chart open, drag the robot from the <strong>Navigator</strong> onto it. A properties window opens: paste the <strong>licence key</strong> there — the first of the two codes in your email, the one shaped like <code>XXXX-XXXX-XXXX-XXXX</code>.</p>
 
-        <p class="lang-pt">Na mesma janela, logo abaixo, está o <strong>Perfil do produto</strong>: <strong>MIA BALANCE</strong> (os dez robôs) ou <strong>MIA COMPACT</strong> (quatro). Ele vem em BALANCE. É a única escolha que você faz — o resto dos parâmetros vem do servidor.</p>
-        <p class="lang-en">In the same window, just below, is the <strong>product profile</strong>: <strong>MIA BALANCE</strong> (all ten robots) or <strong>MIA COMPACT</strong> (four). It comes set to BALANCE. It is the only choice you make — every other parameter comes from the server.</p>
+        <!--=========================================================
+             ⭐ A ESCOLHA DO PERFIL — caixa propria desde 06-Set-2026, a pedido
+             dele. Antes eram DUAS LINHAS perdidas entre o colar da chave e o
+             Algotrading, e a unica decisao que o cliente toma na vida do
+             produto passava despercebida.
+             ⚠ Os saldos vem da FONTE UNICA (`script.js`, `data-deposit`) — nao
+               escrever numeros novos aqui a mao.
+             ⚠ Os rotulos sao os do EA, na letra (`MIA_Balance_2.0.mq5:131-136`):
+               o input chama-se «Perfil do produto» e as opcoes «MIA BALANCE» e
+               «MIA COMPACT». Se o EA mudar o rotulo, esta caixa mente.
+             =========================================================-->
+        <div class="infobox" style="margin:12px 0">
+          <p class="lang-pt" style="margin:0 0 8px"><b>Na mesma janela, logo abaixo da chave, está o <strong>Perfil do produto</strong> — e é a única escolha que você faz.</b> Todo o resto dos parâmetros vem do servidor.</p>
+          <p class="lang-pt" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — os <strong>dez robôs</strong>, em seis mercados, com <strong>0,5%</strong> de risco por operação. Saldo sugerido: <strong data-deposit="balance.sug">US$ 4.000</strong>. É a carteira inteira, e o produto como ele foi desenhado.</p>
+          <p class="lang-pt" style="margin:0 0 8px"><strong>MIA COMPACT</strong> — <strong>quatro robôs</strong> (COBRE DIP, US500 EYE, USTEC EYE e BTC SCOPE), em quatro mercados, com <strong>1%</strong> por operação. Saldo sugerido: <strong data-deposit="compact.sug">US$ 2.000</strong>. É para quem quer começar com menos saldo e conhecer o programa antes de ligar tudo.</p>
+          <p class="lang-pt" style="margin:0 0 8px"><strong>Como escolher: pelo saldo da sua conta.</strong> Com o saldo sugerido do BALANCE ou mais, deixe como está — ele já vem em <strong>MIA BALANCE</strong>. Abaixo disso, escolha <strong>MIA COMPACT</strong> na lista.</p>
+          <p class="lang-pt" style="margin:0"><strong>Trocar depois não custa nada</strong> e não pede instalação nova: é a mesma janela de propriedades, no mesmo lugar. E o risco por operação é um <em>alvo</em> — em conta pequena o lote mínimo da corretora empurra o risco real para cima, e por isso o robô mostra no gráfico o risco efetivo da sua conta antes da primeira ordem.</p>
+          <p class="lang-en" style="margin:0 0 8px"><b>In the same window, just below the key, is the <strong>product profile</strong> — and it is the only choice you make.</b> Every other parameter comes from the server.</p>
+          <p class="lang-en" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — all <strong>ten robots</strong>, across six markets, at <strong>0.5%</strong> risk per trade. Suggested balance: <strong data-deposit="balance.sug">US$ 4,000</strong>. It is the whole portfolio, and the product as it was designed.</p>
+          <p class="lang-en" style="margin:0 0 8px"><strong>MIA COMPACT</strong> — <strong>four robots</strong> (COBRE DIP, US500 EYE, USTEC EYE and BTC SCOPE), across four markets, at <strong>1%</strong> per trade. Suggested balance: <strong data-deposit="compact.sug">US$ 2,000</strong>. It is for starting with a smaller balance and getting to know the program before turning everything on.</p>
+          <p class="lang-en" style="margin:0 0 8px"><strong>How to choose: by your account balance.</strong> At the BALANCE suggested figure or above, leave it as it is — it already comes set to <strong>MIA BALANCE</strong>. Below that, pick <strong>MIA COMPACT</strong> from the list.</p>
+          <p class="lang-en" style="margin:0"><strong>Switching later costs nothing</strong> and needs no reinstall: same properties window, same place. And risk per trade is a <em>target</em> — on a small account the broker's minimum lot pushes real risk up, which is why the robot prints your account's effective risk on the chart before the first order.</p>
+        </div>
 
         <!-- ⚠ Isto estava no desenho de 20-Ago e parece pequeno ate acontecer:
              sob Wine e em alguns teclados o atalho de colar nao funciona nessa
