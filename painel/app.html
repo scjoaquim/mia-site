@@ -6072,6 +6072,14 @@ window.addEventListener('DOMContentLoaded', () => {
     const _pgRisco = document.getElementById('page-monitor');
     if (_pgRisco) _pgRisco.style.display = 'none';
 
+    // ⛔⛔ [06-Set, M10] O `painelBotoesPorBot` só corre quando CHEGA histórico ou
+    //   posições. Numa conta ainda sem operações — ou com o servidor em baixo — ele
+    //   nunca corria, e as filas da frota DELE (CRYPTO · INDEX · US STOCKS · METAIS)
+    //   e os botões 5M/15M/1H/2H/4H ficavam à vista do cliente. Medido: com a API
+    //   fora do ar, `ov-grp-seg`, `ov-grp-strat` e `ov-strat` estavam VISÍVEIS.
+    //   ⇒ chama-se uma vez no arranque, que é quando não depende de dado nenhum.
+    try { painelBotoesPorBot(); } catch (e) {}
+
     API_URL = PANEL_API;
     showFleetLoading('MIA TRADING SYSTEM');
     fetch(PANEL_API + '/v1/panel/health', { headers: { 'X-Panel-Token': PANEL_TOKEN } })
