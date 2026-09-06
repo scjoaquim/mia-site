@@ -520,9 +520,21 @@ body { padding-bottom: 132px; }               /* respiro pro dock fixo */
 #md-dock .md-cnt{ font-size:11px; color:#008a28; }
 #md-dock .md-cta{ margin-left:auto; color:#80ff80; text-decoration:none; font-size:12px; display:inline-flex; align-items:center; gap:6px; border:1px solid #005a1e; padding:4px 10px; border-radius:2px; }
 #md-dock .md-cta:hover{ background:#001404; }
-#md-dock .md-row{ flex:1; display:flex; overflow-x:auto; overflow-y:hidden; gap:1px; background:#003010; }
+/* ⛔⛔ [06-Set-2026] Com UMA posição o dock parecia mal dimensionado, e parecia com razão.
+   O `gap:1px` sobre um fundo mais claro (#003010) desenhava a divisória; com um só ladrilho
+   `flex:1 1 0` ele esticava por toda a largura, e as duas pontas do próprio ladrilho — o
+   símbolo e o selo, o dinheiro e a percentagem — iam parar a extremos opostos do ecrã, com
+   1.300 px de nada no meio. Ao lado ficava o fundo da fila, mais claro, com ar de célula vazia.
+   ⇒ o fundo da fila passa a ser o MESMO do ladrilho, o `gap` sai, e a divisória passa a ser
+   uma borda desenhada só ENTRE ladrilhos (`.md-tile + .md-tile`). Com um, não há divisória
+   nenhuma para desenhar. */
+#md-dock .md-row{ flex:1; display:flex; overflow-x:auto; overflow-y:hidden; background:#000f02; }
 #md-dock .md-row::-webkit-scrollbar{ height:0; }
-#md-dock .md-tile{ flex:1 1 0; min-width:158px; background:#000f02; padding:8px 12px; display:flex; flex-direction:column; gap:3px; position:relative; }
+/* ⛔ [06-Set-2026] ERA `flex:1 1 0` sem tecto: um ladrilho sozinho ocupava 1.400 px. Passa a
+   ter uma largura natural de 460 px — que é a que três ladrilhos já tomavam num ecrã largo —
+   e continua a poder encolher até 158 px quando há muitos ou o ecrã é estreito. */
+#md-dock .md-tile{ flex:0 1 460px; min-width:158px; max-width:460px; background:#000f02; padding:8px 12px; display:flex; flex-direction:column; gap:3px; position:relative; }
+#md-dock .md-tile + .md-tile{ border-left:1px solid #003010; }
 #md-dock .md-tile.md-closed{ background:rgba(0,20,4,.3); }
 #md-dock .md-head{ display:flex; align-items:center; gap:7px; font-size:12px; }
 #md-dock .md-sym{ color:#80ff80; letter-spacing:.3px; }
