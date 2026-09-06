@@ -5443,7 +5443,7 @@ function renderHist() {
       <td style="color:var(--amber-bright);">${escHtml(t.sym)}</td>
       <td><span class="pill ${t.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${escHtml(t.type)}</span></td>
       <td style="color:${t.bot==='5m'?'var(--amber)':'var(--cyan)'};">${escHtml(botLabel(t.bot))}</td>
-      <td>\$${t.entry.toLocaleString()}</td>
+      <td>${Number(t.entry) ? '\$'+Number(t.entry).toLocaleString() : '<span style="color:var(--amber-dim);" title="o preco de entrada nao chegou do robo">&mdash;</span>'}</td>
       <td>${t.exit ? '\$'+t.exit.toLocaleString() : '<span style="color:var(--cyan);">ABERTA</span>'}</td>
       <td class="${t.r.startsWith('+')?'rk-pos':t.r.startsWith('-')?'rk-neg':''}" style="color:${t.r.startsWith('+')?'var(--green)':t.r.startsWith('-')?'var(--red)':'var(--amber-dim)'};">${t.r}</td>
       <td class="${t.pnl===null?'':t.pnl>=0?'rk-pos':'rk-neg'}" style="font-weight:bold;color:${t.pnl===null?'var(--cyan)':t.pnl>=0?'var(--green)':'var(--red)'};">${t.pnl===null?'—':(t.pnl>=0?'+':'')+'\$'+t.pnl.toFixed(2)}</td>
@@ -6989,7 +6989,7 @@ function renderHistLive(data) {
       <td style="color:var(--amber-bright);">${escHtml(t.sym)}</td>
       <td><span class="pill ${t.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${escHtml(t.type)}</span></td>
       <td style="color:${t.bot==='5m'?'var(--amber)':'var(--cyan)'};">${escHtml(botLabel(t.bot))}</td>
-      <td>\$${Number(t.entry).toLocaleString()}</td>
+      <td>${Number(t.entry) ? '\$'+Number(t.entry).toLocaleString() : '<span style="color:var(--amber-dim);" title="o preco de entrada nao chegou do robo">&mdash;</span>'}</td>
       <td>${t.exit ? '\$'+Number(t.exit).toLocaleString() : '<span style="color:var(--cyan);">ABERTA</span>'}</td>
       <td class="${t.pnl>0?'rk-pos':t.pnl<0?'rk-neg':''}" style="color:${t.pnl>0?'var(--green)':t.pnl<0?'var(--red)':'var(--amber-dim)'};">${t.r}</td>
       <td class="${t.pnl>0?'rk-pos':t.pnl<0?'rk-neg':''}" style="font-weight:bold;color:${t.pnl>0?'var(--green)':t.pnl<0?'var(--red)':'var(--amber-dim)'};">${t.pnl!==null?(t.pnl>=0?'+':'')+'\$'+t.pnl.toFixed(2):'—'}</td>
