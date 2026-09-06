@@ -346,6 +346,14 @@
   body.ro #nav-operacao-label,
   body.ro .pos-head > span:last-child,
   body.ro .pos-row > span:last-child,
+  /* ⭐ [FUSIVEL, 06-Set-2026] a luz: verde a operar, vermelha em pausa de seguranca */
+  .fus { display:inline-flex; align-items:center; gap:6px; letter-spacing:1px; }
+  .fus .fus-dot { width:8px; height:8px; border-radius:50%; background:var(--amber-dim); flex:none; }
+  .fus.fus-on .fus-dot { background:var(--green); box-shadow:0 0 6px var(--green); }
+  .fus.fus-on { color:var(--green); }
+  .fus.fus-pausa .fus-dot { background:var(--red); box-shadow:0 0 6px var(--red); animation:fus-pisca 1.2s ease-in-out infinite; }
+  .fus.fus-pausa { color:var(--red); }
+  @keyframes fus-pisca { 50% { opacity:.35; } }
   body.ro #hdr-account,
   body.ro #hdr-server,
   body.ro #ov-about-account-card { display: none !important; }
@@ -943,6 +951,9 @@
     <div class="topbar-right">
       <span id="hdr-account">CONTA: —</span>
       <span id="hdr-server">—</span>
+      <span id="hdr-fusivel" class="fus fus-off" title="">
+        <span class="fus-dot"></span><span id="hdr-fusivel-txt">—</span>
+      </span>
       <button id="mob-cfg-btn" onclick="openMobConfig()">⚙ CONFIG</button>
       <button id="mob-refresh-btn" onclick="refreshNow(this)" title="Atualizar">↻</button>
       <span id="clock">--:--:--</span>
@@ -3864,6 +3875,24 @@ window.fleetCbToggleUI = async function () {
   } catch (e) { alert('Falha ao alterar o freio: ' + e.message); }
 };
 
+// ⭐ [FUSIVEL, 06-Set-2026] verde = a operar · vermelho = pausa de seguranca (a MIA religa).
+function pintarFusivel(f) {
+  const el = document.getElementById('hdr-fusivel');
+  const tx = document.getElementById('hdr-fusivel-txt');
+  if (!el || !tx) return;
+  if (!f || typeof f.estado !== 'number') { el.className = 'fus fus-off'; tx.textContent = '—'; el.title = ''; return; }
+  if (f.estado === 1) {
+    el.className = 'fus fus-pausa';
+    tx.textContent = 'PAUSA DE SEGURANÇA';
+    el.title = 'O robô parou de abrir operações: a conta caiu ' + Number(f.queda_pct || 0).toFixed(1)
+      + '% do pico. As posições abertas continuam sendo gerenciadas. A MIA vai entrar em contato.';
+  } else {
+    el.className = 'fus fus-on';
+    tx.textContent = 'ROBÔ ATIVO';
+    el.title = 'O robô está ativo e operando normalmente.';
+  }
+}
+
 // ─── ACCOUNT ──────────────────────────────────────────────────
 async function pollAccount() {
   const d = await apiFetch('/account');
@@ -3908,6 +3937,8 @@ async function pollAccount() {
   if (accEl && d.login) accEl.textContent = 'CONTA: ' + d.login;
   const srvEl = document.getElementById('hdr-server');
   if (srvEl && d.server) srvEl.textContent = d.server;
+  // ⭐ [FUSIVEL, 06-Set-2026] a luz do robo. O EA reporta ao servidor; o painel so' mostra.
+  pintarFusivel(d.fusivel);
   // Box "Sobre o sistema": conta/servidor ao vivo
   if (d.login)  window._acctLogin  = d.login;
   if (d.server) window._acctServer = d.server;
