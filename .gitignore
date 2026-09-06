@@ -38,3 +38,8 @@ _to_delete/
 /resultados.html.bak_nota_ranking_31jul
 /ativar-manutencao.sh
 /restaurar-site.sh
+
+# [06-Set-2026] dados congelados, retirados do site — copia em AGENTE TRADE 1/_arquivo/json_site_congelados_20260906/
+resultados.json
+positions.json
+bots.json
