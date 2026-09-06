@@ -1,3 +1,10 @@
+# ⛔⛔ [06-Set-2026] NAO REACTIVAR SEM REVER — este workflow ficou VENENOSO.
+#   Ele regravava data.json e reescrevia os numeros DENTRO do resultados.html.
+#   Desde 22-Ago a pagina le de licencas.miats.trade, e a 06-Set os JSON
+#   congelados sairam do repositorio (commit 0a7caf8c). Religa-lo hoje poria
+#   numeros velhos por cima de uma pagina que ja nao os usa.
+#   Revisao geral de 06-Set-2026.
+
 name: Atualizar tiles de resultados (MQL5)
 
 # Busca os números ao vivo do sinal MQL5 PRO, regrava data.json e comita
