@@ -1024,7 +1024,11 @@
       <div class="stat-row c4">
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Saldo Total">?</span>
-          <div class="mtt-bub">Saldo total da conta no MT5 agora: patrimonio liquido, ja incluindo o resultado flutuante das posicoes abertas.</div>
+          <!-- ⛔ [06-Set, M9] O balao dizia "patrimonio liquido, ja incluindo o resultado
+               flutuante". Isso e' a EQUITY; o numero desta caixa e' o `balance` do MT5, que
+               NAO inclui o flutuante (painel_leitura.py devolve os dois separados). O rotulo
+               SALDO tambem e' o do balance. ⇒ o balao passa a descrever o que esta la'. -->
+          <div class="mtt-bub">Saldo da conta no MT5 agora, com as posicoes ja fechadas. NAO inclui o resultado flutuante das posicoes abertas — esse esta na caixa P&amp;L ABERTO, ao lado.</div>
           <div class="stat-label">SALDO TOTAL</div>
           <div class="stat-value" id="ov-balance">—</div>
           <div class="stat-delta" id="ov-saldo-delta" style="font-size:17px;">—</div>
@@ -1097,7 +1101,10 @@
               <div class="stat-label">TOTAL SACADO</div>
               <div class="stat-value" id="cash-out">—</div>
               <div class="stat-sub"><span id="cash-out-permes">—</span>/m&ecirc;s em m&eacute;dia</div>
-              <div class="stat-sub" style="opacity:.75;">Apenas os realizados ap&oacute;s a instala&ccedil;&atilde;o dos rob&ocirc;s.</div>
+              <!-- ⛔ [06-Set, M9] Esta linha dizia "Apenas os realizados apos a instalacao dos
+                   robos". Falso: o `totalOut` soma TODOS os saques que o /account devolve, sem
+                   corte nenhum (renderCashflow: deps.filter(e => e.amount < 0)). Saiu. -->
+              <div class="stat-sub" style="opacity:.75;">Todos os saques que a conta registou.</div>
             </div>
           </div>
           <div id="cash-ledger-wrap" style="display:none;margin-top:12px;">
@@ -1116,7 +1123,10 @@
       <!-- Equity Curve -->
       <div class="box tipwrap">
         <span class="mtt" role="button" tabindex="0" aria-label="O que e a Equity Curve">?</span>
-        <div class="mtt-bub">Evolucao do patrimonio da conta ao longo da janela selecionada. Subida constante = frota saudavel; degraus para baixo = sequencias de perda.</div>
+        <!-- ⛔ [06-Set, M7] O balao dizia «evolucao do patrimonio da conta». Nao era: a curva
+             comecava numa base inventada de 100 e nao tinha relacao nenhuma com o saldo.
+             Agora e' o que sempre foi de facto — o resultado acumulado dos trades. -->
+        <div class="mtt-bub">Resultado acumulado dos trades ao longo da janela selecionada, em dolares, a comecar do zero. Subida constante = robos saudaveis; degraus para baixo = sequencias de perda. NAO e o saldo da conta: depositos e saques nao entram aqui.</div>
         <div class="box-title">
           <span>─ EQUITY CURVE ─────────────────────</span>
           <span style="font-size:10px;color:var(--amber-dim);" id="chart-period-label">ÚLTIMA SEMANA</span>
@@ -4744,6 +4754,33 @@ function painelBotoesPorBot() {
   (window._lastPositions || []).forEach(o => { const c = _cod(o); if (c) vistos.add(String(c)); });
   const codigos = [...vistos].filter(Boolean).sort();
   window._panelCodigos = codigos;   // [05-Set] a caixa SOBRE O SISTEMA passa a ler daqui
+
+  // ⛔⛔ [06-Set, M10 e M6] ISTO CORRIA DEPOIS DO `return` DE CIMA — ou seja, numa conta AINDA
+  //   SEM OPERACOES nada disto acontecia, e ficavam a' vista as filas da frota DELE (CRYPTO,
+  //   INDEX, US STOCKS, METAIS) e os botoes 5M/15M/1H/2H/4H. Uma armadilha: o cliente clica
+  //   num botao que deixa de existir no dia em que os trades chegarem. ⇒ passa a correr SEMPRE.
+  // ⛔ M6: os botoes SEGMENTO e ESTRATEGIA do AGRUPAR chamam `botSegment`/`botStrat`, que
+  //   procuram o robo nas listas da frota DELE. Nenhum robo de cliente esta la' ⇒ os dois
+  //   davam UMA barra so', chamada «OUTRO». Mesma decisao que ja tinha sido tomada para a
+  //   fila do PRAZO: esconder, em vez de mentir. O AGRUPAR fica com o BOT, que e' o que ha.
+  ['ov-strat', 'rk-strat', 'hist-strat'].forEach(id => {
+    const e = document.getElementById(id); if (e) e.style.display = 'none';
+  });
+  ['ov-grp-seg', 'ov-grp-strat'].forEach(id => {
+    const e = document.getElementById(id); if (e) e.style.display = 'none';
+  });
+  if (!codigos.length) {
+    // sem robos ainda: a fila de segmento fica so' com o TODOS, aceso
+    PANEL_FILAS.forEach(([pagina, idFila]) => {
+      const fila = document.getElementById(idFila);
+      if (!fila) return;
+      const bs = [...fila.querySelectorAll('button')];
+      bs.slice(1).forEach(b => b.remove());
+      if (bs[0]) { bs[0].dataset.f = 'all'; bs[0].textContent = 'TODOS'; bs[0].classList.add('active'); }
+      segState[pagina] = 'all';
+    });
+  }
+
   const assinatura = codigos.join(',');
   if (!codigos.length || assinatura === _panelAssinatura) return;
   _panelAssinatura = assinatura;
@@ -4755,10 +4792,6 @@ function painelBotoesPorBot() {
   });
   // 2. sem restricao de frota: a frota do cliente e a conta dele
   FLEET_BOTS[ACTIVE_FLEET] = null;
-  // 3. a fila do PRAZO nao conhece estes robos — escondida, em vez de mentir
-  ['ov-strat', 'rk-strat', 'hist-strat'].forEach(id => {
-    const e = document.getElementById(id); if (e) e.style.display = 'none';
-  });
 
   // 4. a fila de segmento passa a ser um botao por robo
   PANEL_FILAS.forEach(([pagina, idFila]) => {
@@ -4778,6 +4811,26 @@ function painelBotoesPorBot() {
       b.onclick = function () { setSegment(pagina, 'bot_' + c, this); };
       fila.appendChild(b);
     });
+
+    // ⛔⛔ [06-Set, M5] A fila e' RECONSTRUIDA sempre que aparece um robo novo (a assinatura
+    //   muda), e os botoes novos nasciam todos sem `active` — mas o `segState[pagina]`
+    //   continuava no robo escolhido. ⇒ o cliente via a fila com o TODOS apagado e nenhum
+    //   botao aceso, enquanto o painel continuava a mostrar UM robo so'. Filtro invisivel e'
+    //   pior que filtro errado: ninguem procura o botao que desligue uma coisa que nao ve.
+    const escolhido = segState[pagina] || 'all';
+    const alvo = [...fila.querySelectorAll('button')].find(b => b.dataset.f === escolhido);
+    if (alvo) {
+      // o botao ainda existe: repoe-se a luz
+      fila.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      alvo.classList.add('active');
+    } else {
+      // o robo que estava escolhido ja nao esta na conta ⇒ volta-se a TODOS, e diz-se
+      segState[pagina] = 'all';
+      fila.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      const todosBtn = [...fila.querySelectorAll('button')].find(b => b.dataset.f === 'all');
+      if (todosBtn) todosBtn.classList.add('active');
+      applySegment(pagina);
+    }
   });
 }
 
@@ -4801,10 +4854,17 @@ function updateOverviewFromHistory(history) {
   if (pnlEl) { pnlEl.textContent = fmt(total); pnlEl.className = 'stat-value ' + (total>=0?'up':'dn'); }
   const subEl = document.getElementById('ov-pnl-sub'); if (subEl) subEl.textContent = periodSubs[currentOvPeriod] || '';
   const trEl = document.getElementById('ov-trades'); if (trEl) trEl.textContent = closed.length;
-  const trSub = document.getElementById('ov-trades-sub'); if (trSub) trSub.textContent = closed.length ? wins+' win / '+(closed.length-wins)+' loss' : '- sem trades';
+  // [06-Set, M3] o «/ loss» era `closed.length - wins`, logo engolia os que fecharam no zero.
+  const _flats = closed.filter(t => t.flat).length;
+  const _losses = closed.length - wins - _flats;
+  const trSub = document.getElementById('ov-trades-sub');
+  if (trSub) trSub.textContent = closed.length
+    ? (wins+' win / '+_losses+' loss' + (_flats ? ' / '+_flats+' zero' : ''))
+    : '- sem trades';
   const wrEl = document.getElementById('ov-wr');
   if (wrEl) {
-    const wr = closed.length ? Math.round(wins/closed.length*100) : null;
+    const _wr = wrPct(closed);                     // [06-Set, M3] era wins/closed.length
+    const wr = _wr === null ? null : Math.round(_wr);
     wrEl.textContent = wr !== null ? 'WIN RATE: '+wr+'%' : '-';
     wrEl.className = 'stat-delta ' + (wr===null?'neu':wr>=50?'up':wr>=40?'neu':'dn');
   }
@@ -4856,9 +4916,16 @@ function drawChartFlat(balance) {
 function drawChartFromHistory(trades) {
   // Reconstruir curva de equity a partir dos trades (ordem cronológica)
   const sorted = [...trades].sort((a,b) => a.dt.localeCompare(b.dt));
-  let eq = 100;
+  // ⛔⛔ [06-Set, M7] ERA `let eq = 100` com `Math.max(0, eq)` em cada ponto. Duas coisas
+  //   erradas na mesma linha: (1) o 100 e' uma base INVENTADA — nao e' o saldo, nao e' o
+  //   patrimonio, nao e' nada da conta, e o balao ao lado prometia «evolucao do patrimonio»;
+  //   (2) o chao a zero ACHATAVA a curva assim que o acumulado passasse de −100, escondendo
+  //   exactamente a parte que interessa ver. A caixa do DRAWDOWN, por baixo, ja media noutra
+  //   base — duas formas diferentes para a mesma coisa, lado a lado.
+  //   ⇒ a curva passa a ser o ACUMULADO EM DOLARES da janela, a comecar em 0. Sem chao.
+  let eq = 0;
   const vals = [eq];
-  sorted.forEach(t => { eq += (t.pnl||0); vals.push(Math.max(0,eq)); });
+  sorted.forEach(t => { eq += (t.pnl||0); vals.push(eq); });
   const labels = Array(vals.length).fill('');
   labels[0] = 'Início'; labels[labels.length-1] = 'HOJE';
   drawChart({ vals, labels });
@@ -4958,10 +5025,29 @@ function botStats(trades) {
   const rsum = rs.reduce((s,v)=>s+v,0);
   const exp = rs.length ? rsum/rs.length : null;
   const pf = gl>0 ? gw/gl : (gw>0?Infinity:0);
-  const wr = n ? wins/n*100 : null;
+  const wr = wrPct(trades);                        // [06-Set, M3] era wins/n*100
   return { n, wins, pnl, pf, wr, rsum, exp };
 }
 function fmtR(v){ return (v>=0?'+':'') + v.toFixed(2) + 'R'; }
+// ⛔⛔ [06-Set, M8] O painel construia linhas com `innerHTML` a partir de campos que vem do
+//   SERVIDOR (simbolo, tipo, data, nome do robo) sem escape nenhum — e um deles ia parar
+//   DENTRO de um `onclick`, que e' contexto de codigo, nao de texto. Um simbolo com aspas
+//   ou com `<` deixava de ser dado e passava a ser marcacao (ou codigo) na pagina do cliente.
+//   ⇒ tudo o que vem do servidor passa a atravessar o `escHtml`. O `onclick` da posicao
+//   deixou de existir: os argumentos passam por `dataset` e a ligacao e' por listener.
+// [06-Set, M3] O win rate conta sobre os trades que DECIDIRAM — o que fecha no zero a zero
+// nao e' vitoria nem derrota, e por isso sai do denominador em vez de engordar o lado errado.
+// Devolve null quando nao ha nenhum trade decidido (e ai a tela escreve um travessao).
+function wrPct(lista){
+  const decididos = (lista || []).filter(t => t && t.win !== null && t.win !== undefined && !t.flat);
+  if (!decididos.length) return null;
+  return decididos.filter(t => t.win).length / decididos.length * 100;
+}
+function escHtml(v){
+  return String(v == null ? '' : v)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 function fmtUSD(v){ return (v>=0?'+':'') + '$' + v.toFixed(2); }
 function pfTxt(pf){ return pf===Infinity ? '∞' : pf.toFixed(2); }
 function pfColor(pf){ return pf>=1.3 ? 'var(--green)' : pf>=1 ? 'var(--cyan)' : 'var(--red)'; }
@@ -5320,8 +5406,8 @@ function renderHist() {
     else if (filterByBots) { if (!allowed.includes(t.bot)) return false; }
     if(histPeriod === 'custom') {
       if(!customFrom || !customTo) return true;
-      const d = t.dt.slice(0,10);
-      return d >= customFrom && d <= customTo;
+      const d = _diaLocal(t.dt);            // [06-Set, M1] era t.dt.slice(0,10) = dia em UTC
+      return !!d && d >= customFrom && d <= customTo;
     }
     return HIST_PERIODS[histPeriod](t.dt);
   });
@@ -5337,7 +5423,8 @@ function renderHist() {
   const pf = lossPnl > 0 ? (winPnl/lossPnl).toFixed(2) : '∞';
 
   document.getElementById('h-total').textContent = data.length;
-  document.getElementById('h-wr').textContent = closed.length ? Math.round(wins/closed.length*100)+'%' : '—';
+  const _wrH = wrPct(closed);                      // [06-Set, M3] era wins/closed.length
+  document.getElementById('h-wr').textContent = _wrH === null ? '—' : Math.round(_wrH)+'%';
   const pnlEl = document.getElementById('h-pnl');
   pnlEl.textContent = (totalPnl>=0?'+':'')+'\$'+totalPnl.toFixed(2);
   pnlEl.className = 'stat-value '+(totalPnl>=0?'up':'dn');
@@ -5352,15 +5439,15 @@ function renderHist() {
   }
   tbody.innerHTML = data.map(t => `
     <tr>
-      <td style="font-size:11px;color:var(--amber-dim);">${t.dt}</td>
-      <td style="color:var(--amber-bright);">${t.sym}</td>
-      <td><span class="pill ${t.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${t.type}</span></td>
-      <td style="color:${t.bot==='5m'?'var(--amber)':'var(--cyan)'};">${botLabel(t.bot)}</td>
+      <td style="font-size:11px;color:var(--amber-dim);">${escHtml(_fmtLocal(t.dt))}</td>
+      <td style="color:var(--amber-bright);">${escHtml(t.sym)}</td>
+      <td><span class="pill ${t.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${escHtml(t.type)}</span></td>
+      <td style="color:${t.bot==='5m'?'var(--amber)':'var(--cyan)'};">${escHtml(botLabel(t.bot))}</td>
       <td>\$${t.entry.toLocaleString()}</td>
       <td>${t.exit ? '\$'+t.exit.toLocaleString() : '<span style="color:var(--cyan);">ABERTA</span>'}</td>
       <td class="${t.r.startsWith('+')?'rk-pos':t.r.startsWith('-')?'rk-neg':''}" style="color:${t.r.startsWith('+')?'var(--green)':t.r.startsWith('-')?'var(--red)':'var(--amber-dim)'};">${t.r}</td>
       <td class="${t.pnl===null?'':t.pnl>=0?'rk-pos':'rk-neg'}" style="font-weight:bold;color:${t.pnl===null?'var(--cyan)':t.pnl>=0?'var(--green)':'var(--red)'};">${t.pnl===null?'—':(t.pnl>=0?'+':'')+'\$'+t.pnl.toFixed(2)}</td>
-      <td>${t.win===null?'<span class="pill pill-open" style="font-size:10px;">ABERTA</span>':t.win?'<span class="pill pill-run" style="font-size:10px;">WIN</span>':'<span class="pill pill-stop" style="font-size:10px;">LOSS</span>'}</td>
+      <td>${t.win===null?'<span class="pill pill-open" style="font-size:10px;">ABERTA</span>':t.flat?'<span class="pill pill-open" style="font-size:10px;">ZERO</span>':t.win?'<span class="pill pill-run" style="font-size:10px;">WIN</span>':'<span class="pill pill-stop" style="font-size:10px;">LOSS</span>'}</td>
     </tr>
   `).join('');
 }
@@ -5977,6 +6064,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const _risco = [...document.querySelectorAll('.nav-item')]
       .find(e => /MONITOR DE RISCO/.test(e.textContent || ''));
     if (_risco) _risco.style.display = 'none';
+    // ⛔ [06-Set, M4] Escondia-se so' na BARRA LATERAL. No telemovel o botao `#mn-monitor`
+    //   continuava la' e abria a pagina inteira — com calibracoes internas e uma instrucao
+    //   dirigida ao programador. Um cliente no telefone via tudo isso.
+    const _mnRisco = document.getElementById('mn-monitor');
+    if (_mnRisco) _mnRisco.style.display = 'none';
+    const _pgRisco = document.getElementById('page-monitor');
+    if (_pgRisco) _pgRisco.style.display = 'none';
 
     API_URL = PANEL_API;
     showFleetLoading('MIA TRADING SYSTEM');
@@ -6152,7 +6246,7 @@ function renderAboutBox() {
       chipsEl.innerHTML = '<span style="color:var(--amber-dim);">Ainda sem operações registadas. '
         + 'Assim que um robô operar nesta conta, ele aparece aqui.</span>';
     } else {
-      chipsEl.innerHTML = bots.map(b => '<span class="fleet-chip">' + botLabel(b) + '</span>').join('');
+      chipsEl.innerHTML = bots.map(b => '<span class="fleet-chip">' + escHtml(botLabel(b)) + '</span>').join('');
     }
   }
 }
@@ -6478,15 +6572,27 @@ function renderPositionsLive(positions) {
     const row = document.createElement('div');
     row.className = 'pos-row';
     row.innerHTML = `
-      <span style="color:var(--amber-bright);font-weight:bold;">${p.symbol}</span>
-      <span class="pill ${p.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${p.type}</span>
-      <span style="color:${p.strategy==='5m'?'var(--amber)':'var(--cyan)'};">${botLabel(p.strategy)}</span>
+      <span style="color:var(--amber-bright);font-weight:bold;">${escHtml(p.symbol)}</span>
+      <span class="pill ${p.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${escHtml(p.type)}</span>
+      <span style="color:${p.strategy==='5m'?'var(--amber)':'var(--cyan)'};">${escHtml(botLabel(p.strategy))}</span>
       <span>\$${p.open_price.toLocaleString()}</span>
       <span style="font-size:11px;line-height:1.6;">SL \$${p.sl.toLocaleString()}<br>TP \$${p.tp.toLocaleString()}</span>
       <span class="${pnlCls}" style="font-weight:bold;">${fmt(p.profit)}</span>
       <span class="pill pill-open">ABERTA</span>
-      <span><button class="btn btn-close" onclick="confirmClose('${p.symbol}','${botLabel(p.strategy)}','${p.type}',null,${p.ticket})">✕ FECHAR</button></span>
+      <span><button class="btn btn-close js-close-pos">✕ FECHAR</button></span>
     `;
+    // [06-Set, M8] Os argumentos deixaram de viajar dentro do atributo `onclick` (contexto de
+    // CODIGO). Vao por `dataset` e a ligacao e' por listener — nao ha string para escapar.
+    const _btn = row.querySelector('.js-close-pos');
+    if (_btn) {
+      _btn.dataset.sym    = p.symbol;
+      _btn.dataset.bot    = botLabel(p.strategy);
+      _btn.dataset.tipo   = p.type;
+      _btn.dataset.ticket = p.ticket;
+      _btn.addEventListener('click', function(){
+        confirmClose(this.dataset.sym, this.dataset.bot, this.dataset.tipo, null, Number(this.dataset.ticket));
+      });
+    }
     wrap.appendChild(row);
   });
 }
@@ -6572,6 +6678,30 @@ function _msUtc(txt){
 function _marcoParaMs(txt){
   const ms = _msUtc(txt);
   return isNaN(ms) ? 0 : ms;
+}
+
+// ⛔⛔ [06-Set, M1] O CUSTOM comparava `dt.slice(0,10)` — o dia em UTC — com o valor de um
+//   `<input type="date">`, que a pessoa le no calendario DELA. Em UTC-3, um trade das 23:30
+//   de terca ja e' quarta em UTC ⇒ escolher "terca a terca" perdia-o. Todas as noites, das
+//   21:00 a meia-noite. ⭐ E' o irmao directo do defeito das 3 h de 05-Set.
+//   ⇒ o dia passa a ser calculado no fuso do cliente, e o leitor e' UM SO' (a licao do gemeo).
+function _diaLocal(dt){
+  const ms = _msUtc(dt);
+  if(isNaN(ms)) return '';
+  const d = new Date(ms), z = n => String(n).padStart(2,'0');
+  return d.getFullYear() + '-' + z(d.getMonth()+1) + '-' + z(d.getDate());
+}
+
+// ⛔ [06-Set, M2] A tabela imprimia o `dt` cru, que e' UTC, enquanto o relogio do cabecalho
+//   anda em hora local ⇒ duas horas diferentes na mesma tela para o mesmo instante.
+//   Passa a mostrar a hora do cliente. ⚠ So' a EXIBICAO muda: o `t.dt` continua a ser a
+//   string UTC, porque ha ordenacoes que fazem `a.dt.localeCompare(b.dt)` por cima dela.
+function _fmtLocal(dt){
+  const ms = _msUtc(dt);
+  if(isNaN(ms)) return String(dt == null ? '' : dt);
+  const d = new Date(ms), z = n => String(n).padStart(2,'0');
+  return d.getFullYear() + '-' + z(d.getMonth()+1) + '-' + z(d.getDate())
+       + ' ' + z(d.getHours()) + ':' + z(d.getMinutes());
 }
 
 // O marco de EXIBICAO: da o rotulo na tela e o inicio da janela TOTAL.
@@ -6762,6 +6892,10 @@ async function pollHistory() {
       })(),
       pnl:      t.profit,
       win:      t.profit > 0,
+      // ⛔ [06-Set, M3] `win` e' booleano, logo um trade que fecha EXACTAMENTE no zero
+      //   caia no `false` e era contado como PERDA — na etiqueta e no denominador do win
+      //   rate. Nao e' perda nem ganho. Marca-se aqui, na fonte, e quem conta usa o `wrPct`.
+      flat:     (t.profit === 0),
     }));
 
     // Sempre substituir demo pelos dados reais (mesmo que vazio)
@@ -6808,8 +6942,8 @@ function histDentroDaJanela(dt){
   if(!dt) return false;
   if(histPeriod === 'custom'){
     if(!customFrom || !customTo) return true;      // meia escolha nao filtra nada
-    const d = String(dt).slice(0,10);
-    return d >= customFrom && d <= customTo;
+    const d = _diaLocal(dt);                       // [06-Set, M1] era String(dt).slice(0,10) = UTC
+    return !!d && d >= customFrom && d <= customTo;
   }
   const dias = {'1d':1, '1w':7, '30d':30, '6m':182, '1y':365}[histPeriod];
   if(!dias) return true;                           // 'all' = tudo o que veio
@@ -6835,7 +6969,8 @@ function renderHistLive(data) {
   const pf = lossPnl > 0 ? (winPnl/lossPnl).toFixed(2) : '∞';
 
   document.getElementById('h-total').textContent = filtered.length;
-  document.getElementById('h-wr').textContent = filtered.length ? Math.round(wins/filtered.length*100)+'%' : '—';
+  const _wrHL = wrPct(filtered);                   // [06-Set, M3] era wins/filtered.length
+  document.getElementById('h-wr').textContent = _wrHL === null ? '—' : Math.round(_wrHL)+'%';
   const pnlEl = document.getElementById('h-pnl');
   pnlEl.textContent = (totalPnl>=0?'+':'')+'\$'+totalPnl.toFixed(2);
   pnlEl.className = 'stat-value '+(totalPnl>=0?'up':'dn');
@@ -6850,15 +6985,15 @@ function renderHistLive(data) {
   }
   tbody.innerHTML = filtered.map(t => `
     <tr>
-      <td style="font-size:11px;color:var(--amber-dim);">${t.dt}</td>
-      <td style="color:var(--amber-bright);">${t.sym}</td>
-      <td><span class="pill ${t.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${t.type}</span></td>
-      <td style="color:${t.bot==='5m'?'var(--amber)':'var(--cyan)'};">${botLabel(t.bot)}</td>
+      <td style="font-size:11px;color:var(--amber-dim);">${escHtml(_fmtLocal(t.dt))}</td>
+      <td style="color:var(--amber-bright);">${escHtml(t.sym)}</td>
+      <td><span class="pill ${t.type==='BUY'?'pill-run':'pill-stop'}" style="font-size:10px;">${escHtml(t.type)}</span></td>
+      <td style="color:${t.bot==='5m'?'var(--amber)':'var(--cyan)'};">${escHtml(botLabel(t.bot))}</td>
       <td>\$${Number(t.entry).toLocaleString()}</td>
       <td>${t.exit ? '\$'+Number(t.exit).toLocaleString() : '<span style="color:var(--cyan);">ABERTA</span>'}</td>
       <td class="${t.pnl>0?'rk-pos':t.pnl<0?'rk-neg':''}" style="color:${t.pnl>0?'var(--green)':t.pnl<0?'var(--red)':'var(--amber-dim)'};">${t.r}</td>
       <td class="${t.pnl>0?'rk-pos':t.pnl<0?'rk-neg':''}" style="font-weight:bold;color:${t.pnl>0?'var(--green)':t.pnl<0?'var(--red)':'var(--amber-dim)'};">${t.pnl!==null?(t.pnl>=0?'+':'')+'\$'+t.pnl.toFixed(2):'—'}</td>
-      <td>${t.win?'<span class="pill pill-run" style="font-size:10px;">WIN</span>':'<span class="pill pill-stop" style="font-size:10px;">LOSS</span>'}</td>
+      <td>${t.flat?'<span class="pill pill-open" style="font-size:10px;">ZERO</span>':t.win?'<span class="pill pill-run" style="font-size:10px;">WIN</span>':'<span class="pill pill-stop" style="font-size:10px;">LOSS</span>'}</td>
     </tr>
   `).join('');
 }
@@ -7253,7 +7388,19 @@ setInterval(async () => {
 // ════════════════════════════════════════════════════════════════
 // MOBILE NAV
 // ════════════════════════════════════════════════════════════════
-const MOB_NAV_MAP = { overview:0, ranking:1, positions:2, history:3, monitor:4, bots:5, logs:6 };
+// ⛔⛔ [06-Set, M4] ERA uma tabela escrita a mao: `{ overview:0, ranking:1, positions:2,
+//   history:3, monitor:4, bots:5, logs:6 }`. A barra lateral esta por outra ordem
+//   (overview · POSICOES · RANKING · history · diario · monitor · bots · logs) ⇒ tocar em
+//   RANKING no telemovel acendia POSICOES, e o `diario` nem sequer estava na tabela.
+//   ⭐ Agora o mapa e' LIDO da propria barra lateral: reordenar o menu deixa de partir isto.
+const MOB_NAV_MAP = (() => {
+  const m = {};
+  [...document.querySelectorAll('.nav-item')].forEach((el, i) => {
+    const mm = /showPage\('([^']+)'/.exec(el.getAttribute('onclick') || '');
+    if (mm) m[mm[1]] = i;
+  });
+  return m;
+})();
 
 function mobShowPage(id) {
   // Sincronizar com sidebar nav (para lógica existente de showPage)
