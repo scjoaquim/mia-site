@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- As notas de manutencao desta pagina estao em NOTAS_INTERNAS_DO_SITE_20260906.md, na pasta do projeto. Ler antes de mexer. -->
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
@@ -868,8 +869,6 @@
     <div class="logo-sub">TRADING SYSTEM · v1.0</div>
   </div>
 
-  <!-- [06-Set revisao] troca de frota PRO/PESSOAL retirada: e do dono, nao do cliente.
-       Os ids ficam (o JS procura-os) mas vazios e ocultos. -->
   <div id="nav-frota-label" style="display:none"></div>
   <div id="fleet-switch-row" style="display:none"><button id="fleet-btn-pro"></button><button id="fleet-btn-essential"></button></div>
 
@@ -937,19 +936,13 @@
 
   <div id="content">
 
-    <!-- Overlay de troca de frota (só demo) — evita a sensação de "travado" enquanto
-         religamos noutra URL/chave. Ver showFleetLoading()/hideFleetLoading(). -->
     <div id="fleet-loading-overlay" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(3,10,6,0.88);align-items:center;justify-content:center;flex-direction:column;gap:10px;">
       <span style="font-size:28px;color:var(--green);display:inline-block;animation:spin360 0.9s linear infinite;">◷</span>
       <span id="fleet-loading-label" style="color:var(--green);font-size:12px;letter-spacing:1px;">LIGANDO...</span>
     </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: OVERVIEW
-    ═══════════════════════════════════════════════════════════ -->
     <div class="page active" id="page-overview">
 
-      <!-- SOBRE O SISTEMA — resumo recolhível; conta/frota mudam com o toggle PRO↔Essential -->
       <div class="box" id="ov-about">
         <div class="box-title" onclick="toggleAbout()" style="cursor:pointer;user-select:none;">
           <span>─ SOBRE O SISTEMA ─────────────</span>
@@ -976,7 +969,6 @@
         </div>
       </div>
 
-      <!-- FREIO DE FROTA (circuit breaker) — clique p/ ligar/desligar -->
       <div id="ov-fleetcb" onclick="fleetCbToggleUI()" title="Freio de frota (2 camadas, em R): A=dia-ruim (R realizado) e B=catastrofe (R realizado+flutuante). Ao atingir qualquer limiar, bloqueia NOVAS entradas de TODOS os bots ate 00:00 UTC. Posicoes abertas seguem normais; sem auto-flatten. Clique para ligar/desligar."
            style="display:none;align-items:center;gap:10px;margin-bottom:14px;padding:9px 13px;border-radius:8px;border:1px solid var(--amber-dim);background:#0a0f0a;cursor:pointer;font-size:12px;">
         <span id="ov-fleetcb-dot" style="font-size:15px;line-height:1;">&#9679;</span>
@@ -985,7 +977,6 @@
         <span id="ov-fleetcb-detail" style="margin-left:auto;color:var(--amber-dim);font-variant-numeric:tabular-nums;"></span>
       </div>
 
-      <!-- Time selector (afeta todos os cards) -->
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
         <span class="tsel-label" style="font-size:10px;color:var(--amber-dim);letter-spacing:1px;">JANELA TEMPORAL:</span>
         <div class="time-sel" id="ov-tsel">
@@ -1021,10 +1012,6 @@
       <div class="stat-row c4">
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Saldo Total">?</span>
-          <!-- ⛔ [06-Set, M9] O balao dizia "patrimonio liquido, ja incluindo o resultado
-               flutuante". Isso e' a EQUITY; o numero desta caixa e' o `balance` do MT5, que
-               NAO inclui o flutuante (painel_leitura.py devolve os dois separados). O rotulo
-               SALDO tambem e' o do balance. ⇒ o balao passa a descrever o que esta la'. -->
           <div class="mtt-bub">Saldo da conta no MT5 agora, com as posicoes ja fechadas. NAO inclui o resultado flutuante das posicoes abertas — esse esta na caixa P&amp;L ABERTO, ao lado.</div>
           <div class="stat-label">SALDO TOTAL</div>
           <div class="stat-value" id="ov-balance">—</div>
@@ -1054,13 +1041,11 @@
         </div>
       </div>
 
-      <!-- KPIs analiticos da frota (escopo = janela + filtros) -->
       <div class="stat-row c2" style="margin-bottom:14px;">
         <div class="stat-card">
           <span class="mtt" role="button" tabindex="0" aria-label="O que e Profit Factor">?</span>
           <div class="mtt-bub">Soma dos ganhos dividida pela soma das perdas no periodo. Acima de 1 e lucrativo; a partir de ~1,5 e solido.</div>
-          <div class="stat-label">PROFIT FACTOR</div>   <!-- [05-Set] era "(FROTA)": o JS ja o corrigia no painel, mas a palavra ficava na tela ate o primeiro render -->
-          <div class="stat-value" id="ov-pf-agg">—</div>
+          <div class="stat-label">PROFIT FACTOR</div>          <div class="stat-value" id="ov-pf-agg">—</div>
           <div class="stat-sub">ganhos &divide; perdas</div>
         </div>
         <div class="stat-card">
@@ -1089,7 +1074,6 @@
               <div class="stat-value" id="cash-trading-pnl">—</div>
               <div class="stat-delta" id="cash-pnl-pct" style="font-size:17px;display:none;">—</div>
               <div class="stat-sub"><span id="cash-pnl-permes">—</span>/m&ecirc;s em m&eacute;dia</div>
-              <!-- [31-Jul] reconciliacao conta x frota (preenchida por renderCashflow) -->
               <div class="stat-sub" id="cash-pnl-split" style="margin-top:4px;line-height:1.5;"></div>
             </div>
             <div class="stat-card">
@@ -1098,9 +1082,6 @@
               <div class="stat-label">TOTAL SACADO</div>
               <div class="stat-value" id="cash-out">—</div>
               <div class="stat-sub"><span id="cash-out-permes">—</span>/m&ecirc;s em m&eacute;dia</div>
-              <!-- ⛔ [06-Set, M9] Esta linha dizia "Apenas os realizados apos a instalacao dos
-                   robos". Falso: o `totalOut` soma TODOS os saques que o /account devolve, sem
-                   corte nenhum (renderCashflow: deps.filter(e => e.amount < 0)). Saiu. -->
               <div class="stat-sub" style="opacity:.75;">Todos os saques que a conta registou.</div>
             </div>
           </div>
@@ -1120,9 +1101,6 @@
       <!-- Equity Curve -->
       <div class="box tipwrap">
         <span class="mtt" role="button" tabindex="0" aria-label="O que e a Equity Curve">?</span>
-        <!-- ⛔ [06-Set, M7] O balao dizia «evolucao do patrimonio da conta». Nao era: a curva
-             comecava numa base inventada de 100 e nao tinha relacao nenhuma com o saldo.
-             Agora e' o que sempre foi de facto — o resultado acumulado dos trades. -->
         <div class="mtt-bub">Resultado acumulado dos trades ao longo da janela selecionada, em dolares, a comecar do zero. Subida constante = robos saudaveis; degraus para baixo = sequencias de perda. NAO e o saldo da conta: depositos e saques nao entram aqui.</div>
         <div class="box-title">
           <span>─ EQUITY CURVE ─────────────────────</span>
@@ -1151,11 +1129,6 @@
 
     </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: RANKING (analiticas por bot — movidas do Overview 19-Jul)
-         Os filtros abaixo partilham o MESMO estado do Overview ('ov'):
-         mudar aqui muda la e vice-versa (sincronizados via _syncFilterRows).
-    ═══════════════════════════════════════════════════════════ -->
     <div class="page" id="page-ranking">
       <div class="sec-head">
         <div class="sec-title">─ RANKING &amp; ANALÍTICAS ─</div>
@@ -1224,27 +1197,14 @@
               <button class="tsel-btn"        id="ov-grp-seg"   onclick="setGroupMode('seg',this)">SEGMENTO</button>
               <button class="tsel-btn"        id="ov-grp-strat" onclick="setGroupMode('strat',this)">ESTRAT&Eacute;GIA</button>
             </div>
-            <!-- [05-Set] seletor METRICA (P&L R / LUCRO $) REMOVIDO: fica so o dinheiro.
-                 Para repor: os dois botoes; o setGroupMetric continua no ficheiro. -->
           </div>
         </div>
         <div class="box-body"><div id="ov-contrib"></div></div>
       </div>
 
-      <!-- [31-Jul] PAINEL A/B REMOVIDO (pedido do Joaquim): nao restava par nenhum a decidir.
-           O ultimo era xausurp (666) vs xaubrk (660), e o 666 esta PAUSADO
-           desde 24-Jul -> o painel comparava uma perna parada com uma viva. Os A/B anteriores
-           fecharam todos: BTC 5m (674 aposentado 26-Jul) e XAU R2+RSI (654/675 consolidados
-           no 676 em 03-Jul). Para reabrir: repor esta caixa + AB_PAIRS + renderAB (git). -->
 
-      <!-- [05-Set] caixa DISTRIBUICAO DE R REMOVIDA (decisao do Joaquim): o painel do
-           cliente deixa de falar em R. O renderRDist continua no ficheiro e volta a
-           pintar assim que o <div id="ov-rdist"> for reposto aqui. -->
     </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: POSITIONS
-    ═══════════════════════════════════════════════════════════ -->
     <div class="page" id="page-positions">
       <div class="sec-head">
         <div class="sec-title">─ POSIÇÕES ABERTAS ─</div>
@@ -1285,12 +1245,6 @@
           <span>ESTADO</span>
           <span>AÇÃO</span>
         </div>
-        <!-- ⛔⛔ [05-Set, revisao] SAIU DAQUI UMA POSICAO DE DEMONSTRACAO ESCRITA A MAO:
-             BTCUSD BUY $67.420, SL $67.080, TP $68.270, com botao de FECHAR. Ela estava no
-             HTML, logo aparecia ANTES do primeiro `/positions` com sucesso — e ficava na
-             tela para sempre se a chamada falhasse (so o `renderPositionsLive` a apagava).
-             Um cliente com a rede fraca abria o painel e via uma posicao aberta em Bitcoin
-             que nao tem. A lista viva e' construida pelo `renderPositionsLive`. -->
         <div class="pos-row" id="pos-vazio" style="color:var(--amber-dim);">
           <span style="grid-column:1/-1;">— sem posições abertas</span>
         </div>
@@ -1298,9 +1252,6 @@
       </div>
     </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: HISTORY
-    ═══════════════════════════════════════════════════════════ -->
     <div class="page" id="page-history">
       <div class="sec-head">
         <div class="sec-title">─ HISTÓRICO DE TRADES ─</div>
@@ -1440,9 +1391,6 @@
       </div>
     </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: MONITOR DE RISCO
-    ═══════════════════════════════════════════════════════════ -->
     <div class="page" id="page-monitor">
 
       <div class="sec-head">
@@ -1560,40 +1508,12 @@
 
     </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: BOTS CONTROL
-    ═══════════════════════════════════════════════════════════ -->
     <div id="page-bots" class="page" style="display:none">
-  <!-- [06-Set-2026] PAGINA REMOVIDA. Era o controlo da frota Python do Contabo,
-       aposentada em 20-Ago-2026. Estava escondida por CSS mas o HTML continuava a
-       ser servido: 2.421 linhas com 539 campos de parametros de ~50 robos (simbolo,
-       tempo grafico, multiplos de ATR, alvos, logica de entrada). Qualquer pessoa a
-       lia em "ver codigo-fonte". Os tres ids abaixo ficam porque o JS os procura.
-       Copia integral em app.html.bak_pre_corte_paginas_frota_20260906. -->
   <span id="cb-all" style="display:none"></span>
   <span id="risk-mode-badge" style="display:none"></span>
   <span id="risk-mode-btn" style="display:none"></span>
 </div>
 
-    <!-- ════════════════════════════════════════════════════════
-         PAGE: LOGS
-    ═══════════════════════════════════════════════════════════ -->
-    <!-- ══════════════════════════════════════════════════════════
-         DIÁRIO — O LUGAR ONDE AS NOTIFICAÇÕES FICAM.
-
-         ⛔ REFEITO em 25-Ago, à tarde. A primeira versão era um segundo
-            Histórico com mais colunas — palavras dele: "está praticamente
-            igual ao historico". E faltava-lhe metade: as ABERTURAS.
-
-         ⭐ Isto é um FLUXO DE MENSAGENS, na ordem em que aconteceram, com
-            as MESMAS palavras que o robô manda ao celular:
-              trade iniciado · trade finalizado · resumo do dia/semana/mês
-            (MIA_Notify.mqh: MiaNotify_TextoEntrada / TextoSaida /
-             MiaResumo_FraseDia / FraseSemana / FraseMes)
-
-         ⚠ O "MIA" do começo sai: no celular ele é o remetente, aqui a tela
-           inteira já é MIA. Decisão dele, 24-Ago.
-         ══════════════════════════════════════════════════════════ -->
     <div class="page" id="page-diario">
       <div class="sec-head">
         <div class="sec-title">─ DIÁRIO DO ROBÔ ─</div>
@@ -1633,8 +1553,6 @@
     </div>
 
     <div id="page-logs" class="page" style="display:none">
-  <!-- [06-Set-2026] PAGINA REMOVIDA pela mesma razao: eram os registos crus da frota
-       Python aposentada. Os tres ids ficam porque o JS os procura. -->
   <span id="lb-all" style="display:none"></span>
   <div id="log-terminal" style="display:none"></div>
   <span id="pause-btn" style="display:none"></span>
@@ -1725,7 +1643,6 @@
 <!-- ─── MOBILE CONFIG MODAL ────────────────────────────────────── -->
 <div id="mob-cfg-modal">
   <div id="mob-cfg-panel">
-    <!-- [06-Set revisao] troca de frota retirada do modal movel; ids ficam vazios -->
     <button id="mob-fleet-btn-pro" style="display:none"></button><button id="mob-fleet-btn-essential" style="display:none"></button>
     <div style="font-size:11px;color:var(--amber-bright);letter-spacing:2px;margin-bottom:14px;">─ CONFIG API ─</div>
     <div id="mob-conn-line" style="font-size:11px;color:var(--amber-dim);margin-bottom:12px;">SEM LIGAÇÃO</div>

@@ -1,48 +1,5 @@
 <!DOCTYPE html>
-<!--
-  ============================================================================
-  setup/index.html — a pagina que o e-mail da compra aponta.  23-Ago-2026
-
-  ⛔⛔ NAO PUBLICAR ANTES DE TROCAR OS MARCADORES. Procure por  [[[  no ficheiro.
-
-      [[[LINK_ROBO]]]        RESOLVIDO em 26-Ago: /download/MIA_RushPro.ex5; 05-Set: /download/MIA_Balance_2.0.ex5 (219.570 bytes, sha 532d214e),
-                             no proprio site. Ja nao ha link em falta.
-      [[[VIDEO_1]]]..[[[VIDEO_9]]]   um por passo. Cada um e' uma caixa que DIZ
-                             que o video vai ali; trocar pelo <iframe> quando
-                             existir. A pagina funciona sem eles.
-
-      JA RESOLVIDOS, e nenhum foi inventado:
-        Exness   https://one.exnessonelink.com/a/1hu6f0h2in
-                 lido do proprio site, onde ja aparece em quatro paginas.
-        MT5      https://www.metatrader5.com/pt/download   (e /en/ na versao EN)
-                 pagina oficial da MetaQuotes, conferida em 23-Ago.
-
-      A regra que ele proprio escreveu em 20-Ago, depois de tropecar nela:
-      «texto para cliente so pode citar o que se pode abrir.»
-
-  ⭐ O DESENHO desta pagina nao e novo. Estava preservado em
-     RASCUNHO_EMAIL_DA_COMPRA_20260820.md §5 e no KICKOFF_ENCERRAR_CONTABO
-     (que registou 7 passos, com o VPS do MQL5 no 6). O HTML de 21-Ago perdeu-se
-     porque foi escrito no ambiente do Claude e nunca gravado no disco dele.
-     Este ficheiro nasce ja no disco — foi essa a licao.
-
-  ⭐ SAO NOVE PASSOS desde 27-Ago-2026, quando ele apanhou que faltava CRIAR a
-     conta de negociacao Pro e a senha de negociacao — o passo 2. Antes eram oito.
-
-  ⭐ E eram OITO, nao sete. Em 23-Ago ele acrescentou o passo 3 — ligar o
-     MetaTrader a conta da Exness — porque «essa etapa e um pouco confusa para a
-     maioria dos leigos: eles tem dificuldade em entender que a exness e a
-     corretora, e onde o saldo fica». ⇒ O passo comeca por SEPARAR AS DUAS
-     COISAS e so depois ensina os cliques.
-
-  ⚠ O FLUXO, confirmado por ele em 23-Ago:
-       compra -> e-mail com os dois codigos e o link desta pagina
-              -> esta pagina, passo a passo
-              -> robo a operar e migrado para o VPS
-              -> painel, com o token de acesso
-     ⇒ O painel e' o ULTIMO passo, nao o primeiro. Por isso esta em 8.
-  ============================================================================
--->
+<!-- As notas de manutencao desta pagina estao em NOTAS_INTERNAS_DO_SITE_20260906.md, na pasta do projeto. Ler antes de mexer. -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -128,10 +85,6 @@
     <p class="lang-pt">Nove passos, na ordem. Faça um de cada vez — a ordem importa, e o passo 5 é o que mais gente pula.</p>
     <p class="lang-en">Nine steps, in order. One at a time — the order matters, and step 5 is the one most people skip.</p>
 
-    <!-- ⛔ 26-Ago-2026: o aviso deixou de ser "nao esta a venda" — ha compras reais
-         desde hoje, por convite. O aviso continua a existir porque a moldura ainda
-         e' honesta: nao esta aberto ao publico, esta aberto a convidados. Trocar
-         de volta so quando abrir mesmo. -->
     <div class="warnbox" style="margin:18px 0">
       <p class="lang-pt" style="margin:0"><b>⚠ Fase de convite.</b> Esta página é para quem já recebeu o seu link e comprou. O MIA BALANCE ainda não está aberto ao público — quem estiver no <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">canal do Telegram</a> é avisado quando abrir.</p>
       <p class="lang-en" style="margin:0"><b>⚠ Invite phase.</b> This page is for those who received their link and bought. MIA BALANCE is not open to the public yet — the <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">Telegram channel</a> hears when it opens.</p>
@@ -151,31 +104,17 @@
         <p class="lang-pt">Conta <strong>real</strong>, do tipo <strong>Pro</strong>. Você vai passar pela verificação de identidade — documento e comprovante de endereço. É exigência legal, e toda corretora séria pede.</p>
         <p class="lang-en">A <strong>real</strong> account, of the <strong>Pro</strong> type. You will go through identity verification — ID and proof of address. It is a legal requirement, and every serious broker asks for it.</p>
 
-        <!-- ⛔⛔ NAO E' SO COMISSAO: E' REQUISITO TECNICO. O produto foi calibrado
-             na conta Pro, e o RUSH e' sensivel ao spread. A trava de corretora do
-             servidor esta hoje em require=False (regista mas nao recusa), portanto
-             quem abrir uma Standard CONSEGUE rodar — com outros spreads, e com
-             outro resultado. Por isso o texto diz «Pro», e nao «na Exness». -->
         <div class="infobox" style="margin:10px 0">
           <p class="lang-pt" style="margin:0"><b>Por que Pro, e não outro tipo.</b> O robô foi medido e calibrado numa conta Pro. Uma conta de outro tipo tem outro spread, e o MIA BALANCE é sensível a isso — os resultados que você viu em Resultados foram feitos em Pro.</p>
           <p class="lang-en" style="margin:0"><b>Why Pro, and not another type.</b> The robot was measured and calibrated on a Pro account. Another account type has different spreads, and MIA BALANCE is sensitive to that — the figures on the Track Record page were produced on Pro.</p>
         </div>
 
-        <!-- ⭐ O link de indicacao dele. NAO foi inventado: foi lido do proprio
-             site em 23-Ago, onde ja aparece em quatro paginas. -->
         <div style="margin:14px 0">
           <a href="https://one.exnessonelink.com/a/1hu6f0h2in" target="_blank" rel="noopener" class="btn btn-primary"><span class="lang-pt">Abrir conta Exness Pro ↗</span><span class="lang-en">Open an Exness Pro account ↗</span></a>
         </div>
 
-        <!-- ⛔ A DECLARACAO DA RELACAO. Nao esta aqui por moral, esta por PROTECAO
-             dele: vende um robo que gera VOLUME naquela corretora. Dito na cara,
-             e' normal; descoberto depois pelo cliente, contamina a confianca em
-             tudo o resto — inclusive nos numeros que sao verdadeiros. -->
         <p class="fineprint lang-pt" style="margin-top:12px">Somos parceiros da Exness e recebemos uma comissão sobre o volume que a sua conta gerar. Isso não muda o que você paga, e não é por isso que a indicação é Pro — o robô foi calibrado nesse tipo de conta e é nele que os números de Resultados foram feitos.</p>
         <p class="fineprint lang-en" style="margin-top:12px">We are Exness partners and receive a commission on the volume your account generates. It does not change what you pay, and it is not why the recommendation is Pro — the robot was calibrated on that account type, and that is where the Track Record figures come from.</p>
-        <!-- [[[VIDEO_1]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>abrir a conta Exness Pro — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>opening the Exness Pro account — coming soon</span>
@@ -185,13 +124,6 @@
     </div>
 
     <!--=================== 2 (NOVO, 27-Ago) ===================-->
-    <!-- ⛔⛔ O BURACO QUE ELE APANHOU EM 27-Ago-2026.
-         Registar-se na Exness NAO da uma conta de negociacao. O passo 1 acabava
-         na verificacao de identidade e o seguinte ja mandava «entre com os dados
-         da conta» — dados que ainda nao existiam. Quem parasse aqui nao tinha
-         tela nenhuma a dizer que faltava alguma coisa: o vazio nao da erro.
-         ⇒ E' tambem aqui que nasce a SENHA DE NEGOCIACAO, e por isso o aviso das
-           duas senhas comeca neste passo em vez de aparecer so no 4. -->
     <div class="passo">
       <div class="passo-cab">
         <div class="passo-num">02</div>
@@ -215,8 +147,6 @@
         <p class="lang-pt">Aproveite e anote também o <strong>número da conta</strong> e o <strong>servidor</strong>, que aparecem nos detalhes dela. São os outros dois dados que o passo 4 vai pedir.</p>
         <p class="lang-en">While you are there, note the <strong>account number</strong> and the <strong>server</strong> shown in its details. They are the other two things step 4 will ask for.</p>
 
-        <!-- [[[VIDEO_2]]] — trocar esta caixa pelo <iframe> do video curto deste
-             passo. Fica um buraco DECLARADO e nao um espaco em branco. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>criar a conta Pro e a senha de negociação — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>creating the Pro account and its trading password — coming soon</span>
@@ -232,17 +162,8 @@
         <h3><span class="lang-pt">Instale o MetaTrader 5 <b>no computador</b></span><span class="lang-en">Install MetaTrader 5 <b>on a computer</b></span></h3>
       </div>
       <div class="passo-corpo">
-        <!-- ⚠ «computador, nao celular» estava no desenho de 20-Ago, e e' o tipo de
-             coisa que parece obvia para quem escreve e nao e' para quem le. O app
-             de telemovel do MT5 NAO corre robos. -->
         <p class="lang-pt"><strong>Tem de ser no computador</strong> — Windows ou Mac. O aplicativo do MetaTrader no celular serve para acompanhar, mas <strong>não roda robôs</strong>. Se você instalar só no celular, não vai conseguir passar do passo 7.</p>
         <p class="lang-en"><strong>It must be on a computer</strong> — Windows or Mac. The MetaTrader phone app is fine for watching, but it <strong>does not run robots</strong>. Installing only on the phone means you cannot get past step 7.</p>
-        <!-- ⛔⛔ O LINK VAI AQUI DE PROPOSITO, e o motivo e' seguranca, nao comodidade.
-             Mandar o cliente procurar «metatrader 5 download» no Google e' mandá-lo
-             escolher entre resultados patrocinados — e e' assim que se instala um
-             MetaTrader adulterado, com a conta dele dentro.
-             ⚠ Link CONFERIDO em 23-Ago: e' a pagina oficial da MetaQuotes, e serve
-             Windows, macOS e Linux. As duas linguas apontam para a versao da lingua. -->
         <div class="warnbox" style="margin:10px 0">
           <p class="lang-pt" style="margin:0"><b>Baixe só pelo link abaixo.</b> Procurar "MetaTrader 5" num buscador traz anúncios pagos, e há cópias adulteradas circulando. O link oficial é este:</p>
           <p class="lang-en" style="margin:0"><b>Download only through the link below.</b> Searching for "MetaTrader 5" brings paid ads, and tampered copies do circulate. The official link is this one:</p>
@@ -255,9 +176,6 @@
 
         <p class="lang-pt">Depois de instalar, entre com o login e a senha da conta que você criou no passo 2. Se preferir, a área do cliente da Exness também oferece o download — e nunca outro lugar.</p>
         <p class="lang-en">After installing, log in with the account you created in step 2. Your Exness client area also offers the download — and nowhere else does.</p>
-        <!-- [[[VIDEO_3]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>instalar o MetaTrader 5 — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>installing MetaTrader 5 — coming soon</span>
@@ -268,13 +186,6 @@
 
 
     <!--=================== 4 (NOVO, 23-Ago) ===================-->
-    <!-- ⭐ Pedido dele: «essa etapa e um pouco confusa para a maioria dos leigos.
-         eles tem dificuldade em entender que a exness e a corretora, e onde o
-         saldo fica». ⇒ O passo comeca por SEPARAR AS DUAS COISAS, e so depois
-         ensina os cliques. Enquanto o cliente achar que Exness e MetaTrader sao
-         a mesma coisa, todas as telas seguintes ficam ambiguas.
-         ⛔ E leva a armadilha que sozinha gera chamado: a senha da conta de
-         negociacao NAO e' a senha do site da Exness. -->
     <div class="passo">
       <div class="passo-cab">
         <div class="passo-num">04</div>
@@ -294,10 +205,6 @@
         <p class="lang-pt">Para o programa falar com a corretora, ele precisa de <strong>três dados</strong>, que a Exness te dá:</p>
         <p class="lang-en">For the program to talk to the broker, it needs <strong>three details</strong>, which Exness gives you:</p>
 
-        <!-- ⚠ Os exemplos sao FICTICIOS de proposito. Na primeira versao desta
-             pagina eu usei o numero da conta PRO real dele, copiado de um print
-             — ele apanhou. Numero de conta de ninguem entra em pagina publica,
-             nem como exemplo. -->
         <p class="lang-pt"><strong>1. O número da conta</strong> — só números, tipo <code>123456789</code>. É o seu "login".<br>
         <strong>2. A senha da conta de negociação</strong> — veja o aviso abaixo.<br>
         <strong>3. O servidor</strong> — normalmente <code>Exness-MT5Real11</code>. ⚠ Mas o número do fim <strong>pode ser outro na sua conta</strong>: o que vale é o que a Exness mostrar nos detalhes dela. Se a lista do MetaTrader tiver dezenas de servidores, escreva <code>Exness</code> no campo de busca em vez de rolar.</p>
@@ -305,9 +212,6 @@
         <strong>2. The trading account password</strong> — see the warning below.<br>
         <strong>3. The server</strong> — usually <code>Exness-MT5Real11</code>. ⚠ But the number at the end <strong>may differ on your account</strong>: what counts is the one Exness shows in its details. If MetaTrader lists dozens of servers, type <code>Exness</code> in the search box instead of scrolling.</p>
 
-        <!-- ⛔⛔ A CONFUSAO QUE MAIS CUSTA. Quase toda a gente tenta primeiro a
-             senha com que entrou no site da Exness, ve «senha invalida», e
-             conclui que a conta esta errada. -->
         <div class="warnbox" style="margin:12px 0">
           <p class="lang-pt" style="margin:0"><b>⚠ São duas senhas diferentes.</b> A senha com que você entra no <strong>site da Exness</strong> <u>não é</u> a senha da <strong>conta de negociação</strong>. A do MetaTrader é a segunda — a Exness a mostra (ou deixa você definir) nos detalhes da conta. Se o MetaTrader disser "senha inválida", quase sempre é isso, e não a conta errada.</p>
           <p class="lang-en" style="margin:0"><b>⚠ These are two different passwords.</b> The password you use on the <strong>Exness website</strong> is <u>not</u> the <strong>trading account</strong> password. MetaTrader wants the second one — Exness shows it (or lets you set it) in the account details. If MetaTrader says "invalid password", that is almost always why, not a wrong account.</p>
@@ -322,9 +226,6 @@
         <p class="lang-pt"><strong>Como saber que deu certo:</strong> o canto inferior direito do MetaTrader deixa de dizer "sem conexão" e passa a mostrar a velocidade da ligação, e o seu saldo aparece na aba <strong>Negociação</strong>. Se o saldo apareceu, está ligado.</p>
         <p class="lang-en"><strong>How to know it worked:</strong> the bottom-right corner of MetaTrader stops saying "no connection" and starts showing the link speed, and your balance shows up under the <strong>Trade</strong> tab. If the balance is there, you are connected.</p>
 
-        <!-- [[[VIDEO_4]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>pegar as credenciais na Exness e entrar no MetaTrader — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>getting the credentials from Exness and logging into MetaTrader — coming soon</span>
@@ -338,9 +239,6 @@
         <h3><span class="lang-pt">Autorize a URL no MetaTrader <b>— antes do robô</b></span><span class="lang-en">Authorise the URL in MetaTrader <b>— before the robot</b></span></h3>
       </div>
       <div class="passo-corpo">
-        <!-- ⛔⛔ ESTE PASSO VEM ANTES DE PROPOSITO, e nao e' arrumacao.
-             Se o cliente colar a chave antes de autorizar a URL, a ativacao FALHA
-             e ele conclui que comprou um produto partido. Decisao de 20-Ago. -->
         <div class="warnbox" style="margin:0 0 12px">
           <p class="lang-pt" style="margin:0"><b>Faça este passo agora, não depois.</b> Se o robô entrar no gráfico antes desta autorização, a ativação da licença falha — e parece que o produto está quebrado, quando é só isto que falta.</p>
           <p class="lang-en" style="margin:0"><b>Do this now, not later.</b> If the robot goes on the chart before this authorisation, the licence activation fails — and it looks like a broken product, when this is all that is missing.</p>
@@ -349,13 +247,6 @@
         <p class="lang-pt">No MetaTrader 5, abra o menu <strong>Ferramentas → Opções → Consultores Especialistas</strong>, marque <strong>Permitir WebRequest para as URLs listadas</strong> e acrescente esta:</p>
         <p class="lang-en">In MetaTrader 5, open <strong>Tools → Options → Expert Advisors</strong>, tick <strong>Allow WebRequest for listed URL</strong> and add this one:</p>
 
-        <!-- ⭐⭐ BOTAO DE COPIAR, pedido dele em 23-Ago, e o sitio e' este.
-             ⛔ Se o cliente digitar esta URL a mao e errar UMA letra, a activacao
-             falha — e a mensagem que ele ve nao diz «URL errada», diz que o robo
-             nao conseguiu ligar. Ele nunca descobriria sozinho.
-             ⚠ O navigator.clipboard so existe em HTTPS (nao em file://), por isso
-             ha um caminho de recurso: seleciona o texto e tenta o execCommand.
-             Se ate isso falhar, o texto fica SELECIONADO, que ja resolve. -->
         <div class="copiavel">
           <code class="url-caixa" id="urlMia">https://licencas.miats.trade</code>
           <button type="button" class="btn btn-copiar" data-copiar="urlMia">
@@ -366,9 +257,6 @@
 
         <p class="lang-pt">Use o botão <strong>Copiar</strong> — assim não há risco de errar uma letra. Cole no MetaTrader e clique OK.</p>
         <p class="lang-en">Use the <strong>Copy</strong> button — that way there is no risk of a typo. Paste it into MetaTrader and click OK.</p>
-        <!-- [[[VIDEO_5]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>autorizar a URL — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>authorising the URL — coming soon</span>
@@ -389,20 +277,11 @@
         <p class="lang-pt">Feche e abra o MetaTrader. O robô aparece no <strong>Navegador</strong>, em <strong>Consultores Especialistas</strong>.</p>
         <p class="lang-en">Close and reopen MetaTrader. The robot shows up in the <strong>Navigator</strong>, under <strong>Expert Advisors</strong>.</p>
 
-        <!-- ⛔ O ficheiro vive no proprio site (/download/), servido pelo GitHub Pages.
-             Decisao dele, 26-Ago: link direto. Fica publico, e e' aceitavel porque
-             SEM CHAVE VALIDA o robo recusa arrancar — a licenca e' a trava, nao a
-             obscuridade do ficheiro.
-             ⚠ Ao trocar o binario, trocar tambem o TAMANHO escrito abaixo: e' com
-             ele que se confere, ao telefone, se o cliente tem o ficheiro certo. -->
         <div style="margin:14px 0">
           <a href="/download/MIA_Balance_2.0.ex5" download class="btn btn-primary"><span class="lang-pt">Baixar o robô (.ex5) ↓</span><span class="lang-en">Download the robot (.ex5) ↓</span></a>
         </div>
         <p class="lang-pt" style="font-size:.86rem;opacity:.75">Se o seu navegador avisar que o arquivo é incomum, é esperado — ele não é assinado como um programa de loja. O arquivo correto tem <strong>219.570 bytes</strong>.</p>
         <p class="lang-en" style="font-size:.86rem;opacity:.75">If your browser warns that the file is uncommon, that is expected — it is not signed like a store application. The correct file is <strong>219,570 bytes</strong>.</p>
-        <!-- [[[VIDEO_6]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>baixar o robô e pôr na pasta certa — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>downloading the robot and placing the file — coming soon</span>
@@ -418,32 +297,6 @@
         <h3><span class="lang-pt">Arraste para o gráfico e cole a <b>chave de licença</b></span><span class="lang-en">Drag it onto a chart and paste the <b>licence key</b></span></h3>
       </div>
       <div class="passo-corpo">
-        <!--=========================================================
-             ⛔⛔ AS DUAS PEGADINHAS DESTE PASSO, e ambas ja aconteceram.
-
-             1) «arraste para um grafico qualquer» ESTAVA ERRADO. O robo tem
-                uma trava (MiaTravas, ponto 1) que exige o grafico do XAUUSD:
-                  «MIA: este robo tem de ser colocado no grafico de XAUUSD.»
-                Um amigo dele pos noutro ativo e ficou UMA TARDE sem uma unica
-                operacao. A razao estava no log, e ele nao sabia que o log
-                existia. ⇒ o texto agora diz o ativo, e ensina a abrir o grafico.
-
-             2) ⛔ SEM O XCUUSD DISPONIVEL, O ROBO NAO OPERA NADA — nem o ouro.
-                [05-Set] MEDIDO no MIA_Balance_2.0: o SymbolSelect e' SO' do cobre
-                (`:510`) e o MiaBars_Aquecer so' aquece XAUUSD e XCUUSD (`:632-636`).
-                ⇒ BTCUSD, ETHUSD, US500 e USTEC **nao entram sozinhos** na Observacao
-                do Mercado. Por isso o passo manda fazer «Mostrar tudo» ANTES, em vez
-                de o deixar como saida de emergencia. E' o remendo do lado do cliente;
-                o conserto do lado do EA e' uma linha por simbolo, e e' decisao dele.
-                Esta escrito no proprio codigo: a gestao de risco foi medida com
-                as estrategias a correr juntas. Se o cobre nao estiver na conta,
-                o robo trava tudo — e a mensagem fala do cobre, nao do grafico,
-                por isso ninguem liga uma coisa a outra sozinho.
-
-             ⇒ E a licao maior das duas: o robo EXPLICA sempre porque parou, e o
-               cliente nao sabe onde ler. Por isso este passo acaba a ensinar
-               onde se olha quando nada acontece.
-             =========================================================-->
 
         <div class="warnbox" style="margin:0 0 12px">
           <p class="lang-pt" style="margin:0"><b>⚠ Tem de ser o gráfico do XAUUSD (ouro).</b> Não é um gráfico qualquer. Se o robô for colocado noutro ativo, ele simplesmente não opera — e passa horas parado sem dar nenhum sinal na tela.</p>
@@ -455,28 +308,10 @@
         <p class="lang-pt"><strong>Depois abra o gráfico certo:</strong> procure <code>XAUUSD</code> nessa lista, clique nele com o <strong>botão direito</strong> e escolha <strong>Janela do Gráfico</strong>.</p>
         <p class="lang-en"><strong>Then open the right chart:</strong> find <code>XAUUSD</code> in that list, right-click it and choose <strong>Chart Window</strong>.</p>
 
-        <!-- ⛔ SAIU DAQUI, em 23-Ago, uma caixa a mandar o cliente conferir se o
-             XCUUSD aparecia na Observacao do Mercado. Estava ERRADA e era minha:
-             a trava do cobre no robo faz SymbolSelect(cobre, TRUE), e esse `true`
-             ACRESCENTA o simbolo ao Market Watch sozinho. O cliente nao tem de
-             conferir nem adicionar nada — a trava so fala no dia em que o ativo
-             nao existir na conta, que e' conta errada e nao passo esquecido.
-             ⇒ Era complexidade inventada por mim, nao pelo produto. -->
 
         <p class="lang-pt">Com o gráfico do XAUUSD aberto, arraste o robô do <strong>Navegador</strong> para cima dele. Abre uma janela de propriedades: cole ali a <strong>chave de licença</strong> — o primeiro dos dois códigos do seu e-mail, aquele com o formato <code>XXXX-XXXX-XXXX-XXXX</code>.</p>
         <p class="lang-en">With the XAUUSD chart open, drag the robot from the <strong>Navigator</strong> onto it. A properties window opens: paste the <strong>licence key</strong> there — the first of the two codes in your email, the one shaped like <code>XXXX-XXXX-XXXX-XXXX</code>.</p>
 
-        <!--=========================================================
-             ⭐ A ESCOLHA DO PERFIL — caixa propria desde 06-Set-2026, a pedido
-             dele. Antes eram DUAS LINHAS perdidas entre o colar da chave e o
-             Algotrading, e a unica decisao que o cliente toma na vida do
-             produto passava despercebida.
-             ⚠ Os saldos vem da FONTE UNICA (`script.js`, `data-deposit`) — nao
-               escrever numeros novos aqui a mao.
-             ⚠ Os rotulos sao os do EA, na letra (`MIA_Balance_2.0.mq5:131-136`):
-               o input chama-se «Perfil do produto» e as opcoes «MIA BALANCE» e
-               «MIA COMPACT». Se o EA mudar o rotulo, esta caixa mente.
-             =========================================================-->
         <div class="infobox" style="margin:12px 0">
           <p class="lang-pt" style="margin:0 0 8px"><b>Na mesma janela, logo abaixo da chave, está o <strong>Perfil do produto</strong> — e é a única escolha que você faz.</b> Todo o resto dos parâmetros vem do servidor.</p>
           <p class="lang-pt" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — os <strong>dez robôs</strong>, em seis mercados, com <strong>0,5%</strong> de risco por operação. Saldo sugerido: <strong data-deposit="balance.sug">US$ 4.000</strong>. É a carteira inteira, e o produto como ele foi desenhado.</p>
@@ -490,32 +325,11 @@
           <p class="lang-en" style="margin:0"><strong>Switching later costs nothing</strong> and needs no reinstall: same properties window, same place. And risk per trade is a <em>target</em> — on a small account the broker's minimum lot pushes real risk up, which is why the robot prints your account's effective risk on the chart before the first order.</p>
         </div>
 
-        <!-- ⚠ Isto estava no desenho de 20-Ago e parece pequeno ate acontecer:
-             sob Wine e em alguns teclados o atalho de colar nao funciona nessa
-             janela. Um cliente que nao consiga colar a chave para ali. -->
         <div class="infobox" style="margin:10px 0">
           <p class="lang-pt" style="margin:0"><b>Se o atalho de colar não funcionar</b> nessa janela, use o <strong>botão direito → Colar</strong>. Acontece em alguns teclados, e não é problema seu.</p>
           <p class="lang-en" style="margin:0"><b>If the paste shortcut does not work</b> in that window, use <strong>right-click → Paste</strong>. It happens on some keyboards, and it is not your fault.</p>
         </div>
 
-        <!--=========================================================
-             ⛔⛔ A TERCEIRA PEGADINHA: SAO DUAS PORTAS EM SERIE, com o MESMO
-             NOME, e cada uma tem o seu proprio interruptor.
-
-             O comentario do MIA_RushPro diz o preco: «[A3] A SEGUNDA PORTA — o
-             aviso que faltou, e custou 4h30 em 16-Ago». E explica porque e' tao
-             traicoeira: com a caixa do EA fechada, TODA ordem devolve o erro
-             10027 e o cliente NAO VE NADA ACONTECER — a unica pista era um
-             retcode numa aba que cliente de varejo nunca abre.
-
-             ⚠ E foi MEDIDO em 17-Ago que os dois campos sao independentes: com a
-             caixa marcada e o botao desligado, o MQL_TRADE_ALLOWED devolveu
-             VERDADEIRO na mesma. Cada porta tem o seu campo:
-                caixa das Propriedades -> MQLInfoInteger(MQL_TRADE_ALLOWED)
-                botao da barra         -> TerminalInfoInteger(TERMINAL_TRADE_ALLOWED)
-             ⇒ por isso o robo NOMEIA qual das duas esta fechada, em vez de
-               mandar clicar no sitio errado.
-             =========================================================-->
         <div class="warnbox" style="margin:12px 0">
           <p class="lang-pt" style="margin:0 0 8px"><b>⚠ Existem DOIS "Algotrading", e os dois têm de estar ligados.</b> Têm o mesmo nome e ficam em lugares diferentes — ligar só um é o erro mais comum de todos, e não dá aviso nenhum: o robô fica no gráfico, parado, como se estivesse funcionando.</p>
           <p class="lang-pt" style="margin:0 0 8px"><strong>1. Na janela que acabou de abrir</strong>, vá na aba <strong>Comum</strong> e marque <strong>Permitir negociação automática</strong>. Só depois clique OK.</p>
@@ -530,9 +344,6 @@
 
         <p class="lang-pt"><strong>O segundo código do e-mail — o token do painel — não entra aqui.</strong> Ele é usado no passo 9, e só serve para olhar.</p>
         <p class="lang-en"><strong>The second code in the email — the panel token — does not go here.</strong> It is used in step 9, and it only lets you look.</p>
-        <!-- [[[VIDEO_7]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>colar a chave e ligar o Algotrading — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>pasting the key and turning Algotrading on — coming soon</span>
@@ -553,9 +364,6 @@
         <p class="lang-pt">A solução é o <strong>VPS do próprio MetaTrader</strong>: um computador na nuvem, alugado de dentro do programa, que roda o robô 24 horas por dia. No MetaTrader, clique com o botão direito na sua conta, no Navegador, e escolha <strong>Registrar um servidor virtual</strong>. Depois de contratado, use <strong>Sincronizar</strong> para enviar o robô para lá.</p>
         <p class="lang-en">The answer is MetaTrader's own <strong>VPS</strong>: a machine in the cloud, rented from inside the program, running the robot around the clock. In MetaTrader, right-click your account in the Navigator and choose <strong>Register a Virtual Server</strong>. Once hired, use <strong>Synchronise</strong> to send the robot there.</p>
 
-        <!-- ⚠ MEDIDO no VPS dele, 21-Ago: o terminal do VPS reinicia sozinho duas a
-             tres vezes por dia. Nao e' defeito nem motivo de alarme, mas o cliente
-             que ve o robo «recomecar» no diario tem de saber que e' normal. -->
         <div class="infobox" style="margin:10px 0">
           <p class="lang-pt" style="margin:0"><b>O que sincronizar faz.</b> Ele copia o seu MetaTrader para o servidor — os gráficos, os robôs e as configurações, exatamente como estão no seu computador naquele momento. Deixe no computador só o que você quer que rode no servidor.</p>
           <p class="lang-en" style="margin:0"><b>What synchronising does.</b> It copies your MetaTrader to the server — charts, robots and settings, exactly as they are on your computer at that moment. Leave on your computer only what you want running on the server.</p>
@@ -563,9 +371,6 @@
 
         <p class="lang-pt">Depois de sincronizar, pode fechar o MetaTrader do seu computador. O robô continua lá.</p>
         <p class="lang-en">Once synchronised, you can close MetaTrader on your computer. The robot keeps going.</p>
-        <!-- [[[VIDEO_8]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>contratar o VPS e sincronizar — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>hiring the VPS and synchronising — coming soon</span>
@@ -590,9 +395,6 @@
         <div style="margin-top:14px">
           <a href="../painel/" data-nav class="btn btn-primary"><span class="lang-pt">Abrir o painel ↗</span><span class="lang-en">Open the panel ↗</span></a>
         </div>
-        <!-- [[[VIDEO_9]]] — trocar esta caixa pelo <iframe> do video curto
-             deste passo. Fica um buraco DECLARADO e nao um espaco em branco:
-             assim ninguem publica a pagina a pensar que o video ja la esta. -->
         <div class="video-passo">
           <span class="lang-pt"><b>▶ Vídeo deste passo</b><br>abrir o painel com o token — em breve</span>
           <span class="lang-en"><b>▶ Video for this step</b><br>opening the panel with the token — coming soon</span>
@@ -603,21 +405,6 @@
 
   </section>
 
-  <!--===========================================================================
-       ⭐⭐ A SECCAO QUE TERIA POUPADO A TARDE DO AMIGO DELE.
-
-       O caso, contado por ele em 23-Ago: o amigo pos o EA num grafico que nao
-       era do ouro e ficou UMA TARDE inteira sem uma unica operacao. Quando ele
-       pediu os logs, a razao estava la escrita, em portugues claro, desde o
-       primeiro minuto — «este robo tem de ser colocado no grafico de XAUUSD».
-
-       ⇒ O problema NAO foi falta de aviso. Foi o cliente nao saber que existe um
-         sitio onde o robo fala. Todas as travas do MIA_RushPro escrevem ali:
-         grafico errado, cobre em falta, conta netting, conta nao-Pro, e as duas
-         portas do algotrading. Ensinar a abrir esta aba vale mais do que
-         qualquer instrucao individual — e' o que transforma «nao funciona» numa
-         frase que o suporte consegue resolver em dois minutos.
-       ===========================================================================-->
   <section class="section">
     <div class="section-tag">// QUANDO NADA ACONTECE</div>
     <div class="panel">
@@ -670,8 +457,6 @@
 
 <script src="../script.js?v=9"></script>
 
-<!-- ⛔ JS SO DESTA PAGINA, de proposito: o script.js e' partilhado pelas sete
-     paginas que ja estao no ar, e uma pagina nova nao pode mexer nelas. -->
 <script>
 (function () {
   document.querySelectorAll('[data-copiar]').forEach(function (botao) {
