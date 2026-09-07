@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!-- ⭐ /atualizar — 07-Set-2026. Pagina FORA do menu, de proposito (decisao dele, 07-Set):
+     so' se chega aqui pelo link do e-mail de atualizacao. A cada versao publicada:
+       1. trocar a VERSAO e os BYTES na caixa do topo;
+       2. acrescentar uma entrada no HISTORICO (o mesmo «o que mudou» do e-mail);
+       3. subir o .ex5 novo para /download/ (mesmo nome de ficheiro — ver a nota no passo 2).
+     Ler NOTAS_INTERNAS_DO_SITE_20260906.md antes de mexer. -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atualizar o robô · MIA Trading System</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="MIA Trading System">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://miats.trade/atualizar/">
+  <meta property="og:title" content="Atualizar o robô · MIA Trading System">
+  <meta property="og:description" content="Já é cliente? Baixe a versão nova do MIA BALANCE e troque o arquivo — a chave e o token continuam os mesmos.">
+  <meta property="og:image" content="https://miats.trade/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="MIA Trading System">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Atualizar o robô · MIA Trading System">
+  <meta name="twitter:description" content="Já é cliente? Baixe a versão nova do MIA BALANCE e troque o arquivo — a chave e o token continuam os mesmos.">
+  <meta name="twitter:image" content="https://miats.trade/assets/og.png">
+<meta name="description" content="Já é cliente? Baixe a versão nova do MIA BALANCE e troque o arquivo — a chave e o token continuam os mesmos.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="../style.css?v=11">
+<style>
+  /* ⚠ Estilos so' desta pagina. Nada aqui muda o style.css. */
+  .passo { border:1px solid var(--border); background:var(--bg2); padding:0; margin-bottom:14px; }
+  .passo-cab { display:flex; align-items:center; gap:14px; padding:14px 18px; border-bottom:1px solid var(--border); }
+  .passo-num { flex:0 0 auto; font-size:24px; font-weight:bold; color:var(--border-bright); text-shadow:0 0 10px var(--amber-glow); min-width:38px; }
+  .passo-cab h3 { margin:0; font-size:16px; }
+  .passo-corpo { padding:16px 18px; }
+  .passo-corpo p { margin:0 0 10px; }
+  .passo-corpo p:last-child { margin-bottom:0; }
+  .versao-caixa { border:1px solid var(--border-bright); background:var(--bg3); padding:18px; margin:18px 0; display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; }
+  .versao-caixa .v { font-family:monospace; font-size:26px; color:var(--amber-bright); }
+  .versao-caixa small { display:block; opacity:.75; font-size:.86rem; margin-top:4px; }
+  .hist { border-left:2px solid var(--border-bright); padding:4px 0 4px 16px; margin:14px 0; }
+  .hist h3 { margin:0 0 6px; font-size:15px; }
+  .hist ul { margin:0; padding-left:18px; }
+  .hist li { margin:0 0 4px; }
+  @media (max-width:640px){ .passo-num{font-size:19px;min-width:30px} .passo-cab h3{font-size:14px} .versao-caixa .v{font-size:21px} }
+</style>
+</head>
+<body>
+
+<header id="topbar">
+  <div class="nav-wrap">
+    <a href="../index.html" data-nav class="brand">
+      <img src="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20320%27%3E%3Crect%20width%3D%27320%27%20height%3D%27320%27%20rx%3D%2764%27%20fill%3D%27%23000800%27/%3E%3Crect%20x%3D%2716%27%20y%3D%2716%27%20width%3D%27288%27%20height%3D%27288%27%20rx%3D%2752%27%20fill%3D%27none%27%20stroke%3D%27%2300e040%27%20stroke-width%3D%2710%27/%3E%3Cg%20fill%3D%27%2300e040%27%3E%3Crect%20x%3D%2778%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%2790%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27110%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27176%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27126%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27143%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27162%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27198%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%2778%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3Crect%20x%3D%27208%27%20y%3D%27234%27%20width%3D%2734%27%20height%3D%2734%27/%3E%3C/g%3E%3C/svg%3E" alt="MIA">
+      <span class="brand-text">MIA TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
+    </a>
+    <nav class="mainnav">
+      <a href="../index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
+      <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
+      <a href="../produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="../como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
+      <a href="../metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
+      <a href="../glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
+      <a href="../painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+      <a href="../setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
+      <a href="../faq.html" data-nav>FAQ</a>
+      <a href="../contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="langsw">
+        <a href="#" data-lang-switch="pt">PT</a>
+        <a href="#" data-lang-switch="en">EN</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="section">
+    <div class="section-tag">// ATUALIZAR</div>
+    <h1 class="lang-pt">Atualize o robô</h1>
+    <h1 class="lang-en">Update the robot</h1>
+
+    <p class="lang-pt">Você recebeu um e-mail dizendo que saiu uma versão nova. É só baixar o arquivo e trocar o antigo — leva uns dois minutos. <strong>A sua chave de licença e o token do painel continuam os mesmos.</strong></p>
+    <p class="lang-en">You got an e-mail saying a new version is out. Just download the file and replace the old one — it takes a couple of minutes. <strong>Your licence key and panel token stay the same.</strong></p>
+
+    <!-- ⭐ A CAIXA DA VERSAO — trocar a cada publicacao: versao, bytes, e a data. -->
+    <div class="versao-caixa">
+      <div>
+        <div class="v">MIA BALANCE 2.1.0</div>
+        <small class="lang-pt">Versão atual · publicada em <span data-publicada>—</span> · o arquivo correto tem <strong data-bytes>— bytes</strong></small>
+        <small class="lang-en">Current version · published on <span data-publicada>—</span> · the correct file is <strong data-bytes>— bytes</strong></small>
+      </div>
+      <a href="/download/MIA_Balance_2.0.ex5" download class="btn btn-primary"><span class="lang-pt">Baixar a versão nova (.ex5) ↓</span><span class="lang-en">Download the new version (.ex5) ↓</span></a>
+    </div>
+
+    <div class="warnbox" style="margin:18px 0">
+      <p class="lang-pt" style="margin:0"><b>⚠ Tem prazo.</b> A versão antiga deixa de abrir operações <strong>30 dias</strong> depois da publicação. O que estiver aberto continua a ser gerido até fechar — mas o robô não entra em novas. Depois de atualizar, tudo volta ao normal sozinho.</p>
+      <p class="lang-en" style="margin:0"><b>⚠ There is a deadline.</b> The old version stops opening trades <strong>30 days</strong> after publication. Whatever is open keeps being managed until it closes — but the robot enters no new trades. Once you update, everything resumes on its own.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-tag">// PASSO A PASSO</div>
+    <p class="lang-pt">Quatro passos. Se o robô roda no VPS, o passo 4 é o que faz a versão nova chegar lá.</p>
+    <p class="lang-en">Four steps. If the robot runs on the VPS, step 4 is what gets the new version there.</p>
+
+    <!--=================== 1 ===================-->
+    <div class="passo">
+      <div class="passo-cab">
+        <div class="passo-num">01</div>
+        <h3><span class="lang-pt">Baixe o arquivo novo</span><span class="lang-en">Download the new file</span></h3>
+      </div>
+      <div class="passo-corpo">
+        <p class="lang-pt">Use o botão lá em cima. Se o navegador avisar que o arquivo é incomum, é esperado — ele não é assinado como um programa de loja.</p>
+        <p class="lang-en">Use the button above. If your browser warns that the file is uncommon, that is expected — it is not signed like a store application.</p>
+      </div>
+    </div>
+
+    <!--=================== 2 ===================-->
+    <div class="passo">
+      <div class="passo-cab">
+        <div class="passo-num">02</div>
+        <h3><span class="lang-pt">Troque o arquivo antigo pelo novo</span><span class="lang-en">Replace the old file with the new one</span></h3>
+      </div>
+      <div class="passo-corpo">
+        <p class="lang-pt">No MetaTrader do seu computador, abra <strong>Arquivo → Abrir Pasta de Dados</strong> e entre em <strong>MQL5 → Experts</strong>. Cole o arquivo novo por cima do antigo — o nome é o mesmo, e o MetaTrader pergunta se quer substituir. Diga que sim.</p>
+        <p class="lang-en">In MetaTrader on your computer, open <strong>File → Open Data Folder</strong> and go to <strong>MQL5 → Experts</strong>. Paste the new file over the old one — same name, and MetaTrader asks whether to replace it. Say yes.</p>
+        <p class="lang-pt">Não precisa tirar o robô do gráfico nem colar a chave de novo: o MetaTrader percebe que o arquivo mudou e recarrega o robô sozinho, com as suas configurações.</p>
+        <p class="lang-en">No need to remove the robot from the chart or paste the key again: MetaTrader notices the file changed and reloads the robot on its own, with your settings.</p>
+      </div>
+    </div>
+
+    <!--=================== 3 ===================-->
+    <div class="passo">
+      <div class="passo-cab">
+        <div class="passo-num">03</div>
+        <h3><span class="lang-pt">Confira que a versão nova está rodando</span><span class="lang-en">Check that the new version is running</span></h3>
+      </div>
+      <div class="passo-corpo">
+        <p class="lang-pt">Na aba <strong>Especialistas</strong>, embaixo do gráfico, o robô escreve a versão ao arrancar. Se aparecer a versão desta página, está feito. Se o robô não aparecer no gráfico, feche e abra o MetaTrader.</p>
+        <p class="lang-en">In the <strong>Experts</strong> tab below the chart, the robot prints its version when it starts. If it shows the version on this page, you are done. If the robot is not on the chart, close and reopen MetaTrader.</p>
+      </div>
+    </div>
+
+    <!--=================== 4 ===================-->
+    <div class="passo" style="border-color:var(--border-bright)">
+      <div class="passo-cab">
+        <div class="passo-num">04</div>
+        <h3><span class="lang-pt">Roda no VPS? Migre de novo</span><span class="lang-en">Running on the VPS? Migrate again</span></h3>
+      </div>
+      <div class="passo-corpo">
+        <p class="lang-pt">O VPS tem uma cópia do seu MetaTrader — e ainda está com o arquivo antigo. Com o MetaTrader do computador já atualizado, clique com o botão direito na sua conta, no <strong>Navegador</strong>, e escolha <strong>Migrar</strong>. É o mesmo passo da instalação, e leva a versão nova para o servidor.</p>
+        <p class="lang-en">The VPS holds a copy of your MetaTrader — still with the old file. With MetaTrader on your computer already updated, right-click your account in the <strong>Navigator</strong> and choose <strong>Migrate</strong>. Same step as the installation; it carries the new version to the server.</p>
+        <p class="lang-pt">Se não migrar, o robô do VPS continua na versão antiga — e é ele que opera.</p>
+        <p class="lang-en">If you do not migrate, the robot on the VPS stays on the old version — and that is the one trading.</p>
+      </div>
+    </div>
+
+    <p class="lang-pt">Alguma dúvida? Escreva para <a href="mailto:suporte@miats.trade">suporte@miats.trade</a>. Se for a primeira instalação, a página é outra: <a href="../setup/" data-nav>Começar</a>.</p>
+    <p class="lang-en">Questions? Write to <a href="mailto:suporte@miats.trade">suporte@miats.trade</a>. If this is your first install, the page you want is <a href="../setup/" data-nav>Get started</a>.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-tag">// HISTÓRICO DE VERSÕES</div>
+    <!-- ⭐ Uma entrada por versao publicada, a mais nova em cima. O texto e' o MESMO
+         «o que mudou» do e-mail — linguagem de cliente, nada tecnico. -->
+    <div class="hist">
+      <h3>2.1.0 <small style="opacity:.7;font-weight:normal">· <span data-publicada>—</span></small></h3>
+      <ul class="lang-pt">
+        <li>Fusível de segurança: se o resultado do robô cair 20 % do seu melhor ponto, ele para de abrir operações até a MIA verificar e religar.</li>
+        <li>Verificação do risco antes de operar: um parâmetro fora da faixa e o robô não abre nada.</li>
+        <li>Luz no painel: robô ligado, parado pelo fusível, ou sem contato.</li>
+        <li>Avisos no celular mais precisos: o valor da entrada e o resultado zero.</li>
+        <li>Correções internas de estabilidade — proteção de spread, stops e ordens.</li>
+      </ul>
+      <ul class="lang-en">
+        <li>Safety fuse: if the robot's result drops 20% from its best point, it stops opening trades until MIA checks and re-arms it.</li>
+        <li>Risk check before trading: a parameter out of range and the robot opens nothing.</li>
+        <li>Panel light: robot on, paused by the fuse, or no contact.</li>
+        <li>More precise phone alerts: the entry value and the zero result.</li>
+        <li>Internal stability fixes — spread protection, stops and orders.</li>
+      </ul>
+    </div>
+    <div class="hist" style="opacity:.75">
+      <h3>2.0.0 <small style="opacity:.7;font-weight:normal">· 05-09-2026</small></h3>
+      <ul class="lang-pt"><li>A primeira versão do MIA BALANCE: dez robôs em seis mercados, um arquivo, uma licença.</li></ul>
+      <ul class="lang-en"><li>The first MIA BALANCE release: ten robots across six markets, one file, one licence.</li></ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <p class="lang-pt">MIA Trading System licencia programas de trading automatizado que você instala na <strong>sua própria conta</strong> de corretagem. Você mantém titularidade e controle total dessa conta a qualquer momento — a MIA nunca acessa nem movimenta seu dinheiro.</p>
+    <p class="lang-en">MIA Trading System licenses automated trading programs that you install on <strong>your own</strong> brokerage account. You retain full ownership and control of that account at all times — MIA never accesses or moves your money.</p>
+    <p>© 2026 MIA Trading System · <a href="../index.html" data-nav>Home</a> · <a href="../produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a> · <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a> · <a href="../como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a> · <a href="../metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a> · <a href="../glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a> · <a href="../painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a> · <a href="../setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a> · <a href="../faq.html" data-nav>FAQ</a> · <a href="../contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a></p>
+  </div>
+</footer>
+
+<script src="../script.js?v=10"></script>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-copiar]').forEach(function (botao) {
+    botao.addEventListener('click', function () {
+      var alvo = document.getElementById(botao.getAttribute('data-copiar'));
+      if (!alvo) return;
+      var texto = (alvo.textContent || '').trim();
+      if (!texto) return;
+
+      function deuCerto() {
+        botao.classList.add('ok');
+        // ⚠ volta ao rotulo sozinho: um botao que fica «Copiado» para sempre
+        //   deixa a pessoa em duvida se o segundo clique funcionou.
+        setTimeout(function () { botao.classList.remove('ok'); }, 2000);
+      }
+
+      // ⛔ Caminho de recurso. Vale para file:// e para navegadores antigos, onde
+      //    o navigator.clipboard nao existe. Se nem isto copiar, o texto fica
+      //    SELECIONADO — e a pessoa copia a mao, que era o que fazia antes.
+      function aMao() {
+        try {
+          var r = document.createRange();
+          r.selectNodeContents(alvo);
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(r);
+          if (document.execCommand('copy')) deuCerto();
+        } catch (e) { /* fica selecionado; nao ha mais nada a fazer */ }
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(deuCerto, aMao);
+      } else {
+        aMao();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
