@@ -356,6 +356,10 @@
   .fus.fus-on { color:var(--green); }
   .fus.fus-pausa .fus-dot { background:var(--red); box-shadow:0 0 6px var(--red); animation:fus-pisca 1.2s ease-in-out infinite; }
   .fus.fus-pausa { color:var(--red); }
+  /* ⭐ [REVISAO GERAL 2, 07-Set-2026] a PARADA GLOBAL («PARAR TODOS» no /admin). Cor propria de
+     proposito: nao e' o verde de «a operar» nem o vermelho a piscar do fusivel desta conta. */
+  .fus.fus-parada .fus-dot { background:#ffb020; box-shadow:0 0 6px #ffb020; }
+  .fus.fus-parada { color:#ffb020; }
   @keyframes fus-pisca { 50% { opacity:.35; } }
   /* fleet-switch-row/nav-frota-label NÃO entram aqui: no modo demo o próprio JS
      decide se mostra (só quando a frota irmã foi configurada — ver READONLY_MODE). */
@@ -3866,6 +3870,17 @@ function pintarFusivel(f) {
     tx.textContent = 'PAUSA DE SEGURANÇA';
     el.title = 'O robô parou de abrir operações: a conta caiu ' + Number(f.queda_pct || 0).toFixed(1)
       + '% do pico. As posições abertas continuam sendo gerenciadas. A MIA vai entrar em contato.';
+  } else if (f.parada_global === true) {
+    // ⭐ [REVISAO GERAL 2, 07-Set-2026, achado 1] O «PARAR TODOS» TEM DE APARECER AQUI.
+    // Com a parada global ligada o cliente recebe no celular «operações pausadas pela MIA»
+    // e esta luz dizia «ROBÔ ATIVO», a verde, «operando normalmente». Era no minuto em que
+    // ele está assustado que as duas fontes se contradiziam — e a que ele acredita é a tela.
+    // ⭐ Vem do servidor, não do robô: vale mesmo com o MetaTrader fechado, e por isso fica
+    //   ACIMA do «sem contato». Abaixo do fusível, que é desta conta e é mais específico.
+    el.className = 'fus fus-parada';
+    tx.textContent = 'OPERAÇÕES PAUSADAS';
+    el.title = 'A MIA pausou a abertura de operações. Nenhuma operação nova é aberta; '
+      + 'as que estão abertas continuam sendo gerenciadas. Avisamos quando voltar.';
   } else if (f.ao_vivo === false) {
     // ⭐ [REVISAO 07-Set-2026, achado 6] O VERDE TEM DE PROVAR ALGUMA COISA.
     // O estado é o último que o robô mandou. Com o MetaTrader fechado há dias
