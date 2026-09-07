@@ -346,6 +346,9 @@
   body.ro #nav-operacao-label,
   body.ro .pos-head > span:last-child,
   body.ro .pos-row > span:last-child,
+  body.ro #hdr-account,
+  body.ro #hdr-server,
+  body.ro #ov-about-account-card { display: none !important; }
   /* ⭐ [FUSIVEL, 06-Set-2026] a luz: verde a operar, vermelha em pausa de seguranca */
   .fus { display:inline-flex; align-items:center; gap:6px; letter-spacing:1px; }
   .fus .fus-dot { width:8px; height:8px; border-radius:50%; background:var(--amber-dim); flex:none; }
@@ -354,9 +357,6 @@
   .fus.fus-pausa .fus-dot { background:var(--red); box-shadow:0 0 6px var(--red); animation:fus-pisca 1.2s ease-in-out infinite; }
   .fus.fus-pausa { color:var(--red); }
   @keyframes fus-pisca { 50% { opacity:.35; } }
-  body.ro #hdr-account,
-  body.ro #hdr-server,
-  body.ro #ov-about-account-card { display: none !important; }
   /* fleet-switch-row/nav-frota-label NÃO entram aqui: no modo demo o próprio JS
      decide se mostra (só quando a frota irmã foi configurada — ver READONLY_MODE). */
   /* Tabela de posições: sem a coluna AÇÃO (span oculto acima), tira a última
@@ -3882,15 +3882,38 @@ function pintarFusivel(f) {
   if (!el || !tx) return;
   if (!f || typeof f.estado !== 'number') { el.className = 'fus fus-off'; tx.textContent = '—'; el.title = ''; return; }
   if (f.estado === 1) {
+    // A pausa é o fato mais importante e aparece mesmo sem contato recente:
+    // o robô já parou de abrir, e isso não muda por ele estar offline agora.
     el.className = 'fus fus-pausa';
     tx.textContent = 'PAUSA DE SEGURANÇA';
     el.title = 'O robô parou de abrir operações: a conta caiu ' + Number(f.queda_pct || 0).toFixed(1)
       + '% do pico. As posições abertas continuam sendo gerenciadas. A MIA vai entrar em contato.';
+  } else if (f.ao_vivo === false) {
+    // ⭐ [REVISAO 07-Set-2026, achado 6] O VERDE TEM DE PROVAR ALGUMA COISA.
+    // O estado é o último que o robô mandou. Com o MetaTrader fechado há dias
+    // ele continua a ser 0, e a luz dizia «ROBÔ ATIVO» — para o cliente que
+    // abriu o painel justamente para saber se estava tudo bem.
+    el.className = 'fus fus-off';
+    tx.textContent = 'SEM CONTATO';
+    el.title = 'O robô não fala com a MIA há ' + tempoDesde(f.visto_ha_min)
+      + '. Costuma ser o MetaTrader fechado, o computador desligado ou sem internet. '
+      + 'Enquanto isso, esta luz não tem como dizer se ele está operando.';
   } else {
     el.className = 'fus fus-on';
     tx.textContent = 'ROBÔ ATIVO';
     el.title = 'O robô está ativo e operando normalmente.';
   }
+}
+
+// ⭐ [07-Set, achado 6] minutos → palavras. Só para o balão da luz.
+function tempoDesde(min) {
+  if (min === null || min === undefined) return 'algum tempo';   // nunca foi visto
+  const m = Number(min);
+  if (!isFinite(m) || m < 0) return 'algum tempo';
+  if (m < 60) return m + (m === 1 ? ' minuto' : ' minutos');
+  const h = Math.floor(m / 60);
+  if (h < 48) return h + (h === 1 ? ' hora' : ' horas');
+  return Math.floor(h / 24) + ' dias';
 }
 
 // ─── ACCOUNT ──────────────────────────────────────────────────
