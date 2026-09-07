@@ -98,6 +98,7 @@ header#topbar {
   white-space: nowrap;
 }
 .brand img { width: 30px; height: 30px; filter: drop-shadow(0 0 5px rgba(0,224,64,0.55)); }
+.brand img.brand-mark { width: auto; height: 30px; filter: none; } /* [logo nova, 07-Set-2026] o «MIA» da marca; o descritor fica em texto */
 .brand-text { font-size: 14px; font-weight: bold; letter-spacing: 1px; color: var(--amber-bright); }
 .brand-text small { display: block; font-size: 9px; color: var(--amber-dim); letter-spacing: 2px; font-weight: normal; }
 
