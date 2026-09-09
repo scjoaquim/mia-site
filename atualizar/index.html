@@ -89,9 +89,9 @@
     <!-- ⭐ A CAIXA DA VERSAO — trocar a cada publicacao: versao, bytes, e a data. -->
     <div class="versao-caixa">
       <div>
-        <div class="v">MIA BALANCE 2.1.0</div>
-        <small class="lang-pt">Versão atual · publicada em <span data-publicada>—</span> · o arquivo correto tem <strong data-bytes>— bytes</strong></small>
-        <small class="lang-en">Current version · published on <span data-publicada>—</span> · the correct file is <strong data-bytes>— bytes</strong></small>
+        <div class="v">MIA BALANCE 2.1.2</div>
+        <small class="lang-pt">Versão atual · publicada em <span data-publicada>12-09-2026</span> · o arquivo correto tem <strong data-bytes>236.696 bytes</strong></small>
+        <small class="lang-en">Current version · published on <span data-publicada>12-09-2026</span> · the correct file is <strong data-bytes>236,696 bytes</strong></small>
       </div>
       <a href="/download/MIA_Balance_2.0.ex5" download class="btn btn-primary"><span class="lang-pt">Baixar a versão nova (.ex5) ↓</span><span class="lang-en">Download the new version (.ex5) ↓</span></a>
     </div>
@@ -172,19 +172,27 @@
     <!-- ⭐ Uma entrada por versao publicada, a mais nova em cima. O texto e' o MESMO
          «o que mudou» do e-mail — linguagem de cliente, nada tecnico. -->
     <div class="hist">
-      <h3>2.1.0 <small style="opacity:.7;font-weight:normal">· <span data-publicada>—</span></small></h3>
+      <h3>2.1.2 <small style="opacity:.7;font-weight:normal">· <span data-publicada>12-09-2026</span></small></h3>
       <ul class="lang-pt">
-        <li>Fusível de segurança: se o resultado do robô cair 20 % do seu melhor ponto, ele para de abrir operações até a MIA verificar e religar.</li>
+        <li>Proteção automática: diante de uma adversidade — se o resultado do robô cair 20 % do seu melhor ponto — o robô se protege sozinho e para de abrir novas operações. Nada é fechado, e ele só volta a operar depois da verificação da MIA.</li>
         <li>Verificação do risco antes de operar: um parâmetro fora da faixa e o robô não abre nada.</li>
-        <li>Luz no painel: robô ligado, parado pelo fusível, ou sem contato.</li>
+        <li>Luz no painel: robô ligado, parado pela proteção, ou sem contato.</li>
         <li>Avisos no celular mais precisos: o valor da entrada e o resultado zero.</li>
+        <li>Pausa geral: se for preciso, a MIA pode pausar a abertura de novas operações em todos os robôs. Nada é fechado, e o painel passa a mostrar «OPERAÇÕES PAUSADAS».</li>
+        <li>Aviso de versão antiga: passado o prazo, o robô para de abrir operações com uma mensagem clara que aponta para esta página.</li>
+        <li>Bitcoin: o robô de Bitcoin passa a poder manter até duas operações ao mesmo tempo, em vez de uma.</li>
+        <li>Ouro (BARS): ficou mais seletivo — descarta a entrada quando os últimos fechamentos ficam dos dois lados da média.</li>
         <li>Correções internas de estabilidade — proteção de spread, stops e ordens.</li>
       </ul>
       <ul class="lang-en">
-        <li>Safety fuse: if the robot's result drops 20% from its best point, it stops opening trades until MIA checks and re-arms it.</li>
+        <li>Automatic protection: in the face of adversity — if the robot's result drops 20% from its best point — the robot protects itself and stops opening new trades. Nothing is closed, and it only resumes after MIA's verification.</li>
         <li>Risk check before trading: a parameter out of range and the robot opens nothing.</li>
-        <li>Panel light: robot on, paused by the fuse, or no contact.</li>
+        <li>Panel light: robot on, paused by the protection, or no contact.</li>
         <li>More precise phone alerts: the entry value and the zero result.</li>
+        <li>Global pause: if needed, MIA can pause the opening of new trades on every robot. Nothing is closed, and the panel shows “TRADING PAUSED”.</li>
+        <li>Old-version notice: once the deadline passes, the robot stops opening trades with a clear message pointing to this page.</li>
+        <li>Bitcoin: the Bitcoin robot can now hold up to two trades at a time, instead of one.</li>
+        <li>Gold (BARS): more selective — it skips the entry when the latest closes sit on both sides of the average.</li>
         <li>Internal stability fixes — spread protection, stops and orders.</li>
       </ul>
     </div>
