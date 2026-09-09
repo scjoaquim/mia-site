@@ -20,9 +20,9 @@
   <meta name="twitter:image" content="https://miats.trade/assets/og.png">
 <meta name="description" content="Resultado por ativo da conta PRO da MIA — calculado do extrato da conta, só sobre operações encerradas. Não é recomendação de investimento.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20336%20336%22%3E%20%20%3Crect%20x%3D%226.5%22%20y%3D%226.5%22%20width%3D%22323%22%20height%3D%22323%22%20rx%3D%2258%22%20fill%3D%22%23000800%22%20stroke%3D%22%230e4d2c%22%20stroke-width%3D%223%22%2F%3E%20%20%3Crect%20x%3D%22119%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%2396ffc8%22%20fill-opacity%3D%220.75%22%2F%3E%20%20%3Crect%20x%3D%22218%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%23004628%22%2F%3E%20%20%3Crect%20x%3D%22167%22%20y%3D%2240%22%20width%3D%2215%22%20height%3D%22270%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22128%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22173%22%20y%3D%2270%22%20width%3D%2245%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
-<body>
+<body data-dock>
 
 <header id="topbar">
   <div class="nav-wrap">
@@ -31,16 +31,18 @@
       <span class="brand-text">TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
     </a>
     <nav class="mainnav">
-      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
-      <a href="resultados.html" data-nav class="active"><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="resultados.html" data-nav class="active"><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
-      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
-      <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
-      <a href="painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
-      <a href="setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
       <a href="faq.html" data-nav>FAQ</a>
       <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="nav-client">
+        <span class="nav-client-label"><span class="lang-pt">área de cliente</span><span class="lang-en">client area</span></span>
+        <span class="nav-client-links">
+        <a href="setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
+        <a href="painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+        </span>
+      </span>
       <span class="langsw">
         <a href="#" data-lang-switch="pt">PT</a>
         <a href="#" data-lang-switch="en">EN</a>
@@ -57,18 +59,14 @@
     <div class="section-tag lang-en">// Track record</div>
     <h1 class="lang-pt">O que os robôs fizeram, desde <span id="r-desde-h1">1º de setembro</span></h1>
     <h1 class="lang-en">What the robots did, since <span id="r-desde-h1-en">September 1st</span></h1>
+    <p class="lang-pt" style="margin:8px 0 0;color:var(--amber-dim);font-size:14px">Numa conta real: a conta PRO do criador da MIA. Não é conta de cliente.</p>
+    <p class="lang-en" style="margin:8px 0 0;color:var(--amber-dim);font-size:14px">On a real account: the MIA creator's PRO account. Not a client account.</p>
 
-    <div class="infobox" style="margin-top:16px">
-      <p class="lang-pt" style="margin:0 0 10px"><b>Por que o corte começa onde começa.</b> Até julho, esta conta rodava treze robôs em vários mercados. Agosto foi um mês de transição: rodava só uma parte dos robôs <i>e</i> as regras mudaram no meio do mês. Um mês que mistura duas máquinas diferentes não descreve nenhuma das duas — então o recorte começa em setembro, que é o primeiro mês inteiro com as regras que estão valendo hoje.</p>
-      <p class="lang-en" style="margin:0 0 10px"><b>Why the cut starts where it starts.</b> Until July this account ran thirteen robots across several markets. August was a transition month: only part of the robots were running <i>and</i> the rules changed mid-month. A month that blends two different machines describes neither — so the cut starts in September, the first full month under the rules in force today.</p>
-      <p class="lang-pt" style="margin:0"><b>⚠ Por isso os números aqui não batem com o widget da MQL5 abaixo.</b> O widget mostra a conta desde o primeiro dia, com as duas eras somadas — é o registro oficial e independente, e fica aqui exatamente por isso. Os números desta página são calculados do extrato da mesma conta, com o corte indicado acima e apenas sobre operações <b>já encerradas</b>.</p>
-      <p class="lang-en" style="margin:0"><b>⚠ This is why the figures here don't match the MQL5 widget below.</b> The widget shows the account from day one, both eras added up — it is the official, independent record, and that is exactly why it stays on this page. The figures here are computed from the same account's statement, cut at the date shown above, and only over <b>closed</b> trades.</p>
-    </div>
 
-    <div style="margin-top:20px">
+    <div style="margin-top:16px">
       <div class="panel">
         <div class="panel-head">
-          <span class="name"><span class="live-dot"></span><span class="lang-pt">Conta PRO · desde <span id="r-desde">01/09/2026</span></span><span class="lang-en">PRO account · since <span id="r-desde-en">Sep 1, 2026</span></span></span>
+          <span class="name"><span class="live-dot"></span><span class="lang-pt">Conta PRO do criador · desde <span id="r-desde">01/09/2026</span></span><span class="lang-en">Creator's PRO account · since <span id="r-desde-en">Sep 1, 2026</span></span></span>
           <span class="badge pill-cyan"><span class="lang-pt">resultado fechado</span><span class="lang-en">closed results</span></span>
         </div>
         <div class="panel-body">
@@ -85,8 +83,6 @@
       </div>
     </div>
 
-    <p class="muted lang-pt" style="font-size:12px;margin-top:14px"><b>Maior queda</b> aqui é medida sobre a soma das operações já encerradas. O "drawdown" que a MQL5 publica é medido sobre o valor da conta a cada instante, incluindo posição em aberto — é outra medida, e costuma ser maior. Não são o mesmo número e não devem ser comparados.</p>
-    <p class="muted lang-en" style="font-size:12px;margin-top:14px"><b>Largest drop</b> here is measured on the sum of closed trades. The "drawdown" MQL5 publishes is measured on account value at every instant, including open positions — a different measure, usually larger. They are not the same number and should not be compared.</p>
   </section>
 
   <section class="section">
@@ -130,9 +126,17 @@
     <div class="section-tag lang-en">// The official record, on MQL5</div>
     <div class="panel">
       <div class="panel-body">
-        <p class="lang-pt" style="margin:0 0 12px">A mesma conta é publicada como sinal na MQL5, pela MetaQuotes. É um registro que a MIA <b>não controla e não edita</b> — e é por isso que ele fica aqui, mesmo mostrando um recorte diferente do desta página (a conta inteira, incluindo a era dos treze robôs, e incluindo posição em aberto).</p>
-        <p class="lang-en" style="margin:0 0 12px">The same account is published as a signal on MQL5, by MetaQuotes. It is a record MIA <b>does not control and cannot edit</b> — which is why it stays here, even though it shows a different slice than this page does (the whole account, including the thirteen-robot era, and including open positions).</p>
+        <p class="lang-pt" style="margin:0 0 12px">A mesma conta é publicada como sinal na MQL5, pela MetaQuotes. É um registro que a MIA <b>não controla e não edita</b> — e é por isso que ele fica aqui, mesmo mostrando um recorte diferente do desta página (a conta inteira, incluindo o período de testes, e incluindo posição em aberto).</p>
+        <p class="lang-en" style="margin:0 0 12px">The same account is published as a signal on MQL5, by MetaQuotes. It is a record MIA <b>does not control and cannot edit</b> — which is why it stays here, even though it shows a different slice than this page does (the whole account, including the test period, and including open positions).</p>
         <iframe src="https://www.mql5.com/en/signals/widget/2381728?t=dark&fw=html" title="MIA Trading System PRO — MQL5" loading="lazy" style="width:100%;height:140px;border:0;display:block;background:var(--bg)"></iframe>
+        <div class="infobox" style="margin:14px 0 0">
+          <p class="lang-pt" style="margin:0 0 10px"><b>Por que o corte começa onde começa.</b> Até julho, esta conta rodava testes nos robôs em vários mercados. Agosto foi um mês de transição: rodava só uma parte dos robôs. Setembro é o primeiro mês rodando o produto como é hoje.</p>
+          <p class="lang-en" style="margin:0 0 10px"><b>Why the cut starts where it starts.</b> Until July, this account was running tests on the robots across several markets. August was a transition month: only part of the robots were running. September is the first month running the product as it is today.</p>
+          <p class="lang-pt" style="margin:0"><b>⚠ Por isso os números aqui não batem com o widget da MQL5 acima.</b> O widget mostra a conta desde o primeiro dia, com o período de testes somado — é o registro oficial e independente, e fica aqui exatamente por isso. Os números desta página são calculados do extrato da mesma conta, com o corte indicado acima e apenas sobre operações <b>já encerradas</b>.</p>
+          <p class="lang-en" style="margin:0"><b>⚠ This is why the figures here don't match the MQL5 widget above.</b> The widget shows the account from day one, the test period added in — it is the official, independent record, and that is exactly why it stays on this page. The figures here are computed from the same account's statement, cut at the date shown above, and only over <b>closed</b> trades.</p>
+        </div>
+        <p class="muted lang-pt" style="font-size:12px;margin:12px 0 0"><b>Maior queda</b> aqui é medida sobre a soma das operações já encerradas. O "drawdown" que a MQL5 publica é medido sobre o valor da conta a cada instante, incluindo posição em aberto — é outra medida, e costuma ser maior. Não são o mesmo número e não devem ser comparados.</p>
+        <p class="muted lang-en" style="font-size:12px;margin:12px 0 0"><b>Largest drop</b> here is measured on the sum of closed trades. The "drawdown" MQL5 publishes is measured on account value at every instant, including open positions — a different measure, usually larger. They are not the same number and should not be compared.</p>
       </div>
       <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap">
         <a href="https://www.mql5.com/en/signals/2381728" target="_blank" rel="noopener" class="btn btn-sm"><span class="lang-pt">Página completa na MQL5 ↗</span><span class="lang-en">Full page on MQL5 ↗</span></a>
@@ -140,16 +144,6 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="warnbox">
-      <p class="lang-pt" style="margin:0 0 10px"><b>Isto é o espelho de uma conta, não uma oferta de investimento.</b> Os números desta página são o que a <b>conta PRO da MIA</b> — uma conta real, específica, do próprio criador — fez a partir do corte indicado acima. Não são uma recomendação de investimento, não são consultoria financeira e não são uma proposta de gestão do seu dinheiro. Ninguém aqui opera por você nem toca na sua conta.</p>
-      <p class="lang-pt" style="margin:0 0 10px"><b>Não existe promessa de lucro.</b> O que se vende é a <b>licença de um software</b> que roda no seu terminal, na sua conta, sob o seu comando — e nada mais do que isso. O resultado que você vai obter depende da sua corretora, do seu saldo, da sua configuração e do mercado, e <b>será diferente deste</b>. Resultado passado não garante resultado futuro.</p>
-      <p class="lang-pt" style="margin:0"><b>Operação alavancada envolve risco de perda, inclusive da totalidade do capital.</b> A amostra desta página é curta, e uma amostra curta oscila muito — os números vão balançar, e isso é esperado. Não invista dinheiro de que precise.</p>
-      <p class="lang-en" style="margin:0 0 10px"><b>This is the mirror of one account, not an investment offer.</b> The figures on this page are what the <b>MIA PRO account</b> — a real, specific account belonging to the creator himself — did from the cut shown above. They are not investment advice, not financial advice, and not an offer to manage your money. Nobody here trades for you or touches your account.</p>
-      <p class="lang-en" style="margin:0 0 10px"><b>There is no promise of profit.</b> What is sold is a <b>software licence</b> that runs on your own terminal, in your own account, under your own command — and nothing beyond that. Your result depends on your broker, your balance, your settings and the market, and <b>it will differ from this one</b>. Past results do not guarantee future results.</p>
-      <p class="lang-en" style="margin:0"><b>Leveraged trading carries risk of loss, including the entire capital.</b> This page's sample is short, and a short sample swings a lot — the numbers will move around, and that is expected. Do not invest money you need.</p>
-    </div>
-  </section>
 
   <section class="section">
     <div class="panel">
@@ -161,6 +155,16 @@
         </p>
         <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary pulse"><span class="lang-pt">Entrar no Telegram ↗</span><span class="lang-en">Join Telegram ↗</span></a>
       </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="warnbox">
+      <p class="lang-pt" style="margin:0 0 10px"><b>Isto é o espelho de uma conta, não uma oferta de investimento.</b> Os números desta página são o que a <b>conta PRO da MIA</b> — uma conta real, específica, do próprio criador — fez a partir do corte indicado acima. Não são uma recomendação de investimento, não são consultoria financeira e não são uma proposta de gestão do seu dinheiro. Ninguém aqui opera por você nem toca na sua conta.</p>
+      <p class="lang-pt" style="margin:0 0 10px"><b>Não existe promessa de lucro.</b> O que se vende é a <b>licença de um software</b> que roda no seu terminal, na sua conta, sob o seu comando — e nada mais do que isso. O resultado que você vai obter depende da sua corretora, do seu saldo, da sua configuração e do mercado, e <b>será diferente deste</b>. Resultado passado não garante resultado futuro.</p>
+      <p class="lang-pt" style="margin:0"><b>Operação alavancada envolve risco de perda, inclusive da totalidade do capital.</b> A amostra desta página é curta, e uma amostra curta oscila muito — os números vão balançar, e isso é esperado. Não invista dinheiro de que precise.</p>
+      <p class="lang-en" style="margin:0 0 10px"><b>This is the mirror of one account, not an investment offer.</b> The figures on this page are what the <b>MIA PRO account</b> — a real, specific account belonging to the creator himself — did from the cut shown above. They are not investment advice, not financial advice, and not an offer to manage your money. Nobody here trades for you or touches your account.</p>
+      <p class="lang-en" style="margin:0 0 10px"><b>There is no promise of profit.</b> What is sold is a <b>software licence</b> that runs on your own terminal, in your own account, under your own command — and nothing beyond that. Your result depends on your broker, your balance, your settings and the market, and <b>it will differ from this one</b>. Past results do not guarantee future results.</p>
+      <p class="lang-en" style="margin:0"><b>Leveraged trading carries risk of loss, including the entire capital.</b> This page's sample is short, and a short sample swings a lot — the numbers will move around, and that is expected. Do not invest money you need.</p>
     </div>
   </section>
 </main>
@@ -375,6 +379,6 @@ var FB = {"generated_at":null,"desde":"2026-09-01","lucro_usd":null,"crescimento
   </div>
 </footer>
 
-<script src="script.js?v=10"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>

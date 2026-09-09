@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://miats.trade/assets/og.png">
 <meta name="description" content="Perguntas frequentes sobre o MIA BALANCE — licença por tempo, perfis, requisitos, risco e o que você recebe.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20336%20336%22%3E%20%20%3Crect%20x%3D%226.5%22%20y%3D%226.5%22%20width%3D%22323%22%20height%3D%22323%22%20rx%3D%2258%22%20fill%3D%22%23000800%22%20stroke%3D%22%230e4d2c%22%20stroke-width%3D%223%22%2F%3E%20%20%3Crect%20x%3D%22119%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%2396ffc8%22%20fill-opacity%3D%220.75%22%2F%3E%20%20%3Crect%20x%3D%22218%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%23004628%22%2F%3E%20%20%3Crect%20x%3D%22167%22%20y%3D%2240%22%20width%3D%2215%22%20height%3D%22270%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22128%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22173%22%20y%3D%2270%22%20width%3D%2245%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
@@ -31,16 +31,18 @@
       <span class="brand-text">TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
     </a>
     <nav class="mainnav">
-      <a href="index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
-      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
-      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
-      <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
-      <a href="painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
-      <a href="setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
       <a href="faq.html" data-nav class="active">FAQ</a>
       <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="nav-client">
+        <span class="nav-client-label"><span class="lang-pt">área de cliente</span><span class="lang-en">client area</span></span>
+        <span class="nav-client-links">
+        <a href="setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
+        <a href="painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+        </span>
+      </span>
       <span class="langsw">
         <a href="#" data-lang-switch="pt">PT</a>
         <a href="#" data-lang-switch="en">EN</a>
@@ -54,100 +56,103 @@
     <div class="section-tag">// FAQ</div>
     <h1 class="lang-pt">Perguntas frequentes</h1>
     <h1 class="lang-en">Frequently asked questions</h1>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">O que exatamente eu estou comprando?</div>
-      <div class="faq-q lang-en">What exactly am I buying?</div>
+    <h2 class="faq-grupo"><span class="lang-pt">O que é</span><span class="lang-en">What it is</span></h2>
+    <div class="faq-item" id="o-que-compro">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">O que exatamente eu estou comprando?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">What exactly am I buying?</div>
       <div class="faq-a">
         <p class="lang-pt" style="margin:0">Uma <strong>licença de uso, por tempo</strong>, de um programa que roda no seu MetaTrader 5. Você recebe o programa e uma chave. Enquanto a chave está válida, o robô opera na sua conta. Não é assinatura de sinal, não é cópia de operações de outra conta, e não é gestão do seu dinheiro.</p>
         <p class="lang-en" style="margin:0">A <strong>time-based licence</strong> for a program that runs in your MetaTrader 5. You receive the program and a key. While the key is valid, the robot trades on your account. It is not a signal subscription, not copying another account's trades, and not management of your money.</p>
       </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">A MIA tem acesso ao meu dinheiro?</div>
-      <div class="faq-q lang-en">Does MIA have access to my money?</div>
+    <div class="faq-item" id="acesso-dinheiro">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">A MIA tem acesso ao meu dinheiro?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Does MIA have access to my money?</div>
       <div class="faq-a">
         <p class="lang-pt" style="margin:0"><strong>Não.</strong> A conta é sua, na sua corretora, com a sua senha. O robô roda dentro do seu MetaTrader e só faz o que qualquer programa de gráfico faz: enviar ordens. A MIA não deposita, não saca e não tem acesso de login. Você desliga o robô quando quiser.</p>
         <p class="lang-en" style="margin:0"><strong>No.</strong> The account is yours, at your broker, with your password. The robot runs inside your MetaTrader and does only what any charting program does: send orders. MIA does not deposit, withdraw, or hold login access. You switch the robot off whenever you like.</p>
       </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">São dez estratégias. Isso não é só um pacote grande?</div>
-      <div class="faq-q lang-en">Ten strategies — isn't that just a big bundle?</div>
+    <div class="faq-item" id="dez-estrategias">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">São dez estratégias. Isso não é só um pacote grande?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Ten strategies — isn't that just a big bundle?</div>
       <div class="faq-a">
         <p class="lang-pt" style="margin:0">Um pacote grande é aquele em que algumas peças nunca foram medidas direito. Aqui cada robô passa sozinho na mesma régua antes de entrar, e depois a <strong>carteira inteira é remedida com ele dentro</strong> — porque o que importa é como eles se comportam juntos, não somados no papel.</p>
         <p class="lang-en" style="margin:0">A big bundle is one where some pieces were never properly measured. Here each robot clears the same bar on its own before joining, and then the <strong>whole portfolio is remeasured with it in</strong> — because what matters is how they behave together, not added up on paper.</p>
       </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Posso escolher quais robôs quero rodar?</div>
-      <div class="faq-q lang-en">Can I choose which robots to run?</div>
-      <div class="faq-a">
-        <p class="lang-pt" style="margin:0">Você escolhe o <strong>perfil</strong>: BALANCE, com os dez robôs, ou COMPACT, com quatro. Robô a robô, não — com dez caixinhas dá para montar mais de mil carteiras, e nenhuma delas foi medida. Cada perfil existe porque foi medido inteiro.</p>
-        <p class="lang-en" style="margin:0">You choose the <strong>profile</strong>: BALANCE, all ten robots, or COMPACT, four. Robot by robot, no — ten checkboxes make over a thousand portfolios, and none of them was measured. Each profile exists because it was measured as a whole.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Preciso deixar meu computador ligado?</div>
-      <div class="faq-q lang-en">Do I need to keep my computer on?</div>
-      <div class="faq-a">
-        <p class="lang-pt" style="margin:0">O robô só opera com o MetaTrader aberto e conectado. Para operar 24/7 sem deixar o seu computador ligado, aluga-se um <strong>VPS</strong> — um computador na nuvem, que custa alguns dólares por mês. É fortemente recomendado: operação que dispara com o terminal desligado simplesmente não acontece.</p>
-        <p class="lang-en" style="margin:0">The robot only trades with MetaTrader open and connected. To run 24/7 without leaving your own computer on, rent a <strong>VPS</strong> — a cloud computer costing a few dollars a month. Strongly recommended: a trade that fires while the terminal is off simply doesn't happen.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Por que só conta Exness Pro?</div>
-      <div class="faq-q lang-en">Why Exness Pro only?</div>
-      <div class="faq-a">
-        <p class="lang-pt" style="margin:0">Porque é a conta em que tudo foi medido — spread, execução, custo por operação e os símbolos. Numa conta com spread mais largo, a mesma estratégia entrega outro resultado, e a gente não teria como dizer quanto. Preferimos recusar a conta a entregar um número que não vale.</p>
-        <p class="lang-en" style="margin:0">Because that is the account everything was measured on — spread, execution, per-trade cost and the symbols. On a wider-spread account the same strategy delivers something else, and we could not say how much. We would rather refuse the account than hand over a number that doesn't hold.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">O que acontece se a licença vencer?</div>
-      <div class="faq-q lang-en">What happens when the licence expires?</div>
-      <div class="faq-a">
-        <p class="lang-pt" style="margin:0">O robô para de abrir operações novas. As posições que estiverem abertas continuam a ser geridas até fecharem normalmente, no stop ou no alvo — a licença não abandona posição aberta. Renovando, ele volta a operar.</p>
-        <p class="lang-en" style="margin:0">The robot stops opening new trades. Any open positions keep being managed until they close normally, at stop or target — an expiring licence never abandons an open position. Renew and it resumes.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Existe garantia de lucro?</div>
-      <div class="faq-q lang-en">Is there any profit guarantee?</div>
+    <div class="faq-item" id="garantia-lucro">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Existe garantia de lucro?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Is there any profit guarantee?</div>
       <div class="faq-a">
         <p class="lang-pt" style="margin:0"><strong>Não.</strong> Nenhum sistema de trading, automatizado ou não, garante retorno. Desempenho passado não garante resultados futuros, e existe risco real de perda, inclusive total. Use apenas capital que você pode perder.</p>
         <p class="lang-en" style="margin:0"><strong>No.</strong> No trading system, automated or not, guarantees returns. Past performance does not guarantee future results, and there is real risk of loss, including total loss. Only use capital you can afford to lose.</p>
       </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Por que existe um saldo mínimo sugerido?</div>
-      <div class="faq-q lang-en">Why is there a suggested minimum balance?</div>
-      <div class="faq-a">
-        <p class="lang-pt" style="margin:0">Por causa do <strong>lote mínimo</strong> da corretora. O robô quer arriscar uma fatia fixa e pequena do seu saldo em cada operação, mas não existe posição menor que o lote mínimo — então, numa conta pequena, toda operação cai nesse piso e o risco real fica <em>acima</em> do alvo. O saldo indicado é o ponto em que isso deixa de acontecer na maior parte do tempo. E na ativação o robô mostra o risco efetivo da <em>sua</em> conta, com número.</p>
-        <p class="lang-en" style="margin:0">Because of the broker's <strong>minimum lot</strong>. The robot wants to risk a small fixed slice of your balance per trade, but no position can be smaller than the minimum lot — so on a small account every trade lands on that floor and real risk sits <em>above</em> target. The recommended balance is the point where that mostly stops happening. And on activation the robot shows the effective risk of <em>your</em> account, as a number.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Posso mudar os parâmetros do robô?</div>
-      <div class="faq-q lang-en">Can I change the robot's parameters?</div>
-      <div class="faq-a">
-        <p class="lang-pt" style="margin:0">Não, e essa é uma decisão de produto. Os parâmetros chegam do servidor da licença, já prontos — os mesmos que rodam na conta da MIA. Você não escolhe estratégia nem nível de risco. Isso existe para que o resultado da sua conta seja comparável ao histórico publicado, em vez de depender de um ajuste que ninguém testou.</p>
-        <p class="lang-en" style="margin:0">No, and that is a product decision. Parameters arrive ready from the licence server — the same ones running on MIA's own account. You choose neither strategy nor risk level. This exists so your account's result stays comparable to the published record, instead of depending on a setting nobody tested.</p>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">E o sinal na MQL5 — ainda existe?</div>
-      <div class="faq-q lang-en">And the MQL5 signal — does it still exist?</div>
+    <div class="faq-item" id="sinal-mql5">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">E o sinal na MQL5 — ainda existe?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">And the MQL5 signal — does it still exist?</div>
       <div class="faq-a">
         <p class="lang-pt" style="margin:0">Sim. A mesma conta é publicada como sinal na MQL5, e continua sendo possível copiá-la por lá. Mas o produto que a MIA está construindo é a <strong>licença do programa</strong>: nela você roda na sua própria conta, sem slippage de cópia e sem depender da proporção entre saldos.</p>
         <p class="lang-en" style="margin:0">Yes. The same account is published as a signal on MQL5, and copying it there is still possible. But the product MIA is building is the <strong>program licence</strong>: with it you run on your own account, with no copy slippage and no dependency on the balance ratio between accounts.</p>
       </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q lang-pt">Quando abre?</div>
-      <div class="faq-q lang-en">When does it open?</div>
+    <div class="faq-item" id="quando-abre">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Quando abre?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">When does it open?</div>
       <div class="faq-a">
         <p class="lang-pt" style="margin:0">Sem data para a abertura ao público. Hoje está em fase de convite: um grupo pequeno já usa. O programa ainda tem uma lista de verificações a fechar antes de abrir a todos — entre elas, provar que o robô reproduz os mesmos sinais do sistema que gerou o histórico. Quando abrir, o <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">canal do Telegram</a> é avisado primeiro. Preferimos não anunciar data a anunciar e não cumprir.</p>
         <p class="lang-en" style="margin:0">No date for opening to the public. Today it is in an invite phase: a small group already uses it. The program still has a checklist to close before opening to everyone — including proving the robot reproduces the same signals as the system that generated the track record. When it opens, the <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">Telegram channel</a> hears first. We would rather give no date than give one we miss.</p>
+      </div>
+    </div>
+    <h2 class="faq-grupo"><span class="lang-pt">Como escolho</span><span class="lang-en">How to choose</span></h2>
+    <div class="faq-item" id="escolher-robos">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Posso escolher quais robôs quero rodar?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Can I choose which robots to run?</div>
+      <div class="faq-a">
+        <p class="lang-pt" style="margin:0">Você escolhe o <strong>perfil</strong>: BALANCE, com os dez robôs, ou COMPACT, com quatro. Robô a robô, não — com dez caixinhas dá para montar mais de mil carteiras, e nenhuma delas foi medida. Cada perfil existe porque foi medido inteiro.</p>
+        <p class="lang-en" style="margin:0">You choose the <strong>profile</strong>: BALANCE, all ten robots, or COMPACT, four. Robot by robot, no — ten checkboxes make over a thousand portfolios, and none of them was measured. Each profile exists because it was measured as a whole.</p>
+      </div>
+    </div>
+    <div class="faq-item" id="saldo-minimo">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Por que existe um saldo mínimo sugerido?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Why is there a suggested minimum balance?</div>
+      <div class="faq-a">
+        <p class="lang-pt" style="margin:0">Por causa do <strong>lote mínimo</strong> da corretora. O robô quer arriscar uma fatia fixa e pequena do seu saldo em cada operação, mas não existe posição menor que o lote mínimo — então, numa conta pequena, toda operação cai nesse piso e o risco real fica <em>acima</em> do alvo. O saldo indicado é o ponto em que isso deixa de acontecer na maior parte do tempo. E na ativação o robô mostra o risco efetivo da <em>sua</em> conta, com número.</p>
+        <p class="lang-en" style="margin:0">Because of the broker's <strong>minimum lot</strong>. The robot wants to risk a small fixed slice of your balance per trade, but no position can be smaller than the minimum lot — so on a small account every trade lands on that floor and real risk sits <em>above</em> target. The recommended balance is the point where that mostly stops happening. And on activation the robot shows the effective risk of <em>your</em> account, as a number.</p>
+      </div>
+    </div>
+    <div class="faq-item" id="parametros">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Posso mudar os parâmetros do robô?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Can I change the robot's parameters?</div>
+      <div class="faq-a">
+        <p class="lang-pt" style="margin:0">Não, e essa é uma decisão de produto. Os parâmetros chegam do servidor da licença, já prontos — os mesmos que rodam na conta da MIA. Você não escolhe estratégia nem nível de risco. Isso existe para que o resultado da sua conta seja comparável ao histórico publicado, em vez de depender de um ajuste que ninguém testou.</p>
+        <p class="lang-en" style="margin:0">No, and that is a product decision. Parameters arrive ready from the licence server — the same ones running on MIA's own account. You choose neither strategy nor risk level. This exists so your account's result stays comparable to the published record, instead of depending on a setting nobody tested.</p>
+      </div>
+    </div>
+    <h2 class="faq-grupo"><span class="lang-pt">Para rodar</span><span class="lang-en">To run it</span></h2>
+    <div class="faq-item" id="exness-pro">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Por que só conta Exness Pro?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Why Exness Pro only?</div>
+      <div class="faq-a">
+        <p class="lang-pt" style="margin:0">Porque é a conta em que tudo foi medido — spread, execução, custo por operação e os símbolos. Numa conta com spread mais largo, a mesma estratégia entrega outro resultado, e a gente não teria como dizer quanto. Preferimos recusar a conta a entregar um número que não vale.</p>
+        <p class="lang-en" style="margin:0">Because that is the account everything was measured on — spread, execution, per-trade cost and the symbols. On a wider-spread account the same strategy delivers something else, and we could not say how much. We would rather refuse the account than hand over a number that doesn't hold.</p>
+      </div>
+    </div>
+    <div class="faq-item" id="computador-ligado">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">Preciso deixar meu computador ligado?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">Do I need to keep my computer on?</div>
+      <div class="faq-a">
+        <p class="lang-pt" style="margin:0">O robô só opera com o MetaTrader aberto e conectado. Para operar 24/7 sem deixar o seu computador ligado, aluga-se um <strong>VPS</strong> — um computador na nuvem, que custa alguns dólares por mês. É fortemente recomendado: operação que dispara com o terminal desligado simplesmente não acontece.</p>
+        <p class="lang-en" style="margin:0">The robot only trades with MetaTrader open and connected. To run 24/7 without leaving your own computer on, rent a <strong>VPS</strong> — a cloud computer costing a few dollars a month. Strongly recommended: a trade that fires while the terminal is off simply doesn't happen.</p>
+      </div>
+    </div>
+    <div class="faq-item" id="licenca-vencer">
+      <div class="faq-q lang-pt" role="button" tabindex="0" aria-expanded="false">O que acontece se a licença vencer?</div>
+      <div class="faq-q lang-en" role="button" tabindex="0" aria-expanded="false">What happens when the licence expires?</div>
+      <div class="faq-a">
+        <p class="lang-pt" style="margin:0">O robô para de abrir operações novas. As posições que estiverem abertas continuam a ser geridas até fecharem normalmente, no stop ou no alvo — a licença não abandona posição aberta. Renovando, ele volta a operar.</p>
+        <p class="lang-en" style="margin:0">The robot stops opening new trades. Any open positions keep being managed until they close normally, at stop or target — an expiring licence never abandons an open position. Renew and it resumes.</p>
       </div>
     </div>
   </section>
@@ -174,6 +179,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=10"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>

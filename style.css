@@ -115,6 +115,12 @@ nav.mainnav a {
 nav.mainnav a:hover { color: var(--amber); background: var(--amber-glow); }
 nav.mainnav a.active { color: var(--amber-bright); border-left-color: var(--amber); text-shadow: 0 0 8px var(--amber); }
 
+/* [menu cinco, 09-Set-2026] área de cliente: Começar · Painel no canto direito, com rótulo apagado e linha vertical */
+.nav-client { display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--border-bright); }
+.nav-client-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber-dim); opacity: 0.75; padding-left: 10px; line-height: 1; margin-bottom: 1px; }
+.nav-client-links { display: flex; gap: 2px; }
+.nav-client-links a { padding-top: 3px; padding-bottom: 3px; }
+
 .langsw { display: flex; gap: 4px; margin-left: 6px; }
 .langsw a {
   font-size: 11px; padding: 5px 8px; border: 1px solid var(--border-bright);
@@ -332,6 +338,15 @@ table.cmp th, table.cmp td { border: 1px solid var(--border); padding: 10px 12px
 table.cmp th { background: var(--bg3); color: var(--amber-bright); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 table.cmp tr:hover td { background: var(--amber-glow); }
 
+/* [produtos, 09-Set-2026] as quatro linhas dentro de cada perfil, e a lista numerada do que é preciso ter */
+.perfil-linhas { list-style: none; padding: 0; margin: 14px 0 0; border-top: 1px solid var(--border); }
+.perfil-linhas li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--amber-dim); }
+.perfil-linhas li strong { color: var(--white); text-align: right; }
+ol.precisa { counter-reset: precisa; list-style: none; padding: 0; margin: 12px 0 0; border: 1px solid var(--border-bright); background: var(--bg2); }
+ol.precisa li { counter-increment: precisa; display: flex; gap: 14px; align-items: baseline; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13.5px; line-height: 1.55; }
+ol.precisa li:last-child { border-bottom: 0; }
+ol.precisa li::before { content: "0" counter(precisa); color: var(--amber); font-weight: bold; font-size: 15px; flex: none; }
+
 /* ─── PICKLIST (opções a escolher, ex.: migração VPS) ──────── */
 .picklist { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
 .pick {
@@ -356,6 +371,16 @@ table.cmp tr:hover td { background: var(--amber-glow); }
 .faq-q { padding: 14px 16px; font-weight: bold; color: var(--amber-bright); }
 .faq-a { padding: 0 16px 16px; color: var(--amber-2); }
 .faq-a strong { color: var(--white); }
+/* [faq, 09-Set-2026] perguntas fechadas por omissão, abrem ao clique; três grupos; âncora por pergunta */
+.faq-grupo { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber-dim); margin: 26px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.faq-grupo:first-of-type { margin-top: 18px; }
+.faq-q { cursor: pointer; user-select: none; position: relative; padding-right: 40px; }
+.faq-q::after { content: '+'; color: var(--amber-dim); font-weight: normal; position: absolute; right: 16px; top: 14px; }
+.faq-item { scroll-margin-top: 96px; }
+.faq-item.open .faq-q::after { content: '−'; }
+.faq-item:not(.open) .faq-a { display: none; }
+.faq-q:hover { background: var(--amber-glow); }
+.faq-item:target { border-color: var(--amber); }
 
 /* ─── WARN / DISCLAIMER BOX ─────────────────────────────────── */
 .warnbox {
@@ -374,6 +399,9 @@ table.cmp tr:hover td { background: var(--amber-glow); }
   font-size: 13px;
 }
 .infobox b { color: var(--cyan); }
+
+/* [09-Set-2026] fase de convite: faixa neutra verde, uma linha — o vermelho fica só para risco */
+.convite-faixa { border: 1px solid var(--border-bright); border-left: 3px solid var(--amber); background: var(--amber-glow); color: var(--amber-bright); padding: 10px 14px; font-size: 13px; line-height: 1.5; }
 
 /* ─── LINK LIST (contato) ──────────────────────────────────── */
 .linklist { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -427,6 +455,9 @@ footer a:hover { color: var(--amber); }
   /* CTA do hero mais compacto */
   .hero .cta-row { gap: 10px; }
   .hero .cta-row .btn { padding: 10px 16px; font-size: 12px; }
+  /* [home, 09-Set-2026] sem transbordo: o texto dos botões e da pílula quebra dentro da caixa */
+  .hero .cta-row .btn { max-width: 100%; white-space: normal; text-align: center; line-height: 1.35; }
+  .live-status { max-width: 100%; flex-wrap: wrap; justify-content: center; text-align: center; line-height: 1.4; box-sizing: border-box; }
 
   /* "como funciona": 3 etapas lado a lado, compactas */
   .steps { grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -458,8 +489,12 @@ footer a:hover { color: var(--amber); }
 @media (max-width: 720px) {
   .nav-wrap { padding: 10px 16px; }
   nav.mainnav { width: 100%; justify-content: center; gap: 0; border-top: 1px solid var(--border); margin-top: 8px; padding-top: 6px; }
-  nav.mainnav a { font-size: 11px; padding: 6px 7px; letter-spacing: 0.5px; }
+  nav.mainnav a { font-size: 10px; padding: 6px 5px; letter-spacing: 0.3px; } /* [menu cinco, 09-Set] os cinco cabem numa fileira a 360 px */
   .langsw { margin-left: 8px; }
+  /* celular: a área de cliente ocupa a segunda fileira inteira, ao lado do PT/EN */
+  .nav-client { flex: 1 1 calc(100% - 100px); flex-direction: row; align-items: center; justify-content: center; gap: 4px; margin: 4px 0 0; padding: 6px 0 0; border-left: 0; border-top: 1px solid var(--border); }
+  .nav-client-label { padding-left: 0; margin: 0 4px 0 0; }
+  .langsw { margin: 4px 0 0; padding-top: 6px; border-top: 1px solid var(--border); }
 }
 
 /* ─── GLOSSÁRIO ─────────────────────────────────────────────── */
@@ -499,8 +534,10 @@ footer a:hover { color: var(--amber); }
    Aditivo. Classes prefixadas (md-/mb-) e escopadas por ID p/ zero colisão.
    Lê positions.json; some sozinho se não houver dado.
    ============================================================================ */
-body { padding-bottom: 132px; }               /* respiro pro dock fixo */
-@media (max-width:720px){ body { padding-bottom: 120px; } }
+/* [09-Set-2026] o respiro do body só existe com o dock no ar, e encolhe quando ele está colapsado */
+body.md-dock-on { padding-bottom: 132px; }
+body.md-dock-on.md-dock-min { padding-bottom: 40px; }
+@media (max-width:720px){ body.md-dock-on { padding-bottom: 120px; } body.md-dock-on.md-dock-min { padding-bottom: 40px; } }
 
 /* ---- DOCK FIXO (site-wide) ---- */
 #md-dock{ display:none; position:fixed; left:0; right:0; bottom:0; z-index:400; height:124px;
@@ -509,6 +546,12 @@ body { padding-bottom: 132px; }               /* respiro pro dock fixo */
   box-shadow:0 -14px 36px rgba(0,0,0,.7), 0 -4px 18px rgba(0,255,136,.30), 0 -1px 0 #00ff88;
   font-family:'Share Tech Mono','Courier New',monospace; }
 #md-dock.md-on{ display:flex; }
+#md-dock .md-top{ cursor:pointer; user-select:none; }
+#md-dock .md-chev{ color:#008a28; font-size:13px; margin-left:8px; transition:transform .2s; }
+#md-dock.md-min{ height:32px; }
+#md-dock.md-min .md-row{ display:none; }
+#md-dock.md-min .md-top{ border-bottom:0; }
+#md-dock.md-min .md-chev{ transform:rotate(180deg); }
 #md-dock .md-top{ height:32px; display:flex; align-items:center; gap:14px; padding:0 16px; border-bottom:1px solid #003010; white-space:nowrap; }
 #md-dock .md-dot{ width:9px; height:9px; border-radius:50%; background:#00ff88; position:relative; flex:none; }
 #md-dock .md-dot::after{ content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid #00ff88; animation:md-ping 1.6s cubic-bezier(0,0,.2,1) infinite; }
@@ -557,7 +600,12 @@ body { padding-bottom: 132px; }               /* respiro pro dock fixo */
 @media (max-width:720px){
   #md-dock{ height:112px; }
   #md-dock .md-top{ gap:8px; padding:0 12px; }
-  #md-dock .md-cnt, #md-dock .md-ao, #md-dock .md-sep{ display:none; }
+  /* barra colapsada no celular: ponto · operações ao vivo · total · nº de posições */
+  #md-dock .md-lbl, #md-dock .md-sep, #md-dock .md-cta{ display:none; }
+  #md-dock .md-ao{ font-size:9px; letter-spacing:1px; }
+  #md-dock .md-tot{ font-size:14px; }
+  #md-dock .md-cnt{ font-size:10px; }
+  #md-dock .md-chev{ margin-left:auto; }
   #md-dock .md-tile{ flex:0 0 62%; }
 }
 @media (prefers-reduced-motion:reduce){ #md-dock .md-dot::after,#md-dock .md-livedot{ animation:none; } }

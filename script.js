@@ -1,9 +1,22 @@
 // MIA Trading System — site institucional
-// Alterna PT/EN via ?lang= na URL (sem localStorage), e propaga o idioma
-// atual para todos os links internos de navegação.
+// Alterna PT/EN via ?lang= na URL e propaga o idioma atual para todos os links
+// internos de navegação (a[data-nav]).
+// [09-Set-2026] A escolha fica guardada entre visitas (localStorage `mia_lang`):
+//   ?lang= na URL continua a mandar quando existe, e é ele que grava a escolha;
+//   sem ?lang=, vale a escolha guardada; sem nada, português. O botão PT/EN
+//   mantém a âncora (#…) e a posição na página ao trocar.
 (function () {
   var params = new URLSearchParams(window.location.search);
-  var lang = params.get('lang') === 'en' ? 'en' : 'pt';
+  var KEY = 'mia_lang';
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  var lang;
+  if (params.get('lang') === 'en' || params.get('lang') === 'pt') {
+    lang = params.get('lang');
+    try { localStorage.setItem(KEY, lang); } catch (e) {}
+  } else {
+    lang = saved === 'en' ? 'en' : 'pt';
+  }
   document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
   document.body.classList.add('lang-' + lang);
 
@@ -19,13 +32,39 @@
     a.href = lang === 'en' ? base + '?lang=en' : base;
   });
 
-  // Botões de troca de idioma PT|EN
+  // Botões de troca de idioma PT|EN — levam a âncora e guardam a posição
+  var here = fileName(window.location.pathname.split('/').pop() || 'index.html');
   document.querySelectorAll('[data-lang-switch]').forEach(function (a) {
     var target = a.getAttribute('data-lang-switch');
-    var base = fileName(window.location.pathname.split('/').pop() || 'index.html');
-    a.href = target === 'en' ? base + '?lang=en' : base;
+    a.href = here + '?lang=' + target + window.location.hash;
     if (target === lang) a.classList.add('on');
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      // guarda a posição pela secção (o texto muda de tamanho entre línguas; a secção não muda de lugar na ordem)
+      try {
+        var secs = document.querySelectorAll('main section'), idx = -1, top = 0;
+        for (var i = 0; i < secs.length; i++) { var t = secs[i].getBoundingClientRect().top + window.scrollY; if (t <= window.scrollY + 1) { idx = i; top = t; } }
+        sessionStorage.setItem('mia_scroll', idx + ':' + Math.round(window.scrollY - top));
+      } catch (e) {}
+      window.location.href = here + '?lang=' + target + window.location.hash;   // a âncora de agora, não a de quando a página abriu
+    });
   });
+  // volta à posição de antes da troca
+  try {
+    var y = sessionStorage.getItem('mia_scroll');
+    if (y !== null) {
+      sessionStorage.removeItem('mia_scroll');
+      if (window.location.hash) y = null;   // com âncora, manda a âncora
+      if (y !== null && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+      if (y !== null) window.addEventListener('load', function () {
+        var parts = y.split(':'), idx = parseInt(parts[0], 10), delta = parseInt(parts[1], 10) || 0;
+        var secs = document.querySelectorAll('main section');
+        var base = (idx >= 0 && secs[idx]) ? secs[idx].getBoundingClientRect().top + window.scrollY : 0;
+        var to = Math.max(0, base + delta);
+        try { window.scrollTo({ top: to, behavior: 'instant' }); } catch (e) { window.scrollTo(0, to); }   // sem o deslize suave desde o topo
+      });
+    }
+  } catch (e) {}
 })();
 
 // ─── Fonte única dos depósitos ──────────────────────────────────────
@@ -345,17 +384,44 @@
   var boardLink = 'resultados.html' + (en ? '?lang=en' : '') + '#mia-board';
 
   // ---- DOM do dock ----
+  // [09-Set-2026] O dock só entra nas páginas marcadas com <body data-dock> — Home e
+  //   Resultados. Nas outras, o elemento existe mas fica solto, sem ir ao DOM, para o
+  //   resto deste bloco não mudar. E é colapsável: a barra de 32 px fica sempre; a
+  //   fileira de tiles abre e fecha ao clique, com o estado guardado no navegador.
+  //   No celular entra colapsado, salvo se o visitante já o tiver aberto antes.
+  var boardEl = document.getElementById('mia-board');   // só existe em Resultados
+  var wantDock = document.body.hasAttribute('data-dock');
+  if (!wantDock && !boardEl) return;
   var dock = document.createElement('div'); dock.id = 'md-dock';
   dock.innerHTML =
-    '<div class="md-top"><span class="md-dot"></span><span class="md-ao">' + T.ao + '</span>' +
+    '<div class="md-top" id="md-top" role="button" tabindex="0" aria-expanded="true"><span class="md-dot"></span><span class="md-ao">' + T.ao + '</span>' +
     '<span class="md-sep">|</span><span class="md-lbl">' + T.lbl + '</span> <span class="md-tot" id="md-tot">—</span>' +
     '<span class="md-sep">|</span><span class="md-cnt" id="md-cnt"></span>' +
-    '<a class="md-cta" href="' + boardLink + '">' + T.all + ' →</a></div>' +
+    '<a class="md-cta" href="' + boardLink + '"><span class="md-cta-t">' + T.all + '</span> →</a>' +
+    '<span class="md-chev" aria-hidden="true">▾</span></div>' +
     '<div class="md-row" id="md-row"></div>';
-  document.body.appendChild(dock);
-  var mdRow = document.getElementById('md-row');
-
-  var boardEl = document.getElementById('mia-board');   // só existe em Resultados
+  if (wantDock) document.body.appendChild(dock);
+  var mdRow = dock.querySelector('#md-row');
+  (function () {
+    var KEY = 'mia_dock';
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    var small = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+    var min = saved ? saved === 'min' : small;
+    function apply() {
+      dock.classList.toggle('md-min', min);
+      document.body.classList.toggle('md-dock-min', min);
+      dock.querySelector('#md-top').setAttribute('aria-expanded', min ? 'false' : 'true');
+    }
+    function flip() {
+      min = !min; apply();
+      try { localStorage.setItem(KEY, min ? 'min' : 'open'); } catch (e) {}
+    }
+    apply();
+    var top = dock.querySelector('#md-top');
+    top.addEventListener('click', function (ev) { if (ev.target.closest('.md-cta')) return; flip(); });
+    top.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); flip(); } });
+  })();
   var mbRow = null, mbTot = null, mbMk = null;
   if (boardEl) {
     boardEl.className = 'section';
@@ -466,12 +532,12 @@
       ? Date.parse(String(data.generated_at).replace(' UTC', 'Z').replace(' ', 'T'))
       : NaN;
     if (!isFinite(_g) || (Date.now() - _g) > STALE_MS) {
-      dock.classList.remove('md-on');
+      dock.classList.remove('md-on'); document.body.classList.remove('md-dock-on');
       if (boardEl) boardEl.setAttribute('hidden', '');
       return;
     }
     var arr = (data && data.positions) || [];
-    if (!arr.length) { dock.classList.remove('md-on'); if (boardEl) boardEl.setAttribute('hidden', ''); return; }
+    if (!arr.length) { dock.classList.remove('md-on'); document.body.classList.remove('md-dock-on'); if (boardEl) boardEl.setAttribute('hidden', ''); return; }
     var seen = {};
     arr.forEach(function (pos) {
       seen[pos.id] = 1;
@@ -525,9 +591,9 @@
       if (!seen[id]) { var s = state[id]; if (s.tile) s.tile.remove(); if (s.row) s.row.remove(); delete state[id]; }
     });
     var n = arr.length, nOpen = arr.filter(function (p) { return p.market_open; }).length;
-    document.getElementById('md-cnt').textContent = cntTxt(n, nOpen);
+    dock.querySelector('#md-cnt').textContent = cntTxt(n, nOpen);
     if (mbMk) mbMk.textContent = mktTxt(nOpen, n);
-    dock.classList.add('md-on');
+    dock.classList.add('md-on'); if (wantDock) document.body.classList.add('md-dock-on');
     if (boardEl) boardEl.removeAttribute('hidden');
     if (!started && !reduce) { started = true; requestAnimationFrame(frame); }
     else if (reduce) { renderStatic(); }
@@ -539,7 +605,7 @@
   }
   function updateTotals() {
     var tot = 0; Object.keys(state).forEach(function (id) { tot += (state[id]._disp || 0); });
-    var te = document.getElementById('md-tot'); te.textContent = signed(tot, money0); te.className = 'md-tot ' + (tot >= 0 ? '' : 'md-neg');
+    var te = dock.querySelector('#md-tot'); te.textContent = signed(tot, money0); te.className = 'md-tot ' + (tot >= 0 ? '' : 'md-neg');
     if (mbTot) { mbTot.textContent = signed(tot, money0); mbTot.className = 'mb-v ' + (tot >= 0 ? '' : 'mb-neg'); }
   }
 
@@ -572,8 +638,39 @@
     fetch(DOCK_FONTE + '?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .then(applyData)
-      .catch(function () { dock.classList.remove('md-on'); if (boardEl) boardEl.setAttribute('hidden', ''); });
+      .catch(function () { dock.classList.remove('md-on'); document.body.classList.remove('md-dock-on'); if (boardEl) boardEl.setAttribute('hidden', ''); });
   }
   pull();
   setInterval(function () { if (!document.hidden) pull(); }, 60000);
+})();
+
+// ─── FAQ: perguntas fechadas por omissão, abrem ao clique; a âncora abre a sua ───
+// [09-Set-2026] Cada .faq-item tem um id (#licenca-vencer, …). Chegar pela âncora abre
+// a pergunta e rola até ela; o clique na pergunta alterna e escreve a âncora na URL.
+(function () {
+  var items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+  function setOpen(item, on) {
+    item.classList.toggle('open', on);
+    item.querySelectorAll('.faq-q').forEach(function (q) { q.setAttribute('aria-expanded', on ? 'true' : 'false'); });
+  }
+  items.forEach(function (item) {
+    item.querySelectorAll('.faq-q').forEach(function (q) {
+      function flip() {
+        var on = !item.classList.contains('open');
+        setOpen(item, on);
+        if (on && item.id && history.replaceState) history.replaceState(null, '', '#' + item.id);
+      }
+      q.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('.tip')) return; flip(); });
+      q.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); flip(); } });
+    });
+  });
+  function openHash() {
+    var id = (location.hash || '').slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (el && el.classList.contains('faq-item')) { setOpen(el, true); el.scrollIntoView({ block: 'start' }); }
+  }
+  openHash();
+  window.addEventListener('hashchange', openHash);
 })();

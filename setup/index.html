@@ -22,7 +22,7 @@
 <meta name="description" content="Do zero ao robô operando: abrir a conta Pro, instalar o MetaTrader 5, autorizar a URL, ativar a licença, deixar rodando no VPS e acompanhar no painel.">
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20336%20336%22%3E%20%20%3Crect%20x%3D%226.5%22%20y%3D%226.5%22%20width%3D%22323%22%20height%3D%22323%22%20rx%3D%2258%22%20fill%3D%22%23000800%22%20stroke%3D%22%230e4d2c%22%20stroke-width%3D%223%22%2F%3E%20%20%3Crect%20x%3D%22119%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%2396ffc8%22%20fill-opacity%3D%220.75%22%2F%3E%20%20%3Crect%20x%3D%22218%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%23004628%22%2F%3E%20%20%3Crect%20x%3D%22167%22%20y%3D%2240%22%20width%3D%2215%22%20height%3D%22270%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22128%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22173%22%20y%3D%2270%22%20width%3D%2245%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="../style.css?v=11">
+<link rel="stylesheet" href="../style.css?v=12">
 <style>
   /* ⚠ Estilos so desta pagina. Nada aqui muda o style.css — uma pagina nova
      nao pode alterar as sete que ja estao no ar. */
@@ -71,16 +71,18 @@
       <span class="brand-text">TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
     </a>
     <nav class="mainnav">
-      <a href="../index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
-      <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="../produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="../como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
-      <a href="../metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
-      <a href="../glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
-      <a href="../painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
-      <a href="../setup/" data-nav class="active"><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
       <a href="../faq.html" data-nav>FAQ</a>
       <a href="../contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="nav-client">
+        <span class="nav-client-label"><span class="lang-pt">área de cliente</span><span class="lang-en">client area</span></span>
+        <span class="nav-client-links">
+        <a href="../setup/" data-nav class="active"><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
+        <a href="../painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+        </span>
+      </span>
       <span class="langsw">
         <a href="#" data-lang-switch="pt">PT</a>
         <a href="#" data-lang-switch="en">EN</a>
@@ -99,10 +101,7 @@
     <p class="lang-pt">Nove passos, na ordem. Faça um de cada vez — a ordem importa, e o passo 5 é o que mais gente pula.</p>
     <p class="lang-en">Nine steps, in order. One at a time — the order matters, and step 5 is the one most people skip.</p>
 
-    <div class="warnbox" style="margin:18px 0">
-      <p class="lang-pt" style="margin:0"><b>⚠ Fase de convite.</b> Esta página é para quem já recebeu o seu link e comprou. O MIA BALANCE ainda não está aberto ao público — quem estiver no <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">canal do Telegram</a> é avisado quando abrir.</p>
-      <p class="lang-en" style="margin:0"><b>⚠ Invite phase.</b> This page is for those who received their link and bought. MIA BALANCE is not open to the public yet — the <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener">Telegram channel</a> hears when it opens.</p>
-    </div>
+    <div class="convite-faixa" style="margin:18px 0"><span class="lang-pt">Esta página é para quem já recebeu o link e comprou. O canal do Telegram é avisado primeiro.</span><span class="lang-en">This page is for those who received their link and bought. The Telegram channel hears first.</span></div>
   </section>
 
   <section class="section">
@@ -328,14 +327,14 @@
 
         <div class="infobox" style="margin:12px 0">
           <p class="lang-pt" style="margin:0 0 8px"><b>Na mesma janela, logo abaixo da chave, está o <strong>Perfil do produto</strong> — e é a única escolha que você faz.</b> Todo o resto dos parâmetros vem do servidor.</p>
-          <p class="lang-pt" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — os <strong>dez robôs</strong>, em seis mercados, com <strong>0,5%</strong> de risco por operação. Saldo sugerido: <strong data-deposit="balance.sug">US$ 4.000</strong>. É a carteira inteira, e o produto como ele foi desenhado.</p>
-          <p class="lang-pt" style="margin:0 0 8px"><strong>MIA COMPACT</strong> — <strong>quatro robôs</strong> (COBRE DIP, US500 EYE, USTEC EYE e BTC SCOPE), em quatro mercados, com <strong>1%</strong> por operação. Saldo sugerido: <strong data-deposit="compact.sug">US$ 2.000</strong>. É para quem quer começar com menos saldo e conhecer o programa antes de ligar tudo.</p>
-          <p class="lang-pt" style="margin:0 0 8px"><strong>Como escolher: pelo saldo da sua conta.</strong> Com o saldo sugerido do BALANCE ou mais, deixe como está — ele já vem em <strong>MIA BALANCE</strong>. Abaixo disso, escolha <strong>MIA COMPACT</strong> na lista.</p>
+          <p class="lang-pt" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — os <strong>dez robôs</strong>, em seis mercados, com <strong>0,5%</strong> de risco por operação. Saldo mínimo sugerido: <strong data-deposit="balance.sug">US$ 4.000</strong>. É a carteira inteira, e o produto como ele foi desenhado.</p>
+          <p class="lang-pt" style="margin:0 0 8px"><strong>MIA COMPACT</strong> — <strong>quatro robôs</strong> (COBRE DIP, US500 EYE, USTEC EYE e BTC SCOPE), em quatro mercados, com <strong>1%</strong> por operação. Saldo mínimo sugerido: <strong data-deposit="compact.sug">US$ 2.000</strong>. É para quem quer começar com menos saldo e conhecer o programa antes de ligar tudo.</p>
+          <p class="lang-pt" style="margin:0 0 8px"><strong>Como escolher: pelo saldo da sua conta.</strong> Com o saldo mínimo sugerido do BALANCE ou mais, deixe como está — ele já vem em <strong>MIA BALANCE</strong>. Abaixo disso, escolha <strong>MIA COMPACT</strong> na lista.</p>
           <p class="lang-pt" style="margin:0"><strong>Trocar depois não custa nada</strong> e não pede instalação nova: é a mesma janela de propriedades, no mesmo lugar. E o risco por operação é um <em>alvo</em> — em conta pequena o lote mínimo da corretora empurra o risco real para cima, e por isso o robô mostra no gráfico o risco efetivo da sua conta antes da primeira ordem.</p>
           <p class="lang-en" style="margin:0 0 8px"><b>In the same window, just below the key, is the <strong>product profile</strong> — and it is the only choice you make.</b> Every other parameter comes from the server.</p>
-          <p class="lang-en" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — all <strong>ten robots</strong>, across six markets, at <strong>0.5%</strong> risk per trade. Suggested balance: <strong data-deposit="balance.sug">US$ 4,000</strong>. It is the whole portfolio, and the product as it was designed.</p>
-          <p class="lang-en" style="margin:0 0 8px"><strong>MIA COMPACT</strong> — <strong>four robots</strong> (COBRE DIP, US500 EYE, USTEC EYE and BTC SCOPE), across four markets, at <strong>1%</strong> per trade. Suggested balance: <strong data-deposit="compact.sug">US$ 2,000</strong>. It is for starting with a smaller balance and getting to know the program before turning everything on.</p>
-          <p class="lang-en" style="margin:0 0 8px"><strong>How to choose: by your account balance.</strong> At the BALANCE suggested figure or above, leave it as it is — it already comes set to <strong>MIA BALANCE</strong>. Below that, pick <strong>MIA COMPACT</strong> from the list.</p>
+          <p class="lang-en" style="margin:0 0 8px"><strong>MIA BALANCE</strong> — all <strong>ten robots</strong>, across six markets, at <strong>0.5%</strong> risk per trade. Suggested minimum balance: <strong data-deposit="balance.sug">US$ 4,000</strong>. It is the whole portfolio, and the product as it was designed.</p>
+          <p class="lang-en" style="margin:0 0 8px"><strong>MIA COMPACT</strong> — <strong>four robots</strong> (COBRE DIP, US500 EYE, USTEC EYE and BTC SCOPE), across four markets, at <strong>1%</strong> per trade. Suggested minimum balance: <strong data-deposit="compact.sug">US$ 2,000</strong>. It is for starting with a smaller balance and getting to know the program before turning everything on.</p>
+          <p class="lang-en" style="margin:0 0 8px"><strong>How to choose: by your account balance.</strong> At the BALANCE suggested minimum or above, leave it as it is — it already comes set to <strong>MIA BALANCE</strong>. Below that, pick <strong>MIA COMPACT</strong> from the list.</p>
           <p class="lang-en" style="margin:0"><strong>Switching later costs nothing</strong> and needs no reinstall: same properties window, same place. And risk per trade is a <em>target</em> — on a small account the broker's minimum lot pushes real risk up, which is why the robot prints your account's effective risk on the chart before the first order.</p>
         </div>
 
@@ -473,7 +472,7 @@
   </div>
 </footer>
 
-<script src="../script.js?v=10"></script>
+<script src="../script.js?v=12"></script>
 
 <script>
 (function () {

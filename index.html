@@ -20,9 +20,9 @@
   <meta name="twitter:image" content="https://miats.trade/assets/og.png">
 <meta name="description" content="MIA Trading System — robôs de trading automatizado licenciados por tempo, que você instala na sua própria conta. MIA BALANCE: dez robôs em seis mercados, dois perfis à escolha.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20336%20336%22%3E%20%20%3Crect%20x%3D%226.5%22%20y%3D%226.5%22%20width%3D%22323%22%20height%3D%22323%22%20rx%3D%2258%22%20fill%3D%22%23000800%22%20stroke%3D%22%230e4d2c%22%20stroke-width%3D%223%22%2F%3E%20%20%3Crect%20x%3D%22119%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%2396ffc8%22%20fill-opacity%3D%220.75%22%2F%3E%20%20%3Crect%20x%3D%22218%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%23004628%22%2F%3E%20%20%3Crect%20x%3D%22167%22%20y%3D%2240%22%20width%3D%2215%22%20height%3D%22270%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22128%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22173%22%20y%3D%2270%22%20width%3D%2245%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
-<body>
+<body data-dock>
 
 <header id="topbar">
   <div class="nav-wrap">
@@ -31,16 +31,18 @@
       <span class="brand-text">TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
     </a>
     <nav class="mainnav">
-      <a href="index.html" data-nav class="active"><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
-      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
-      <a href="metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
-      <a href="glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
-      <a href="painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
-      <a href="setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
       <a href="faq.html" data-nav>FAQ</a>
       <a href="contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="nav-client">
+        <span class="nav-client-label"><span class="lang-pt">área de cliente</span><span class="lang-en">client area</span></span>
+        <span class="nav-client-links">
+        <a href="setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
+        <a href="painel/" data-nav><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+        </span>
+      </span>
       <span class="langsw">
         <a href="#" data-lang-switch="pt">PT</a>
         <a href="#" data-lang-switch="en">EN</a>
@@ -64,48 +66,10 @@
     <div class="cta-row">
       <a href="produtos.html" data-nav class="btn btn-primary pulse"><span class="lang-pt">Conhecer o MIA BALANCE</span><span class="lang-en">See MIA BALANCE</span></a>
       <a href="resultados.html" data-nav class="btn"><span class="lang-pt">Resultados ao vivo</span><span class="lang-en">Live results</span></a>
-      <a href="painel/" data-nav class="btn"><span class="lang-pt">Meu painel</span><span class="lang-en">My panel</span></a>
-      <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn">Telegram ↗</a>
     </div>
   </section>
 
-  <section class="section" style="padding-top:14px">
-    <div class="section-tag lang-pt">// Em palavras simples</div>
-    <div class="section-tag lang-en">// In plain words</div>
-    <div class="infobox" style="padding:20px 22px">
-      <p class="lang-pt" style="margin:0 0 14px;color:var(--amber-bright);font-size:16px">A MIA faz <strong>robôs que compram e vendem sozinhos</strong>. Você <strong>não precisa saber operar</strong> nem ficar na frente do gráfico: instala o programa uma vez, na sua conta, e ele trabalha. <strong>O dinheiro nunca sai do seu controle</strong> — a MIA não toca nele.</p>
-      <p class="lang-en" style="margin:0 0 14px;color:var(--amber-bright);font-size:16px">MIA builds <strong>robots that buy and sell on their own</strong>. You <strong>don't need to know how to trade</strong> or watch charts: install the program once, on your account, and it works. <strong>Your money never leaves your control</strong> — MIA doesn't touch it.</p>
-      <div class="grid-2" style="gap:12px">
-        <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
-          <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">1 · A licença</b>
-          <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">1 · The licence</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">Você paga <strong>por tempo de uso</strong> do programa, mês a mês. Sem divisão de lucro. Enquanto a licença está ativa, o robô opera.</p>
-          <p class="lang-en" style="margin:0;font-size:13px">You pay for <strong>time of use</strong>, month by month. No profit share. While the licence is active, the robot trades.</p>
-        </div></div>
-        <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
-          <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">2 · A corretora (Exness Pro)</b>
-          <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">2 · The broker (Exness Pro)</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">É onde você abre sua conta e deposita. <strong>O dinheiro fica lá, e é você quem controla.</strong> O robô só precisa da conta <a href="https://one.exnessonelink.com/a/1hu6f0h2in" target="_blank" rel="noopener">Exness</a> do tipo Pro — foi nela que tudo foi medido. <span class="tip no-gloss" tabindex="0" role="note" aria-label="parceria declarada com a Exness">parceria declarada<span class="tip-box">Somos parceiros da Exness e recebemos comissão sobre o volume que a sua conta gerar. Isso não muda o que você paga — a indicação é Pro porque foi nesse tipo de conta que o robô foi calibrado e que os números de Resultados foram feitos.</span></span></p>
-          <p class="lang-en" style="margin:0;font-size:13px">Where you open your account and deposit. <strong>The money stays there, and you're in control.</strong> The robot needs an <a href="https://one.exnessonelink.com/a/1hu6f0h2in" target="_blank" rel="noopener">Exness</a> Pro account — that is where everything was measured. <span class="tip no-gloss" tabindex="0" role="note" aria-label="disclosed Exness partnership">disclosed partnership<span class="tip-box">We are Exness partners and earn a commission on the volume your account generates. It does not change what you pay — Pro is the recommendation because that is the account type the robot was calibrated on, and where the Track Record numbers were made.</span></span></p>
-        </div></div>
-        <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
-          <b class="lang-pt" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">3 · O MetaTrader 5</b>
-          <b class="lang-en" style="display:block;color:var(--cyan);font-size:13px;margin-bottom:6px">3 · MetaTrader 5</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">O programa (gratuito) onde o robô roda. Você instala o robô nele e liga. Para operar 24 horas sem deixar o computador ligado, usa-se um <strong>VPS</strong>.</p>
-          <p class="lang-en" style="margin:0;font-size:13px">The free program the robot runs inside. You install the robot there and switch it on. To run 24h without leaving a computer on, use a <strong>VPS</strong>.</p>
-        </div></div>
-        <div class="panel" style="background:var(--bg3)"><div class="panel-body" style="padding:14px 16px">
-          <b class="lang-pt" style="display:block;color:var(--green);font-size:13px;margin-bottom:6px">4 · Nada para configurar</b>
-          <b class="lang-en" style="display:block;color:var(--green);font-size:13px;margin-bottom:6px">4 · Nothing to configure</b>
-          <p class="lang-pt" style="margin:0;font-size:13px">Você não escolhe estratégia nem risco. Os parâmetros chegam prontos, do servidor da licença — o mesmo ajuste que roda na nossa conta.</p>
-          <p class="lang-en" style="margin:0;font-size:13px">You choose neither strategy nor risk. Parameters arrive ready, from the licence server — the same settings running on our own account.</p>
-        </div></div>
-      </div>
-      <p style="margin:14px 0 0;font-size:13px;color:var(--amber-dim)"><span class="lang-pt">Novo nesses termos? Veja o <a href="como-funciona.html" data-nav>passo a passo</a> ou o <a href="glossario.html" data-nav>Glossário</a>.</span><span class="lang-en">New to these terms? See the <a href="como-funciona.html" data-nav>step-by-step</a> or the <a href="glossario.html" data-nav>Glossary</a>.</span></p>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:6px">
+  <section class="section" style="padding-top:14px;padding-bottom:6px">
     <div class="asset-row">
       <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 9h10l3 7H4l3-7z"/><path d="M7 9l1.4 7M17 9l-1.4 7"/></svg><span class="lang-pt">Ouro</span><span class="lang-en">Gold</span></div>
       <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><path d="M12 3.5v3M12 17.5v3"/></svg><span class="lang-pt">Cobre</span><span class="lang-en">Copper</span></div>
@@ -114,12 +78,18 @@
       <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18V8M4 18h16"/><path d="M7 14.5l3.5-4 3 2.6L20 6"/></svg><span>S&amp;P 500</span></div>
       <div class="asset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 19h8M12 17v2"/><path d="M7.5 12.5l2.5-3 2.2 2.2L16.5 8"/></svg><span>Nasdaq 100</span></div>
     </div>
-    <p style="text-align:center;margin:10px 0 0;font-size:13px;color:var(--amber-dim)">
-      <span class="lang-pt">Seis mercados. Um mercado novo só entra depois de passar sozinho na <a href="metodologia.html" data-nav>régua</a> — e com a carteira inteira remedida com ele dentro.</span>
-      <span class="lang-en">Six markets. A new one only joins after clearing the <a href="metodologia.html" data-nav>bar</a> on its own — with the whole portfolio remeasured with it in.</span>
-    </p>
   </section>
-
+  <section class="section">
+    <div class="section-tag lang-pt">// Em palavras simples</div>
+    <div class="section-tag lang-en">// In plain words</div>
+    <div class="infobox" style="padding:20px 22px">
+      <p class="lang-pt" style="margin:0 0 14px;color:var(--amber-bright);font-size:16px">A MIA faz <strong>robôs que compram e vendem sozinhos</strong>. Você <strong>não precisa saber operar</strong> nem ficar na frente do gráfico: instala o programa uma vez, na sua conta, e ele trabalha. <strong>O dinheiro nunca sai do seu controle</strong> — a MIA não toca nele.</p>
+      <p class="lang-en" style="margin:0 0 14px;color:var(--amber-bright);font-size:16px">MIA builds <strong>robots that buy and sell on their own</strong>. You <strong>don't need to know how to trade</strong> or watch charts: install the program once, on your account, and it works. <strong>Your money never leaves your control</strong> — MIA doesn't touch it.</p>
+      <p class="lang-pt" style="margin:0;font-size:14px;color:var(--white)">Precisa de uma conta <a href="https://one.exnessonelink.com/a/1hu6f0h2in" target="_blank" rel="noopener">Exness</a> Pro e do MetaTrader 5 (grátis). Nada para configurar.</p>
+      <p class="lang-en" style="margin:0;font-size:14px;color:var(--white)">You need an <a href="https://one.exnessonelink.com/a/1hu6f0h2in" target="_blank" rel="noopener">Exness</a> Pro account and MetaTrader 5 (free). Nothing to configure.</p>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--amber-dim)"><span class="lang-pt">Novo nesses termos? Veja o <a href="como-funciona.html" data-nav>passo a passo</a> ou o <a href="glossario.html" data-nav>Glossário</a>.</span><span class="lang-en">New to these terms? See the <a href="como-funciona.html" data-nav>step-by-step</a> or the <a href="glossario.html" data-nav>Glossary</a>.</span></p>
+    </div>
+  </section>
   <section class="section">
     <div class="trust-strip">
       <div class="trust-item"><svg class="ico" style="margin:0 auto 10px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 5.6V8"/><circle cx="12" cy="4.2" r="1.3"/><circle cx="9.5" cy="12.5" r="1.1"/><circle cx="14.5" cy="12.5" r="1.1"/><path d="M9.5 16h5M3 12v3M21 12v3"/></svg><b class="lang-pt">100% automatizado</b><b class="lang-en">100% automated</b><span class="lang-pt">sem emoção nem fator psicológico humano</span><span class="lang-en">no human emotion or psychology</span></div>
@@ -128,7 +98,6 @@
       <div class="trust-item"><svg class="ico" style="margin:0 auto 10px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16a8 8 0 0116 0"/><path d="M12 16l4.5-3.5"/><circle cx="12" cy="16" r="1"/></svg><b class="lang-pt">Risco por fração fixa</b><b class="lang-en">Fixed-fraction risk</b><span class="lang-pt">e o risco real da sua conta declarado com número</span><span class="lang-en">and your account's real risk stated as a number</span></div>
     </div>
   </section>
-
   <section class="section">
     <div class="section-tag lang-pt">// Os dois valores — não confunda</div>
     <div class="section-tag lang-en">// The two amounts — don't mix them up</div>
@@ -152,7 +121,6 @@
       </div>
     </div>
   </section>
-
   <section class="section" id="produtos">
     <div class="section-tag lang-pt">// Os produtos</div>
     <div class="section-tag lang-en">// The products</div>
@@ -174,10 +142,7 @@
             <li><span class="lang-pt">Conta Exness Pro + MetaTrader 5</span><span class="lang-en">Exness Pro account + MetaTrader 5</span></li>
             <li><span class="lang-pt">Nada para configurar</span><span class="lang-en">Nothing to configure</span></li>
           </ul>
-          <div class="warnbox" style="margin:14px 0 0">
-            <p class="lang-pt" style="margin:0;font-size:13px"><b>⚠ Fase de convite.</b> Ainda não abriu ao público — há um grupo pequeno a usar por convite. Quem está no canal do Telegram é avisado primeiro.</p>
-            <p class="lang-en" style="margin:0;font-size:13px"><b>⚠ Invite phase.</b> Not open to the public yet — a small group is using it by invitation. The Telegram channel hears first.</p>
-          </div>
+          <div class="convite-faixa" style="margin:14px 0 0"><span class="lang-pt">Fase de convite — um grupo pequeno já usa. O canal do Telegram é avisado primeiro.</span><span class="lang-en">Invite phase — a small group already uses it. The Telegram channel hears first.</span></div>
         </div>
         <div class="pf">
           <a href="produtos.html" data-nav class="btn btn-sm"><span class="lang-pt">Detalhes</span><span class="lang-en">Details</span></a>
@@ -186,26 +151,9 @@
       </div>
     </div>
   </section>
-
   <section class="section">
     <div class="section-tag lang-pt">// Como funciona</div>
     <div class="section-tag lang-en">// How it works</div>
-    <div class="flow" style="margin-bottom:22px">
-      <div class="flow-node">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 11h6M9 14h4"/><circle cx="17" cy="4.5" r="1.6"/></svg>
-        <b class="lang-pt">A licença</b><b class="lang-en">The licence</b><span class="lang-pt">você recebe uma chave</span><span class="lang-en">you get a key</span>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-node">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 5.6V8"/><circle cx="12" cy="4.2" r="1.3"/><circle cx="9.5" cy="12.5" r="1.1"/><circle cx="14.5" cy="12.5" r="1.1"/><path d="M9.5 16h5M3 12v3M21 12v3"/></svg>
-        <b class="lang-pt">O robô</b><b class="lang-en">The robot</b><span class="lang-pt">roda no seu MetaTrader 5</span><span class="lang-en">runs in your MetaTrader 5</span>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-node">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="11" r="2.2"/><path d="M4.8 17a4 4 0 017.4 0M15 10h4M15 13.5h3"/></svg>
-        <b class="lang-pt">Sua conta</b><b class="lang-en">Your account</b><span class="lang-pt">opera sozinha, 24/7</span><span class="lang-en">trades on its own, 24/7</span>
-      </div>
-    </div>
     <div class="steps">
       <div class="step">
         <div class="num">01</div>
@@ -233,14 +181,14 @@
       </div>
     </div>
   </section>
-
   <section class="section">
     <div class="infobox" style="text-align:center;padding:26px 20px">
-      <p class="lang-pt" style="margin:0 0 6px;font-size:16px;color:var(--amber-bright)">O MIA BALANCE ainda não abriu, e não tem data.</p>
-      <p class="lang-en" style="margin:0 0 6px;font-size:16px;color:var(--amber-bright)">MIA BALANCE has not opened yet, and has no date.</p>
-      <p class="lang-pt" style="margin:0 0 14px;font-size:13px;color:var(--amber-dim)">Quem está no canal é avisado primeiro.</p>
-      <p class="lang-en" style="margin:0 0 14px;font-size:13px;color:var(--amber-dim)">The channel hears first.</p>
-      <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary pulse"><span class="lang-pt">Entrar na lista pelo Telegram</span><span class="lang-en">Join the waitlist on Telegram</span></a>
+      <p class="lang-pt" style="margin:0 0 14px;font-size:16px;color:var(--amber-bright)">Dúvidas?</p>
+      <p class="lang-en" style="margin:0 0 14px;font-size:16px;color:var(--amber-bright)">Questions?</p>
+      <div class="cta-row" style="margin:0">
+        <a href="https://t.me/+eU1Zv_1MNPg3NDhh" target="_blank" rel="noopener" class="btn btn-primary pulse"><span class="lang-pt">Entrar no Telegram ↗</span><span class="lang-en">Join Telegram ↗</span></a>
+        <a href="mailto:suporte@miats.trade" class="btn">suporte@miats.trade</a>
+      </div>
     </div>
   </section>
 </main>
@@ -253,6 +201,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=10"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>

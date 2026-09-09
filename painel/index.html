@@ -21,7 +21,7 @@
   <meta name="twitter:image" content="https://miats.trade/assets/og.png">
 <meta name="description" content="Acompanhe o seu robô MIA ao vivo na sua conta: operações abertas, histórico e saldo. Somente leitura. O acesso é por token, enviado no e-mail da compra.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20336%20336%22%3E%20%20%3Crect%20x%3D%226.5%22%20y%3D%226.5%22%20width%3D%22323%22%20height%3D%22323%22%20rx%3D%2258%22%20fill%3D%22%23000800%22%20stroke%3D%22%230e4d2c%22%20stroke-width%3D%223%22%2F%3E%20%20%3Crect%20x%3D%22119%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%2396ffc8%22%20fill-opacity%3D%220.75%22%2F%3E%20%20%3Crect%20x%3D%22218%22%20y%3D%2270%22%20width%3D%229%22%20height%3D%22180%22%20fill%3D%22%23004628%22%2F%3E%20%20%3Crect%20x%3D%22167%22%20y%3D%2240%22%20width%3D%2215%22%20height%3D%22270%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22128%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%20%20%3Crect%20x%3D%22173%22%20y%3D%2270%22%20width%3D%2245%22%20height%3D%22180%22%20fill%3D%22%2300ff88%22%2F%3E%3C%2Fsvg%3E">
-<link rel="stylesheet" href="../style.css?v=11">
+<link rel="stylesheet" href="../style.css?v=12">
 <style>
   .caixa-token { max-width: 620px; margin: 0 auto; }
   #pf label { display:block; font-size:12px; letter-spacing:3px; text-transform:uppercase;
@@ -48,16 +48,18 @@
       <span class="brand-text">TRADING SYSTEM<small class="lang-pt">SISTEMA DE TRADING ALGORÍTMICO</small><small class="lang-en">ALGORITHMIC TRADING SYSTEM</small></span>
     </a>
     <nav class="mainnav">
-      <a href="../index.html" data-nav><span class="lang-pt">Home</span><span class="lang-en">Home</span></a>
-      <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="../produtos.html" data-nav><span class="lang-pt">Produtos</span><span class="lang-en">Products</span></a>
+      <a href="../resultados.html" data-nav><span class="lang-pt">Resultados</span><span class="lang-en">Track Record</span></a>
       <a href="../como-funciona.html" data-nav><span class="lang-pt">Como funciona</span><span class="lang-en">How it works</span></a>
-      <a href="../metodologia.html" data-nav><span class="lang-pt">Metodologia</span><span class="lang-en">Methodology</span></a>
-      <a href="../glossario.html" data-nav><span class="lang-pt">Glossário</span><span class="lang-en">Glossary</span></a>
-      <a href="../painel/" data-nav class="active"><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
-      <a href="../setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
       <a href="../faq.html" data-nav>FAQ</a>
       <a href="../contato.html" data-nav><span class="lang-pt">Contato</span><span class="lang-en">Contact</span></a>
+      <span class="nav-client">
+        <span class="nav-client-label"><span class="lang-pt">área de cliente</span><span class="lang-en">client area</span></span>
+        <span class="nav-client-links">
+        <a href="../setup/" data-nav><span class="lang-pt">Começar</span><span class="lang-en">Get started</span></a>
+        <a href="../painel/" data-nav class="active"><span class="lang-pt">Painel</span><span class="lang-en">Panel</span></a>
+        </span>
+      </span>
       <span class="langsw">
         <a href="#" data-lang-switch="pt">PT</a>
         <a href="#" data-lang-switch="en">EN</a>
@@ -81,10 +83,7 @@
     <!-- ⛔ Enquanto o produto nao abre, esta caixa nao pode funcionar: nao ha
          token nenhum emitido. Sem este aviso, quem colar alguma coisa ve um erro
          de ligacao e conclui que o site esta partido. O mesmo texto do produtos.html. -->
-    <div class="warnbox caixa-token" style="margin:0 auto 18px">
-      <p class="lang-pt" style="margin:0"><b>⚠ Fase de convite.</b> O painel abre com o token que vem no e-mail da compra. Quem entrou por convite já o tem; para todos os outros, esta caixa ainda não tem o que abrir — o MIA BALANCE não abriu ao público e não tem data. Quem estiver no canal do Telegram é avisado primeiro.</p>
-      <p class="lang-en" style="margin:0"><b>⚠ Invite phase.</b> The panel opens with the token from your purchase e-mail. Those who came in by invitation already have it; for everyone else this box has nothing to open yet — MIA BALANCE is not open to the public and has no date. The Telegram channel hears first.</p>
-    </div>
+    <div class="convite-faixa caixa-token" style="margin:0 auto 18px"><span class="lang-pt">O painel abre com o token do e-mail da compra. O canal do Telegram é avisado primeiro.</span><span class="lang-en">The panel opens with the token from the purchase e-mail. The Telegram channel hears first.</span></div>
 
     <div class="panel caixa-token">
       <div class="panel-head">
@@ -127,7 +126,7 @@
   </div>
 </footer>
 
-<script src="../script.js?v=10"></script>
+<script src="../script.js?v=12"></script>
 <script>
 /* ── A PORTA DO PAINEL ──────────────────────────────────────────────
    Tres caminhos de entrada, um so destino:
