@@ -105,9 +105,9 @@
 
   var ctx = canvas.getContext('2d');
   var FONT_SIZE = 15;
-  var SPEED = 0.5;
+  var SPEED = 0.35;       // [09-Set-2026] mais lenta (era 0.5) — ele achou a chuva forte demais
   var TRAIL = 0.14; // quanto maior, mais rápido o rastro apaga (mais "limpo")
-  var OPACITY = 0.045; // bem discreto — textura, não decoração
+  var OPACITY = 0.03;     // [09-Set-2026] mais apagada (era 0.045) — textura, não decoração
   var COLOR = '0,224,64'; // var(--amber) em rgb
   var CHARS = '01ｱｲｳｴｵｶｷｸｹｺABCDEFGHIJKLMNZ$%+−.,'.split('');
 
