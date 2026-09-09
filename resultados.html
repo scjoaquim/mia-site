@@ -271,7 +271,7 @@ var FB = {"generated_at":null,"desde":"2026-09-01","lucro_usd":null,"crescimento
       if (h1en) h1en.textContent = dtUTC.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
     }
     assets(d.ativos || []);
-    chart(d.mensal || []);
+    chart(d.mensal || [], d.saldo_no_corte);
   }
 
   // ── barras horizontais por ativo, proporcionais ao maior valor absoluto ──
@@ -309,7 +309,7 @@ var FB = {"generated_at":null,"desde":"2026-09-01","lucro_usd":null,"crescimento
   }
 
   // ── barras mensais + linha do acumulado ──
-  function chart(m) {
+  function chart(m, saldoCorte) {
     var svg = document.getElementById('r-chart'); if (!svg) return;
     svg.innerHTML = '';
     var W = 720, H = 330, L = 62, R = 18, T = 18, B = 44;
@@ -342,6 +342,15 @@ var FB = {"generated_at":null,"desde":"2026-09-01","lucro_usd":null,"crescimento
         fill: d.lucro_usd < 0 ? 'var(--red,#ff5555)' : 'var(--green)', opacity: .55 }));
       var lb = el('text', { x: cx, y: H - B + 18, 'text-anchor': 'middle', fill: 'var(--amber-dim)', 'font-size': 11 });
       lb.textContent = d.label; svg.appendChild(lb);
+      // [09-Set-2026] o valor do mês em US$ e em %, por cima da barra (por baixo, se negativa).
+      //   O % é sobre o saldo com que o mês começou: saldo no corte + acumulado até o mês anterior.
+      var base = (saldoCorte != null && saldoCorte > 0) ? saldoCorte + (d.cum_usd - d.lucro_usd) : null;
+      var pctM = base ? d.lucro_usd / base * 100 : null;
+      var neg = d.lucro_usd < 0;
+      var vl = el('text', { x: cx, y: neg ? Math.max(y0, y1) + 14 : Math.min(y0, y1) - 10, 'text-anchor': 'middle',
+        fill: neg ? 'var(--red,#ff5555)' : 'var(--green)', 'font-size': 11 });
+      vl.textContent = usd(d.lucro_usd, true) + (pctM == null ? '' : ' · ' + pct(pctM, true));
+      svg.appendChild(vl);
       pts.push([cx, y(d.cum_usd)]);
     });
     if (pts.length > 1) {
