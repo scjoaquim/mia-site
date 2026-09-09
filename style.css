@@ -100,7 +100,7 @@ header#topbar {
 .brand img { width: 30px; height: 30px; filter: drop-shadow(0 0 5px rgba(0,224,64,0.55)); }
 .brand img.brand-mark { width: auto; height: 30px; filter: none; } /* [logo nova, 07-Set-2026] o «MIA» da marca; o descritor fica em texto */
 .brand-text { font-size: 14px; font-weight: bold; letter-spacing: 1px; color: var(--amber-bright); }
-.brand-text small { display: block; font-size: 9px; color: var(--amber-dim); letter-spacing: 2px; font-weight: normal; }
+.brand-text small { display: block; font-size: 10px; color: var(--amber-dim); letter-spacing: 2px; font-weight: normal; }
 
 nav.mainnav { display: flex; gap: 2px; flex-wrap: wrap; align-items: center; }
 nav.mainnav a {
@@ -115,9 +115,10 @@ nav.mainnav a {
 nav.mainnav a:hover { color: var(--amber); background: var(--amber-glow); }
 nav.mainnav a.active { color: var(--amber-bright); border-left-color: var(--amber); text-shadow: 0 0 8px var(--amber); }
 
+/* [09-Set-2026] fontes pequenas subidas a pedido dele: descritor da marca 9→10, rótulo área de cliente 8→10, section-tag 11→13, ícones dos mercados 11→12, «programa licenciado» do cartão 10→11 */
 /* [menu cinco, 09-Set-2026] área de cliente: Começar · Painel no canto direito, com rótulo apagado e linha vertical */
 .nav-client { display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--border-bright); }
-.nav-client-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber-dim); opacity: 0.75; padding-left: 10px; line-height: 1; margin-bottom: 1px; }
+.nav-client-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber-dim); opacity: 0.85; padding-left: 10px; line-height: 1; margin-bottom: 1px; }
 .nav-client-links { display: flex; gap: 2px; }
 .nav-client-links a { padding-top: 3px; padding-bottom: 3px; }
 
@@ -132,7 +133,7 @@ nav.mainnav a.active { color: var(--amber-bright); border-left-color: var(--ambe
 main { max-width: var(--maxw); margin: 0 auto; padding: 40px 20px 60px; }
 .section { margin-bottom: 56px; }
 .section-tag {
-  font-size: 11px; letter-spacing: 3px; color: var(--amber-dim);
+  font-size: 13px; letter-spacing: 3px; color: var(--amber-dim);
   border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 18px;
   text-transform: uppercase;
 }
@@ -148,7 +149,7 @@ li { margin-bottom: 6px; }
 
 /* ─── HERO ──────────────────────────────────────────────────── */
 .hero { text-align: center; padding: 50px 10px 30px; border-bottom: 1px solid var(--border); }
-.hero .kicker { font-size: 12px; letter-spacing: 4px; color: var(--amber-dim); margin-bottom: 16px; text-transform: uppercase; }
+.hero .kicker { font-size: 13px; letter-spacing: 4px; color: var(--amber-dim); margin-bottom: 16px; text-transform: uppercase; }
 .hero h1 { font-size: 34px; min-height: 42px; }
 .hero p.lead { max-width: 640px; margin: 0 auto 26px; color: var(--amber-bright); font-size: 18px; }
 .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
@@ -198,7 +199,7 @@ li { margin-bottom: 6px; }
 
 /* faixa de classes de ativos */
 .asset-row { display: flex; gap: 26px; justify-content: center; flex-wrap: wrap; margin: 4px 0; }
-.asset { display: flex; flex-direction: column; align-items: center; gap: 7px; color: var(--amber-dim); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.asset { display: flex; flex-direction: column; align-items: center; gap: 7px; color: var(--amber-dim); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
 .asset svg { width: 30px; height: 30px; color: var(--amber); filter: drop-shadow(0 0 5px rgba(0,224,64,0.45)); }
 .asset:hover { color: var(--amber-bright); }
 
@@ -249,7 +250,7 @@ li { margin-bottom: 6px; }
 
 .product-card { border: 1px solid var(--border-bright); background: var(--bg2); display: flex; flex-direction: column; }
 .product-card .ph { padding: 16px 18px; border-bottom: 1px solid var(--border); }
-.product-card .ph .tier { font-size: 10px; letter-spacing: 2px; color: var(--amber-dim); text-transform: uppercase; }
+.product-card .ph .tier { font-size: 11px; letter-spacing: 2px; color: var(--amber-dim); text-transform: uppercase; }
 .product-card .ph .name { font-size: 18px; color: var(--amber-bright); font-weight: bold; }
 .product-card .price { font-size: 26px; color: var(--white); text-shadow: 0 0 8px rgba(255,232,160,0.4); }
 .product-card .price span { font-size: 12px; color: var(--amber-dim); }
