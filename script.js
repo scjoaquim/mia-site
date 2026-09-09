@@ -105,38 +105,42 @@
 
   var ctx = canvas.getContext('2d');
   var FONT_SIZE = 15;
-  var SPEED = 0.35;       // [09-Set-2026] mais lenta (era 0.5) — ele achou a chuva forte demais
+  var SPEED = 0.25;       // células por quadro — [09-Set-2026] reescrito: uma letra por célula, gotas espalhadas
   var TRAIL = 0.3;  // quanto maior, mais rápido o rastro apaga — [09-Set-2026] era 0.14; subiu para o rastro sumir depressa
-  var OPACITY = 0.05;     // [09-Set-2026] com o rastro a apagar depressa, a letra pode ser um pouco mais visível (era 0.045→0.03→0.05)
+  var OPACITY = 0.12;     // [09-Set-2026] cada letra é desenhada uma só vez e apaga em ~10 quadros; por isso pode nascer mais visível
   var COLOR = '0,224,64'; // var(--amber) em rgb
   var CHARS = '01ｱｲｳｴｵｶｷｸｹｺABCDEFGHIJKLMNZ$%+−.,'.split('');
 
-  var drops = [], w = 0, h = 0, running = false, raf = null;
+  var drops = [], last = [], w = 0, h = 0, running = false, raf = null;
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
     var cols = Math.floor(w / FONT_SIZE);
-    drops = new Array(cols).fill(0).map(function () { return Math.random() * -50; });
+    // [09-Set-2026] as gotas começam espalhadas no tempo (até 400 células acima do topo),
+    //   para nunca haver uma gota em TODAS as colunas ao mesmo tempo — era isso, somado ao
+    //   redesenho do mesmo caractere quadro após quadro, que pintava as listras verticais.
+    drops = new Array(cols).fill(0).map(function () { return -Math.random() * 400; });
+    last = new Array(cols).fill(-1);
   }
 
   function draw() {
-    // [09-Set-2026] o rastro apaga para TRANSPARENTE, não para preto: antes o canvas
-    //   ia ficando preto e as colunas deixavam listras verticais que nunca sumiam
-    //   («o fundo do site fica com várias linhas verticais»). Agora cada quadro
-    //   tira TRAIL da opacidade do que lá está, e o fundo verde-escuro reaparece.
+    // o rastro apaga para TRANSPARENTE (o fundo reaparece), e depressa
     ctx.globalCompositeOperation = 'destination-out';
     ctx.fillStyle = 'rgba(0,0,0,' + TRAIL + ')';
     ctx.fillRect(0, 0, w, h);
     ctx.globalCompositeOperation = 'source-over';
     ctx.font = FONT_SIZE + 'px monospace';
+    ctx.fillStyle = 'rgba(' + COLOR + ',' + OPACITY + ')';
     for (var i = 0; i < drops.length; i++) {
-      var ch = CHARS[(Math.random() * CHARS.length) | 0];
-      var y = drops[i] * FONT_SIZE;
-      ctx.fillStyle = 'rgba(' + COLOR + ',' + OPACITY + ')';
-      ctx.fillText(ch, i * FONT_SIZE, y);
-      if (y > h && Math.random() > 0.975) drops[i] = 0;
-      drops[i] += SPEED * 0.3;
+      drops[i] += SPEED;
+      var cell = Math.floor(drops[i]);
+      if (cell < 0) continue;
+      if (cell !== last[i]) {               // desenha UMA vez por célula, não a cada quadro
+        last[i] = cell;
+        ctx.fillText(CHARS[(Math.random() * CHARS.length) | 0], i * FONT_SIZE, cell * FONT_SIZE);
+      }
+      if (cell * FONT_SIZE > h) { drops[i] = -Math.random() * 400; last[i] = -1; }
     }
   }
 

@@ -117,8 +117,8 @@ nav.mainnav a.active { color: var(--amber-bright); border-left-color: var(--ambe
 
 /* [09-Set-2026] fontes pequenas subidas a pedido dele: descritor da marca 9→10, rótulo área de cliente 8→10, section-tag 11→13, ícones dos mercados 11→12, «programa licenciado» do cartão 10→11 */
 /* [menu cinco, 09-Set-2026] área de cliente: Começar · Painel no canto direito, com rótulo apagado e linha vertical */
-.nav-client { display: flex; flex-direction: column; align-items: flex-start; margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--border-bright); }
-.nav-client-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber-dim); opacity: 0.85; padding-left: 10px; line-height: 1; margin-bottom: 1px; }
+.nav-client { display: flex; flex-direction: column; align-items: center; margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--border-bright); }
+.nav-client-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--cyan); opacity: 0.8; padding-left: 0; text-align: center; line-height: 1; margin-bottom: 1px; }
 .nav-client-links { display: flex; gap: 2px; }
 .nav-client-links a { padding-top: 3px; padding-bottom: 3px; }
 
