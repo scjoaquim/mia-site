@@ -264,6 +264,11 @@ li { margin-bottom: 6px; }
 }
 .badge.pill-green { color: var(--green); border-color: var(--green); background: rgba(0,255,136,0.08); }
 .badge.pill-cyan { color: var(--cyan); border-color: var(--cyan); background: rgba(0,212,255,0.08); }
+/* [09-Set-2026] botão US$ | % do gráfico mensal */
+.unit-toggle { display: inline-flex; border: 1px solid var(--cyan); margin: 2px 4px 2px 0; }
+.unit-toggle button { font-family: inherit; font-size: 10px; letter-spacing: 1px; padding: 3px 8px; border: 0; background: transparent; color: var(--cyan); cursor: pointer; opacity: .6; }
+.unit-toggle button + button { border-left: 1px solid var(--cyan); }
+.unit-toggle button.on { background: rgba(0,212,255,0.14); opacity: 1; }
 
 /* ─── GRÁFICO DE LUCRO MENSAL (PRO) ─────────────────────────── */
 .chart-wrap { width: 100%; overflow: hidden; }

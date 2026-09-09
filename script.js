@@ -106,42 +106,49 @@
   var ctx = canvas.getContext('2d');
   var FONT_SIZE = 15;
   var SPEED = 0.25;       // células por quadro — [09-Set-2026] reescrito: uma letra por célula, gotas espalhadas
-  var TRAIL = 0.3;  // quanto maior, mais rápido o rastro apaga — [09-Set-2026] era 0.14; subiu para o rastro sumir depressa
   var OPACITY = 0.12;     // [09-Set-2026] cada letra é desenhada uma só vez e apaga em ~10 quadros; por isso pode nascer mais visível
   var COLOR = '0,224,64'; // var(--amber) em rgb
   var CHARS = '01ｱｲｳｴｵｶｷｸｹｺABCDEFGHIJKLMNZ$%+−.,'.split('');
 
-  var drops = [], last = [], w = 0, h = 0, running = false, raf = null;
+  var drops = [], last = [], glyphs = [], w = 0, h = 0, running = false, raf = null;
+  var LIFE = 14; // quadros que cada letra vive (nasce com OPACITY e apaga até zero)
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
     var cols = Math.floor(w / FONT_SIZE);
-    // [09-Set-2026] as gotas começam espalhadas no tempo (até 400 células acima do topo),
-    //   para nunca haver uma gota em TODAS as colunas ao mesmo tempo — era isso, somado ao
-    //   redesenho do mesmo caractere quadro após quadro, que pintava as listras verticais.
+    // as gotas começam espalhadas no tempo, para nunca haver gota em todas as colunas ao mesmo tempo
     drops = new Array(cols).fill(0).map(function () { return -Math.random() * 400; });
     last = new Array(cols).fill(-1);
+    glyphs = [];
   }
 
   function draw() {
-    // o rastro apaga para TRANSPARENTE (o fundo reaparece), e depressa
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.fillStyle = 'rgba(0,0,0,' + TRAIL + ')';
-    ctx.fillRect(0, 0, w, h);
-    ctx.globalCompositeOperation = 'source-over';
+    // [09-Set-2026, 3ª vez] o canvas é LIMPO por inteiro a cada quadro e cada letra viva é
+    //   redesenhada com a sua opacidade. Apagar por camadas (rgba preto, destination-out)
+    //   nunca chega a zero — a opacidade é inteira de 0 a 255 e fica presa em 1 — e essa
+    //   sobra, coluna a coluna, era o que ele via como «fundo listrado».
+    ctx.clearRect(0, 0, w, h);
     ctx.font = FONT_SIZE + 'px monospace';
-    ctx.fillStyle = 'rgba(' + COLOR + ',' + OPACITY + ')';
     for (var i = 0; i < drops.length; i++) {
       drops[i] += SPEED;
       var cell = Math.floor(drops[i]);
       if (cell < 0) continue;
-      if (cell !== last[i]) {               // desenha UMA vez por célula, não a cada quadro
+      if (cell !== last[i]) {
         last[i] = cell;
-        ctx.fillText(CHARS[(Math.random() * CHARS.length) | 0], i * FONT_SIZE, cell * FONT_SIZE);
+        glyphs.push({ x: i * FONT_SIZE, y: cell * FONT_SIZE, ch: CHARS[(Math.random() * CHARS.length) | 0], age: 0 });
       }
       if (cell * FONT_SIZE > h) { drops[i] = -Math.random() * 400; last[i] = -1; }
     }
+    var keep = [];
+    for (var g = 0; g < glyphs.length; g++) {
+      var q = glyphs[g];
+      if (++q.age >= LIFE) continue;
+      ctx.fillStyle = 'rgba(' + COLOR + ',' + (OPACITY * (1 - q.age / LIFE)).toFixed(3) + ')';
+      ctx.fillText(q.ch, q.x, q.y);
+      keep.push(q);
+    }
+    glyphs = keep;
   }
 
   function loop() {
