@@ -106,8 +106,8 @@
   var ctx = canvas.getContext('2d');
   var FONT_SIZE = 15;
   var SPEED = 0.35;       // [09-Set-2026] mais lenta (era 0.5) — ele achou a chuva forte demais
-  var TRAIL = 0.14; // quanto maior, mais rápido o rastro apaga (mais "limpo")
-  var OPACITY = 0.03;     // [09-Set-2026] mais apagada (era 0.045) — textura, não decoração
+  var TRAIL = 0.3;  // quanto maior, mais rápido o rastro apaga — [09-Set-2026] era 0.14; subiu para o rastro sumir depressa
+  var OPACITY = 0.05;     // [09-Set-2026] com o rastro a apagar depressa, a letra pode ser um pouco mais visível (era 0.045→0.03→0.05)
   var COLOR = '0,224,64'; // var(--amber) em rgb
   var CHARS = '01ｱｲｳｴｵｶｷｸｹｺABCDEFGHIJKLMNZ$%+−.,'.split('');
 
@@ -121,8 +121,14 @@
   }
 
   function draw() {
+    // [09-Set-2026] o rastro apaga para TRANSPARENTE, não para preto: antes o canvas
+    //   ia ficando preto e as colunas deixavam listras verticais que nunca sumiam
+    //   («o fundo do site fica com várias linhas verticais»). Agora cada quadro
+    //   tira TRAIL da opacidade do que lá está, e o fundo verde-escuro reaparece.
+    ctx.globalCompositeOperation = 'destination-out';
     ctx.fillStyle = 'rgba(0,0,0,' + TRAIL + ')';
     ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'source-over';
     ctx.font = FONT_SIZE + 'px monospace';
     for (var i = 0; i < drops.length; i++) {
       var ch = CHARS[(Math.random() * CHARS.length) | 0];
