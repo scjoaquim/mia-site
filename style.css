@@ -150,7 +150,7 @@ li { margin-bottom: 6px; }
 /* ─── HERO ──────────────────────────────────────────────────── */
 .hero { text-align: center; padding: 50px 10px 30px; border-bottom: 1px solid var(--border); }
 .hero .kicker { font-size: 13px; letter-spacing: 4px; color: var(--amber-dim); margin-bottom: 16px; text-transform: uppercase; }
-.hero h1 { font-size: 34px; min-height: 42px; }
+.hero h1 { font-size: 42px; min-height: 52px; }
 .hero p.lead { max-width: 640px; margin: 0 auto 26px; color: var(--amber-bright); font-size: 18px; }
 .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
 
@@ -455,7 +455,7 @@ footer a:hover { color: var(--amber); }
 /* ─── RESPONSIVE ────────────────────────────────────────────── */
 @media (max-width: 800px) {
   .grid-2, .grid-3, .trust-strip, .linklist { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 24px; }
+  .hero h1 { font-size: 30px; }
   main { padding: 30px 16px 50px; }
 
   /* CTA do hero mais compacto */

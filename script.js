@@ -193,7 +193,7 @@
       cursor.insertAdjacentText('beforebegin', full[i - 1]);
       if (i >= full.length) {
         clearInterval(timer);
-        setTimeout(function () { if (cursor.parentNode) cursor.remove(); }, 900);
+        setTimeout(function () { if (cursor.parentNode) cursor.remove(); }, 3200);
       }
     }, 40);
   }
