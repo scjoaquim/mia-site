@@ -89,9 +89,9 @@
     <!-- ⭐ A CAIXA DA VERSAO — trocar a cada publicacao: versao, bytes, e a data. -->
     <div class="versao-caixa">
       <div>
-        <div class="v">MIA BALANCE 2.1.2</div>
-        <small class="lang-pt">Versão atual · publicada em <span data-publicada>12-09-2026</span> · o arquivo correto tem <strong data-bytes>236.696 bytes</strong></small>
-        <small class="lang-en">Current version · published on <span data-publicada>12-09-2026</span> · the correct file is <strong data-bytes>236,696 bytes</strong></small>
+        <div class="v">MIA BALANCE 2.1.3</div>
+        <small class="lang-pt">Versão atual · publicada em <span data-publicada>12-09-2026</span> · o arquivo correto tem <strong data-bytes>242.194 bytes</strong></small>
+        <small class="lang-en">Current version · published on <span data-publicada>12-09-2026</span> · the correct file is <strong data-bytes>242,194 bytes</strong></small>
       </div>
       <a href="/download/MIA_Balance_2.0.ex5" download class="btn btn-primary"><span class="lang-pt">Baixar a versão nova (.ex5) ↓</span><span class="lang-en">Download the new version (.ex5) ↓</span></a>
     </div>
@@ -172,7 +172,20 @@
     <!-- ⭐ Uma entrada por versao publicada, a mais nova em cima. O texto e' o MESMO
          «o que mudou» do e-mail — linguagem de cliente, nada tecnico. -->
     <div class="hist">
-      <h3>2.1.2 <small style="opacity:.7;font-weight:normal">· <span data-publicada>12-09-2026</span></small></h3>
+      <h3>2.1.3 <small style="opacity:.7;font-weight:normal">· <span data-publicada>12-09-2026</span></small></h3>
+      <ul class="lang-pt">
+        <li>Teste no Strategy Tester já não mexe no robô que está operando. Antes, fazer um backtest no mesmo terminal podia acionar a proteção automática por engano na conta real.</li>
+        <li>O arrasto do stop ficou mais fiel: o robô passa a ler o stop exato com que cada operação nasceu, direto do registro da corretora, em vez de deduzi-lo.</li>
+        <li>Mais rigor com histórico velho: o robô recusa dados com buracos acima de quatro dias, em vez de sete.</li>
+      </ul>
+      <ul class="lang-en">
+        <li>Running a Strategy Tester backtest no longer touches the robot that is trading. Before, a backtest on the same terminal could trip the automatic protection by mistake on the live account.</li>
+        <li>More faithful stop trailing: the robot now reads the exact stop each trade was born with, straight from the broker's record, instead of inferring it.</li>
+        <li>Stricter about stale history: the robot rejects data with gaps over four days, instead of seven.</li>
+      </ul>
+    </div>
+    <div class="hist" style="opacity:.75">
+      <h3>2.1.2 <small style="opacity:.7;font-weight:normal">· <span data-publicada>10-09-2026</span></small></h3>
       <ul class="lang-pt">
         <li>Proteção automática: diante de uma adversidade — se o resultado do robô cair 20 % do seu melhor ponto — o robô se protege sozinho e para de abrir novas operações. Nada é fechado, e ele só volta a operar depois da verificação da MIA.</li>
         <li>Verificação do risco antes de operar: um parâmetro fora da faixa e o robô não abre nada.</li>
